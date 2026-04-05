@@ -21,6 +21,8 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
         </a>
         <div className="hidden md:flex gap-10 font-bold text-xl uppercase tracking-widest text-[#1a1a1a]">
           <a href="#hero" onClick={onNavClick} className="hover:text-[#f489a3] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Schedule</a>
+          <a href="#timeline" onClick={onNavClick} className="hover:text-[#f97028] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
+          <a href="#themes" onClick={onNavClick} className="hover:text-[#f3a20f] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
           <a href="#about" onClick={onNavClick} className="hover:text-[#ff8a3d] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
           <a href="#speakers" onClick={onNavClick} className="hover:text-[#f3a20f] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Speakers</a>
           <a href="#faq" onClick={onNavClick} className="hover:text-[#ff5ea8] hover:underline decoration-[4px] underline-offset-8 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
