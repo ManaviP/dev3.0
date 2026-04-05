@@ -13,48 +13,90 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setIsOpen(false);
     onNavClick(e);
   };
 
+  const isMini = isScrolled && !isHovered && !isOpen;
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none">
-      <div className="w-[99%] md:w-[99%] max-w-[1540px] mt-2 md:mt-3 flex flex-col shadow-[0_1px_0px_#1a1a1a] border-[1px] md:border-[1px] border-[#1a1a1a] rounded-2xl md:rounded-[2rem] overflow-hidden pointer-events-auto bg-[#f3ecd2]">
-        <Marquee />
-        <div className="w-full border-b-[3px] border-[#1a1a1a] bg-[#f3ecd2] px-4 md:px-8 py-2 md:py-3.5 flex justify-between items-center relative">
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-2 md:pt-4">
+      <motion.div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        initial={false}
+        animate={{
+          width: isMini ? '175px' : '99%',
+          maxWidth: isMini ? '175px' : '1540px',
+        }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2]"
+      >
+        <AnimatePresence>
+          {!isMini && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Marquee />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className={`w-full flex ${isMini ? 'justify-center' : 'justify-between'} items-center relative transition-all duration-300 ${isMini ? 'py-3' : 'px-4 md:px-8 py-2 md:py-3.5'}`}>
           <a href="#hero" onClick={handleLinkClick} className="flex items-center">
-            <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-8 md:h-12 w-auto object-contain hover:scale-105 transition-transform" />
+            <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
           </a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-10 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a]">
-            <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Schedule</a>
-            <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
-            <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
-            <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
-            <a href="#speakers" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Speakers</a>
-            <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
-          </div>
+          {!isMini && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="hidden md:flex gap-8 lg:gap-10 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a]"
+            >
+              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Schedule</a>
+              <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
+              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
+              <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
+              <a href="#speakers" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Speakers</a>
+              <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
+            </motion.div>
+          )}
 
           {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-[#1a1a1a]"
-            aria-label="Toggle Menu"
-          >
-            {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
-            )}
-          </button>
+          {!isMini && (
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 text-[#1a1a1a]"
+              aria-label="Toggle Menu"
+            >
+              {isOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+              )}
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
-          {isOpen && (
+          {isOpen && !isMini && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -70,7 +112,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </nav>
   )
 }
