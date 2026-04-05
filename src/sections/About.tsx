@@ -423,8 +423,10 @@ export default function About() {
     if (aboutEl) {
       const { top, height } = aboutEl.getBoundingClientRect();
       const p = Math.max(0, Math.min(1, (-top) / (height - window.innerHeight)));
-      if (p > 0.6) setCardPhase(2);
-      else if (p > 0.25) setCardPhase(1);
+
+      // Refined thresholds for 3 cards over 400vh scroll
+      if (p > 0.66) setCardPhase(2);
+      else if (p > 0.33) setCardPhase(1);
       else setCardPhase(0);
     }
 
@@ -519,7 +521,7 @@ export default function About() {
         @keyframes pulse-badge { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
       `}</style>
 
-      <div style={{ position: "relative", height: isMobile ? "120vh" : "150vh" }}>
+      <div style={{ position: "relative", height: isMobile ? "250vh" : "400vh" }}>
         <div style={{ position: isMobile ? "relative" : "sticky", top: 0, height: isMobile ? "auto" : "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 50, paddingBottom: isMobile ? 40 : 0 }}>
           <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }}>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 40%,rgba(249,112,40,0.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,rgba(244,137,163,0.06) 0%,transparent 60%),radial-gradient(ellipse at 50% 80%,rgba(243,162,15,0.05) 0%,transparent 60%)" }} />
