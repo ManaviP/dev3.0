@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Marquee from './components/Marquee'
 import Hero from './components/Hero'
+import Themes from './components/Themes'
 import About from './components/About'
 import WhyJoin from './components/WhyJoin'
 import Speakers from './components/Speakers'
@@ -98,6 +99,7 @@ export default function App() {
         <Navbar onNavClick={handleNavClick} />
         <main>
           <Hero />
+          <Themes />
           <About />
           <WhyJoin />
           <Speakers />

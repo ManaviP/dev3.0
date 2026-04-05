@@ -1,56 +1,177 @@
-
 export default function Hero() {
   return (
-    <section className="w-full min-h-screen p-4 md:p-6 bg-[#1a1a1a] pt-28" id="hero" style={{ perspective: '2000px' }}>
-      {/* Container card matching the reference image */}
-      <div className="relative w-full h-[calc(100vh-8rem)] rounded-[2.5rem] border-[6px] border-[#1a1a1a] overflow-hidden sunburst-bg flex flex-col justify-between">
+    <section
+      id="hero"
+      className="bg-[#1a1a1a]"
+      style={{
+        height: '100dvh',
+        boxSizing: 'border-box',
+        /* Minimize black border: only top padding for navbar */
+        paddingTop: 'clamp(4.5rem, 8vw, 6rem)',
+        paddingLeft: 'clamp(4px, 1vw, 8px)',
+        paddingRight: 'clamp(4px, 1vw, 8px)',
+        paddingBottom: 'clamp(4px, 1vw, 8px)',
+      }}
+    >
+      {/* Card = fills viewport with minimal black edge */}
+      <div
+        className="relative w-full rounded-[1.5rem] md:rounded-[2.5rem] border-[4px] md:border-[6px] border-[#1a1a1a] overflow-hidden sunburst-bg"
+        style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+      >
 
-        {/* Top bar (lowered to avoid Navbar overlap) */}
-        <div className="relative z-30 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-0 w-full p-4 md:p-8 pointer-events-none mt-2 md:mt-0">
-          <div className="flex items-center gap-2 font-bold font-sans text-xs md:text-lg bg-[#f3ecd2] text-[#1a1a1a] px-3 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl border-[3px] md:border-[4px] border-[#1a1a1a] shadow-[4px_4px_0_#1a1a1a] pointer-events-auto hover:bg-white transition-colors cursor-pointer text-center">
-            <span className="text-[#f97028] text-sm md:text-xl">❤️</span> Brought to you <span className="hidden md:inline">by FlowMCR</span><span className="md:hidden"><br />by FlowMCR</span>
-          </div>
-          
-          <button className="groovy-btn font-display tracking-widest text-xs sm:text-sm md:text-lg bg-[#f489a3] text-[#1a1a1a] px-4 py-2 md:px-6 md:py-3 rounded-full border-[3px] md:border-[4px] border-[#1a1a1a] shadow-[4px_4px_0_#1a1a1a] pointer-events-auto hover:bg-[#f3a20f] transition-all">
-            Reserve ✴ your wristband
-          </button>
-        </div>
-
-        {/* Center Title */}
-        <div className="absolute top-[50%] md:top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-full text-center pointer-events-none flex flex-col items-center">
-          <h1 className="text-[5rem] sm:text-[7rem] md:text-[11rem] lg:text-[13rem] leading-[0.85] font-display hero-title tracking-tighter z-20 whitespace-nowrap">
-            DEVHACK3.0
+        {/* ── Center content ─────────────────────────────── */}
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            zIndex: 20,
+            textAlign: 'center',
+            padding: '2rem',
+          }}
+        >
+          {/* Main title: High contrast off-white with thick outline */}
+          <h1
+            className="font-display hero-title tracking-tighter leading-none"
+            style={{
+              fontSize: 'clamp(3rem, 11vw, 13rem)',
+              color: '#f3ecd2',
+              WebkitTextStroke: 'clamp(4px, 0.8vw, 10px) #1a1a1a',
+              paintOrder: 'stroke fill',
+              letterSpacing: '0.001em',
+            }}
+          >
+            DEVHACK 3.0
           </h1>
-          <p className="mt-4 md:mt-6 text-xl md:text-4xl font-display uppercase tracking-[0.1em] md:tracking-[0.2em] text-[#1a1a1a] drop-shadow-[2px_2px_0px_#f3ecd2] rotate-[-1deg]">
+
+          {/* Subtitle */}
+          <p
+            className="font-display uppercase text-[#1a1a1a]"
+            style={{
+              fontSize: 'clamp(0.85rem, 2.5vw, 2.8rem)',
+              letterSpacing: '0.15em',
+              textShadow: '2px 2px 0 #f3ecd2',
+              marginTop: '0.5rem',
+              lineHeight: 1,
+              transform: 'rotate(-1deg)',
+            }}
+          >
             A 24hr National Hackathon
           </p>
-        </div>
 
-        {/* Decorative Badge Stickers */}
-        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-          {/* Left Robot Badge - Lower Left */}
-          <div className="absolute bottom-[10%] left-[5%] md:left-[8%] w-32 h-32 md:w-64 md:h-64 rounded-[40%] border-[4px] md:border-[8px] border-[#f3ecd2] overflow-hidden shadow-[4px_4px_0_#1a1a1a] md:shadow-[8px_8px_0_#1a1a1a] animate-float-left pointer-events-auto hover:scale-105 transition-transform rotate-[-12deg]">
-            <img src="/assets/robot.png" alt="Robot" className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
-          </div>
-          
-          {/* Right Laptop Badge - Middle Right */}
-          <div className="absolute top-[45%] right-[2%] md:right-[5%] w-36 h-36 md:w-72 md:h-72 rounded-full border-[4px] md:border-[8px] border-[#f3ecd2] overflow-hidden shadow-[4px_4px_0_#1a1a1a] md:shadow-[8px_8px_0_#1a1a1a] animate-float-right pointer-events-auto hover:scale-105 transition-transform z-30 rotate-[15deg]">
-            <img src="/assets/laptop.png" alt="Laptop" className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
-          </div>
-
-          {/* Top Lightbulb Badge - Upper Left */}
-          <div className="absolute top-[15%] left-[10%] md:left-[15%] w-24 h-24 md:w-52 md:h-52 rounded-[30%] border-[4px] md:border-[6px] border-[#f3ecd2] overflow-hidden shadow-[4px_4px_0_#1a1a1a] md:shadow-[8px_8px_0_#1a1a1a] animate-float-center pointer-events-auto hover:scale-105 transition-transform z-30 rotate-[10deg]">
-            <img src="/assets/lightbulb.png" alt="Lightbulb" className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
+          {/* Location pill */}
+          <div
+            className="inline-flex items-center gap-2 bg-[#1a1a1a]/70 text-[#f3ecd2] font-sans font-semibold uppercase tracking-widest rounded-full border-2 border-[#f3ecd2]/40 backdrop-blur-sm"
+            style={{
+              fontSize: 'clamp(0.5rem, 0.9vw, 0.8rem)',
+              padding: 'clamp(0.25rem, 0.5vw, 0.45rem) clamp(0.7rem, 1.5vw, 1.25rem)',
+              marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+            }}
+          >
+            ✦ DSU Harohalli, Bangalore ✦
           </div>
         </div>
 
-        {/* Bottom Sun graphic & Info */}
-        <div className="relative z-30 flex justify-center w-full pointer-events-none mt-auto">
-          {/* Half sun graphic at the bottom center */}
-          <div className="w-[85%] max-w-[240px] md:max-w-none md:w-[400px] h-[80px] md:h-[180px] bg-[#f3ecd2] rounded-t-[100px] md:rounded-t-full border-t-[6px] md:border-t-[8px] border-l-[6px] md:border-l-[8px] border-r-[6px] md:border-r-[8px] border-[#1a1a1a] flex flex-col items-center justify-start pt-4 md:pt-12 shadow-[0_-4px_0px_#1a1a1a] md:shadow-[0_-8px_0px_#1a1a1a] translate-y-2 relative">
+        {/* ── Floating badge stickers ─────────────────────── */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 10,
+            pointerEvents: 'none',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Robot — bottom left */}
+          <div
+            className="absolute animate-float-left pointer-events-auto hover:scale-105 transition-transform"
+            style={{
+              bottom: '10%',
+              left: 'clamp(2%, 5vw, 7%)',
+              width: 'clamp(5rem, 12vw, 14rem)',
+              height: 'clamp(5rem, 12vw, 14rem)',
+              borderRadius: '40%',
+              border: 'clamp(3px, 0.4vw, 7px) solid #f3ecd2',
+              boxShadow: '4px 4px 0 #1a1a1a',
+              overflow: 'hidden',
+              transform: 'rotate(-12deg)',
+            }}
+          >
+            <img src="/assets/robot.png" alt="Robot"
+              className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
+          </div>
 
+          {/* Laptop — mid right */}
+          <div
+            className="absolute animate-float-right pointer-events-auto hover:scale-105 transition-transform"
+            style={{
+              top: '38%',
+              right: 'clamp(1.5%, 3.5vw, 6%)',
+              width: 'clamp(6rem, 13vw, 15rem)',
+              height: 'clamp(6rem, 13vw, 15rem)',
+              borderRadius: '50%',
+              border: 'clamp(3px, 0.4vw, 7px) solid #f3ecd2',
+              boxShadow: '4px 4px 0 #1a1a1a',
+              overflow: 'hidden',
+              transform: 'rotate(15deg)',
+              zIndex: 30,
+            }}
+          >
+            <img src="/assets/laptop.png" alt="Laptop"
+              className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
+          </div>
+
+          {/* Lightbulb — moved further LEFT and DOWN to clear the title completely */}
+          <div
+            className="absolute animate-float-center pointer-events-auto hover:scale-105 transition-transform"
+            style={{
+              bottom: '15%',
+              left: 'clamp(10%, 15vw, 20%)',
+              width: 'clamp(3.5rem, 8vw, 10rem)',
+              height: 'clamp(3.5rem, 8vw, 10rem)',
+              borderRadius: '30%',
+              border: 'clamp(2px, 0.35vw, 5px) solid #f3ecd2',
+              boxShadow: '3px 3px 0 #1a1a1a',
+              overflow: 'hidden',
+              transform: 'rotate(10deg)',
+              zIndex: 30,
+            }}
+          >
+            <img src="/assets/lightbulb.png" alt="Lightbulb"
+              className="w-[120%] h-[120%] object-cover -ml-[10%] -mt-[10%]" />
           </div>
         </div>
+
+        {/* ── Bottom half-sun ─────────────────────────────── */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 30,
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%',
+            flexShrink: 0,
+            pointerEvents: 'none',
+          }}
+        >
+          <div
+            className="bg-[#f3ecd2]"
+            style={{
+              width: 'clamp(130px, 22vw, 360px)',
+              height: 'clamp(44px, 8vw, 148px)',
+              borderRadius: '9999px 9999px 0 0',
+              borderTop: 'clamp(4px, 0.5vw, 7px) solid #1a1a1a',
+              borderLeft: 'clamp(4px, 0.5vw, 7px) solid #1a1a1a',
+              borderRight: 'clamp(4px, 0.5vw, 7px) solid #1a1a1a',
+              boxShadow: '0 -4px 0 #1a1a1a',
+              transform: 'translateY(2px)',
+            }}
+          />
+        </div>
+
       </div>
     </section>
   )
