@@ -7,7 +7,7 @@ export default function Hero() {
         height: '100dvh',
         boxSizing: 'border-box',
         /* Minimize black border: only top padding for navbar */
-        paddingTop: 'clamp(4.5rem, 8vw, 6rem)',
+        paddingTop: 'clamp(7.5rem, 12vw, 9rem)',
         paddingLeft: 'clamp(4px, 1vw, 8px)',
         paddingRight: 'clamp(4px, 1vw, 8px)',
         paddingBottom: 'clamp(4px, 1vw, 8px)',

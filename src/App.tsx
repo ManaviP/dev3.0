@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react'
+import Lenis from 'lenis'
 import Marquee from './components/Marquee'
 import Hero from './components/Hero'
 import Themes from './components/Themes'
-import About from './components/About'
+import About from './sections/About'
 import WhyJoin from './components/WhyJoin'
 import Speakers from './components/Speakers'
-import FAQ from './components/FAQ'
-import Footer from './components/Footer'
+import FAQ from './sections/FAQ'
+import Footer from './sections/Footer'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-function Navbar({ onNavClick }: { onNavClick: (e: any) => void }) {
+function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
   return (
     <nav className="w-full fixed top-0 left-0 z-50 flex flex-col shadow-[0_6px_0px_#1a1a1a]">
       <Marquee />
-      <div className="w-full border-b-[6px] border-[#1a1a1a] bg-[#f3ecd2] px-8 py-5 flex justify-between items-center group">
+      <div className="w-full border-b-[6px] border-[#1a1a1a] bg-[#f3ecd2] px-8 py-5 flex justify-between items-center">
         <a href="#hero" onClick={onNavClick} className="flex items-center">
           <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-10 md:h-12 w-auto object-contain hover:scale-105 transition-transform" />
         </a>
@@ -35,39 +36,63 @@ export default function App() {
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   useEffect(() => {
+    // Loading screen
     const timer = setTimeout(() => {
       setLoading(false)
       setTimeout(() => setMountLoader(false), 1000)
     }, 2500)
-    return () => clearTimeout(timer)
+
+    // Lenis smooth scroll
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    })
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    requestAnimationFrame(raf)
+
+    return () => {
+      clearTimeout(timer)
+      lenis.destroy()
+    }
   }, [])
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const targetId = e.currentTarget.getAttribute('href');
-    if (!targetId) return;
+    e.preventDefault()
+    const targetId = e.currentTarget.getAttribute('href')
+    if (!targetId) return
 
-    // Trigger Transition Loader
-    setIsTransitioning(true);
-    
-    // Briefly show loader, then scroll and hide
+    setIsTransitioning(true)
+
     setTimeout(() => {
-      const element = document.querySelector(targetId);
+      const element = document.querySelector(targetId)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth' })
       }
-      
-      // Hide transition after scroll starts
       setTimeout(() => {
-        setIsTransitioning(false);
-      }, 800);
-    }, 400);
+        setIsTransitioning(false)
+      }, 800)
+    }, 400)
   }
 
   return (
     <>
+      {/* Initial loading screen */}
       {mountLoader && (
-        <div className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center transition-all duration-700 top-0 left-0 w-full h-full ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div
+          className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center transition-all duration-700 ${
+            loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
+        >
           <img
             src="/assets/logo1.png"
             alt="DEVHACK Cube"
@@ -77,10 +102,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Nav Transition Loader */}
+      {/* Nav transition warp overlay */}
       <AnimatePresence>
         {isTransitioning && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -99,13 +124,12 @@ export default function App() {
         <Navbar onNavClick={handleNavClick} />
         <main>
           <Hero />
-          <Themes />
           <About />
+          <Themes />
           <WhyJoin />
           <Speakers />
           <FAQ />
         </main>
-
         <Footer />
       </div>
     </>

@@ -13,7 +13,7 @@ function FloatingSprite({ url, position, rotation, scale = [3, 3], floatIntensit
 function RetroScene() {
   return (
     <>
-      <ambientLight intensity={2} />
+      
       {/* Positioned along the bottom like the cutouts in the ref image, leaning in toward the center */}
       <FloatingSprite url="/assets/robot.png" position={[-6.5, -2, 0]} rotation={[0, 0, -0.1]} scale={[4, 4]} floatIntensity={1} />
       <FloatingSprite url="/assets/lightbulb.png" position={[-2.5, -1, 0]} rotation={[0, 0, 0]} scale={[3.5, 3.5]} floatIntensity={1.5} />
