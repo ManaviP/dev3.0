@@ -122,8 +122,8 @@ export default function Footer() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="grid gap-12 pb-14 md:grid-cols-3">
-            <div className="flex flex-col gap-4">
+          <div className="grid gap-12 pb-14 md:grid-cols-3 text-center md:text-left">
+            <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
                 <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">DevHack</div>
                 <div className="text-xs tracking-[0.3em] uppercase text-[#333]">3.0 — 2025</div>
@@ -155,7 +155,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5 text-right">
+            <div className="flex flex-col gap-5 items-center md:items-end md:text-right">
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-3 text-[#333]">
                   Hackathon Venue

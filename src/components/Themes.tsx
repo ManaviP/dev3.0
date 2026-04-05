@@ -220,7 +220,8 @@ export default function Themes() {
             </span>
           </motion.div>
 
-          <h2 className="font-display text-[3rem] sm:text-[4.5rem] md:text-[6rem] leading-[0.9] text-[#f3ecd2] tracking-tight">
+          <h2 className="font-display text-[#f3ecd2] tracking-tight"
+            style={{ fontSize: 'clamp(2.5rem, 8vw, 6rem)', lineHeight: 0.9 }}>
             Build What
             <br />
             <span

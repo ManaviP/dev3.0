@@ -14,7 +14,8 @@ export default function Speakers() {
       </div>
       
       <div className="max-w-6xl mx-auto relative z-10 text-center flex flex-col items-center">
-        <h2 className="text-6xl md:text-8xl font-display mb-10 text-[#1a1a1a] drop-shadow-[4px_4px_0px_#f97028]">
+        <h2 className="font-display mb-10 text-[#1a1a1a] drop-shadow-[2px_2px_0px_#f97028] md:drop-shadow-[4px_4px_0px_#f97028]"
+          style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
           Speakers & Workshops
         </h2>
         

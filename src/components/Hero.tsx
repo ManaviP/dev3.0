@@ -87,12 +87,12 @@ export default function Hero() {
         >
           {/* Robot — bottom left */}
           <div
-            className="absolute animate-float-left pointer-events-auto hover:scale-105 transition-transform"
+            className="absolute animate-float-left pointer-events-auto hover:scale-105 transition-transform opacity-40 sm:opacity-100"
             style={{
               bottom: '10%',
               left: 'clamp(2%, 5vw, 7%)',
-              width: 'clamp(5rem, 12vw, 14rem)',
-              height: 'clamp(5rem, 12vw, 14rem)',
+              width: 'clamp(4rem, 12vw, 14rem)',
+              height: 'clamp(4rem, 12vw, 14rem)',
               borderRadius: '40%',
               border: 'clamp(3px, 0.4vw, 7px) solid #f3ecd2',
               boxShadow: '4px 4px 0 #1a1a1a',
@@ -126,7 +126,7 @@ export default function Hero() {
 
           {/* Lightbulb — moved further LEFT and DOWN to clear the title completely */}
           <div
-            className="absolute animate-float-center pointer-events-auto hover:scale-105 transition-transform"
+            className="absolute animate-float-center pointer-events-auto hover:scale-105 transition-transform hidden sm:block"
             style={{
               bottom: '15%',
               left: 'clamp(10%, 15vw, 20%)',

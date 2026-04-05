@@ -34,8 +34,8 @@ export default function WhyJoin() {
                 transition={{ duration: 0.6, delay: idx * 0.08 }}
                 className="group rounded-3xl border border-[#ffffff8a] bg-gradient-to-br from-white/90 to-[#f6e9d1]/90 p-6 shadow-card backdrop-blur-sm"
               >
-                <h3 className="text-xl font-extrabold uppercase tracking-wide text-[#1a1a1a]">{reason.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-[#5d275d]/90">{reason.copy}</p>
+                <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-wide text-[#1a1a1a]" style={{ fontSize: 'clamp(1rem, 4vw, 1.25rem)' }}>{reason.title}</h3>
+                <p className="mt-3 text-sm md:text-base leading-relaxed text-[#5d275d]/90">{reason.copy}</p>
                 <div className="mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-[#ff8a3d] to-[#ff5ea8] transition-all group-hover:w-32" />
               </motion.div>
             </ParallaxWrapper>

@@ -405,6 +405,14 @@ export default function About() {
   const [cardPhase, setCardPhase] = useState(0);
   const [revealedEvents, setRevealedEvents] = useState<boolean[]>([false, false, false, false, false, false]);
   const [tlFillPct, setTlFillPct] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const aboutRef    = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -454,6 +462,23 @@ export default function About() {
   }, [handleScroll]);
 
   const cardStyles = (() => {
+    if (isMobile) {
+      if (cardPhase === 0) return [
+        { x: 0,    y: 0,  scale: 1,    opacity: 1,    z: 3, blur: 0  },
+        { x: 20,   y: 10, scale: 0.9,  opacity: 0,    z: 2, blur: 0  },
+        { x: 40,   y: 20, scale: 0.8,  opacity: 0,    z: 1, blur: 0  },
+      ];
+      if (cardPhase === 1) return [
+        { x: -40,  y: 15, scale: 0.85, opacity: 0.3,  z: 1, blur: 2  },
+        { x: 0,    y: 0,  scale: 1,    opacity: 1,    z: 3, blur: 0  },
+        { x: 40,   y: 20, scale: 0.9,  opacity: 0.2,  z: 2, blur: 0  },
+      ];
+      return [
+        { x: -50,  y: 25, scale: 0.75, opacity: 0.1,  z: 1, blur: 3  },
+        { x: -30,  y: 15, scale: 0.85, opacity: 0.3,  z: 2, blur: 1.5 },
+        { x: 0,    y: 0,  scale: 1,    opacity: 1,    z: 3, blur: 0  },
+      ];
+    }
     if (cardPhase === 0) return [
       { x: 0,    y: 0,  scale: 1,    opacity: 1,    z: 3, blur: 0  },
       { x: 80,   y: 20, scale: 0.88, opacity: 0,    z: 2, blur: 0  },
@@ -494,8 +519,8 @@ export default function About() {
         @keyframes pulse-badge { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
       `}</style>
 
-      <div style={{ position: "relative", height: "150vh" }}>
-        <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 50 }}>
+      <div style={{ position: "relative", height: isMobile ? "120vh" : "150vh" }}>
+        <div style={{ position: isMobile ? "relative" : "sticky", top: 0, height: isMobile ? "auto" : "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 50, paddingBottom: isMobile ? 40 : 0 }}>
           <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }}>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 40%,rgba(249,112,40,0.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,rgba(244,137,163,0.06) 0%,transparent 60%),radial-gradient(ellipse at 50% 80%,rgba(243,162,15,0.05) 0%,transparent 60%)" }} />
           </div>
@@ -533,8 +558,17 @@ export default function About() {
         </div>
       </div>
 
-      <div ref={timelineRef} id="timeline" style={{ position:"relative",height: "150vh" }}>
-        <div style={{ position:"sticky",top:0,height:"100vh",overflow:"hidden",display:"flex",flexDirection:"column",paddingTop:70 }}>
+      <div ref={timelineRef} id="timeline" style={{ position:"relative", height: isMobile ? "auto" : "150vh" }}>
+        <div style={{ 
+          position: isMobile ? "relative" : "sticky", 
+          top: 0, 
+          height: isMobile ? "auto" : "100vh", 
+          overflow: isMobile ? "visible" : "hidden", 
+          display: "flex", 
+          flexDirection: "column", 
+          paddingTop: 70,
+          paddingBottom: isMobile ? 40 : 0
+        }}>
           <div style={{ textAlign:"center",padding:"0 40px 12px" }}>
             <span style={{ display:"inline-block",fontFamily:"'Space Mono',monospace",fontSize:"0.8rem",color:"#f97028",background:"rgba(249,112,40,0.08)",padding:"5px 16px",borderRadius:50,border:"1.5px solid rgba(249,112,40,0.2)",letterSpacing:2,textTransform:"uppercase",marginBottom:14 }}>// the journey ahead</span>
             <h1 style={{ fontFamily:"'Righteous',cursive",fontSize:"clamp(2.4rem,5vw,3.8rem)",color:"#2a1f14",lineHeight:1.15,marginBottom:8 }}>
@@ -542,7 +576,7 @@ export default function About() {
             </h1>
           </div>
 
-          <div style={{ width:"100%",maxWidth:1200,margin:"0 auto",padding:"0 40px",display:"grid",gridTemplateColumns:"1fr 340px",gap:32,alignItems:"start",flex:1,minHeight:0 }}>
+          <div className="w-full max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 lg:gap-32 items-start flex-1 min-height-0 overflow-visible">
             <div ref={tlTrackRef} style={{ position:"relative",paddingLeft:36,paddingBottom:80,overflowY:"auto",height:"100%",scrollbarWidth:"none" }}>
               <div style={{ position:"absolute",top:0,left:13,width:3,height:"100%",background:"rgba(249,112,40,0.12)",borderRadius:3 }} />
               <div style={{ position:"absolute",top:0,left:13,width:3,borderRadius:3,background:"linear-gradient(180deg,#f97028,#f489a3,#f3a20f)",zIndex:1,boxShadow:"0 0 14px rgba(249,112,40,0.25)",height:`${tlFillPct}%`,transition:"height 0.15s linear" }} />
