@@ -31,8 +31,8 @@ A high-fidelity, interactive 24hr National Hackathon website designed for **DevH
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/devhack-3.0.git
-   cd devhack-3.0
+   git clone https://github.com/BeeXD/devhack.git
+   cd devhack
    ```
 
 2. **Install dependencies**:
