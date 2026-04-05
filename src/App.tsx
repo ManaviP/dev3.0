@@ -15,34 +15,60 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 400);
+      const scrolled = window.scrollY > 300;
+      setIsScrolled(scrolled);
+      if (!scrolled) {
+        setIsExpanded(false);
+        setIsOpen(false);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isMini) {
+      e.preventDefault();
+      setIsExpanded(true);
+      return;
+    }
     setIsOpen(false);
+    setIsExpanded(false);
     onNavClick(e);
   };
 
-  const isMini = isScrolled && !isHovered && !isOpen;
+  const isMini = isScrolled && !isHovered && !isOpen && !isExpanded;
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-2 md:pt-4">
       <motion.div
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          if (!isScrolled) setIsExpanded(false);
+        }}
+        onClick={(e) => {
+          if (isMini) {
+             setIsExpanded(true);
+          } else if (isScrolled && isExpanded) {
+             // If we're expanded and click the main container (not a link), shrink it
+             if (e.target === e.currentTarget || (e.target as HTMLElement).closest('div')?.classList.contains('justify-between')) {
+               setIsExpanded(false);
+               setIsOpen(false);
+             }
+          }
+        }}
         initial={false}
         animate={{
           width: isMini ? '175px' : '99%',
           maxWidth: isMini ? '175px' : '1540px',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2]"
+        className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2] ${isMini ? 'cursor-pointer' : ''}`}
       >
         <AnimatePresence>
           {!isMini && (
