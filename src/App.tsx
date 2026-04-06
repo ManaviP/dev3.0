@@ -4,8 +4,6 @@ import Marquee from './components/Marquee'
 import Hero from './components/Hero'
 import Themes from './components/Themes'
 import About from './sections/About'
-import WhyJoin from './components/WhyJoin'
-import Speakers from './components/Speakers'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Footer'
 
