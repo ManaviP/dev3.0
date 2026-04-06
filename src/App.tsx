@@ -93,11 +93,10 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               animate={{ opacity: 1 }}
               className="hidden md:flex gap-8 lg:gap-10 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a]"
             >
-              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Schedule</a>
+              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
+              <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
-              <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
-              <a href="#speakers" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Speakers</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
             </motion.div>
           )}
@@ -127,11 +126,10 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               exit={{ opacity: 0, y: -20 }}
               className="md:hidden fixed top-[110px] left-0 w-full bg-[#f3ecd2] border-b-[6px] border-[#1a1a1a] z-40 p-6 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-[#1a1a1a]"
             >
-              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3]">Schedule</a>
+              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3]">Main</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028]">Timeline</a>
-              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Themes</a>
               <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d]">About</a>
-              <a href="#speakers" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Speakers</a>
+              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Themes</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}

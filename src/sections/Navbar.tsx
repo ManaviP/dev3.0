@@ -4,7 +4,6 @@ const links = [
   { label: 'Journey', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Themes', href: '#themes' },
-  { label: 'Speakers', href: '#speakers' },
   { label: 'FAQ', href: '#faq' },
 ];
 
