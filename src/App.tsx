@@ -239,7 +239,7 @@ export default function App() {
           <About />
           <Themes />
           <WhyJoin />
-          <Speakers />
+          
           <FAQ />
         </main>
         <Footer />
