@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const faqs = [
-  { q: 'What is DSU DEVHACK 2025?', a: 'DSU DEVHACK is a national-level hackathon initiative of a private university in India to help various departments and private organizations find solutions to their pressing problems through students. Participants will have the chance to build innovative projects while competing for prizes, mentorship, and exclusive developer opportunities.' },
-  { q: 'At which level is this hackathon conducted?', a: 'The DSU DEVHACK Hackathon is conducted at the national level.' },
+    {
+    q: 'What is DSU DEVHACK 3.0?',
+    a: 'DSU DevHack 3.0 is the second edition of Dayananda Sagar University\'s national-level innovation hackathon, aimed at bringing together the brightest minds from across the country to solve real-world problems through technology. With tracks spanning AI/ML, Web3, IoT, Sustainability, Healthcare, and Open Innovation, the hackathon serves as a launchpad for impactful student-led solutions. No prior work is allowed, and premade projects are not permitted; all submissions must be original and developed during the hackathon.',
+  },
+{ q: 'At which level is this hackathon conducted?', a: 'The DSU DEVHACK Hackathon is conducted at the national level.' },
   { q: 'How many members can participate in a team?', a: 'A team can have only 3 members. All members should be registered students at the time of the event.' },
   { q: 'What is the qualification to participate?', a: 'Participants must be currently enrolled in an undergraduate Engineering program.' },
   { q: 'What is the participation fee?', a: 'The participation in DSU DEVHACK 2026 is completely free!' },
