@@ -59,7 +59,7 @@ export default function Hero() {
               transform: 'rotate(-1deg)',
             }}
           >
-            A 24hr National Hackathon
+            A 36hr National Hackathon
           </p>
 
           {/* Location pill */}
