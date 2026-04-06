@@ -179,7 +179,7 @@ export default function Themes() {
     <section
       ref={sectionRef}
       id="themes"
-      className="relative bg-[#1a1a1a] py-24 md:py-36 overflow-hidden"
+      className="relative bg-[#f3ecd2] py-24 md:py-36 overflow-hidden"
     >
       {/* Decorative sunburst blob top-right */}
       <motion.div

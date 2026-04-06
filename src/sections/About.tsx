@@ -22,8 +22,7 @@ const RESULTS      = new Date("2026-04-20T18:00:00");
 const PHRASES = [
   "Build something extraordinary ✦",
   "Code with creative freedom 🎨",
-  "48 hours of pure innovation 🚀",
-  "Indie vibes. Retro feels. Modern code.",
+  "36 hours of pure innovation 🚀",
   "Join the creative revolution ✨",
   "Where pixels meet passion 🎮",
 ];
@@ -401,6 +400,7 @@ function TlEvent({ title, date, desc, status, statusLabel, progress, revealed }:
   );
 }
 
+
 export default function About() {
   const [cardPhase, setCardPhase] = useState(0);
   const [revealedEvents, setRevealedEvents] = useState<boolean[]>([false, false, false, false, false, false]);
@@ -420,11 +420,15 @@ export default function About() {
 
   const handleScroll = useCallback(() => {
     const aboutEl = aboutRef.current;
+
     if (aboutEl) {
       const { top, height } = aboutEl.getBoundingClientRect();
-      const p = Math.max(0, Math.min(1, (-top) / (height - window.innerHeight)));
 
-      // Refined thresholds for 3 cards over 400vh scroll
+      // ✅ FIXED SAFE CALCULATION (important for mobile)
+      const scrollRange = height - window.innerHeight;
+      const progress = scrollRange > 0 ? (-top) / scrollRange : 0;
+      const p = Math.max(0, Math.min(1, progress));
+
       if (p > 0.66) setCardPhase(2);
       else if (p > 0.33) setCardPhase(1);
       else setCardPhase(0);
@@ -433,7 +437,9 @@ export default function About() {
     const tlEl = timelineRef.current;
     if (tlEl) {
       const { top, height } = tlEl.getBoundingClientRect();
-      const raw = (-top) / (height - window.innerHeight);
+
+      const scrollRange = height - window.innerHeight;
+      const raw = scrollRange > 0 ? (-top) / scrollRange : 0;
       const p   = Math.max(0, Math.min(1, raw));
 
       if (raw >= 0 && raw <= 1.05) {
@@ -515,14 +521,31 @@ export default function About() {
 
   return (
     <div ref={aboutRef} id="about" className="bg-[#f3ecd2]">
+
+   {/* ✅ FIX: give enough scroll space on mobile */}
+  
       <style>{`
         @keyframes blink-caret { from,to{border-color:transparent;} 50%{border-color:#f97028;} }
         @keyframes pulse-node { 0%,100%{box-shadow:0 0 8px rgba(243,162,15,0.3);transform:scale(1);} 50%{box-shadow:0 0 22px rgba(243,162,15,0.6);transform:scale(1.2);} }
         @keyframes pulse-badge { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
       `}</style>
 
-      <div style={{ position: "relative", height: isMobile ? "250vh" : "400vh" }}>
-        <div style={{ position: isMobile ? "relative" : "sticky", top: 0, height: isMobile ? "auto" : "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 50, paddingBottom: isMobile ? 40 : 0 }}>
+      <div style={{ position: "relative", height: isMobile ? "320vh" : "400vh" }}>
+ <div
+          style={{
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+
+            // small mobile spacing tweak
+            paddingTop: isMobile ? 80 : 50,
+            paddingBottom: isMobile ? 40 : 0,
+          }}
+        >
           <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0 }}>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 30% 40%,rgba(249,112,40,0.06) 0%,transparent 60%),radial-gradient(ellipse at 70% 60%,rgba(244,137,163,0.06) 0%,transparent 60%),radial-gradient(ellipse at 50% 80%,rgba(243,162,15,0.05) 0%,transparent 60%)" }} />
           </div>

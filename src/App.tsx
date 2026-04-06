@@ -238,8 +238,6 @@ export default function App() {
           <Hero />
           <About />
           <Themes />
-          <WhyJoin />
-          
           <FAQ />
         </main>
         <Footer />

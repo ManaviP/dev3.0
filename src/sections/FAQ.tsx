@@ -4,11 +4,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 const faqs = [
   { q: 'What is DSU DEVHACK 2025?', a: 'DSU DEVHACK is a national-level hackathon initiative of a private university in India to help various departments and private organizations find solutions to their pressing problems through students. Participants will have the chance to build innovative projects while competing for prizes, mentorship, and exclusive developer opportunities.' },
   { q: 'At which level is this hackathon conducted?', a: 'The DSU DEVHACK Hackathon is conducted at the national level.' },
-  { q: 'How many members can participate in a team?', a: 'A team can have only 3 members.' },
+  { q: 'How many members can participate in a team?', a: 'A team can have only 3 members. All members should be registered students at the time of the event.' },
   { q: 'What is the qualification to participate?', a: 'Participants must be currently enrolled in an undergraduate Engineering program.' },
-  { q: 'What is the participation fee?', a: 'The participation in DSU DEVHACK 2025 is completely free!' },
-  { q: 'What are the restrictions on team formation for the event?', a: 'All team members must belong to the same university or college, and a team can have exactly 3 members.' },
-  { q: 'What are the perks and benefits of participating in the hackathon?', a: 'Participants gain exposure to real-world problems, networking opportunities, and potential internships or job offers. Winners also receive cash prizes and certificates.' },
+  { q: 'What is the participation fee?', a: 'The participation in DSU DEVHACK 2026 is completely free!' },
+  { q: 'Is the hackathon offline and how long does it last?', a: 'Yes, DevHack 2026 is a fully offline, on-campus hackathon hosted at Dayananda Sagar University, Bangalore. The event spans 36 hours, starting on September 18 and concluding on September 19, 2026.' },
+  { q: 'What are the restrictions on team formation for the event?', a: 'Teams can include members from different colleges. Each student can be part of only one team, and multiple registrations by the same individual are not allowed. Team can have exactly 3 members.' },
+  { q: 'What are the perks and benefits of participating in the hackathon?', a: 'Participants will receive mentorship from industry experts and have valuable networking opportunities with leading companies and fellow developers. They will also enjoy exclusive swag kits, certificates, and participation goodies. The hackathon features a <strong>prize pool of ₹2 Lakhs</strong>, along with exciting sponsor-backed bounties worth <strong>₹10 Lakhs</strong>. Most importantly, it offers a platform to showcase innovations directly to top tech companies and industry leaders.' },
   { q: 'I have a question related to the hackathon which is not listed above. What should I do?', a: 'Feel free to reach out to us. Just drop a mail to dsudevhack@dsu.edu.in. You can also contact the student coordinator.' },
 ];
 
@@ -16,7 +17,7 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="relative px-4 py-16 sm:px-6 lg:py-24">
+    <section id="faq" className="relative px-4 py-16 sm:px-6 lg:py-24 bg-[#f3ecd2]">
       <div className="mx-auto max-w-4xl rounded-3xl border border-black/15 bg-white/60 p-6 shadow-card backdrop-blur-sm sm:p-8">
         <h2 className="mb-7 text-center text-3xl font-black uppercase tracking-wider sm:text-5xl text-[#1a1a1a]">FAQ</h2>
 

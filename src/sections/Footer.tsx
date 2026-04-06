@@ -125,8 +125,7 @@ export default function Footer() {
           <div className="grid gap-12 pb-14 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
-                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">DevHack</div>
-                <div className="text-xs tracking-[0.3em] uppercase text-[#333]">3.0 — 2025</div>
+                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">DevHack 3.0</div>
               </div>
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-2 text-[#333]">Contact</h3>
@@ -137,9 +136,7 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col items-center gap-6 text-center">
-              <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-4 text-[#333]">
-                Tune In With Us
-              </h3>
+          
               <div className="flex gap-3 justify-center flex-wrap">
                 {[
                   { href: 'https://discord.gg/uBcyhfmhx4', label: 'Discord' },

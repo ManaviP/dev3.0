@@ -73,6 +73,36 @@ export default function Hero() {
           >
             ✦ DSU Harohalli, Bangalore ✦
           </div>
+         <div
+  className="relative inline-flex items-center justify-center font-sans uppercase tracking-widest rounded-full backdrop-blur-sm"
+  style={{
+ fontSize: 'clamp(0.8rem, 1.6vw, 1.3rem)',
+    padding: 'clamp(0.35rem, 0.7vw, 0.6rem) clamp(0.9rem, 2vw, 1.6rem)',
+    marginTop: 'clamp(0.75rem, 2vw, 1.5rem)',
+
+    // ✅ TRUE bold styling
+    fontWeight: 900,
+    letterSpacing: '0.18em',
+
+    color: '#1a1a1a',
+    background: 'linear-gradient(135deg, #f3ecd2, #ffe4b5)',
+    border: '2px solid #1a1a1a',
+
+    // ✨ stronger visual weight
+    textShadow: '1px 1px 0 #f3ecd2, 2px 2px 0 rgba(0,0,0,0.2)',
+
+    boxShadow: `
+      0 0 0 2px rgba(243,236,210,0.4),
+      0 6px 0 #1a1a1a,
+      0 0 20px rgba(249,112,40,0.25)
+    `,
+
+    transform: 'rotate(-1deg)',
+    animation: 'datePulse 2.5s ease-in-out infinite',
+  }}
+>
+   September 18–19, 2026 
+</div>
         </div>
 
         {/* ── Floating badge stickers ─────────────────────── */}
