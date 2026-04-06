@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import { FaDiscord, FaMapMarkerAlt } from 'react-icons/fa';
 
 function getWaveY(x: number, W: number, H: number, t: number) {
   const p = x / W;
@@ -88,12 +89,17 @@ function MarqueeBand() {
   const chunk = 'DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ ';
   return (
     <div className="relative z-30 overflow-hidden border-t border-b py-3" style={{ borderColor: '#d4a02040' }}>
-      <motion.div className="flex whitespace-nowrap"
+      <motion.div
+        className="flex whitespace-nowrap"
         animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}>
+        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+      >
         {[0, 1].map((i) => (
-          <span key={i} className="pr-8 font-black uppercase text-[#d4a020]"
-            style={{ fontSize: 'clamp(1.1rem,2.5vw,1.8rem)', letterSpacing: '0.2em' }}>
+          <span
+            key={i}
+            className="pr-8 font-black uppercase text-[#d4a020]"
+            style={{ fontSize: 'clamp(1.1rem,2.5vw,1.8rem)', letterSpacing: '0.2em' }}
+          >
             {chunk}{chunk}
           </span>
         ))}
@@ -103,15 +109,39 @@ function MarqueeBand() {
 }
 
 export default function Footer() {
+  const links = [
+    {
+      href: 'https://discord.gg/uBcyhfmhx4',
+      label: 'Discord',
+      icon: <FaDiscord size={16} />,
+    },
+    {
+      href: 'https://maps.app.goo.gl/qsv464XpD8xRFzFA7',
+      label: 'Location',
+      icon: <FaMapMarkerAlt size={16} />,
+    },
+  ];
+
   return (
-    <footer className="relative overflow-visible px-4 pb-0 pt-20 sm:px-6"
-      style={{ background: '#f97028', color: '#fff' }}>
+    <footer
+      className="relative overflow-visible px-4 pb-0 pt-20 sm:px-6"
+      style={{ background: '#f97028', color: '#fff' }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 3px)',
+        }}
+      />
 
-      <div className="pointer-events-none absolute inset-0 opacity-[0.04]"
-        style={{ backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 3px)' }} />
-
-      <div className="pointer-events-none absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at 20% 60%,rgba(200,80,10,0.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(220,100,20,0.06) 0%,transparent 50%)' }} />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at 20% 60%,rgba(200,80,10,0.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(220,100,20,0.06) 0%,transparent 50%)',
+        }}
+      />
 
       <AnimatedWaveEdge />
 
@@ -125,27 +155,49 @@ export default function Footer() {
           <div className="grid gap-12 pb-14 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
-                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">DevHack 3.0</div>
+                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">
+                  DevHack 3.0
+                </div>
               </div>
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-2 text-[#333]">Contact</h3>
-                <a href="mailto:dsudevhack@dsu.edu.in" className="text-sm hover:underline underline-offset-2 text-[#1a1a1a]">
+                <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-1 text-[#333]">
+                  Contact
+                </h3>
+                <a
+                  href="mailto:dsudevhack@dsu.edu.in"
+                  className="text-sm hover:underline underline-offset-2 text-[#1a1a1a]"
+                >
                   dsudevhack@dsu.edu.in
                 </a>
+                <div className="mt-3 text-xs text-[#1a1a1a]">
+  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#333]">
+    Student Coordinators
+  </h4>
+
+  <p className="font-semibold">
+    Trisha <span className="font-normal">- 9142332379</span>
+  </p>
+
+  <p className="font-semibold">
+    Shreenidhi S<span className="font-normal">- 8317463317</span>
+  </p>
+</div>
               </div>
             </div>
 
             <div className="flex flex-col items-center gap-6 text-center">
-          
               <div className="flex gap-3 justify-center flex-wrap">
-                {[
-                  { href: 'https://discord.gg/uBcyhfmhx4', label: 'Discord' },
-                  { href: 'https://www.instagram.com/dsudevhack?igsh=MWEzeWNib2gxc2VudQ==', label: 'Instagram' },
-                  { href: 'https://maps.app.goo.gl/sK8xbJDBUnqXm8nd9', label: 'Location' },
-                ].map(({ href, label }) => (
-                  <motion.a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                    whileHover={{ scale: 1.06, y: -2 }} whileTap={{ scale: 0.95 }}
-                    className="text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border border-black/20 text-[#1a1a1a]">
+                {links.map(({ href, label, icon }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border border-black/20 text-[#1a1a1a]"
+                  >
+                    {icon}
                     {label}
                   </motion.a>
                 ))}
@@ -157,9 +209,18 @@ export default function Footer() {
                 <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-3 text-[#333]">
                   Hackathon Venue
                 </h3>
-                {['Dayananda Sagar University', 'Harohalli, Bangalore', 'Karnataka — 562112'].map((line) => (
-                  <a key={line} href="https://maps.app.goo.gl/sK8xbJDBUnqXm8nd9" target="_blank" rel="noopener noreferrer"
-                    className="block text-sm mb-1 hover:underline underline-offset-2 text-[#1a1a1a]">
+                {[
+                  'Dayananda Sagar University',
+                  'Harohalli, Bangalore',
+                  'Karnataka — 562112',
+                ].map((line) => (
+                  <a
+                    key={line}
+                    href="https://maps.app.goo.gl/qsv464XpD8xRFzFA7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-sm mb-1 hover:underline underline-offset-2 text-[#1a1a1a]"
+                  >
                     {line}
                   </a>
                 ))}

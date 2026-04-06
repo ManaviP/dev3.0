@@ -39,6 +39,26 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
     onNavClick(e);
   };
 
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+
+    if (isMini) {
+      setIsExpanded(true);
+      return;
+    }
+
+    if (!isScrolled || !isExpanded) return;
+
+    // Never collapse when clicking interactive controls
+    if (target.closest('a, button')) return;
+
+    // Collapse only when the shell itself is clicked
+    if (target === e.currentTarget) {
+      setIsExpanded(false);
+      setIsOpen(false);
+    }
+  };
+
   const isMini = isScrolled && !isHovered && !isOpen && !isExpanded;
 
   return (
@@ -49,17 +69,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
           setIsHovered(false);
           if (!isScrolled) setIsExpanded(false);
         }}
-        onClick={(e) => {
-          if (isMini) {
-             setIsExpanded(true);
-          } else if (isScrolled && isExpanded) {
-             // If we're expanded and click the main container (not a link), shrink it
-             if (e.target === e.currentTarget || (e.target as HTMLElement).closest('div')?.classList.contains('justify-between')) {
-               setIsExpanded(false);
-               setIsOpen(false);
-             }
-          }
-        }}
+        onClick={handleContainerClick}
         initial={false}
         animate={{
           width: isMini ? '175px' : '99%',
@@ -183,9 +193,11 @@ export default function App() {
     setIsTransitioning(true)
 
     setTimeout(() => {
-      const element = document.querySelector(targetId)
+      const element = document.querySelector<HTMLElement>(targetId)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        const navbarOffset = 120
+        const top = element.getBoundingClientRect().top + window.scrollY - navbarOffset
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
       }
       setTimeout(() => {
         setIsTransitioning(false)

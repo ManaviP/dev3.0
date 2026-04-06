@@ -10,7 +10,7 @@ const faqs = [
   { q: 'Is the hackathon offline and how long does it last?', a: 'Yes, DevHack 2026 is a fully offline, on-campus hackathon hosted at Dayananda Sagar University, Bangalore. The event spans 36 hours, starting on September 18 and concluding on September 19, 2026.' },
   { q: 'What are the restrictions on team formation for the event?', a: 'Teams can include members from different colleges. Each student can be part of only one team, and multiple registrations by the same individual are not allowed. Team can have exactly 3 members.' },
   { q: 'What are the perks and benefits of participating in the hackathon?', a: 'Participants will receive mentorship from industry experts and have valuable networking opportunities with leading companies and fellow developers. They will also enjoy exclusive swag kits, certificates, and participation goodies. The hackathon features a <strong>prize pool of ₹2 Lakhs</strong>, along with exciting sponsor-backed bounties worth <strong>₹10 Lakhs</strong>. Most importantly, it offers a platform to showcase innovations directly to top tech companies and industry leaders.' },
-  { q: 'I have a question related to the hackathon which is not listed above. What should I do?', a: 'Feel free to reach out to us. Just drop a mail to dsudevhack@dsu.edu.in. You can also contact the student coordinator.' },
+  { q: 'I have a question related to the hackathon which is not listed above. What should I do?', a: 'Feel free to reach out to us. Just drop a mail to dsudevhack@dsu.edu.in. You can also contact the student coordinators Trisha - 9142332379 or Shreenidhi S - 8317463317 ' },
 ];
 
 export default function FAQ() {

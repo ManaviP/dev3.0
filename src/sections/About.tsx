@@ -583,7 +583,11 @@ export default function About() {
         </div>
       </div>
 
-      <div ref={timelineRef} id="timeline" style={{ position:"relative", height: isMobile ? "auto" : "150vh" }}>
+      <div
+        ref={timelineRef}
+        id="timeline"
+        style={{ position:"relative", height: isMobile ? "auto" : "150vh", scrollMarginTop: 120 }}
+      >
         <div style={{ 
           position: isMobile ? "relative" : "sticky", 
           top: 0, 
