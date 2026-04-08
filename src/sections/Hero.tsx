@@ -508,7 +508,7 @@ export default function DevHackHeroCompact() {
 
         <div
           ref={titleLayerRef}
-          className="hero-title-layer absolute top-0 left-0 right-0 h-[60vh] sm:h-[50vh] md:h-[40vh] z-30 flex items-start justify-center px-4 pt-45 sm:pt-35 bg-black/40 backdrop-blur-lg"
+          className="hero-title-layer absolute top-0 left-0 right-0 h-[55vh] sm:h-[50vh] md:h-[40vh] z-30 flex items-start justify-center px-4 pt-45 sm:pt-35 bg-black/40 backdrop-blur-lg"
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between w-full max-w-5xl gap-3 sm:gap-0">
 
