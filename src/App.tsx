@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Lenis from 'lenis'
 import Marquee from './components/Marquee'
-import Hero from './components/Hero'
+import Hero from './sections/Hero'
 import Themes from './components/Themes'
 import About from './sections/About'
 import FAQ from './sections/FAQ'
@@ -244,7 +244,6 @@ export default function App() {
         <Navbar onNavClick={handleNavClick} />
         <main>
           <Hero />
-          <About />
           <Themes />
           <FAQ />
         </main>

@@ -277,11 +277,6 @@ function AboutCard({ badge, badgeColor, imgBg, imgAlt, number, title, desc, tags
     setTilt({ x: x * 12, y: -y * 12 });
   };
 
-  const badgeBg =
-    badgeColor === "orange" ? "#f97028" :
-    badgeColor === "pink"   ? "#f489a3" : "#f3a20f";
-  const badgeTextColor = badgeColor === "yellow" ? "#2a1f14" : "#fff";
-
   return (
     <div
       ref={cardRef}
@@ -302,24 +297,44 @@ function AboutCard({ badge, badgeColor, imgBg, imgAlt, number, title, desc, tags
         cursor: "default",
         transition: "box-shadow 0.4s ease",
         transform: `rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`,
+        padding: "26px 24px", // ✅ added padding since top section removed
         ...style,
       }}
     >
-      <div style={{ position: "relative", width: "100%", height: 200, overflow: "hidden", background: imgBg, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: "4rem", opacity: 0.4 }}>{imgAlt}</span>
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 50, background: "linear-gradient(to top,rgba(255,255,255,0.85),transparent)" }} />
-        <span style={{ position: "absolute", top: 14, right: 14, fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", padding: "3px 10px", borderRadius: 50, background: badgeBg, color: badgeTextColor, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700 }}>{badge}</span>
+      {/* CONTENT ONLY */}
+
+      <div style={{
+        fontFamily: "'Righteous', cursive",
+        fontSize: "2.6rem",
+        background: "linear-gradient(135deg,#f97028,#f3a20f)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        lineHeight: 1,
+        marginBottom: 6,
+        opacity: 0.25
+      }}>
+        {number}
       </div>
-      <div style={{ padding: "22px 24px 26px" }}>
-        <div style={{ fontFamily: "'Righteous', cursive", fontSize: "2.6rem", background: "linear-gradient(135deg,#f97028,#f3a20f)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", lineHeight: 1, marginBottom: 4, opacity: 0.25 }}>{number}</div>
-        <h2 style={{ fontFamily: "'Righteous', cursive", fontSize: "1.25rem", color: "#2a1f14", marginBottom: 8, lineHeight: 1.3 }}>{title}</h2>
-        <p style={{ fontSize: "0.9rem", color: "#5a4a3a", lineHeight: 1.65 }}>{desc}</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 14 }}>
-          {tags.map((t) => (
-            <span key={t} style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", padding: "3px 9px", borderRadius: 50, background: "rgba(249,112,40,0.07)", color: "#f97028", letterSpacing: 0.5 }}>{t}</span>
-          ))}
-        </div>
-      </div>
+
+      <h2 style={{
+        fontFamily: "'Righteous', cursive",
+        fontSize: "1.25rem",
+        color: "#2a1f14",
+        marginBottom: 10,
+        lineHeight: 1.3
+      }}>
+        {title}
+      </h2>
+
+      <p style={{
+        fontSize: "0.9rem",
+        color: "#5a4a3a",
+        lineHeight: 1.65
+      }}>
+        {desc}
+      </p>
+
+      
     </div>
   );
 }
@@ -505,7 +520,7 @@ export default function About() {
   })();
 
   const cardData = [
-    { id: 0, badge: "Explore", badgeColor: "orange" as const, imgBg: "linear-gradient(135deg,rgba(249,112,40,0.2),rgba(243,162,15,0.2))", imgAlt: "☕", number: "01", title: "What is this Hackathon?", desc: "A 48-hour creative coding playground where indie developers, designers, and dreamers come together to build something extraordinary. No boring lectures — just pure creation, retro vibes, and good coffee. ☕", tags: ["36 hrs","open source","indie"] },
+    { id: 0, badge: "Explore", badgeColor: "orange" as const, imgBg: "linear-gradient(135deg,rgba(249,112,40,0.2),rgba(243,162,15,0.2))", imgAlt: "☕", number: "01", title: "What is this Hackathon?", desc: "A 36-hour creative coding playground where indie developers, designers, and dreamers come together to build something extraordinary. No boring lectures — just pure creation, retro vibes, and good coffee. ☕", tags: ["36 hrs","open source","indie"] },
     { id: 1, badge: "Join In", badgeColor: "pink"   as const, imgBg: "linear-gradient(135deg,rgba(244,137,163,0.2),rgba(249,112,40,0.2))", imgAlt: "🎁", number: "02", title: "Why Participate?",          desc: "Meet creative minds, learn cutting-edge skills, win amazing prizes, and add a stunning project to your portfolio. Plus, you'll get exclusive mentorship from industry leaders and free swag! 🎁",              tags: ["mentors","prizes","networking"] },
     { id: 2, badge: "Unique",  badgeColor: "yellow" as const, imgBg: "linear-gradient(135deg,rgba(243,162,15,0.2),rgba(244,137,163,0.2))", imgAlt: "🎮", number: "03", title: "What Makes It Unique?",      desc: "An indie retro aesthetic, no-judgment zone, creative freedom, and a community-first approach. We don't just build apps — we craft experiences. Think pixel art meets modern code. 🎮",                            tags: ["retro vibes","creative","community"] },
   ];
