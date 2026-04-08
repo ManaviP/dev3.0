@@ -1,6 +1,6 @@
 # 🚀 DEVHACK 3.0
 
-![pipeline](https://github.com/ManaviP/dev3.0/badges/main/pipeline.svg)
+![pipeline](https://gitlab.com/ManaviP/dev3.0/-/badges/main/pipeline.svg)
 
 > **Current Version: `v3.0.4`** — Released 2026-04-05
 
@@ -8,19 +8,7 @@ A high-fidelity, interactive 24hr National Hackathon website for **DevHack 3.0**
 
 ![DEVHACK 3.0 Banner](/logos/logoo%205.png)
 
----
-
-## 🏷️ Version History
-
-| Version | Date | Description |
-|---------|------|-------------|
-| **v3.0.4** | 2026-04-05 | Integrated new brutalist Navbar with Marquee embedded inside; added nav-click warp transition overlay; reordered sections (About → Themes); fixed `logoo 5.png` logo in navbar; Lenis smoothTouch deprecation fix |
-| **v3.0.3** | 2026-04-05 | Fixed marquee hidden-behind-navbar bug — Marquee is now part of the fixed Navbar; Hero top padding updated to clear combined header height |
-| **v3.0.2** | 2026-04-05 | Replaced plain-text DEVHACK brand in navbar with `logoo 5.png` image logo |
-| **v3.0.1** | 2026-04-05 | Resolved Timeline / WhyJoin section overlap; fixed Framer Motion build errors; stabilized parallax wrapper |
-| **v3.0.0** | 2026-04-03 | Initial release — Hero sunburst, About 3D coverflow, Themes, Speakers, FAQ, Footer wave canvas, loading screen animation |
-
----
+-
 
 ## ✨ Key Features (v3.0.4)
 
