@@ -3,7 +3,6 @@ import Lenis from 'lenis'
 import Marquee from './components/Marquee'
 import Hero from './sections/Hero'
 import Themes from './components/Themes'
-import About from './sections/About'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Footer'
 
@@ -104,7 +103,6 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               className="hidden md:flex gap-8 lg:gap-10 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a]"
             >
               <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
-              <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">About</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
@@ -138,7 +136,6 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
             >
               <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3]">Main</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028]">Timeline</a>
-              <a href="#about" onClick={handleLinkClick} className="hover:text-[#ff8a3d]">About</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Themes</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8]">FAQ</a>
             </motion.div>
