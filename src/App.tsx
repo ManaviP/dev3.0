@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import Marquee from './components/Marquee'
 import Hero from './sections/Hero'
 import Themes from './components/Themes'
-import About from './sections/About'
+import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Footer'
 
@@ -243,7 +243,7 @@ export default function App() {
         <main>
           <Hero />
           <Themes />
-          <About />
+          <Timeline />
           <FAQ />
         </main>
         <Footer />
