@@ -86,9 +86,14 @@ function AnimatedWaveEdge() {
 }
 
 function MarqueeBand() {
-  const chunk = 'DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ ';
+  const chunk =
+    'DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ ';
+
   return (
-    <div className="relative z-30 overflow-hidden border-t border-b py-3" style={{ borderColor: '#d4a02040' }}>
+    <div
+      className="relative z-30 overflow-hidden border-t border-b py-6 sm:py-8"
+      style={{ borderColor: '#d4a02040' }}
+    >
       <motion.div
         className="flex whitespace-nowrap"
         animate={{ x: ['0%', '-50%'] }}
@@ -97,10 +102,14 @@ function MarqueeBand() {
         {[0, 1].map((i) => (
           <span
             key={i}
-            className="pr-8 font-black uppercase text-[#d4a020]"
-            style={{ fontSize: 'clamp(1.1rem,2.5vw,1.8rem)', letterSpacing: '0.2em' }}
+            className="pr-10 font-black uppercase text-black"
+            style={{
+              fontSize: 'clamp(1.4rem,3vw,2.4rem)', // 🔥 bigger text
+              letterSpacing: '0.25em',
+            }}
           >
-            {chunk}{chunk}
+            {chunk}
+            {chunk}
           </span>
         ))}
       </motion.div>
@@ -124,7 +133,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-visible px-4 pb-0 pt-20 sm:px-6"
+      className="relative overflow-visible px-4 pt-10 pb-2 sm:pt-20 sm:px-6 sm:pb-0"
       style={{ background: '#f97028', color: '#fff' }}
     >
       <div
@@ -152,7 +161,7 @@ export default function Footer() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="grid gap-12 pb-14 md:grid-cols-3 text-center md:text-left">
+          <div className="grid gap-6 pb-6 sm:gap-12 sm:pb-14 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
                 <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">

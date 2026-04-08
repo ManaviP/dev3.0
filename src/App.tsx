@@ -3,6 +3,7 @@ import Lenis from 'lenis'
 import Marquee from './components/Marquee'
 import Hero from './sections/Hero'
 import Themes from './components/Themes'
+import About from './sections/About'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Footer'
 
@@ -237,11 +238,12 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-[#1a1a1a] relative font-sans text-cream">
+      <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
         <Navbar onNavClick={handleNavClick} />
         <main>
           <Hero />
           <Themes />
+          <About />
           <FAQ />
         </main>
         <Footer />
