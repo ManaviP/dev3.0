@@ -1,5 +1,7 @@
 # 🚀 DEVHACK 3.0
 
+![pipeline](https://github.com/ManaviP/dev3.0/badges/main/pipeline.svg)
+
 > **Current Version: `v3.0.4`** — Released 2026-04-05
 
 A high-fidelity, interactive 24hr National Hackathon website for **DevHack 3.0** by Dayananda Sagar University. Features a retro-brutalist aesthetic, cinematic transitions, and smooth scroll-linked interactions.
