@@ -14,7 +14,6 @@ interface TimeLeft {
   s: number;
 }
 
-const REG_START    = new Date("2026-07-25T00:00:00");
 const REG_DEADLINE = new Date("2026-08-20T23:59:59");
 
 const HACK_START   = new Date("2026-09-18T09:00:00");
@@ -27,7 +26,7 @@ const MONTHS = [
   "July","August","September","October","November","December",
 ];
 const DAY_HDRS = ["SU","MO","TU","WE","TH","FR","SA"];
-const CALENDAR_EVENTS = [25, 20, 18, 19];
+const CALENDAR_EVENTS = [25];
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
