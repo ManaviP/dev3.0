@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Outfit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Lexend:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Wonderful Snowflake';
@@ -281,19 +281,19 @@
 }
 
 @keyframes logo-intro {
-  0% { transform: scale(0.6); opacity: 0; }
-  15% { transform: scale(1); opacity: 1; }
-  85% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(3); opacity: 0; }
+  0%   { transform: scale(0.72) translateY(10px); opacity: 0; filter: blur(18px); }
+  18%  { transform: scale(1)    translateY(0);    opacity: 1; filter: blur(0px);  }
+  78%  { transform: scale(1.06) translateY(-4px); opacity: 1; filter: blur(0px);  }
+  100% { transform: scale(1.55) translateY(-20px);opacity: 0; filter: blur(22px); }
 }
 
 @keyframes datePulse {
-  0%, 100% { transform: rotate(-1deg) scale(1); opacity: 1; }
-  50% { transform: rotate(-1deg) scale(1.05); opacity: 0.9; }
+  0%, 100% { transform: rotate(-1deg) scale(1); }
+  50% { transform: rotate(-1deg) scale(1.05); }
 }
 
 .animate-logo-intro {
-  animation: logo-intro 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: logo-intro 3.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 /* HTML: <div class="loader"></div> */

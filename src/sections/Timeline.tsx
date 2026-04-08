@@ -109,7 +109,7 @@ function MiniCalendar() {
 
   const dayStyle = (cls: string): React.CSSProperties => {
     const base: React.CSSProperties = {
-      fontFamily: "'Space Mono', monospace",
+      fontFamily: "'Lexend', sans-serif",
       fontSize: "0.6rem",
       textAlign: "center",
       padding: "3px 1px",
@@ -125,12 +125,12 @@ function MiniCalendar() {
   return (
     <div style={{ marginTop: 12, padding: 12, background: "#F3ecd2", borderRadius: 10, border: "1px solid rgba(249,112,40,0.06)" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-        <span style={{ fontFamily: "'Righteous', cursive", fontSize: "0.9rem", color: "#2a1f14" }}>{MONTHS[month]}</span>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#8a7a6a" }}>{year}</span>
+        <span style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.9rem", color: "#2a1f14" }}>{MONTHS[month]}</span>
+        <span style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.75rem", color: "#8a7a6a" }}>{year}</span>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 3 }}>
         {DAY_HDRS.map((d) => (
-          <div key={d} style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", textAlign: "center", padding: "3px 1px", fontWeight: 700, color: "#5a4a3a" }}>{d}</div>
+          <div key={d} style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.55rem", textAlign: "center", padding: "3px 1px", fontWeight: 700, color: "#5a4a3a" }}>{d}</div>
         ))}
         {cells.map((c, i) => (
           <div key={i} style={dayStyle(c.cls)}>{c.label}</div>
@@ -181,8 +181,8 @@ function CountdownPanel() {
     <div style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(18px)", borderRadius: 28, border: "2px solid rgba(249,112,40,0.12)", overflow: "hidden", boxShadow: "0 12px 40px rgba(249,112,40,0.08),0 2px 8px rgba(0,0,0,0.04)" }}>
       <div style={{ background: "linear-gradient(135deg,#f97028,#f489a3)", padding: "14px 18px", textAlign: "center" }}>
         <div style={{ fontSize: "1.3rem", marginBottom: 2 }}>⏳</div>
-        <div style={{ fontFamily: "'Righteous', cursive", fontSize: "1.05rem", color: "#fff" }}>{title}</div>
-        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", marginTop: 3, letterSpacing: 1, textTransform: "uppercase" }}>{subtitle}</div>
+        <div style={{ fontFamily: "'Lexend', sans-serif", fontSize: "1.05rem", color: "#fff" }}>{title}</div>
+        <div style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", marginTop: 3, letterSpacing: 1, textTransform: "uppercase" }}>{subtitle}</div>
       </div>
       <div style={{ padding: "16px 18px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 12 }}>
@@ -196,7 +196,7 @@ function CountdownPanel() {
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2.5, background: "linear-gradient(90deg,#f97028,#f3a20f)" }} />
               <div
                 style={{
-                  fontFamily: "'Righteous', cursive",
+                  fontFamily: "'Lexend', sans-serif",
                   fontSize: "clamp(1.5rem,2.5vw,2rem)",
                   color: "#2a1f14",
                   lineHeight: 1,
@@ -207,12 +207,12 @@ function CountdownPanel() {
               >
                 {val}
               </div>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", color: "#8a7a6a", letterSpacing: 1.5, textTransform: "uppercase" }}>{lbl}</div>
+              <div style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.65rem", color: "#8a7a6a", letterSpacing: 1.5, textTransform: "uppercase" }}>{lbl}</div>
             </div>
           ))}
         </div>
         <div style={{ textAlign: "center", padding: 12, background: "rgba(249,112,40,0.05)", borderRadius: 10, border: "1px dashed rgba(249,112,40,0.18)" }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", color: "#f97028", fontWeight: 600 }}>{msg}</span>
+          <span style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.8rem", color: "#f97028", fontWeight: 600 }}>{msg}</span>
         </div>
         {info && info.title === "Registration Closes In" && (
           <div style={{ marginTop: 12, height: 4, background: "rgba(249,112,40,0.08)", borderRadius: 4, overflow: "hidden" }}>
@@ -289,10 +289,10 @@ function TlEvent({ title, date, desc, status, statusLabel, progress, revealed }:
     >
       <div style={{ position: "absolute", left: -30, top: 24, width: 13, height: 13, borderRadius: "50%", border: "3px solid", zIndex: 2, transition: "all 0.4s ease", ...dotStyle }} />
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4, gap: 8 }}>
-        <h3 style={{ fontFamily: "'Righteous', cursive", fontSize: "1.05rem", color: "#2a1f14" }}>{title}</h3>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", padding: "2px 9px", borderRadius: 50, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700, whiteSpace: "nowrap", background: statusBg, color: statusColor, animation: status === "active" ? "pulse-badge 2s ease-in-out infinite" : "none" }}>{statusLabel}</span>
+        <h3 style={{ fontFamily: "'Lexend', sans-serif", fontSize: "1.05rem", color: "#2a1f14" }}>{title}</h3>
+        <span style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.65rem", padding: "2px 9px", borderRadius: 50, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700, whiteSpace: "nowrap", background: statusBg, color: statusColor, animation: status === "active" ? "pulse-badge 2s ease-in-out infinite" : "none" }}>{statusLabel}</span>
       </div>
-      <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#8a7a6a", marginBottom: 6 }}>{date}</p>
+      <p style={{ fontFamily: "'Lexend', sans-serif", fontSize: "0.75rem", color: "#8a7a6a", marginBottom: 6 }}>{date}</p>
       <p style={{ fontSize: "0.85rem", color: "#5a4a3a", lineHeight: 1.55 }}>{desc}</p>
       {progress !== undefined && (
         <div style={{ marginTop: 10, height: 4, background: "rgba(249,112,40,0.08)", borderRadius: 4, overflow: "hidden" }}>
@@ -424,14 +424,14 @@ export default function About() {
           paddingBottom: isMobile ? 40 : 0
         }}>
           <div style={{ textAlign:"center",padding:"0 40px 12px" }}>
-            <span style={{ display:"inline-block",fontFamily:"'Space Mono',monospace",fontSize:"0.8rem",color:"#f97028",background:"rgba(249,112,40,0.08)",padding:"5px 16px",borderRadius:50,border:"1.5px solid rgba(249,112,40,0.2)",letterSpacing:2,textTransform:"uppercase",marginBottom:14 }}>// the journey ahead</span>
-            <h1 style={{ fontFamily:"'Righteous',cursive",fontSize:"clamp(2.4rem,5vw,3.8rem)",color:"#2a1f14",lineHeight:1.15,marginBottom:8 }}>
+            <span style={{ display:"inline-block",fontFamily:"'Lexend', sans-serif",fontSize:"0.8rem",color:"#f97028",background:"rgba(249,112,40,0.08)",padding:"5px 16px",borderRadius:50,border:"1.5px solid rgba(249,112,40,0.2)",letterSpacing:2,textTransform:"uppercase",marginBottom:14 }}>// the journey ahead</span>
+            <h1 style={{ fontFamily:"'Lexend', sans-serif",fontSize:"clamp(2.4rem,5vw,3.8rem)",color:"#2a1f14",lineHeight:1.15,marginBottom:8 }}>
               Hackathon <span style={{ background:"linear-gradient(135deg,#f97028,#f489a3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent" }}>Timeline</span>
             </h1>
           </div>
 
           <div className="w-full max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 lg:gap-32 items-start flex-1 min-height-0 overflow-visible">
-            <div ref={tlTrackRef} style={{ position:"relative",paddingLeft:36,paddingBottom:80,overflowY:"auto",height:"100%",scrollbarWidth:"none" }}>
+            <div ref={tlTrackRef} style={{ position:"relative",paddingLeft:36,paddingBottom:250,overflowY:"auto",height:"100%",scrollbarWidth:"none" }}>
               <div style={{ position:"absolute",top:0,left:13,width:3,height:"100%",background:"rgba(249,112,40,0.12)",borderRadius:3 }} />
               <div style={{ position:"absolute",top:0,left:13,width:3,borderRadius:3,background:"linear-gradient(180deg,#f97028,#f489a3,#f3a20f)",zIndex:1,boxShadow:"0 0 14px rgba(249,112,40,0.25)",height:`${tlFillPct}%`,transition:"height 0.15s linear" }} />
 

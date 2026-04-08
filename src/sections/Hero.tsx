@@ -396,20 +396,12 @@ export default function DevHackHeroCompact() {
           )
           .to(
             splitLeft,
-            {
-              xPercent: -100,
-              duration: 1.5,
-              ease: "power3.inOut",
-            },
+            { xPercent: -100, duration: 3.5, ease: "none" },
             4.8
           )
           .to(
             splitRight,
-            {
-              xPercent: 100,
-              duration: 1.5,
-              ease: "power3.inOut",
-            },
+            { xPercent: 100, duration: 3.5, ease: "none" },
             4.8
           )
           .to(
@@ -508,7 +500,8 @@ export default function DevHackHeroCompact() {
 
         <div
           ref={titleLayerRef}
-          className="hero-title-layer absolute top-0 left-0 right-0 h-[55vh] sm:h-[50vh] md:h-[40vh] z-30 flex items-start justify-center px-4 pt-45 sm:pt-35 bg-black/40 backdrop-blur-lg"
+          className="hero-title-layer absolute top-0 left-0 right-0 h-[70vh] sm:h-[65vh] md:h-[58vh] z-30 flex items-center justify-center px-4 pt-16 sm:pt-20"
+          style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.0) 100%)', backdropFilter: 'blur(3px)', WebkitBackdropFilter: 'blur(3px)', maskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 100%)' }}
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-between w-full max-w-5xl gap-3 sm:gap-0">
 
@@ -521,13 +514,13 @@ export default function DevHackHeroCompact() {
               </h1>
 
               {/* Subtitle */}
-              <p className="hero-subtitle font-display uppercase text-cream whitespace-nowrap">
+              <p className="hero-subtitle font-display uppercase text-cream whitespace-nowrap opacity-100">
                 A 36hr National Hackathon
               </p>
             </div>
 
             {/* RIGHT: Date Badge */}
-            <div className="hero-date-badge relative inline-flex items-center justify-center font-sans uppercase tracking-widest rounded-full backdrop-blur-sm mt-2 sm:mt-0">
+            <div className="hero-date-badge relative inline-flex items-center justify-center font-sans uppercase tracking-widest rounded-full backdrop-blur-sm mt-2 sm:mt-0 opacity-100">
               September 18–19, 2026
             </div>
 
@@ -539,14 +532,14 @@ export default function DevHackHeroCompact() {
             <div className="text-orange font-bold text-4xl mb-4 opacity-30">01</div>
             <h2 className="text-[#2a1f14] font-display text-2xl mb-4">What is DevHack?</h2>
             <p className="text-[#5a4a3a] text-sm leading-relaxed">
-              DSU DEVHACK 2026 is a national-level hackathon pushing the boundaries of innovation in AI, ML, IoT, Blockchain, Cybersecurity, and Cloud 
+              DSU DEVHACK 2026 is a national-level hackathon pushing the boundaries of innovation in AI, ML, IoT, Blockchain, Cybersecurity, and Cloud
             </p>
           </div>
           <div ref={card2Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-pink/10 shadow-2xl relative">
             <div className="text-pink font-bold text-4xl mb-4 opacity-30">02</div>
             <h2 className="text-[#2a1f14] font-display text-2xl mb-4">Why Participate?</h2>
             <p className="text-[#5a4a3a] text-sm leading-relaxed">
-           Connect with creative minds, build cutting-edge solutions, win exciting prizes, and showcase your skills while transforming ideas into impactful innovations.
+              Connect with creative minds, build cutting-edge solutions, win exciting prizes, and showcase your skills while transforming ideas into impactful innovations.
             </p>
           </div>
         </div>
@@ -555,31 +548,31 @@ export default function DevHackHeroCompact() {
           <img
             src="/assets/logo1.png"
             alt=""
-           className="max-w-[70vw] max-h-[70vh] object-contain"
+            className="max-w-[70vw] max-h-[70vh] object-contain"
           />
         </div>
 
         <div ref={splitImageRef} className="absolute inset-0 z-20 pointer-events-none overflow-hidden flex opacity-0">
-  
-  {/* LEFT HALF */}
-  <div ref={splitLeftRef} className="w-1/2 h-full overflow-hidden">
-    <img
-      src="/assets/logo1.png"
-      alt="DevHack logo left half"
-      className="w-full h-full object-contain origin-left hero-split-left"
-    />
-  </div>
 
-  {/* RIGHT HALF */}
-  <div ref={splitRightRef} className="w-1/2 h-full overflow-hidden">
-    <img
-      src="/assets/logo1.png"
-      alt="DevHack logo right half"
-      className="w-full h-full object-contain origin-right hero-split-right"
-    />
-  </div>
+          {/* LEFT HALF */}
+          <div ref={splitLeftRef} className="w-1/2 h-full overflow-hidden">
+            <img
+              src="/assets/logo1.png"
+              alt="DevHack logo left half"
+              className="w-full h-full object-contain origin-left hero-split-left"
+            />
+          </div>
 
-</div>
+          {/* RIGHT HALF */}
+          <div ref={splitRightRef} className="w-1/2 h-full overflow-hidden">
+            <img
+              src="/assets/logo1.png"
+              alt="DevHack logo right half"
+              className="w-full h-full object-contain origin-right hero-split-right"
+            />
+          </div>
+
+        </div>
         <canvas ref={powderCanvasRef} className="hero-powder-canvas absolute inset-0 pointer-events-none" />
       </div>
     </section>

@@ -156,7 +156,7 @@ export default function App() {
     // Loading screen
     const timer = setTimeout(() => {
       setLoading(false)
-      setTimeout(() => setMountLoader(false), 1000)
+      setTimeout(() => setMountLoader(false), 1400)
     }, 2500)
 
     // Lenis smooth scroll
@@ -171,6 +171,10 @@ export default function App() {
       infinite: false,
     })
 
+    // Expose Lenis instance globally so navbar can use it for smooth routing
+    // @ts-ignore
+    window.lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -180,6 +184,7 @@ export default function App() {
     return () => {
       clearTimeout(timer)
       lenis.destroy()
+      delete window.lenis
     }
   }, [])
 
@@ -192,9 +197,14 @@ export default function App() {
 
     setTimeout(() => {
       const element = document.querySelector<HTMLElement>(targetId)
-      if (element) {
-        const navbarOffset = 120
-        const top = element.getBoundingClientRect().top + window.scrollY - navbarOffset
+      if (element && window.lenis) {
+        const navbarOffset = -120; // Needs to be negative offset in Lenis API
+        
+        // Pass control to Lenis for smooth scroll coordination
+        window.lenis.scrollTo(element, { offset: navbarOffset, duration: 1.2 });
+      } else if (element) {
+        // Fallback if Lenis isn't ready
+        const top = element.getBoundingClientRect().top + window.scrollY - 120
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
       }
       setTimeout(() => {
@@ -208,13 +218,22 @@ export default function App() {
       {/* Initial loading screen */}
       {mountLoader && (
         <div
-          className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center transition-all duration-700 ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-            }`}
+          className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center ${
+            loading
+              ? 'opacity-100 pointer-events-auto'
+              : 'opacity-0 pointer-events-none'
+          }`}
+          style={{
+            transition: loading
+              ? 'none'
+              : 'opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1), filter 1.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            filter: loading ? 'none' : 'blur(8px)',
+          }}
         >
           <img
             src="/assets/logo1.png"
             alt="DEVHACK Cube"
-            className={`h-40 md:h-56 mb-16 ${loading ? 'animate-logo-intro' : 'opacity-0 scale-150'}`}
+            className={`h-40 md:h-56 mb-16 ${loading ? 'animate-logo-intro' : 'opacity-0'}`}
           />
           <div className="loader text-5xl"></div>
         </div>
