@@ -5,6 +5,7 @@ import Hero from './sections/Hero'
 import Themes from './components/Themes'
 import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
+import Team from './sections/Team'
 import Footer from './sections/Footer'
 
 import { motion, AnimatePresence } from 'framer-motion'
@@ -106,6 +107,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
+              <a href="#team" onClick={handleLinkClick} className="hover:text-[#9b5de5] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Team</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
             </motion.div>
           )}
@@ -138,6 +140,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3]">Main</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028]">Timeline</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Themes</a>
+              <a href="#team" onClick={handleLinkClick} className="hover:text-[#9b5de5]">Team</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}
@@ -244,6 +247,7 @@ export default function App() {
           <Hero />
           <Themes />
           <Timeline />
+          <Team />
           <FAQ />
         </main>
         <Footer />
