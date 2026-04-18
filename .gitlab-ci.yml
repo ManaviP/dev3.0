@@ -1,0 +1,22 @@
+stages:
+  - install
+  - build
+  - test
+
+install:
+  stage: install
+  image: node:25
+  script:
+    - npm install
+
+build:
+  stage: build
+  image: node:25
+  script:
+    - npm run build
+
+test:
+  stage: test
+  image: node:25
+  script:
+    - echo "Testing stage"
