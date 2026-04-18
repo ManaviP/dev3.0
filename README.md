@@ -9,20 +9,6 @@ A high-fidelity, interactive 24hr National Hackathon website for **DevHack 3.0**
 ![DEVHACK 3.0 Banner](/logos/logoo%205.png)
 
 -
-
-## ✨ Key Features (v3.0.4)
-
-- **🟠 Persistent Marquee Bar**: Orange "EARLY BIRD TICKETS ON SALE NOW!" ticker pinned at the very top, part of the fixed header stack.
-- **🖼️ Image Logo in Navbar**: Brand logo (`logoo 5.png`) replaces plain text for a polished, on-brand header.
-- **🌀 Nav-Click Warp Transition**: Clicking any nav link triggers a full-screen orange overlay with bouncing logo before smooth-scrolling to the target section.
-- **📺 3D Coverflow About Section**: Scroll-linked 3D carousel powered by Framer Motion — cards tilt, recede and fan in 3D space.
-- **🎨 Retro-Brutalist Aesthetic**: Custom "Wonderful Snowflake" display font, high-contrast palette (`#1a1a1a`, `#f3ecd2`, `#f97028`), thick borders and drop-shadows.
-- **⚡ Performance First**: Vite 8 + React 19 — near-instant HMR and optimised production bundle.
-- **🔄 Lenis Smooth Scroll**: Physics-based smooth scrolling across all sections.
-- **📱 Fully Responsive**: Fluid `clamp()`-based typography and layouts from mobile to 4K.
-
----
-
 ## 🛠️ Tech Stack
 
 | Layer | Technology | Version |
@@ -39,10 +25,6 @@ A high-fidelity, interactive 24hr National Hackathon website for **DevHack 3.0**
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) v18 or higher
-- [npm](https://www.npmjs.com/) v9+
 
 ### Installation
 

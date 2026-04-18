@@ -1,454 +1,152 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 
-interface CountdownInfo {
-  t: Date;
+interface TimelineEvent {
+  dateHeader: string;
   title: string;
-  sub: string;
-  msg: string;
+  description: string;
 }
 
-interface TimeLeft {
-  d: number;
-  h: number;
-  m: number;
-  s: number;
-}
-
-const REG_DEADLINE = new Date("2026-08-20T23:59:59");
-
-const HACK_START   = new Date("2026-09-18T09:00:00");
-const HACK_END     = new Date("2026-09-19T21:00:00"); // 36hr approx
-
-const RESULTS      = new Date("2026-09-19T22:00:00");
-
-const MONTHS = [
-  "January","February","March","April","May","June",
-  "July","August","September","October","November","December",
+const timelineData: TimelineEvent[] = [
+  { dateHeader: "JUN 10", title: "Registration Starts", description: "Kickstart your journey by registering for the hackathon." },
+  { dateHeader: "JUN 25", title: "Idea Submission Starts", description: "Start submitting your innovative ideas for evaluation." },
+  { dateHeader: "AUG 10", title: "Registration Deadline", description: "Last chance to register for the event." },
+  { dateHeader: "AUG 25", title: "Idea Submission Deadline", description: "Final date to submit your project ideas." },
+  { dateHeader: "AUG 31", title: "Shortlisted Teams", description: "Announcement of teams selected for the hackathon." },
+  { dateHeader: "SEPT 18", title: "Hacking Starts", description: "The hacking phase begins. Build your ideas into reality." },
+  { dateHeader: "SEPT 19", title: "Final Submission", description: "Submit your completed projects for judging." },
+  { dateHeader: "SEPT 19", title: "Final Result", description: "Winners are announced and celebration begins." },
 ];
-const DAY_HDRS = ["SU","MO","TU","WE","TH","FR","SA"];
-const CALENDAR_EVENTS = [25];
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
-function getCountdownTarget(): CountdownInfo | null {
-  const now = new Date();
-
-  if (now < REG_DEADLINE)
-    return {
-      t: REG_DEADLINE,
-      title: "Registration Closes In",
-      sub: "Don't miss the deadline!",
-      msg: "⏳ Registration closing soon!",
-    };
-
-  if (now < HACK_START)
-    return {
-      t: HACK_START,
-      title: "Hackathon Starts In",
-      sub: "Get ready to build!",
-      msg: "🚀 Event starting soon!",
-    };
-
-  if (now < HACK_END)
-    return {
-      t: HACK_END,
-      title: "Hackathon Ends In",
-      sub: "Keep hacking!",
-      msg: "🔥 Hackathon is LIVE!",
-    };
-
-  if (now < RESULTS)
-    return {
-      t: RESULTS,
-      title: "Results In",
-      sub: "Stay tuned…",
-      msg: "🏆 Results coming soon!",
-    };
-
-  return null;
-}
-
-function calcTimeLeft(target: Date): TimeLeft {
-  const diff = Math.max(0, target.getTime() - Date.now());
-  return {
-    d: Math.floor(diff / 864e5),
-    h: Math.floor((diff % 864e5) / 36e5),
-    m: Math.floor((diff % 36e5) / 6e4),
-    s: Math.floor((diff % 6e4) / 1e3),
-  };
-}
-
-function calcRegProgress(): number {
-  const now = new Date();
-  if (now >= REG_DEADLINE) return 100;
-  const start = new Date("2026-07-25T00:00:00");
-  const total = REG_DEADLINE.getTime() - start.getTime();
-  const elapsed = now.getTime() - start.getTime();
-  return Math.min(100, Math.max(0, (elapsed / total) * 100));
-}
-
-function MiniCalendar() {
-  const now = new Date();
-  const year  = now.getFullYear();
-  const month = now.getMonth();
-  const today = now.getDate();
-  const first = new Date(year, month, 1).getDay();
-  const dim   = new Date(year, month + 1, 0).getDate();
-  const prevDim = new Date(year, month, 0).getDate();
-
-  const cells: { label: number; cls: string }[] = [];
-  for (let i = first - 1; i >= 0; i--) cells.push({ label: prevDim - i, cls: "inactive" });
-  for (let d = 1; d <= dim; d++) {
-    let cls = "normal";
-    if (d === today) cls = "today";
-    else if (CALENDAR_EVENTS.includes(d)) cls = "event";
-    cells.push({ label: d, cls });
-  }
-  const rem = 7 - ((first + dim) % 7);
-  if (rem < 7) for (let i = 1; i <= rem; i++) cells.push({ label: i, cls: "inactive" });
-
-  const dayStyle = (cls: string): React.CSSProperties => {
-    const base: React.CSSProperties = {
-      fontFamily: "'Space Mono', monospace",
-      fontSize: "0.6rem",
-      textAlign: "center",
-      padding: "3px 1px",
-      borderRadius: "4px",
-      color: "#8a7a6a",
-    };
-    if (cls === "today")   return { ...base, background: "#f97028", color: "#fff", fontWeight: 700, borderRadius: "5px" };
-    if (cls === "event")   return { ...base, background: "rgba(244,137,163,0.18)", color: "#f489a3", fontWeight: 600 };
-    if (cls === "inactive") return { ...base, opacity: 0.25 };
-    return base;
-  };
-
-  return (
-    <div style={{ marginTop: 12, padding: 12, background: "#F3ecd2", borderRadius: 10, border: "1px solid rgba(249,112,40,0.06)" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-        <span style={{ fontFamily: "'Righteous', cursive", fontSize: "0.9rem", color: "#2a1f14" }}>{MONTHS[month]}</span>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#8a7a6a" }}>{year}</span>
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 3 }}>
-        {DAY_HDRS.map((d) => (
-          <div key={d} style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.55rem", textAlign: "center", padding: "3px 1px", fontWeight: 700, color: "#5a4a3a" }}>{d}</div>
-        ))}
-        {cells.map((c, i) => (
-          <div key={i} style={dayStyle(c.cls)}>{c.label}</div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function CountdownPanel() {
-  const info = getCountdownTarget();
-  const [time, setTime] = useState<TimeLeft>(info ? calcTimeLeft(info.t) : { d: 0, h: 0, m: 0, s: 0 });
-  const [tickSec, setTickSec] = useState(false);
-  const prevS = useRef(-1);
-  const [regPct, setRegPct] = useState(calcRegProgress());
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      const inf = getCountdownTarget();
-      if (!inf) return;
-      const tl = calcTimeLeft(inf.t);
-      setTime(tl);
-      setRegPct(calcRegProgress());
-      if (tl.s !== prevS.current) {
-        prevS.current = tl.s;
-        setTickSec(true);
-        setTimeout(() => setTickSec(false), 350);
-      }
-    }, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const title    = info ? info.title : "Event Completed!";
-  const subtitle = info ? info.sub   : "Thanks for participating!";
-  const msg      = info ? info.msg   : "🎉 See you next time!";
-
-  const unitStyle: React.CSSProperties = {
-    textAlign: "center",
-    padding: "8px 4px",
-    background: "#F3ecd2",
-    borderRadius: 10,
-    border: "1.5px solid rgba(249,112,40,0.08)",
-    position: "relative",
-    overflow: "hidden",
-  };
-
-  return (
-    <div style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(18px)", borderRadius: 28, border: "2px solid rgba(249,112,40,0.12)", overflow: "hidden", boxShadow: "0 12px 40px rgba(249,112,40,0.08),0 2px 8px rgba(0,0,0,0.04)" }}>
-      <div style={{ background: "linear-gradient(135deg,#f97028,#f489a3)", padding: "14px 18px", textAlign: "center" }}>
-        <div style={{ fontSize: "1.3rem", marginBottom: 2 }}>⏳</div>
-        <div style={{ fontFamily: "'Righteous', cursive", fontSize: "1.05rem", color: "#fff" }}>{title}</div>
-        <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", marginTop: 3, letterSpacing: 1, textTransform: "uppercase" }}>{subtitle}</div>
-      </div>
-      <div style={{ padding: "16px 18px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginBottom: 12 }}>
-          {[
-            { val: pad(time.d), lbl: "Days"  },
-            { val: pad(time.h), lbl: "Hrs"   },
-            { val: pad(time.m), lbl: "Min"   },
-            { val: pad(time.s), lbl: "Sec", tick: true },
-          ].map(({ val, lbl, tick }) => (
-            <div key={lbl} style={unitStyle}>
-              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2.5, background: "linear-gradient(90deg,#f97028,#f3a20f)" }} />
-              <div
-                style={{
-                  fontFamily: "'Righteous', cursive",
-                  fontSize: "clamp(1.5rem,2.5vw,2rem)",
-                  color: "#2a1f14",
-                  lineHeight: 1,
-                  marginBottom: 3,
-                  transition: "transform 0.35s ease, color 0.35s ease",
-                  transform: tick && tickSec ? "scale(1.12)" : "scale(1)",
-                }}
-              >
-                {val}
-              </div>
-              <div style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", color: "#8a7a6a", letterSpacing: 1.5, textTransform: "uppercase" }}>{lbl}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ textAlign: "center", padding: 12, background: "rgba(249,112,40,0.05)", borderRadius: 10, border: "1px dashed rgba(249,112,40,0.18)" }}>
-          <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.8rem", color: "#f97028", fontWeight: 600 }}>{msg}</span>
-        </div>
-        {info && info.title === "Registration Closes In" && (
-          <div style={{ marginTop: 12, height: 4, background: "rgba(249,112,40,0.08)", borderRadius: 4, overflow: "hidden" }}>
-            <div style={{ height: "100%", width: `${regPct}%`, background: "linear-gradient(90deg,#f97028,#f3a20f)", borderRadius: 4, transition: "width 1s ease", position: "relative" }}>
-              <div style={{ position: "absolute", right: -1, top: -3, width: 8, height: 8, borderRadius: "50%", background: "#f3a20f", boxShadow: "0 0 6px rgba(243,162,15,0.5)" }} />
-            </div>
-          </div>
-        )}
-        <MiniCalendar />
-      </div>
-    </div>
-  );
-}
-
-
-
-interface TlEventProps {
-  title: string;
-  date: string;
-  desc: string;
-  status: "completed" | "active" | "upcoming";
-  statusLabel: string;
-  progress?: number;
-  revealed: boolean;
-}
-
-function TlEvent({ title, date, desc, status, statusLabel, progress, revealed }: TlEventProps) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+const Timeline = () => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const dotStyle: React.CSSProperties =
-    status === "completed"
-      ? { background: "#f97028", borderColor: "#f97028", boxShadow: "0 0 10px rgba(249,112,40,0.35)" }
-      : status === "active"
-      ? { background: "#f3a20f", borderColor: "#f3a20f", boxShadow: "0 0 18px rgba(243,162,15,0.5)", animation: "pulse-node 2s ease-in-out infinite" }
-      : { background: "#F3ecd2", borderColor: "rgba(249,112,40,0.25)" };
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start center", "end end"],
+  });
 
-  const cardStyle: React.CSSProperties = {
-    position: "relative",
-    marginBottom: 28,
-    padding: "20px 22px",
-    background: status === "active" ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.55)",
-    backdropFilter: "blur(10px)",
-    borderRadius: 22,
-    border: status === "active" ? "1.5px solid #f3a20f" : status === "completed" ? "1.5px solid rgba(249,112,40,0.15)" : "1.5px solid rgba(249,112,40,0.08)",
-    boxShadow: status === "active" ? "0 8px 32px rgba(243,162,15,0.12)" : "0 4px 16px rgba(0,0,0,0.03)",
-    opacity: !revealed ? 0 : status === "upcoming" ? 0.5 : 1,
-    transform: revealed
-      ? `scale(${status === "active" ? 1.02 : 1}) translateZ(${status === "active" ? 10 : 0}px) rotateX(${tilt.y}deg) rotateY(${tilt.x}deg)`
-      : "translateX(-40px) scale(0.95)",
-    transition: "opacity 0.7s ease, transform 0.7s ease",
-    transformStyle: "preserve-3d",
-    willChange: "transform,opacity",
-    filter: status === "upcoming" ? "blur(0.3px)" : "none",
-  };
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 25,
+  });
 
-  const statusBg =
-    status === "completed" ? "rgba(249,112,40,0.1)" :
-    status === "active"    ? "rgba(243,162,15,0.12)" : "rgba(0,0,0,0.05)";
-  const statusColor =
-    status === "completed" ? "#f97028" :
-    status === "active"    ? "#c98a00" : "#8a7a6a";
-
-  return (
-    <div
-      ref={ref}
-      style={cardStyle}
-      onMouseMove={(e) => {
-        if (!ref.current) return;
-        const r = ref.current.getBoundingClientRect();
-        setTilt({ x: ((e.clientX - r.left) / r.width - 0.5) * 6, y: -((e.clientY - r.top) / r.height - 0.5) * 6 });
-      }}
-      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-    >
-      <div style={{ position: "absolute", left: -30, top: 24, width: 13, height: 13, borderRadius: "50%", border: "3px solid", zIndex: 2, transition: "all 0.4s ease", ...dotStyle }} />
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4, gap: 8 }}>
-        <h3 style={{ fontFamily: "'Righteous', cursive", fontSize: "1.05rem", color: "#2a1f14" }}>{title}</h3>
-        <span style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.65rem", padding: "2px 9px", borderRadius: 50, letterSpacing: 1, textTransform: "uppercase", fontWeight: 700, whiteSpace: "nowrap", background: statusBg, color: statusColor, animation: status === "active" ? "pulse-badge 2s ease-in-out infinite" : "none" }}>{statusLabel}</span>
-      </div>
-      <p style={{ fontFamily: "'Space Mono', monospace", fontSize: "0.75rem", color: "#8a7a6a", marginBottom: 6 }}>{date}</p>
-      <p style={{ fontSize: "0.85rem", color: "#5a4a3a", lineHeight: 1.55 }}>{desc}</p>
-      {progress !== undefined && (
-        <div style={{ marginTop: 10, height: 4, background: "rgba(249,112,40,0.08)", borderRadius: 4, overflow: "hidden" }}>
-          <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg,#f97028,#f3a20f)", borderRadius: 4, position: "relative", transition: "width 1s ease" }}>
-            <div style={{ position: "absolute", right: -1, top: -3, width: 8, height: 8, borderRadius: "50%", background: "#f3a20f", boxShadow: "0 0 6px rgba(243,162,15,0.5)" }} />
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-
-export default function About() {
-  const [revealedEvents, setRevealedEvents] = useState<boolean[]>([false, false, false, false, false, false]);
-  const [tlFillPct, setTlFillPct] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const tlTrackRef  = useRef<HTMLDivElement>(null);
+  // 🔥 MORE WIDTH
+  const leftX = isMobile ? 30 : 60;
+  const rightX = isMobile ? 320 : 420; // ⬅️ pushed further right
+  const segH = 280; // ⬅️ more vertical spacing
 
-  const handleScroll = useCallback(() => {
-    const tlEl = timelineRef.current;
-    if (tlEl) {
-      const { top, height } = tlEl.getBoundingClientRect();
+  const generatePath = () => {
+    let d = `M ${leftX} 0 `;
 
-      const scrollRange = height - window.innerHeight;
-      const raw = scrollRange > 0 ? (-top) / scrollRange : 0;
-      const p   = Math.max(0, Math.min(1, raw));
+    for (let i = 0; i < timelineData.length; i++) {
+        const y = (i + 1) * segH;
+        const currX = i % 2 === 0 ? leftX : rightX;
+        const nextX = i % 2 === 0 ? rightX : leftX;
 
-      if (raw >= 0 && raw <= 1.05) {
-        setTlFillPct(p * 100);
-
-        const total = 6;
-        setRevealedEvents((prev) => {
-          const next = [...prev];
-          for (let i = 0; i < total; i++) {
-            if (p > (i / total) * 0.85) next[i] = true;
-          }
-          return next;
-        });
-
-        const track = tlTrackRef.current;
-        if (track) {
-          const max = track.scrollHeight - track.clientHeight;
-          if (max > 0) track.scrollTop = p * max;
+        // Down to the corner
+        d += `L ${currX} ${y} `;
+        // Across to the next side
+        if (i !== timelineData.length - 1) {
+            d += `L ${nextX} ${y} `;
         }
-      }
     }
-  }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+    const lastY = timelineData.length * segH + 120;
+    d += `L ${leftX} ${lastY}`;
+    d += `L ${rightX} ${lastY}`;
+    d += `L ${rightX} ${lastY + 120}`;
+    d += `L ${leftX} ${lastY + 120} Z`;
 
-  const tlEvents = [
-  { 
-    title: "📝 Registration Starts",    
-    date: "July 25, 2026",          
-    desc: "Start teaming up with your buddies and register for DevHack.",                                       
-    status: "upcoming" as const, 
-    statusLabel: "Coming Soon 👀"
-  },
+    return d;
+  };
 
-  { 
-    title: "🔒 Registration Ends",  
-    date: "August 20, 2026",          
-    desc: "Final chance to register and form your team before the deadline.",                                              
-    status: "upcoming" as const,    
-    statusLabel: "Coming Soon 👀"
-  },
-
-  { 
-    title: "💡 Online Idea Submission Deadline",    
-    date: "Late August 2026",          
-    desc: "Submit your idea or problem statement for the shortlisting round.",                                      
-    status: "upcoming" as const,  
-    statusLabel: "Coming Soon 👀"
-  },
-
-  { 
-    title: "📢 Team Shortlisting",  
-    date: "Early September 2026",       
-    desc: "Shortlisted teams will be announced for the final hackathon round.",                              
-    status: "upcoming" as const,  
-    statusLabel: "Coming Soon 👀"
-  },
-
-  { 
-    title: "🚀 Hacking Period Starts",    
-    date: "September 18, 2026",          
-    desc: "Join 150+ innovators and begin the 36-hour hackathon journey.",                                      
-    status: "upcoming" as const,  
-    statusLabel: "Coming Soon 👀"
-  },
-
-  { 
-    title: "🏆 Final Evaluation Round", 
-    date: "September 19, 2026",          
-    desc: "Projects are evaluated and winners are announced.",                              
-    status: "upcoming" as const,  
-    statusLabel: "Stay Tuned…"
-  },
-];
+  const path = generatePath();
 
   return (
-      <div
-        ref={timelineRef}
-        id="timeline"
-        style={{ position:"relative",background:"bg-[#f3ecd2]", height: isMobile ? "auto" : "150vh", scrollMarginTop: 120 }}
-      >
-        <div style={{ 
-          position: isMobile ? "relative" : "sticky", 
-          top: 0, 
-          height: isMobile ? "auto" : "100vh", 
-          overflow: isMobile ? "visible" : "hidden", 
-          display: "flex", 
-          flexDirection: "column", 
-          paddingTop: 70,
-          paddingBottom: isMobile ? 40 : 0
-        }}>
-          <div style={{ textAlign:"center",padding:"0 40px 12px" }}>
-            <span style={{ display:"inline-block",fontFamily:"'Space Mono',monospace",fontSize:"0.8rem",color:"#f97028",background:"rgba(249,112,40,0.08)",padding:"5px 16px",borderRadius:50,border:"1.5px solid rgba(249,112,40,0.2)",letterSpacing:2,textTransform:"uppercase",marginBottom:14 }}>// the journey ahead</span>
-            <h1 style={{ fontFamily:"'Righteous',cursive",fontSize:"clamp(2.4rem,5vw,3.8rem)",color:"#2a1f14",lineHeight:1.15,marginBottom:8 }}>
-              Hackathon <span style={{ background:"linear-gradient(135deg,#f97028,#f489a3)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent" }}>Timeline</span>
-            </h1>
-          </div>
+    <section
+      ref={ref}
+      className="bg-[#f3ecd2] py-32 min-h-[500vh] relative text-[#1a1a1a]"
+    >
+      {/* 🔥 WIDER CONTAINER */}
+      <div className="relative max-w-6xl mx-auto px-6">
 
-          <div className="w-full max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 lg:gap-32 items-start flex-1 min-height-0 overflow-visible">
-            <div ref={tlTrackRef} style={{ position:"relative",paddingLeft:36,paddingBottom:80,overflowY:"auto",height:"100%",scrollbarWidth:"none" }}>
-              <div style={{ position:"absolute",top:0,left:13,width:3,height:"100%",background:"rgba(249,112,40,0.12)",borderRadius:3 }} />
-              <div style={{ position:"absolute",top:0,left:13,width:3,borderRadius:3,background:"linear-gradient(180deg,#f97028,#f489a3,#f3a20f)",zIndex:1,boxShadow:"0 0 14px rgba(249,112,40,0.25)",height:`${tlFillPct}%`,transition:"height 0.15s linear" }} />
+        <svg className="absolute w-full h-full" viewBox="0 0 500 3000">
+          <path
+            d={path}
+            stroke="#1a1a1a"
+            strokeWidth="5"
+            fill="none"
+            opacity="0.1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <motion.path
+            d={path}
+            stroke="#1a1a1a"
+            strokeWidth="5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ pathLength }}
+          />
+        </svg>
 
-              {tlEvents.map((ev, i) => (
-                <TlEvent
-                  key={i}
-                  {...ev}
-                  revealed={revealedEvents[i]}
-                />
-              ))}
+        {timelineData.map((item, i) => {
+          const isLeft = i % 2 === 0;
+          const x = isLeft ? leftX : rightX;
+          const y = (i + 1) * segH;
+
+          return (
+            <div key={i} className="absolute" style={{ top: y, left: x }}>
+
+              {/* DATE */}
+              <div
+                className={`absolute ${isLeft ? "left-0" : "-translate-x-full text-right"
+                  } -top-20`}
+              >
+                <h2 className="text-5xl sm:text-7xl font-bold tracking-widest">
+                  {item.dateHeader}
+                </h2>
+              </div>
+
+              {/* CONTENT */}
+              <div
+                className={`absolute ${isLeft ? "left-4 text-left" : "-translate-x-full text-right"
+                  } top-8 max-w-[300px]`} // ⬅️ more width
+              >
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="text-sm opacity-70 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
             </div>
+          );
+        })}
 
-            <div style={{ height:"100%",overflowY:"auto",paddingRight:4 }}>
-              <CountdownPanel />
-            </div>
-          </div>
+        {/* END */}
+        <div
+          className="absolute text-center"
+          style={{
+            top: timelineData.length * segH + 160,
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <h2 className="text-3xl font-bold">END</h2>
         </div>
       </div>
+    </section>
   );
-}
+};
+
+export default Timeline;
