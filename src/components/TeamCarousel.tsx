@@ -130,9 +130,17 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
     const diff = wrapIndex(index - activeIndex);
 
     if (diff === 0) return 'center';
-    if (diff <= visibleCards) return `right-${diff}`;
-    if (diff >= totalMembers - visibleCards) return `left-${totalMembers - diff}`;
-    return 'hidden';
+
+    const half = Math.floor(totalMembers / 2);
+    
+    if (diff <= half) {
+      if (diff <= visibleCards) return `right-${diff}`;
+      return 'hidden';
+    } else {
+      const leftDiff = totalMembers - diff;
+      if (leftDiff <= visibleCards) return `left-${leftDiff}`;
+      return 'hidden';
+    }
   };
 
   // Explicitly type the return of getVariantStyles to match framer-motion's expectations
