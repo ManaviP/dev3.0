@@ -297,7 +297,7 @@ export default function Timeline() {
           >
             <span>Event</span>
             <span 
-              className="inline-block bg-[#f489a3] px-5 pb-1 pt-2 text-white border-[4px] border-[#1a1a1a] rounded-2xl shadow-[6px_6px_0_#1a1a1a] rotate-[-2deg] hover:rotate-1 transition-transform"
+              className="inline-block bg-[#f97028] px-5 pb-1 pt-2 text-[#f3ecd2] border-[4px] border-[#1a1a1a] rounded-2xl shadow-[6px_6px_0_#1a1a1a] rotate-[-2deg] hover:rotate-1 transition-transform"
             >
               Timeline
             </span>
