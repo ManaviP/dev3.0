@@ -254,7 +254,7 @@ export default function App() {
           <Themes />
           <Prizes />
           {/* <Sponsors /> */}
-          <Timeline />
+          {/*  <Timeline />*/}
           {/* <Team /> */}
           <FAQ />
         </main>
