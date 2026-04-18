@@ -334,21 +334,11 @@ export default function Themes() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-16 md:mb-24"
           >
-            <motion.div
-              initial={{ scale: 0, rotate: -6 }}
-              animate={headingInView ? { scale: 1, rotate: -3 } : {}}
-              transition={{ delay: 0.15, type: 'spring', stiffness: 200, damping: 14 }}
-              className="inline-block mb-6"
-            >
-              <span className="inline-flex items-center gap-2 font-bold font-sans text-sm md:text-base uppercase tracking-[0.25em] bg-[#f3ecd2] text-[#1a1a1a] px-6 py-2.5 rounded-full border-[3px] border-[#1a1a1a] shadow-[4px_4px_0_#1a1a1a]">
-                ✦ Hackathon Themes ✦
-              </span>
-            </motion.div>
+
 
             <h2 className="font-display text-[#1a1a1a] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}>
-              Choose Your
-              <br />
+
               <span
                 className="rainbow-text"
                 style={{ WebkitTextStroke: '0px' }}
@@ -357,15 +347,7 @@ export default function Themes() {
               </span>
             </h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={headingInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35, duration: 0.6 }}
-              className="mt-6 text-[#1a1a1a]/70 font-semibold text-base md:text-xl max-w-2xl mx-auto font-sans leading-relaxed"
-            >
-              Six cutting-edge domains. One stage. Pick your battle and ship
-              something that the world hasn't seen yet.
-            </motion.p>
+
           </motion.div>
 
           {/* Theme cards grid */}
@@ -385,22 +367,7 @@ export default function Themes() {
           </motion.div>
 
           {/* Bottom CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-24 md:mt-32 flex flex-col sm:flex-row items-center justify-center gap-6"
-          >
-            <span className="font-display text-2xl md:text-3xl text-[#1a1a1a] rotate-[-2deg]">
-              Not sure which theme to pick?
-            </span>
-            <a
-              href="#faq"
-              className="groovy-btn font-display tracking-widest text-sm md:text-base bg-[#f3a20f] text-[#1a1a1a] px-8 py-3 rounded-full border-[4px] border-[#1a1a1a] shadow-[6px_6px_0_#1a1a1a]"
-            >
-              Read the FAQ →
-            </a>
-          </motion.div>
+
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Lenis from 'lenis'
 import Marquee from './components/Marquee'
 import Hero from './sections/Hero'
@@ -254,7 +254,7 @@ export default function App() {
           <Themes />
           <Prizes />
           {/* <Sponsors /> */}
-          {/*  <Timeline />*/}
+          <Timeline />
           {/* <Team /> */}
           <FAQ />
         </main>

@@ -20,7 +20,7 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="relative px-4 py-16 sm:px-6 lg:py-24 bg-[#f3ecd2]">
+    <section id="faq" className="relative px-4 py-8 sm:px-6 lg:py-12 bg-[#f3ecd2]">
       <div className="mx-auto max-w-4xl rounded-3xl border border-black/15 bg-white/60 p-6 shadow-card backdrop-blur-sm sm:p-8">
         <h2 className="mb-7 text-center text-3xl font-black uppercase tracking-wider sm:text-5xl text-[#1a1a1a]">FAQ</h2>
 

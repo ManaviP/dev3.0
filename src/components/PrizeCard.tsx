@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 
 interface PrizeCardProps {
   title: string;
@@ -14,10 +14,6 @@ const PrizeCard: React.FC<PrizeCardProps> = ({ title, amount, isMain = false, pi
   // Motion values for 3D tilt
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
-  // Create smooth springs for the tilt
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
 
   // Map mouse position to rotation degrees
 
@@ -55,7 +51,7 @@ const PrizeCard: React.FC<PrizeCardProps> = ({ title, amount, isMain = false, pi
 
           transformStyle: "preserve-3d",
         }}
-        className={`relative w-full bg-[#fdfaf1] border-[3px] border-[#1a1a1a] p-4 sm:p-5 transition-shadow duration-300 hover:shadow-2xl group overflow-hidden`}
+        className={`relative w-full bg-[#fdfaf1] border-2 border-[#1a1a1a] p-4 sm:p-5 transition-shadow duration-300 hover:shadow-2xl group overflow-hidden`}
       >
         {/* Subtle Paper Texture Overlay */}
 
@@ -87,7 +83,7 @@ const PrizeCard: React.FC<PrizeCardProps> = ({ title, amount, isMain = false, pi
         {/* Content Container with translateZ for depth */}
         <div className="relative z-10 flex flex-col justify-between h-full min-h-[180px]" style={{ transform: "translateZ(40px)" }}>
           {/* Header */}
-          <div className="border-b-[3px] border-[#1a1a1a] pb-2 mb-4">
+          <div className="border-b-2 border-[#1a1a1a] pb-2 mb-4">
             <h3 className={`font-display ${title.length > 10 ? 'text-lg sm:text-xl' : 'text-2xl sm:text-3xl'} text-[#1a1a1a] leading-tight transition-all duration-300 whitespace-nowrap`}>
               {title}
             </h3>
