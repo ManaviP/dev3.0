@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
   motion,
   useScroll,
@@ -29,7 +29,6 @@ const timelineData: TimelineEvent[] = [
   { month: 'SEP', day: '19', year: 2026, title: 'Final Results', description: 'The Moment of Truth — Winners Announced!' },
 ];
 
-const COLORS = ['#f97028', '#f489a3', '#f3a20f', '#f97028', '#f489a3', '#f3a20f', '#f97028', '#f489a3'];
 const MONTH_NUM: Record<string, number> = {
   JAN: 1, FEB: 2, MAR: 3, APR: 4, MAY: 5, JUN: 6,
   JUL: 7, AUG: 8, SEP: 9, OCT: 10, NOV: 11, DEC: 12,
@@ -47,309 +46,179 @@ function googleCalLink(ev: TimelineEvent) {
     + `&details=${encodeURIComponent(ev.description)}`;
 }
 
-/* ─────────────────────────────────────
-   COMPONENT: PaperClip (Single Binder Clip connecting line to card)
-   ───────────────────────────────────── */
-function PaperClip({ x, y, color, isActive }: { x: number; y: number; color: string; isActive: boolean }) {
-  return (
-    <g transform={`translate(${x - 10}, ${y - 8})`}>
-      {/* String/thread from line to clip */}
-      <path
-        d="M 10 0 L 10 6"
-        stroke="#1a1a1a"
-        strokeWidth="1.5"
-        fill="none"
-        strokeDasharray="2 2"
-        opacity={0.6}
-      />
+/* Palette cycles */
+const COLORS = ['#f97028', '#f489a3', '#f3a20f', '#f97028', '#f489a3', '#f3a20f', '#f97028', '#f489a3'];
+const BGS = ['#fff3ec', '#fff0f4', '#fffbec', '#fff3ec', '#fff0f4', '#fffbec', '#fff3ec', '#fff0f4'];
 
-      {/* Clip body - the metal part that grips the card */}
-      <motion.rect
-        x="0"
-        y="6"
-        width="20"
-        height="14"
-        rx="2"
-        fill={isActive ? color : '#e0d5b8'}
-        stroke="#1a1a1a"
-        strokeWidth="2"
-        animate={{
-          scale: isActive ? 1.1 : 1,
-        }}
-        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      />
+/* Subtle Countdown Hook */
+function useCountdown(event: TimelineEvent) {
+  const [timeLeft, setTimeLeft] = useState({ d: 0, h: 0, m: 0, s: 0, expired: false });
 
-      {/* Clip arms/handles */}
-      <motion.path
-        d="M 4 6 L 4 0 Q 4 -2 6 -2 L 7 -2 Q 9 -2 9 0 L 9 6"
-        fill="none"
-        stroke="#1a1a1a"
-        strokeWidth="2"
-        strokeLinecap="round"
-        animate={{
-          rotate: isActive ? -4 : 0,
-        }}
-      />
-      <motion.path
-        d="M 11 6 L 11 0 Q 11 -2 13 -2 L 14 -2 Q 16 -2 16 0 L 16 6"
-        fill="none"
-        stroke="#1a1a1a"
-        strokeWidth="2"
-        strokeLinecap="round"
-        animate={{
-          rotate: isActive ? 4 : 0,
-        }}
-      />
+  useEffect(() => {
+    const y = event.year;
+    const m = MONTH_NUM[event.month] - 1; 
+    const d = parseInt(event.day, 10);
+    const targetTime = new Date(y, m, d, 10, 0, 0).getTime();
 
-      {/* Clip hinge detail */}
-      <line x1="2" y1="10" x2="18" y2="10" stroke="#1a1a1a" strokeWidth="1.5" opacity={0.4} />
+    const update = () => {
+      let diff = targetTime - Date.now();
+      if (diff <= 0) {
+        setTimeLeft({ d: 0, h: 0, m: 0, s: 0, expired: true });
+        return;
+      }
+      setTimeLeft({
+        d: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        h: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        m: Math.floor((diff / 1000 / 60) % 60),
+        s: Math.floor((diff / 1000) % 60),
+        expired: false,
+      });
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, [event]);
 
-      {/* Paper grip texture */}
-      <line x1="3" y1="16" x2="17" y2="16" stroke="#1a1a1a" strokeWidth="0.8" opacity={0.3} />
-      <line x1="3" y1="18" x2="17" y2="18" stroke="#1a1a1a" strokeWidth="0.8" opacity={0.3} />
-    </g>
-  );
+  return timeLeft;
 }
 
 /* ─────────────────────────────────────
-   COMPONENT: WeaveLine (The Progress Line with Paper Clips)
-   ───────────────────────────────────── */
-function WeaveLine({
-  scrollX,
-  progress,
-  activeProgress,
-  firstCenterX,
-  step,
-  lastCenterX,
-  svgWidth,
-  yLine,
-}: {
-  scrollX: any;
-  progress: any;
-  activeProgress: number;
-  firstCenterX: number;
-  step: number;
-  lastCenterX: number;
-  svgWidth: number;
-  yLine: number;
-}) {
-  const pathD = `M ${firstCenterX} ${yLine} L ${lastCenterX} ${yLine}`;
-
-  return (
-    <motion.svg
-      className="absolute top-0 left-0 h-full pointer-events-none z-30"
-      style={{ x: scrollX }}
-      width={svgWidth}
-      height={400}
-      viewBox={`0 0 ${svgWidth} 400`}
-      fill="none"
-    >
-      {/* Main thread/string line */}
-      <motion.path
-        d={pathD}
-        stroke="#1a1a1a"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        style={{ opacity: 0.3 }}
-      />
-
-      {/* Colored progress thread */}
-      <motion.path
-        d={pathD}
-        stroke="#f97028"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        style={{ pathLength: progress }}
-      />
-
-      {/* Thread knots and paper clips */}
-      {timelineData.map((_, i) => {
-        const markerX = firstCenterX + i * step;
-        const threshold = i / (timelineData.length - 1);
-        const done = activeProgress >= threshold - 0.02;
-        const color = COLORS[i];
-
-        return (
-          <g key={`marker-${i}`}>
-            {/* Thread knot (the dot on the line) */}
-            <circle
-              cx={markerX}
-              cy={yLine}
-              r={7}
-              fill={done ? color : '#f3ecd2'}
-              stroke="#1a1a1a"
-              strokeWidth={2.5}
-            />
-
-            {/* Inner knot detail */}
-            <circle
-              cx={markerX}
-              cy={yLine}
-              r={2.5}
-              fill={done ? '#1a1a1a' : '#1a1a1a'}
-              opacity={done ? 0.8 : 0.3}
-            />
-
-            {/* Single paper clip connecting line to card */}
-            {done && (
-              <PaperClip x={markerX} y={yLine} color={color} isActive={activeProgress >= threshold} />
-            )}
-
-            {/* Small thread stitches for non-active cards */}
-            {!done && (
-              <>
-                <path
-                  d={`M ${markerX - 4} ${yLine + 5} L ${markerX} ${yLine + 9} L ${markerX + 4} ${yLine + 5}`}
-                  stroke="#1a1a1a"
-                  strokeWidth="1.5"
-                  fill="none"
-                  opacity={0.4}
-                  strokeLinecap="round"
-                />
-                <path
-                  d={`M ${markerX - 3} ${yLine + 9} L ${markerX} ${yLine + 13} L ${markerX + 3} ${yLine + 9}`}
-                  stroke="#1a1a1a"
-                  strokeWidth="1"
-                  fill="none"
-                  opacity={0.25}
-                  strokeLinecap="round"
-                />
-              </>
-            )}
-          </g>
-        );
-      })}
-    </motion.svg>
-  );
-}
-
-/* ─────────────────────────────────────
-   COMPONENT: TimelineItem (Clipped Card Style)
+   CARD
+   Key fixes vs previous version:
+   • Date badge is a SIBLING of the overflow-hidden shell,
+     not a child — so it is never clipped.
+   • Card wrapper (motion.div) uses overflow-visible.
+   • No background track bar.
+   • No node dots.
    ───────────────────────────────────── */
 function TimelineItem({
-  event, index, isActive, cardWidth
+  event, index, isActive, isAdjacent,
 }: {
   event: TimelineEvent;
   index: number;
   isActive: boolean;
-  cardWidth: number;
+  isAdjacent: boolean;
 }) {
+  const isTop = index % 2 === 0;
   const color = COLORS[index];
-  const borderRadius = index % 2 === 0 ? "40px 10px 40px 10px" : "10px 40px 10px 40px";
+  const PASTEL_BGS = ['#FEF4E8', '#FCE9F1', '#FEF6E1', '#EBF4F6', '#FEF4E8', '#FCE9F1', '#FEF6E1', '#EBF4F6'];
+  const bg = PASTEL_BGS[index];
+  const timeLeft = useCountdown(event);
+
+  const scale = isActive ? 1.05 : isAdjacent ? 0.97 : 0.90;
+  const yOff = isActive ? 0 : isAdjacent ? (isTop ? -6 : 6) : (isTop ? -14 : 14);
+  const stemH = isActive ? 52 : isAdjacent ? 46 : 38;
+  const stemW = isActive ? 4 : isAdjacent ? 3 : 2;
+  const rotation = isTop ? 1 : -1;
 
   return (
-    <div className="relative flex flex-col items-center shrink-0 px-8 box-border z-20" style={{ width: cardWidth }}>
-      {/* Background Year Highlight */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[12rem] text-[#1a1a1a]/5 pointer-events-none select-none z-0">
-        {index + 1}
-      </div>
+    <div className="relative flex flex-col items-center shrink-0" style={{ width: 300 }}>
 
-      {/* Clipped corner effect - where the paper clip attaches */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-8 h-8 z-30">
-        {/* Fold/crease effect */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-3 bg-[#1a1a1a]/5 rounded-b-full" />
-        {/* Small tear/dent where clip grips */}
-        <div className="absolute top-1 left-1/2 -translate-x-1/2 w-3 h-2 bg-[#1a1a1a]/10 rounded-sm" />
+      {/* Stem */}
+      <div className={`${isTop ? 'order-2' : 'order-1'} flex flex-col items-center`}>
+        <motion.div
+          className="rounded-full"
+          animate={{ height: stemH, width: stemW }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          style={{ backgroundColor: color }}
+        />
       </div>
 
       <motion.div
-        animate={{
-          scale: isActive ? 1.05 : 0.95,
-          opacity: isActive ? 1 : 0.7,
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="relative p-[3px] group overflow-visible w-full h-[380px] z-10"
-        style={{
-          borderRadius,
-          background: isActive
-            ? `linear-gradient(45deg, ${color}, #1a1a1a, ${color})`
-            : "rgba(26, 26, 26, 0.1)"
+        className={`relative ${isTop ? 'order-1' : 'order-2'} cursor-pointer group`}
+        style={{ paddingTop: 28, paddingRight: 14 }}
+        animate={{ scale, y: yOff, rotate: isActive ? 0 : rotation }}
+        transition={{ type: 'spring', stiffness: 200, damping: 22 }}
+        whileHover={{
+          scale: isActive ? 1.06 : 1.03,
+          y: yOff - 5,
+          rotate: 0,
+          transition: { type: 'spring', stiffness: 300, damping: 20 },
         }}
       >
+        {/* Date badge — smaller, lighter, but distinctly indie borders */}
         <div
-          className="relative bg-white/70 backdrop-blur-xl p-8 overflow-hidden h-full flex flex-col"
-          style={{ borderRadius: "calc(inherit - 3px)" }}
+          className="absolute -top-3 -right-3 w-[52px] h-[52px] rounded-full
+                     border-[3px] border-[#1a1a1a] flex flex-col items-center
+                     justify-center shadow-[2px_2px_0_#1a1a1a] z-20 bg-white"
         >
-          <div className="flex justify-between items-baseline mb-6">
-            <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] opacity-40">ITEM_{index + 1}</span>
-            <span className="font-display text-2xl text-[#1a1a1a]/20">2026</span>
-          </div>
-
-          <div className="mb-4">
-            <span
-              className="inline-block px-3 py-1 font-display text-sm border-2 border-[#1a1a1a] shadow-[3px_3px_0_#1a1a1a] -rotate-3"
-              style={{ backgroundColor: color, color: '#1a1a1a' }}
-            >
-              {event.day} {event.month}
-            </span>
-          </div>
-
-          <h3 className="font-display text-2xl leading-tight text-[#1a1a1a] mb-4 tracking-tight">
-            {event.title}
-          </h3>
-
-          <p className="text-[#1a1a1a]/70 text-sm leading-relaxed mb-8 flex-grow line-clamp-3">
-            {event.description}
-          </p>
-
-          <div className="flex justify-between items-center pt-4 border-t border-[#1a1a1a]/10">
-            <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-              <div className="w-2 h-2 rounded-full bg-[#1a1a1a]/10" />
-            </div>
-            <a
-              href={googleCalLink(event)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[10px] font-black uppercase tracking-widest hover:underline transition-all"
-              style={{ color: '#1a1a1a' }}
-            >
-              + ADD CAL
-            </a>
-          </div>
+          <span className="text-[0.4rem] font-bold uppercase tracking-widest text-[#1a1a1a]/70 leading-none mb-0.5">
+            {event.month}
+          </span>
+          <span className="font-display text-base text-[#1a1a1a] leading-none" style={{ color }}>
+            {event.day}
+          </span>
         </div>
 
-        {isActive && (
-          <motion.div
-            layoutId="jewelGlow"
-            className="absolute -inset-8 z-[-1] opacity-30 blur-3xl rounded-full"
-            style={{ backgroundColor: color }}
-          />
-        )}
+        {/* Card shell — prominent indie dark borders with distinct hard inset shadow */}
+        <motion.div
+          className="rounded-[20px] border-[3px] border-[#1a1a1a] overflow-hidden relative"
+          style={{ backgroundColor: bg }}
+          animate={{
+            boxShadow: isActive 
+              ? `6px 6px 0px #1a1a1a`
+              : `4px 4px 0px #1a1a1a`
+          }}
+          transition={{ duration: 0.3 }}
+          whileHover={{ boxShadow: `8px 8px 0px #1a1a1a` }}
+        >
+          <div className="p-6 pt-6 relative">
+            {/* Indie Tag: Running Time */}
+            {!timeLeft.expired ? (
+              <div className="inline-flex items-center gap-1.5 mb-4 px-3 py-1 bg-[#1a1a1a] border-[2px] border-[#1a1a1a] rounded-sm shadow-[3px_3px_0_rgba(0,0,0,0.15)] -rotate-1">
+                <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: color }} />
+                <span className="text-[10px] font-mono font-bold text-white uppercase tracking-widest tabular-nums">
+                  Starts in {String(timeLeft.d).padStart(2, '0')}d {String(timeLeft.h).padStart(2, '0')}h
+                </span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-1.5 mb-4 px-3 py-1 bg-[#1a1a1a]/10 border-[2px] border-[#1a1a1a]/20 rounded-sm -rotate-1">
+                <span className="text-[10px] font-bold text-[#1a1a1a]/50 uppercase tracking-widest">
+                  Completed
+                </span>
+              </div>
+            )}
+
+            {/* Title Design with accent vertical bar */}
+            <div className="flex gap-3 items-start mb-4">
+              <div className="w-[3px] rounded-full shrink-0" style={{ backgroundColor: color, height: '1.2em', marginTop: '0.2em' }} />
+              <h3 className="font-display text-[1.2rem] leading-tight pr-6 text-[#1a1a1a] tracking-tight">
+                {event.title}
+              </h3>
+            </div>
+
+            <p className="text-[#3a3a3a] text-sm leading-relaxed mb-6">
+              {event.description}
+            </p>
+
+            {/* Tags (Action row) -> Softer background fill, thinner border */}
+            <div className="flex justify-start">
+              <a
+                href={googleCalLink(event)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center justify-center gap-1.5 text-[0.7rem] font-bold uppercase
+                           tracking-widest px-4 py-1.5 rounded-full border-[1.5px] border-[#1a1a1a]/20
+                           hover:-translate-y-0.5 hover:shadow-sm active:scale-95 transition-all"
+                style={{ backgroundColor: `${color}1A`, color: '#1a1a1a' }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style={{ color: color }}>
+                  <path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+                </svg>
+                Calendar
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );
 }
 
-/* ─────────────────────────────────────
-   MAIN SECTION
-   ───────────────────────────────────── */
 export default function Timeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeIdx, setActiveIdx] = useState(0);
 
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 1024);
-    onResize();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
-
-  const cardWidth = isMobile ? 300 : 340;
-  const cardGap = isMobile ? 32 : 48;
-  const step = cardWidth + cardGap;
-  const firstCenterX = cardWidth / 2;
-  const lastCenterX = firstCenterX + (timelineData.length - 1) * step;
-  const svgWidth = lastCenterX + firstCenterX;
-
-  // Greatly reduced gap between line and cards for clipped look
-  const lineY = isMobile ? 24 : 32;
-  const cardsYOffset = 38; // Reduced significantly to make cards look clipped to the line
-
-  // Scroll progress for vertical scroll area
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
@@ -357,146 +226,192 @@ export default function Timeline() {
 
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
-    damping: 30,
+    damping: 28,
     restDelta: 0.001,
   });
 
-  const [progressValue, setProgressValue] = useState(0);
+  const containerX = useTransform(smoothProgress, [0, 1], ['15%', '-145%']);
+
+  /* Dynamically calculate which card is physically closest to the screen center! */
+  const [activeIdx, setActiveIdx] = useState(0);
 
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
-    setProgressValue(latest);
-    const idx = Math.max(0, Math.min(timelineData.length - 1, Math.round(latest * (timelineData.length - 1))));
-    setActiveIdx(idx);
+    const START_PCT = 15;
+    const END_PCT = -145;
+    const cxPct = START_PCT + latest * (END_PCT - START_PCT);
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 1440;
+    const cxPx = (cxPct / 100) * vw;
+    const padPx = 0.08 * vw;
+    const cardW = 300;
+    const gapW = 64;
+    const center = vw / 2;
+
+    let closestIdx = 0;
+    let minDiff = Infinity;
+
+    for (let i = 0; i < timelineData.length; i++) {
+      const cardCenter = cxPx + padPx + i * (cardW + gapW) + (cardW / 2);
+      const diff = Math.abs(cardCenter - center);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestIdx = i;
+      }
+    }
+    setActiveIdx(closestIdx);
   });
 
-  // Horizontal translation logic
-  const translateX = useTransform(
-    smoothProgress,
-    [0, 1],
-    [`calc(50vw - ${firstCenterX}px)`, `calc(50vw - ${lastCenterX}px)`]
-  );
 
-  // Navigation functions
-  const handleScrollTo = (index: number) => {
-    if (!sectionRef.current) return;
-
-    const targetProgress = index / (timelineData.length - 1);
-    const sectionTop = sectionRef.current.offsetTop;
-    const sectionHeight = sectionRef.current.offsetHeight;
-    const windowHeight = window.innerHeight;
-
-    const distance = sectionHeight - windowHeight;
-    const targetScrollY = sectionTop + (targetProgress * distance);
-
-    window.scrollTo({
-      top: targetScrollY,
-      behavior: 'smooth'
-    });
-  };
-
-  const goToPrev = () => handleScrollTo(Math.max(0, activeIdx - 1));
-  const goToNext = () => handleScrollTo(Math.min(timelineData.length - 1, activeIdx + 1));
 
   return (
     <section
       ref={sectionRef}
       id="timeline"
-      className="relative bg-[#f3ecd2] w-full"
+      className="relative bg-[#f3ecd2]"
       style={{ height: '300vh' }}
     >
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        {/* Section Header - Tucked closer to content */}
-        <div className="text-center shrink-0 z-40 px-4 pt-4 pb-0 relative">
-          <h2
-            className="font-display tracking-tight flex flex-wrap justify-center items-center gap-x-6"
-            style={{ fontSize: 'clamp(2.5rem, 8.5vw, 6.5rem)', color: '#1a1a1a', lineHeight: 0.8 }}
+      <div
+        className="sticky top-0 h-screen flex flex-col justify-center"
+        style={{ overflowX: 'clip', overflowY: 'visible' }}
+      >
+        <div className="text-center shrink-0 z-20 px-4 mb-6 md:mb-10 pt-8">
+          <motion.div
+            initial={{ scale: 0, rotate: -6 }}
+            whileInView={{ scale: 1, rotate: -3 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 200, damping: 14 }}
+            className="inline-block mb-5"
           >
-            <span className="opacity-20 uppercase">Road</span>
-            <span className="text-[#f97028] uppercase">Map</span>
+            <span
+              className="inline-flex items-center gap-2 font-bold font-sans text-sm
+                         uppercase tracking-[0.25em] bg-[#f3ecd2] text-[#1a1a1a]
+                         px-5 py-2 rounded-full border-[3px] border-[#1a1a1a]
+                         shadow-[4px_4px_0_#1a1a1a]"
+            >
+              ✦ The Journey Ahead ✦
+            </span>
+          </motion.div>
+
+          <h2
+            className="font-display tracking-tight flex flex-wrap justify-center items-center gap-3 md:gap-4"
+            style={{ fontSize: 'clamp(2.2rem,7vw,5rem)', lineHeight: 0.95, color: '#1a1a1a' }}
+          >
+            <span>Event</span>
+            <span 
+              className="inline-block bg-[#f97028] px-5 pb-1 pt-2 text-[#f3ecd2] border-[4px] border-[#1a1a1a] rounded-2xl shadow-[6px_6px_0_#1a1a1a] rotate-[-2deg] hover:rotate-1 transition-transform"
+            >
+              Timeline
+            </span>
           </h2>
+          <p className="mt-4 text-[#5a4a3a] text-sm md:text-base max-w-lg mx-auto font-sans leading-relaxed">
+            Scroll to journey through every milestone — from registration to the grand finale.
+          </p>
         </div>
 
-        {/* Unified Horizontal View - Reduced top padding */}
-        <div className="flex flex-col items-center relative overflow-visible z-10 min-h-0 pt-0">
-          <div className="relative w-full flex items-center h-[500px]">
-          <WeaveLine
-            scrollX={translateX}
-            progress={smoothProgress}
-            activeProgress={progressValue}
-            firstCenterX={firstCenterX}
-            step={step}
-            lastCenterX={lastCenterX}
-            svgWidth={svgWidth}
-            yLine={lineY}
+        <div
+          className="hidden lg:flex flex-1 min-h-0 items-center relative"
+          style={{ overflowX: 'clip', overflowY: 'visible' }}
+        >
+          <div
+            className="absolute left-0 right-0 h-[3px] bg-[#1a1a1a]/20 rounded-full"
+            style={{ top: '50%', transform: 'translateY(-50%)' }}
           />
 
           <motion.div
-            style={{ x: translateX, y: cardsYOffset }}
-            className="flex items-center w-max relative z-20"
+            style={{ x: containerX }}
+            className="flex gap-16 items-center w-max"
           >
-            <div className={`flex items-center w-max ${isMobile ? 'gap-8' : 'gap-12'}`}>
+            <div className="flex gap-16 items-center py-8 px-[8vw]">
               {timelineData.map((event, i) => (
                 <TimelineItem
                   key={i}
                   event={event}
                   index={i}
                   isActive={i === activeIdx}
-                  cardWidth={cardWidth}
+                  isAdjacent={Math.abs(i - activeIdx) === 1}
                 />
               ))}
             </div>
           </motion.div>
         </div>
-      </div>
 
-        {/* Navigation Arrows */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-30 px-6">
-          <button
-            onClick={goToPrev}
-            disabled={activeIdx === 0}
-            className={`group w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border-2 border-[#1a1a1a] shadow-[6px_6px_0_#1a1a1a] transition-all duration-300 flex items-center justify-center ${activeIdx === 0
-                ? 'opacity-30 cursor-not-allowed shadow-none translate-x-1 translate-y-1'
-                : 'hover:bg-[#f97028] hover:shadow-[2px_2px_0_#1a1a1a] hover:translate-x-1 hover:translate-y-1 active:translate-x-1.5 active:translate-y-1.5'
-              }`}
-            aria-label="Previous event"
+        <div className="lg:hidden flex-1 min-h-0 flex items-center">
+          <div
+            className="w-full overflow-x-auto snap-x snap-mandatory px-6 py-12"
+            style={{ scrollbarWidth: 'none' }}
           >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#1a1a1a' }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+            <div className="flex gap-10 items-center min-w-max pr-[20vw]">
+              <div className="absolute left-0 right-0 h-[2px] bg-[#1a1a1a]/15 rounded-full top-1/2" />
 
-          <div className="flex gap-3">
-            {timelineData.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => handleScrollTo(i)}
-                className={`transition-all duration-300 rounded-full border-2 border-[#1a1a1a] ${i === activeIdx
-                    ? 'w-10 h-3 bg-[#f97028]'
-                    : 'w-3 h-3 bg-[#1a1a1a]/20 hover:bg-[#1a1a1a]/40'
-                  }`}
-                aria-label={`Go to event ${i + 1}`}
-              />
-            ))}
+              {timelineData.map((event, i) => (
+                <div key={i} className="snap-center shrink-0" style={{ paddingTop: 28, paddingRight: 14 }}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: '-20px' }}
+                    transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+                    whileHover={{ y: -5, scale: 1.03, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
+                    className="relative group cursor-pointer"
+                  >
+                    <div
+                      className="absolute top-[-28px] right-0 w-[56px] h-[56px] rounded-full
+                                 border-[4px] border-[#1a1a1a] flex flex-col items-center
+                                 justify-center z-20"
+                      style={{ backgroundColor: COLORS[i] }}
+                    >
+                      <span className="text-[0.45rem] font-bold uppercase tracking-wider text-[#1a1a1a] leading-none">
+                        {event.month}
+                      </span>
+                      <span className="font-display text-lg text-[#1a1a1a] leading-none">
+                        {event.day}
+                      </span>
+                    </div>
+
+                    <div
+                      className="rounded-3xl border-[4px] border-[#1a1a1a] overflow-hidden
+                                 shadow-[6px_6px_0_#1a1a1a] group-hover:shadow-[10px_10px_0_#1a1a1a]
+                                 transition-shadow duration-200 w-[270px]"
+                      style={{ backgroundColor: BGS[i] }}
+                    >
+                      <div className="p-5">
+                        <h3 className="font-display text-lg leading-tight mb-2" style={{ color: '#1a1a1a' }}>
+                          {event.title}
+                        </h3>
+                        <div className="h-1 w-10 rounded-full mb-3" style={{ backgroundColor: COLORS[i] }} />
+                        <p className="text-[#3a3a3a] text-sm leading-relaxed mb-3">
+                          {event.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 items-center">
+                          <span
+                            className="text-xs font-bold uppercase tracking-wider px-3 py-1
+                                       rounded-full border-2 border-[#1a1a1a]"
+                            style={{ backgroundColor: COLORS[i], color: '#1a1a1a' }}
+                          >
+                            {event.month} {event.day}
+                          </span>
+                          <a
+                            href={googleCalLink(event)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-bold uppercase
+                                       tracking-wider px-3 py-1 rounded-full border-2 border-[#1a1a1a]
+                                       hover:brightness-90 transition-all"
+                            style={{ backgroundColor: COLORS[i], color: '#1a1a1a' }}
+                          >
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+                            </svg>
+                            + Calendar
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <button
-            onClick={goToNext}
-            disabled={activeIdx === timelineData.length - 1}
-            className={`group w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border-2 border-[#1a1a1a] shadow-[6px_6px_0_#1a1a1a] transition-all duration-300 flex items-center justify-center ${activeIdx === timelineData.length - 1
-                ? 'opacity-30 cursor-not-allowed shadow-none translate-x-1 translate-y-1'
-                : 'hover:bg-[#f97028] hover:shadow-[2px_2px_0_#1a1a1a] hover:translate-x-1 hover:translate-y-1 active:translate-x-1.5 active:translate-y-1.5'
-              }`}
-            aria-label="Next event"
-          >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#1a1a1a' }}>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
         </div>
 
-        <div className="absolute bottom-10 right-10 text-[10px] font-black uppercase tracking-[0.2em] text-[#1a1a1a]/30 hidden md:block">
-          Explore the journey →
-        </div>
       </div>
     </section>
   );
