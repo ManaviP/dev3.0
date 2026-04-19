@@ -85,21 +85,30 @@ export default function DevHackHeroCompact() {
 
     const initialize = async () => {
       const context = gsap.context(() => {
+        const isMobile = window.innerWidth < 768;
+
         gsap.set(imagesFrame, {
+          opacity: 0,
           top: 0,
           height: "100vh",
-          opacity: 0,
-          scale: 1,
         });
 
         gsap.set(videoFrame, {
           opacity: 1,
           scale: 1,
+          top: isMobile ? "12vh" : "0",
+          height: isMobile ? "50vh" : "100vh",
+          width: isMobile ? "90vw" : "100vw",
+          left: isMobile ? "50%" : "0",
+          xPercent: isMobile ? -50 : 0,
         });
 
         gsap.set(baseLayer, { opacity: 1 });
-        gsap.set(reveal, { opacity: 0 });
-        gsap.set([card1, card2], { opacity: 0, y: 100, scale: 0.9 });
+        gsap.set(reveal, { 
+          opacity: isMobile ? 1 : 0,
+          top: isMobile ? "100vh" : "0" 
+        });
+        gsap.set([card1, card2], { opacity: 0, y: 50 });
 
         const timeline = gsap.timeline({
           defaults: { ease: "none" },
@@ -111,73 +120,53 @@ export default function DevHackHeroCompact() {
           },
         });
 
+
+
         timeline
           .to(
             videoFrame,
             {
-              scale: 1.8,
-              opacity: 0,
-              ease: "power2.inOut",
-              duration: 3.0,
+              scale: isMobile ? 1.2 : 1.8,
+              opacity: isMobile ? 1 : 0,
+              duration: 2.0,
             },
             0
           )
           .to(
-            baseLayer,
+            reveal,
             {
-              opacity: 0.05,
-              duration: 2.0,
+              top: isMobile ? "65vh" : "0",
+              opacity: 1,
+              duration: isMobile ? 3.0 : 1.5,
+              ease: "power2.out",
             },
-            1.5
+            0.5
           )
           .to(
             imagesFrame,
             {
-              opacity: 0.8,
-              duration: 2.0,
+              opacity: isMobile ? 0.7 : 0.8,
+              duration: 1.5,
             },
-            3.0
-          )
-          .to(
-            reveal,
-            {
-              opacity: 1,
-              duration: 1.0,
-            },
-            2.5
+            isMobile ? 0.8 : 3.0
           )
           .to(
             card1,
             {
               opacity: 1,
               y: 0,
-              scale: 1,
-              duration: 1.2,
-              ease: "back.out(1.2)",
+              duration: 1.5,
             },
-            2.6
+            isMobile ? 1.2 : 3.2
           )
           .to(
             card2,
             {
               opacity: 1,
               y: 0,
-              scale: 1,
-              duration: 1.2,
-              ease: "back.out(1.2)",
+              duration: 1.5,
             },
-            2.8
-          )
-          .to(
-            [reveal, card1, card2],
-            {
-              opacity: 0,
-              scale: 1.1,
-              y: -100,
-              duration: 1,
-              ease: "power2.in",
-            },
-            6.7
+            isMobile ? 1.5 : 3.4
           );
       }, section);
 
@@ -217,7 +206,7 @@ export default function DevHackHeroCompact() {
         </div>
 
         <div ref={imagesFrameRef} className="hero-images-frame absolute inset-0 pointer-events-none opacity-0 z-5">
-          <div className="h-full grid grid-rows-4 sm:grid-rows-3 gap-1 sm:gap-3 md:gap-4 p-1 sm:p-3 md:p-4 opacity-100">
+          <div className="h-full grid grid-rows-3 md:grid-rows-3 gap-1 sm:gap-3 md:gap-4 p-1 sm:p-3 md:p-4 opacity-100">
             <Row speed="18s" />
             <Row reverse speed="24s" />
             <Row speed="20s" />
@@ -229,7 +218,7 @@ export default function DevHackHeroCompact() {
         </div>
 
 
-        <div ref={revealRef} className="absolute inset-0 z-10 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-6 px-6 pointer-events-none opacity-0">
+        <div ref={revealRef} className="absolute inset-x-0 h-screen z-10 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-6 px-6 pointer-events-none">
           <div ref={card1Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-orange/10 shadow-2xl relative">
             <div className="text-orange font-bold text-4xl mb-4 opacity-30">01</div>
             <h2 className="text-[#2a1f14] font-display text-2xl mb-4">What is DevHack?</h2>
