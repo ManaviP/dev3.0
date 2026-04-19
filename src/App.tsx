@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Lenis from 'lenis'
-import Marquee from './components/Marquee'
+
 import Hero from './sections/Hero'
 import Themes from './components/Themes'
 import Timeline from './sections/Timeline'
@@ -81,18 +81,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2] ${isMini ? 'cursor-pointer' : ''}`}
       >
-        <AnimatePresence>
-          {!isMini && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Marquee />
-            </motion.div>
-          )}
-        </AnimatePresence>
+
 
         <div className={`w-full flex ${isMini ? 'justify-center' : 'justify-between'} items-center relative transition-all duration-300 ${isMini ? 'py-3' : 'px-4 md:px-8 py-2 md:py-3.5'}`}>
           <a href="#hero" onClick={handleLinkClick} className="flex items-center">
