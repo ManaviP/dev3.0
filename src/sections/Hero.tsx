@@ -26,7 +26,7 @@ const speedClassMap: Record<string, string> = {
   "25s": "hero-scroll-speed-25",
 };
 
-const Row = ({ reverse = false, speed = "25s" }: RowProps) => {
+const Row = ({ reverse = false, speed = "5s" }: RowProps) => {
   const speedClass = speedClassMap[speed] ?? "hero-scroll-speed-25";
 
   return (
@@ -84,6 +84,7 @@ export default function DevHackHeroCompact() {
 
 
     const initialize = async () => {
+
       const context = gsap.context(() => {
         const isMobile = window.innerWidth < 768;
 
@@ -104,70 +105,132 @@ export default function DevHackHeroCompact() {
         });
 
         gsap.set(baseLayer, { opacity: 1 });
-        gsap.set(reveal, { 
+        gsap.set(reveal, {
           opacity: isMobile ? 1 : 0,
-          top: isMobile ? "100vh" : "0" 
+          top: isMobile ? "100vh" : "0"
         });
         gsap.set([card1, card2], { opacity: 0, y: 50 });
 
-        const timeline = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.85,
-          },
-        });
+        const video = videoFrame.querySelector("video") as HTMLVideoElement;
+        if (!video) return;
 
+        let tickerFn: (() => void) | null = null;
 
+        const setup = () => {
+          // Reset video state
+          video.pause();
+          video.currentTime = 0;
 
-        timeline
-          .to(
-            videoFrame,
+          const timeline = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 1,
+            },
+          });
+
+          let targetTime = 0;
+
+          // 🎥 VIDEO SYST (SCROLL SYNC)
+          timeline.to(
+            {},
             {
-              scale: isMobile ? 1.2 : 1.8,
-              opacity: isMobile ? 1 : 0,
-              duration: 2.0,
+              duration: 1,
+              onUpdate: function () {
+                const videoEnd = 0.6;
+                let p = this.progress();
+
+                // Map the scroll progress to video duration with a clamp
+                if (p < videoEnd) {
+                  p = p / videoEnd;
+                } else {
+                  p = 1;
+                }
+
+                if (video.duration) {
+                  targetTime = p * (video.duration - 0.05); // buffer for end
+                }
+              },
             },
             0
-          )
-          .to(
-            reveal,
-            {
-              top: isMobile ? "65vh" : "0",
-              opacity: 1,
-              duration: isMobile ? 3.0 : 1.5,
-              ease: "power2.out",
-            },
-            0.5
-          )
-          .to(
-            imagesFrame,
-            {
-              opacity: isMobile ? 0.7 : 0.8,
-              duration: 1.5,
-            },
-            isMobile ? 0.8 : 3.0
-          )
-          .to(
-            card1,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.5,
-            },
-            isMobile ? 1.2 : 3.2
-          )
-          .to(
-            card2,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.5,
-            },
-            isMobile ? 1.5 : 3.4
           );
+
+          // Smooth interpolation loop (Lerp)
+          tickerFn = () => {
+            const current = video.currentTime;
+            const delta = targetTime - current;
+
+            // Only update if the gap is significant but not too small to avoid micro-stutters
+            if (Math.abs(delta) > 0.005) {
+              video.currentTime = current + delta * 0.15;
+            }
+          };
+
+          gsap.ticker.add(tickerFn);
+
+          // 🎬 OTHER ANIMATIONS (Parallel to Video)
+          timeline
+            .to(
+              videoFrame,
+              {
+                scale: isMobile ? 1.2 : 1.8,
+                opacity: isMobile ? 1 : 0,
+                duration: 2.0,
+              },
+              0
+            )
+            .to(
+              reveal,
+              {
+                top: isMobile ? "65vh" : "0",
+                opacity: 1,
+                duration: isMobile ? 3.0 : 1.5,
+                ease: "power2.out",
+              },
+              0.5
+            )
+            .to(
+              imagesFrame,
+              {
+                opacity: isMobile ? 0.7 : 0.8,
+                duration: 1.5,
+              },
+              isMobile ? 0.8 : 3.0
+            )
+            .to(
+              card1,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+              },
+              isMobile ? 1.2 : 3.2
+            )
+            .to(
+              card2,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+              },
+              isMobile ? 1.5 : 3.4
+            );
+        };
+
+        // ✅ HANDLE VIDEO LOAD
+        if (video.readyState >= 1) {
+          setup();
+        } else {
+          video.addEventListener("loadedmetadata", setup);
+        }
+
+        // Cleanup the ticker specifically when context reverts
+        return () => {
+          if (tickerFn) gsap.ticker.remove(tickerFn);
+          video.removeEventListener("loadedmetadata", setup);
+        };
       }, section);
 
       const onResize = () => {
@@ -180,6 +243,7 @@ export default function DevHackHeroCompact() {
         window.removeEventListener("resize", onResize);
         context.revert();
       };
+
     };
 
     initialize();
@@ -195,13 +259,13 @@ export default function DevHackHeroCompact() {
 
         <div ref={videoFrameRef} className="absolute inset-0 z-0 overflow-hidden">
           <video
-            autoPlay
-            loop
+            id="heroVideo"
             muted
             playsInline
+            preload="auto"
             className="w-full h-full object-cover"
           >
-            <source src="/assets/devhack3.mp4" type="video/mp4" />
+            <source src="/assets/Hero.mp4" type="video/mp4" />
           </video>
         </div>
 

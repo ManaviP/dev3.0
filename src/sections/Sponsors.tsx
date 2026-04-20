@@ -75,26 +75,58 @@ const Sponsors: React.FC = () => {
     <section id="sponsors" className="py-24 px-6 sm:px-10 bg-[#f3ecd2] relative scroll-mt-20">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
-        {/* Platinum Tier */}
-        <div className="w-full text-center mb-16">
-          <h2 className="font-sans font-black text-xs sm:text-sm uppercase tracking-[0.4em] text-[#f97028] mb-12">Platinum Sponsors</h2>
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            className="flex flex-wrap justify-center gap-12 sm:gap-24"
+        {/* Sponsors Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+            className="inline-block mb-4"
           >
-            {platinumSponsors.map((s, i) => (
-              <motion.div key={i} variants={itemVariants}>
-                <SponsorCard {...s} tier="platinum" />
-              </motion.div>
-            ))}
+            <div className="h-[2px] w-20 bg-[#f97028] mx-auto" />
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="font-display text-[#1a1a1a] drop-shadow-sm uppercase"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
+          >
+            Sponsors
+          </motion.h2>
+        </div>
+
+        {/* Platinum Content (Coming Soon) */}
+        <div className="w-full text-center mb-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="flex justify-center"
+          >
+            <span className="font-display text-4xl sm:text-5xl text-[#1a1a1a]/30 uppercase tracking-widest italic">
+              Coming Soon
+            </span>
+            {/* 
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              className="flex flex-wrap justify-center gap-12 sm:gap-24"
+            >
+              {platinumSponsors.map((s, i) => (
+                <motion.div key={i} variants={itemVariants}>
+                  <SponsorCard {...s} tier="platinum" />
+                </motion.div>
+              ))}
+            </motion.div>
+            */}
           </motion.div>
         </div>
 
+        {/* 
         <WavyLine />
 
-        {/* Gold Tier */}
         <div className="w-full text-center mb-16">
           <h2 className="font-sans font-black text-xs sm:text-sm uppercase tracking-[0.4em] text-[#f97028] mb-12">Gold Sponsors</h2>
           <motion.div 
@@ -113,7 +145,6 @@ const Sponsors: React.FC = () => {
 
         <WavyLine />
 
-        {/* Stream Tier */}
         <div className="w-full text-center mb-16">
           <h2 className="font-sans font-black text-xs sm:text-sm uppercase tracking-[0.4em] text-[#f97028] mb-12">Stream Sponsors</h2>
           <motion.div 
@@ -132,7 +163,6 @@ const Sponsors: React.FC = () => {
 
         <WavyLine />
 
-        {/* Community Tier */}
         <div className="w-full text-center mb-16">
           <h2 className="font-sans font-black text-xs sm:text-sm uppercase tracking-[0.4em] text-[#f97028] mb-12">Community Sponsors</h2>
           <motion.div 
@@ -148,6 +178,7 @@ const Sponsors: React.FC = () => {
             ))}
           </motion.div>
         </div>
+        */}
 
       </div>
     </section>
