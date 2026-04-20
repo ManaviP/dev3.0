@@ -25,6 +25,10 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
       if (!scrolled) {
         setIsExpanded(false);
         setIsOpen(false);
+      } else {
+        // When scrolling while capsule is open, shrink it back to mini
+        setIsExpanded(false);
+        setIsOpen(false);
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -65,7 +69,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
   const isMini = isScrolled && !isHovered && !isOpen && !isExpanded;
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-2 md:pt-4">
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center md:justify-start pointer-events-none pt-2 md:pt-4 px-4 md:px-8 transition-none">
       <motion.div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
@@ -75,14 +79,15 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
         onClick={handleContainerClick}
         initial={false}
         animate={{
-          width: isMini ? '175px' : '99%',
-          maxWidth: isMini ? '175px' : '1540px',
+          width: isMini ? '210px' : '99%',
+          maxWidth: isMini ? '210px' : '1540px',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2] ${isMini ? 'cursor-pointer' : ''}`}
       >
 
 
+        {/* Mobile Menu Toggle */}
         <div className={`w-full flex ${isMini ? 'justify-center' : 'justify-between'} items-center relative transition-all duration-300 ${isMini ? 'py-3' : 'px-4 md:px-8 py-2 md:py-3.5'}`}>
           <a href="#hero" onClick={handleLinkClick} className="flex items-center">
             <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
@@ -99,16 +104,17 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
               <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
               <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Prizes</a>
-              {/* <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Sponsors</a> */}
-              {/* <a href="#team" onClick={handleLinkClick} className="hover:text-[#9b5de5] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Team</a> */}
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
             </motion.div>
           )}
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle Button */}
           {!isMini && (
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={(e) => {
+                e.stopPropagation(); // Don't trigger container click
+                setIsOpen(!isOpen);
+              }}
               className="md:hidden p-2 text-[#1a1a1a]"
               aria-label="Toggle Menu"
             >
@@ -121,22 +127,21 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
           )}
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Unified Mobile Menu Links (Vertical Expansion) */}
         <AnimatePresence>
           {isOpen && !isMini && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="md:hidden fixed top-[110px] left-0 w-full bg-[#f3ecd2] border-b-[6px] border-[#1a1a1a] z-40 p-6 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-[#1a1a1a]"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden w-full px-6 pb-8 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-[#1a1a1a]"
             >
-              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3]">Main</a>
-              <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028]">Timeline</a>
-              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f]">Themes</a>
-              <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3]">Prizes</a>
-              {/* <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f97028]">Sponsors</a> */}
-              {/* <a href="#team" onClick={handleLinkClick} className="hover:text-[#9b5de5]">Team</a> */}
-              <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8]">FAQ</a>
+              <div className="h-[2px] w-full bg-[#1a1a1a]/10 mb-2" />
+              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Main</a>
+              <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] active:text-[#f97028]">Timeline</a>
+              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] active:text-[#f3a20f]">Themes</a>
+              <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Prizes</a>
+              <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] active:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}
         </AnimatePresence>
