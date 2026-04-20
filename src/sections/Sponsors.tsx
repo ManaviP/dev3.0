@@ -1,8 +1,9 @@
 import React from 'react';
-import SponsorCard from '../components/SponsorCard';
+// import SponsorCard from '../components/SponsorCard';
 import { motion } from 'framer-motion';
 
 const Sponsors: React.FC = () => {
+/* 
   const platinumSponsors = [
       { name: "Webflow", logo: "/logos/logoo 1(main).png" }, // Mock data
       { name: "Finsweet", logo: "/logos/logoo 2.png" },
@@ -31,7 +32,9 @@ const Sponsors: React.FC = () => {
       { name: "Community F", logo: "/logos/logoo9(main).png" },
       { name: "Community G", logo: "/logos/logoo 1(main).png" },
   ];
+*/
 
+/*
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -48,8 +51,10 @@ const Sponsors: React.FC = () => {
       transition: { type: "spring" as const, stiffness: 100 }
     },
   };
+*/
 
   // Gradient Wavy Divider Component
+  /*
   const WavyLine = () => (
     <div className="w-full h-10 flex justify-center items-center overflow-hidden my-12">
       <svg width="100%" height="40" viewBox="0 0 1200 40" preserveAspectRatio="none" className="w-[150%] sm:w-full opacity-60">
@@ -70,6 +75,7 @@ const Sponsors: React.FC = () => {
       </svg>
     </div>
   );
+  */
 
   return (
     <section id="sponsors" className="py-24 px-6 sm:px-10 bg-[#f3ecd2] relative scroll-mt-20">
