@@ -118,12 +118,10 @@ function ThemeCard({ theme, onClick }: { theme: Theme; onClick: () => void }) {
     <motion.div
       variants={cardVariants}
       whileHover={{
-        y: -15,
-        rotate: '0deg',
-        scale: 1.05,
+        y: -10,
+        scale: 1.06,
         transition: { type: 'spring', stiffness: 400, damping: 25 },
       }}
-      style={{ rotate: theme.rotate }}
       className="relative group cursor-pointer w-full"
       onClick={onClick}
     >
@@ -143,11 +141,11 @@ function ThemeCard({ theme, onClick }: { theme: Theme; onClick: () => void }) {
         </div>
 
         {/* Central Graphic (Emoji) */}
-        <div className="absolute inset-0 flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-110">
+        <div className="absolute inset-0 flex items-center justify-center p-6 transition-transform duration-500 group-hover:scale-105">
           <span
-            className="text-[7rem] sm:text-[9rem] md:text-[10rem] drop-shadow-2xl"
+            className="text-[5rem] sm:text-[6rem] md:text-[7rem] drop-shadow-2xl"
             style={{
-              filter: `drop-shadow(0 20px 30px ${theme.color}40) drop-shadow(0 0 40px ${theme.color}20)`
+              filter: `drop-shadow(0 15px 25px ${theme.color}30) drop-shadow(0 0 30px ${theme.color}15)`
             }}
           >
             {theme.emoji}
@@ -305,7 +303,7 @@ export default function Themes() {
       <section
         ref={sectionRef}
         id="themes"
-        className="relative bg-[#f3ecd2] py-24 md:py-36 overflow-hidden"
+        className="relative bg-[#f3ecd2] py-12 md:py-20 overflow-hidden"
       >
         {/* Decorative background blobs */}
         <motion.div
@@ -324,11 +322,11 @@ export default function Themes() {
           <div className="w-full h-full bg-[#f489a3] rounded-full blur-3xl" />
         </motion.div>
 
-        <div className="relative z-10 max-w-[85rem] mx-auto px-4 md:px-8">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
           {/* Section heading */}
           <motion.div
             ref={headingRef}
-            className="text-center mb-16 md:mb-24"
+            className="text-center mb-12 md:mb-16"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
