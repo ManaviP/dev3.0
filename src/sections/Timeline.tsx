@@ -574,9 +574,10 @@ export default function Timeline() {
   });
 
   const [progressValue, setProgressValue] = useState(0);
+  const ANIMATION_END = 0.85;
 
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
-    let adjusted = latest / 0.85;
+    let adjusted = latest / ANIMATION_END;
     if (adjusted > 1) adjusted = 1;
     setProgressValue(adjusted);
     const idx = Math.max(0, Math.min(timelineData.length - 1, Math.round(adjusted * (timelineData.length - 1))));
@@ -593,25 +594,36 @@ export default function Timeline() {
 
   const translateX = useTransform(
     smoothProgress,
-    [0, 0.85],
-    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerWidth : 1200))]
+    [0, ANIMATION_END],
+    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerWidth : 1200))],
+    { clamp: true }
   );
 
   const mobileTranslateY = useTransform(
     smoothProgress,
-    [0, 0.85],
-    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerHeight : 800))]
+    [0, ANIMATION_END],
+    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerHeight : 800))],
+    { clamp: true }
   );
 
   const trainX = useTransform(
     smoothProgress,
-    [0, 0.85],
-    [stationPositions[0] - 32, stationPositions[stationPositions.length - 1] - 32]
+    [0, ANIMATION_END],
+    [stationPositions[0] - 32, stationPositions[stationPositions.length - 1] - 32],
+    { clamp: true }
+  );
+
+  // Sync progress bar path length to match train center exactly
+  const trackPathLength = useTransform(
+    smoothProgress,
+    [0, ANIMATION_END],
+    [stationPositions[0] / totalWidth, stationPositions[stationPositions.length - 1] / totalWidth],
+    { clamp: true }
   );
 
   const handleScrollTo = (index: number) => {
     if (!sectionRef.current) return;
-    const targetProgress = index / (timelineData.length - 1);
+    const targetProgress = (index / (timelineData.length - 1)) * ANIMATION_END;
     const sectionTop = sectionRef.current.offsetTop;
     const sectionHeight = sectionRef.current.offsetHeight;
     const distance = sectionHeight - window.innerHeight;
@@ -699,7 +711,7 @@ export default function Timeline() {
             >
               <Track
                 totalWidth={totalWidth}
-                progress={smoothProgress}
+                progress={trackPathLength}
                 stationPositions={stationPositions}
                 activeProgress={progressValue}
               />
