@@ -102,6 +102,42 @@ function TrainSVG({ color }: { color: string }) {
 }
 
 /* ─────────────────────────────────────
+   SVG SUBMARINE ICON (FOR MOBILE)
+   ───────────────────────────────────── */
+function SubmarineSVG({ color }: { color: string }) {
+  return (
+    <svg
+      width="64"
+      height="38"
+      viewBox="0 0 64 38"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Submarine Body (Oval/Capsule) */}
+      <rect x="8" y="10" width="48" height="22" rx="11" fill="#1a1a1a" />
+      
+      {/* Conning Tower */}
+      <rect x="26" y="5" width="12" height="7" rx="2" fill="#1a1a1a" />
+      {/* Periscope */}
+      <path d="M30 5 L30 2 L33 2" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Portholes */}
+      <circle cx="24" cy="21" r="3" fill="#f3ecd2" />
+      <circle cx="32" cy="21" r="3" fill="#f3ecd2" />
+      <circle cx="40" cy="21" r="3" fill="#f3ecd2" />
+
+      {/* Accent Stripe */}
+      <rect x="15" y="26" width="34" height="3" rx="1.5" fill={color} />
+
+      {/* Rear Propeller Handle/Base */}
+      <rect x="2" y="18" width="6" height="6" rx="1" fill="#1a1a1a" />
+      {/* Propeller Blades */}
+      <rect x="4" y="14" width="2" height="14" rx="1" fill="#1a1a1a" />
+    </svg>
+  );
+}
+
+/* ─────────────────────────────────────
    TRACK COMPONENT
    ───────────────────────────────────── */
 function Track({
@@ -772,46 +808,48 @@ export default function Timeline() {
                 zIndex: 40,
               }}
             >
-              {/* Smoke puff animation */}
+              {/* Puffs or Bubbles animation */}
               <motion.div
                 className="absolute"
-                style={{ left: 12, top: -22, zIndex: 50 }}
-                animate={{ opacity: [0.7, 0, 0.7], y: [-2, -12, -2], scale: [0.7, 1.3, 0.7] }}
+                style={{ left: isMobile ? 4 : 12, top: isMobile ? 12 : -22, zIndex: 50 }}
+                animate={{ opacity: [0.7, 0, 0.7], y: isMobile ? [0, 0, 0] : [-2, -12, -2], x: isMobile ? [-2, -15, -2] : [0, 0, 0], scale: [0.7, 1.3, 0.7] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
               >
                 <div
                   style={{
-                    width: 14,
-                    height: 14,
+                    width: isMobile ? 8 : 14,
+                    height: isMobile ? 8 : 14,
                     borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.18)',
-                    filter: 'blur(3px)',
+                    background: isMobile ? 'rgba(255,255,255,0.45)' : 'rgba(26,26,26,0.18)',
+                    border: isMobile ? '1px solid rgba(255,255,255,0.2)' : 'none',
+                    filter: isMobile ? 'none' : 'blur(3px)',
                   }}
                 />
               </motion.div>
               <motion.div
                 className="absolute"
-                style={{ left: 6, top: -34, zIndex: 50 }}
-                animate={{ opacity: [0.5, 0, 0.5], y: [-2, -16, -2], scale: [0.5, 1.1, 0.5] }}
+                style={{ left: isMobile ? 0 : 6, top: isMobile ? 18 : -34, zIndex: 50 }}
+                animate={{ opacity: [0.5, 0, 0.5], y: isMobile ? [0, 0, 0] : [-2, -16, -2], x: isMobile ? [-2, -20, -2] : [0, 0, 0], scale: [0.5, 1.1, 0.5] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
               >
                 <div
                   style={{
-                    width: 10,
-                    height: 10,
+                    width: isMobile ? 12 : 10,
+                    height: isMobile ? 12 : 10,
                     borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.12)',
-                    filter: 'blur(4px)',
+                    background: isMobile ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,26,0.12)',
+                    border: isMobile ? '1px solid rgba(255,255,255,0.15)' : 'none',
+                    filter: isMobile ? 'none' : 'blur(4px)',
                   }}
                 />
               </motion.div>
 
-              {/* Train body with bounce */}
+              {/* Vehicle body with bounce */}
               <motion.div
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <TrainSVG color={COLORS[activeIdx]} />
+                {isMobile ? <SubmarineSVG color={COLORS[activeIdx]} /> : <TrainSVG color={COLORS[activeIdx]} />}
               </motion.div>
 
               {/* Active station name label on train */}
