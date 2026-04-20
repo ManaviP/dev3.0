@@ -50,17 +50,18 @@ const Prizes: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, delay: 0.5 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
             className="inline-block mb-4"
           >
-             <div className="h-[2px] w-20 bg-[#f97028]" />
+             <div className="h-[2px] w-20 bg-[#f97028] mx-auto" />
           </motion.div>
           
           <motion.h2
-            initial={{ opacity: 0, y: 40, letterSpacing: "0.5em" }}
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
             whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-            className="text-4xl sm:text-6xl md:text-7xl font-display text-[#1a1a1a] drop-shadow-sm uppercase"
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="font-display text-[#1a1a1a] drop-shadow-sm uppercase"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
           >
             PRIZES
           </motion.h2>

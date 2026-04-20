@@ -289,7 +289,6 @@ export default function Themes() {
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
 
   const isInView = useInView(sectionRef, { once: true, margin: '-10% 0px' });
-  const headingInView = useInView(headingRef, { once: true, margin: '-5% 0px' });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -329,25 +328,31 @@ export default function Themes() {
           {/* Section heading */}
           <motion.div
             ref={headingRef}
-            initial={{ opacity: 0, y: 40 }}
-            animate={headingInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="text-center mb-16 md:mb-24"
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+              className="inline-block mb-4"
+            >
+              <div className="h-[2px] w-20 bg-[#f489a3] mx-auto" />
+            </motion.div>
 
-
-            <h2 className="font-display text-[#1a1a1a] tracking-tight"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}>
-
+            <motion.h2
+              initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+              whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="font-display text-[#1a1a1a] tracking-tight uppercase"
+              style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
+            >
               <span
                 className="rainbow-text"
                 style={{ WebkitTextStroke: '0px' }}
               >
                 Themes
               </span>
-            </h2>
-
-
+            </motion.h2>
           </motion.div>
 
           {/* Theme cards grid */}

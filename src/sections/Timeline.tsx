@@ -302,7 +302,7 @@ function StationCard({
                     originX: 0.5,
                     originY: 1,
                     top: '-105px', 
-                    left: '85px', 
+                    left: '110px', // Shift exactly half-width (220/2) to sit right of the track
                   }
                 : { overflow: 'visible', originX: 0.5, originY: 1 }
             }
@@ -537,9 +537,10 @@ export default function Timeline() {
 
   // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
   // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
-  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 210 : 220;
-  const STATION_GAP = isMobile ? 190 : 245;
-  const PADDING_SIDE = isMobile ? 80 : 160;
+  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 220 : 220;
+  const STATION_GAP = isMobile ? 280 : 245;
+  const PADDING_SIDE = isMobile ? 100 : 160;
+  const END_PADDING = isMobile ? 350 : 160;
   const TRACK_HEIGHT = 60;
 
   // Estimated card content height (used for centering the track)
@@ -552,13 +553,12 @@ export default function Timeline() {
   // But top cards consume CARD_EST_H ABOVE that, bottom cards CARD_EST_H BELOW.
   // So available per side = (trackAreaH - TRACK_HEIGHT) / 2
   // We nudge slightly upward to give bottom cards a tiny bit more room (nav overlap)
-  const trackTopPx = Math.max(
+  const trackTopPx = isMobile ? 140 : Math.max(
     CARD_EST_H + 16,
     (trackAreaH - TRACK_HEIGHT) / 2 - 10
   );
 
   const stationPositions = timelineData.map((_, i) => PADDING_SIDE + i * STATION_GAP);
-  const END_PADDING = isMobile ? Math.max(PADDING_SIDE, CARD_WIDTH / 2 + 80) : PADDING_SIDE;
   const totalWidth = PADDING_SIDE + (timelineData.length - 1) * STATION_GAP + END_PADDING;
 
   // VERTICAL SCROLL → HORIZONTAL TRANSFORM
@@ -602,7 +602,7 @@ export default function Timeline() {
   const mobileTranslateY = useTransform(
     smoothProgress,
     [0, ANIMATION_END],
-    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerHeight : 800))],
+    [0, -(totalWidth - (typeof window !== 'undefined' ? window.innerHeight : 800) + 120)], // Added buffer to keep last card centered
     { clamp: true }
   );
 
@@ -632,6 +632,9 @@ export default function Timeline() {
   const goToPrev = () => handleScrollTo(Math.max(0, activeIdx - 1));
   const goToNext = () => handleScrollTo(Math.min(timelineData.length - 1, activeIdx + 1));
 
+  // FAQ gap: adding margin-bottom to the sticky container parent so FAQ section doesn't overlap immediately
+  const SECTION_BOTTOM_GAP = isMobile ? '25vh' : '0vh';
+
   // trackTopPx is now a real pixel number computed from actual available height
   const VIEWPORT_CENTER_Y = `${trackTopPx}px`;
 
@@ -640,16 +643,28 @@ export default function Timeline() {
       ref={sectionRef}
       id="timeline"
       className="relative bg-[#f3ecd2] w-full"
-      style={{ height: '400vh' }}
+      style={{ height: '400vh', marginBottom: SECTION_BOTTOM_GAP }}
     >
       {/* ── STICKY VIEWPORT ── */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col">
+      <div className="sticky top-0 h-screen flex flex-col">
 
         {/* Section Header — title only, no subtitle */}
         <div className="text-center shrink-0 z-40 px-4 pt-2 pb-1 relative">
-          <h2
-            className="font-display tracking-tight flex justify-center items-center"
-            style={{ fontSize: 'clamp(1.8rem, 5vw, 4rem)', lineHeight: 0.9 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+            className="inline-block mb-4"
+          >
+            <div className="h-[2px] w-20 bg-[#f97028] mx-auto" />
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="font-display tracking-tight flex justify-center items-center uppercase"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 0.9 }}
           >
             {"TIMELINE".split('').map((char, i) => (
               <motion.span
@@ -670,7 +685,7 @@ export default function Timeline() {
                 {char}
               </motion.span>
             ))}
-          </h2>
+          </motion.h2>
         </div>
 
         {/* ── SCROLLABLE TRACK AREA ── */}
@@ -685,10 +700,10 @@ export default function Timeline() {
             style={
               isMobile
                 ? {
-                    left: '26px', // Visually center the track column on the left edge
+                    left: '80px', // Push track further right to center it better and avoid overlap with left edge
                     y: mobileTranslateY,
                     rotate: 90,
-                    transformOrigin: `0px ${trackTopPx}px`,
+                    transformOrigin: `0px ${trackTopPx + 20}px`,
                     width: totalWidth,
                     willChange: 'transform',
                   }
@@ -752,7 +767,7 @@ export default function Timeline() {
               style={{
                 x: trainX,
                 top: VIEWPORT_CENTER_Y,
-                marginTop: '-14px',       // center train on track
+                marginTop: '-10px',       // Align wheels (cy=30) with track circles (cy=20)
                 willChange: 'transform',
                 zIndex: 40,
               }}
@@ -866,17 +881,17 @@ export default function Timeline() {
 
           {/* ── FADE EDGES ── */}
           <div
-            className="absolute left-0 top-0 h-full w-24 pointer-events-none z-10"
+            className="hidden md:block absolute left-0 top-0 h-full w-24 pointer-events-none z-10"
             style={{ background: 'linear-gradient(to right, #f3ecd2, transparent)' }}
           />
           <div
-            className="absolute right-0 top-0 h-full w-24 pointer-events-none z-10"
+            className="hidden md:block absolute right-0 top-0 h-full w-24 pointer-events-none z-10"
             style={{ background: 'linear-gradient(to left, #f3ecd2, transparent)' }}
           />
         </div>
 
         {/* ── NAVIGATION ── */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-50 px-6">
+        <div className={`absolute left-0 right-0 flex justify-center items-center gap-4 z-50 px-6 ${isMobile ? 'bottom-4 scale-90' : 'bottom-8'}`}>
           <button
             onClick={goToPrev}
             disabled={activeIdx === 0}

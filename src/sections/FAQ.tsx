@@ -20,9 +20,28 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section id="faq" className="relative px-4 py-8 sm:px-6 lg:py-12 bg-[#f3ecd2]">
-      <div className="mx-auto max-w-4xl rounded-3xl border border-black/15 bg-white/60 p-6 shadow-card backdrop-blur-sm sm:p-8">
-        <h2 className="mb-7 text-center text-3xl font-black uppercase tracking-wider sm:text-5xl text-[#1a1a1a]">FAQ</h2>
+    <section id="faq" className="relative px-4 py-8 sm:px-6 lg:py-16 bg-[#f3ecd2]">
+      <div className="mx-auto max-w-4xl p-6 sm:p-8">
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+            className="inline-block mb-4"
+          >
+            <div className="h-[2px] w-20 bg-[#ff5ea8] mx-auto" />
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            className="font-display text-[#1a1a1a] drop-shadow-sm uppercase"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
+          >
+            FAQ
+          </motion.h2>
+        </div>
 
         <div className="space-y-3">
           {faqs.map((faq, idx) => {
