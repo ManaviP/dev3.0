@@ -216,7 +216,7 @@ export default function DevHackHeroCompact() {
   }, []);
 
   return (
-    <section id="hero" ref={sectionRef} className="relative h-[700vh] bg-cream text-white">
+    <section id="hero" ref={sectionRef} className="relative h-[200vh] md:h-[700vh] bg-cream text-white">
       <div className="sticky top-0 h-screen overflow-hidden">
         <div ref={baseLayerRef} className="absolute inset-0 bg-cream" />
 
