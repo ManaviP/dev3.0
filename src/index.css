@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Outfit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Outfit:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Wonderful Snowflake';
@@ -28,6 +28,7 @@
 
   --font-display: "Wonderful Snowflake", "Shrikhand", serif;
   --font-sans: "Outfit", sans-serif;
+  --font-groovy: "Fredoka", "Outfit", sans-serif;
 }
 
 @layer base {
@@ -125,6 +126,14 @@
 
   .glow-effect {
     filter: drop-shadow(0 0 10px rgba(243, 162, 15, 0.6));
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -428,4 +437,28 @@
   100% {
     background-size: 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%, 1ch 100%
   }
+}
+
+@keyframes spinY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.animate-spin-y {
+  animation: spinY 3s linear infinite;
+}
+
+.coin {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+  background: linear-gradient(135deg, #f3a20f, #f97028);
+  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.2), 2px 2px 0px #1a1a1a;
+  display: inline-block;
+  margin: 0 8px;
 }

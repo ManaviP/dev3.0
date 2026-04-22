@@ -5,7 +5,7 @@ import Hero from './sections/Hero'
 import Themes from './components/Themes'
 import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
-// import Team from './sections/Team'
+import Team from './sections/Team'
 import Prizes from './sections/Prizes'
 import Sponsors from './sections/Sponsors'
 import Footer from './sections/Footer'
@@ -105,6 +105,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Prizes</a>
               <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Sponsors</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
+              <a href="#team" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Team</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
             </motion.div>
           )}
@@ -143,6 +144,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Prizes</a>
               <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Sponsors</a>
               <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] active:text-[#f97028]">Timeline</a>
+              <a href="#team" onClick={handleLinkClick} className="hover:text-[#f3a20f] active:text-[#f3a20f]">Team</a>
               <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] active:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}
@@ -251,7 +253,7 @@ export default function App() {
           <Prizes />
           <Sponsors />
           <Timeline />
-          {/* <Team /> */}
+          <Team />
           <FAQ />
         </main>
         <Footer />
