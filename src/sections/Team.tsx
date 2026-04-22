@@ -79,14 +79,23 @@ const facultyOrganizers: TeamMember[] = [
 
 function CoinDivider() {
   return (
-    <div className="w-full py-16 flex items-center justify-center opacity-80 overflow-hidden relative">
+    <div className="w-full py-8 sm:py-12 md:py-16 flex items-center justify-center opacity-80 overflow-hidden relative">
       <div className="absolute w-full h-[2px] bg-[#1a1a1a]" />
-      <div className="flex z-10 bg-[#f3ecd2] px-6">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="coin animate-spin-y mx-2" style={{ animationDelay: `${i * 0.15}s` }} />
+      <div className="flex z-10 bg-[#f3ecd2] px-4 sm:px-6">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="coin animate-spin-y mx-1.5 sm:mx-2" style={{ animationDelay: `${i * 0.15}s` }} />
         ))}
       </div>
     </div>
+  );
+}
+
+/** Reusable section sub-heading */
+function SectionSubHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className="text-2xl sm:text-3xl lg:text-5xl font-black uppercase tracking-widest mb-6 sm:mb-8 md:mb-12 text-center w-full">
+      {children}
+    </h3>
   );
 }
 
@@ -100,7 +109,7 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8, scale: 1.02 }}
-      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all cursor-pointer flex flex-col h-full overflow-hidden w-full max-w-[280px] sm:max-w-[300px] shrink-0"
+      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all cursor-pointer flex flex-col h-full overflow-hidden w-full shrink-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onClickBio(member)}
@@ -126,7 +135,7 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
       ))}
 
       {/* Image Box */}
-      <div className="relative w-full aspect-square border-b-2 border-[#1a1a1a] overflow-hidden bg-[#1a1a1a] p-2">
+      <div className="relative w-full aspect-square border-b-2 border-[#1a1a1a] overflow-hidden bg-[#1a1a1a] p-1.5 sm:p-2">
         {/* Scanline overlay */}
         <div
           className="absolute inset-0 pointer-events-none z-10 opacity-10"
@@ -140,19 +149,19 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
       </div>
 
       {/* Details Box */}
-      <div className="p-5 flex flex-col flex-1 z-10 bg-[#fff9f4]">
+      <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1 z-10 bg-[#fff9f4]">
         <h3
-          className="text-xl md:text-2xl font-black tracking-tight uppercase leading-none transition-colors duration-300 font-sans"
+          className="text-base sm:text-lg md:text-xl font-black tracking-tight uppercase leading-tight transition-colors duration-300 font-sans"
           style={{ color: isHovered ? '#f97028' : '#1a1a1a' }}
         >
           {member.name}
         </h3>
-        <p className="font-mono text-sm uppercase mt-2 opacity-70 font-bold">{member.role}</p>
+        <p className="font-mono text-[11px] sm:text-xs md:text-sm uppercase mt-1.5 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
 
-        <div className="mt-4 pt-4 border-t-2 border-[#1a1a1a] border-dashed">
+        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed">
           <button
             onClick={() => onClickBio(member)}
-            className="text-sm font-bold uppercase tracking-widest hover:text-[#f97028] transition-colors flex items-center gap-2"
+            className="text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-widest hover:text-[#f97028] transition-colors flex items-center gap-1.5 sm:gap-2"
           >
             <span className="text-[#f97028]">+</span> SHOW BIO
           </button>
@@ -162,9 +171,34 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
   );
 }
 
+/** Responsive grid wrapper for team cards */
+function TeamGrid({ members, onClickBio }: { members: TeamMember[]; onClickBio: (m: TeamMember) => void }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+      {members.map((member) => (
+        <TeamCard key={member.id} member={member} onClickBio={onClickBio} />
+      ))}
+    </div>
+  );
+}
+
+/** Small grid for 1-3 items — centers them */
+function TeamGridSmall({ members, onClickBio }: { members: TeamMember[]; onClickBio: (m: TeamMember) => void }) {
+  return (
+    <div className="flex flex-wrap justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+      {members.map((member) => (
+        <div key={member.id} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[240px] lg:w-[280px]">
+          <TeamCard member={member} onClickBio={onClickBio} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Team() {
   const [selectedBio, setSelectedBio] = useState<TeamMember | null>(null);
   const [activeTab, setActiveTab] = useState('Organising Team');
+  const [showOperators, setShowOperators] = useState(false);
 
   const TABS = ['Organising Team', 'The Board', 'Faculty', 'Jury & Experts'];
 
@@ -175,61 +209,59 @@ export default function Team() {
   }
 
   return (
-    <section id="team" className="relative w-full bg-[#f3ecd2] py-24 px-4 md:px-8 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
-      <div className="w-[95%] max-w-[1400px] mx-auto border-4 border-[#1a1a1a] bg-[#f3ecd2] p-8 md:p-16 shadow-[16px_16px_0px_#1a1a1a] relative">
+    <section id="team" className="relative w-full bg-[#f3ecd2] py-12 sm:py-16 md:py-24 px-5 sm:px-6 md:px-10 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
+      <div className="w-full sm:w-[92%] max-w-[1400px] mx-auto border-[3px] sm:border-4 border-[#1a1a1a] bg-[#f3ecd2] p-4 sm:p-6 md:p-10 lg:p-16 shadow-[6px_6px_0px_#1a1a1a] sm:shadow-[10px_10px_0px_#1a1a1a] md:shadow-[16px_16px_0px_#1a1a1a] relative">
 
-        {/* Header block condtionally rendered */}
+        {/* Header block conditionally rendered */}
         <AnimatePresence>
           {activeTab === 'Organising Team' && (
             <motion.div
               initial={{ opacity: 0, height: 0, marginBottom: 0, paddingBottom: 0 }}
-              animate={{ opacity: 1, height: 'auto', marginBottom: 64, paddingBottom: 40 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 40, paddingBottom: 24 }}
               exit={{ opacity: 0, height: 0, marginBottom: 0, paddingBottom: 0 }}
-              className="flex flex-col justify-center items-center gap-8 border-b-4 border-[#1a1a1a] relative overflow-hidden text-center"
+              className="flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b-4 border-[#1a1a1a] relative text-center"
             >
               <div className="w-full">
-                <h2 className="text-6xl md:text-8xl font-display uppercase tracking-widest text-[#1a1a1a] leading-none mb-6 flex justify-center items-center w-full overflow-hidden">
-                  <motion.span
-                    initial={{ x: -300, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: false, margin: "-100px" }}
-                    transition={{ type: 'spring', damping: 25, stiffness: 120 }}
-                    className="mr-4 lg:mr-6"
-                  >
-                    Meet The
-                  </motion.span>
-                  <motion.span
-                    initial={{ x: 300, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: false, margin: "-100px" }}
-                    transition={{ type: 'spring', damping: 25, stiffness: 120 }}
-                    className="text-[#f97028]"
-                  >
-                    Team
-                  </motion.span>
-                </h2>
-                <p className="text-2xl md:text-3xl font-medium tracking-tight mt-6 leading-relaxed max-w-3xl mx-auto">
+                <motion.h2
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ type: 'spring', damping: 25, stiffness: 120, delay: 0.15 }}
+                  className="font-display uppercase tracking-wider sm:tracking-widest text-[#1a1a1a] leading-none mb-3 sm:mb-6 flex flex-col sm:flex-row justify-center items-center w-full"
+                  style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}
+                >
+                  <span className="sm:mr-4 lg:mr-6">Meet The</span>
+                  <span className="text-[#f97028]">Team</span>
+                </motion.h2>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-base sm:text-lg md:text-2xl lg:text-3xl font-medium tracking-tight mt-2 sm:mt-4 md:mt-6 leading-relaxed max-w-3xl mx-auto px-2"
+                >
                   We back the dreamers, the builders, and the rebels. The architectural minds behind DevHack 3.0.
-                </p>
+                </motion.p>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 border-b-4 border-[#1a1a1a] pb-8">
-          {TABS.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-8 py-4 font-bold font-mono uppercase tracking-widest border-[3px] border-[#1a1a1a] transition-all text-base md:text-lg ${activeTab === tab
-                ? 'bg-[#1a1a1a] text-white shadow-[8px_8px_0px_#f97028] translate-x-[-2px] translate-y-[-2px]'
-                : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
-                }`}
-            >
-              {tab}
-            </button>
-          ))}
+        {/* Tab Navigation — scrollable on mobile */}
+        <div className="mb-6 sm:mb-8 md:mb-12 border-b-[3px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6 md:pb-8">
+          <div className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 justify-start sm:justify-center no-scrollbar -mx-1 px-1">
+            {TABS.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 font-bold font-mono uppercase tracking-wider sm:tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-xs sm:text-sm md:text-base whitespace-nowrap shrink-0 ${activeTab === tab
+                  ? 'bg-[#1a1a1a] shadow-[4px_4px_0px_#f97028] sm:shadow-[8px_8px_0px_#f97028] translate-x-[-2px] translate-y-[-2px]'
+                  : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[3px_3px_0px_#1a1a1a] sm:shadow-[4px_4px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
+                  }`}
+                style={activeTab === tab ? { color: '#f3ecd2' } : undefined}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Tab Content */}
@@ -240,42 +272,65 @@ export default function Team() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="min-h-[40vh]"
+            className="min-h-[30vh] sm:min-h-[40vh]"
           >
             {activeTab === 'Organising Team' && (
               <div className="flex flex-col">
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Core Team</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-                    {coreTeam.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
+                  <SectionSubHeading>Core Team</SectionSubHeading>
+                  <TeamGridSmall members={coreTeam} onClickBio={setSelectedBio} />
                 </div>
 
-                <div className="my-16">
-                  <CoinDivider />
-                </div>
+                <CoinDivider />
 
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Sub Heads</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-                    {subHeads.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
-                </div>
+                  <SectionSubHeading>Sub Heads</SectionSubHeading>
+                  <TeamGrid members={subHeads} onClickBio={setSelectedBio} />
 
-                <div className="my-16">
-                  <CoinDivider />
-                </div>
+                  {/* Dropdown toggle for Operating Partners */}
+                  <div className="mt-8 sm:mt-10">
+                    <button
+                      onClick={() => setShowOperators((v) => !v)}
+                      className="mx-auto flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border-[2px] sm:border-[3px] border-[#1a1a1a] bg-[#fff9f4] font-bold font-mono uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm md:text-base shadow-[4px_4px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a] transition-all active:translate-y-[2px] active:shadow-[2px_2px_0px_#1a1a1a]"
+                    >
+                      <span>Team Members</span>
+                      <motion.svg
+                        animate={{ rotate: showOperators ? 180 : 0 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
+                      </motion.svg>
+                    </button>
 
-                <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Operating Partners</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-                    {theOperators.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
+                    <AnimatePresence initial={false}>
+                      {showOperators && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{
+                            height: { type: 'spring', stiffness: 250, damping: 30 },
+                            opacity: { duration: 0.25, delay: 0.05 },
+                          }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-8 sm:pt-10">
+                            <h4 className="text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-widest mb-6 sm:mb-8 text-center w-full opacity-70">
+                              Operating Partners
+                            </h4>
+                            <TeamGrid members={theOperators} onClickBio={setSelectedBio} />
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
               </div>
@@ -284,25 +339,15 @@ export default function Team() {
             {activeTab === 'The Board' && (
               <div className="flex flex-col">
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Chief Patrons</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-                    {chiefPatrons.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
+                  <SectionSubHeading>Chief Patrons</SectionSubHeading>
+                  <TeamGridSmall members={chiefPatrons} onClickBio={setSelectedBio} />
                 </div>
 
-                <div className="my-16">
-                  <CoinDivider />
-                </div>
+                <CoinDivider />
 
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Patrons</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-                    {patrons.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
+                  <SectionSubHeading>Patrons</SectionSubHeading>
+                  <TeamGrid members={patrons} onClickBio={setSelectedBio} />
                 </div>
               </div>
             )}
@@ -310,44 +355,30 @@ export default function Team() {
             {activeTab === 'Faculty' && (
               <div className="flex flex-col">
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-10 text-center w-full">Faculty Coordinator</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-                    {facultyCoordinator.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
+                  <SectionSubHeading>Faculty Coordinator</SectionSubHeading>
+                  <TeamGridSmall members={facultyCoordinator} onClickBio={setSelectedBio} />
                 </div>
 
-                <div className="my-16">
-                  <CoinDivider />
-                </div>
+                <CoinDivider />
 
                 <div className="mb-4">
-                  <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Organising Team Members</h3>
-                  <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-                    {facultyOrganizers.map((member) => (
-                      <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                    ))}
-                  </div>
+                  <SectionSubHeading>Organising Team Members</SectionSubHeading>
+                  <TeamGrid members={facultyOrganizers} onClickBio={setSelectedBio} />
                 </div>
               </div>
             )}
 
             {activeTab === 'Jury & Experts' && (
               <div className="mb-4">
-                <h3 className="text-4xl lg:text-5xl font-black uppercase tracking-widest mb-12 text-center w-full">Jury & Experts</h3>
-                <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-                  {judges.map((member) => (
-                    <TeamCard key={member.id} member={member} onClickBio={setSelectedBio} />
-                  ))}
-                </div>
+                <SectionSubHeading>Jury & Experts</SectionSubHeading>
+                <TeamGridSmall members={judges} onClickBio={setSelectedBio} />
               </div>
             )}
           </motion.div>
         </AnimatePresence>
 
         {/* Decorative Divider */}
-        <div className="mt-16">
+        <div className="mt-8 sm:mt-12 md:mt-16">
           <CoinDivider />
         </div>
 
@@ -360,7 +391,7 @@ export default function Team() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.8)] backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.8)] backdrop-blur-sm p-3 sm:p-4"
             onClick={() => setSelectedBio(null)}
           >
             <motion.div
@@ -369,35 +400,35 @@ export default function Team() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="bg-[#f3ecd2] border-[3px] border-[#1a1a1a] shadow-[16px_16px_0px_#1a1a1a] w-full max-w-lg p-8 relative overflow-hidden"
+              className="bg-[#f3ecd2] border-[3px] border-[#1a1a1a] shadow-[8px_8px_0px_#1a1a1a] sm:shadow-[16px_16px_0px_#1a1a1a] w-full max-w-lg p-5 sm:p-6 md:p-8 relative overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 w-10 h-10 border-2 border-[#1a1a1a] flex items-center justify-center font-bold font-mono hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 border-2 border-[#1a1a1a] flex items-center justify-center font-bold font-mono hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-sm sm:text-base"
                 onClick={() => setSelectedBio(null)}
               >
                 X
               </button>
 
-              <h2 className="text-4xl font-display uppercase tracking-widest text-[#f97028] mt-4 mb-2 pr-12 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider sm:tracking-widest text-[#f97028] mt-2 sm:mt-4 mb-1.5 sm:mb-2 pr-10 sm:pr-12 leading-tight">
                 {selectedBio.name}
               </h2>
-              <p className="font-mono text-lg font-bold mb-6 opacity-70 uppercase">
+              <p className="font-mono text-sm sm:text-base md:text-lg font-bold mb-4 sm:mb-6 opacity-70 uppercase">
                 {selectedBio.role}
               </p>
 
-              <div className="w-full h-[2px] bg-[#1a1a1a] mb-6 opacity-20" />
+              <div className="w-full h-[2px] bg-[#1a1a1a] mb-4 sm:mb-6 opacity-20" />
 
-              <p className="text-lg leading-relaxed mb-10 font-medium">
+              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 md:mb-10 font-medium">
                 {selectedBio.bio || "No bio available right now. Currently busy building the future."}
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3 sm:gap-4">
                 <a
                   href={selectedBio.twitter || '#'}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors"
+                  className="flex-1 py-2.5 sm:py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-wider sm:tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-xs sm:text-sm md:text-base"
                 >
                   Twitter/X
                 </a>
@@ -405,7 +436,7 @@ export default function Team() {
                   href={selectedBio.linkedin || '#'}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex-1 py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors"
+                  className="flex-1 py-2.5 sm:py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-wider sm:tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-xs sm:text-sm md:text-base"
                 >
                   LinkedIn
                 </a>

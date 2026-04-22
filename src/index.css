@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Outfit:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Outfit:wght@400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'Wonderful Snowflake';
@@ -28,6 +28,7 @@
 
   --font-display: "Wonderful Snowflake", "Shrikhand", serif;
   --font-sans: "Outfit", sans-serif;
+  --font-groovy: "Fredoka", "Outfit", sans-serif;
 }
 
 @layer base {
@@ -125,6 +126,14 @@
 
   .glow-effect {
     filter: drop-shadow(0 0 10px rgba(243, 162, 15, 0.6));
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
