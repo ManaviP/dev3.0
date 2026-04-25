@@ -2,13 +2,14 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { FaDiscord, FaMapMarkerAlt } from 'react-icons/fa';
 
-function getWaveY(x: number, W: number, H: number, t: number) {
+function getWaveY(x: number, W: number, H: number, t: number, isMobile: boolean) {
   const p = x / W;
+  const damp = isMobile ? 0.3 : 1.0;
   return (
     H * 0.58 +
-    Math.sin(p * Math.PI * 3 - t * 1.1) * 20 +
-    Math.sin(p * Math.PI * 6 + t * 0.75) * 10 +
-    Math.sin(p * Math.PI * 11 - t * 1.8) * 5
+    Math.sin(p * Math.PI * 3 - t * 1.1) * (20 * damp) +
+    Math.sin(p * Math.PI * 6 + t * 0.75) * (10 * damp) +
+    Math.sin(p * Math.PI * 11 - t * 1.8) * (5 * damp)
   );
 }
 
@@ -28,6 +29,7 @@ function AnimatedWaveEdge() {
 
     const draw = () => {
       const W = wrap.offsetWidth;
+      const isMobile = window.innerWidth < 768;
       canvas.width = W * window.devicePixelRatio;
       canvas.height = H * window.devicePixelRatio;
       canvas.style.width = W + 'px';
@@ -40,7 +42,7 @@ function AnimatedWaveEdge() {
       ctx.beginPath();
       ctx.moveTo(0, H);
       for (let x = 0; x <= W; x += 2) {
-        ctx.lineTo(x, getWaveY(x, W, H, t));
+        ctx.lineTo(x, getWaveY(x, W, H, t, isMobile));
       }
       ctx.lineTo(W, H);
       ctx.closePath();
@@ -49,7 +51,7 @@ function AnimatedWaveEdge() {
 
       ctx.beginPath();
       for (let x = 0; x <= W; x += 2) {
-        const y = getWaveY(x, W, H, t);
+        const y = getWaveY(x, W, H, t, isMobile);
         x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.strokeStyle = 'rgba(212,160,40,0.95)';
@@ -59,7 +61,7 @@ function AnimatedWaveEdge() {
       ctx.stroke();
       ctx.shadowBlur = 0;
 
-      tRef.current += 0.016;
+      tRef.current += isMobile ? 0.010 : 0.016;
       rafRef.current = requestAnimationFrame(draw);
     };
 
@@ -86,33 +88,47 @@ function AnimatedWaveEdge() {
 }
 
 function MarqueeBand() {
-  const chunk =
-    'DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ DEVHACK 3.0 ◈ ';
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <div
-      className="relative z-30 overflow-hidden border-t border-b py-6 sm:py-8"
+      className="relative z-30 overflow-hidden border-t border-b py-2 sm:py-4"
       style={{ borderColor: '#d4a02040' }}
     >
-      <motion.div
-        className="flex whitespace-nowrap"
-        animate={{ x: ['0%', '-50%'] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
-      >
-        {[0, 1].map((i) => (
-          <span
-            key={i}
-            className="pr-10 font-black uppercase text-black"
-            style={{
-              fontSize: 'clamp(1.4rem,3vw,2.4rem)', // 🔥 bigger text
-              letterSpacing: '0.25em',
-            }}
+      <div className="flex whitespace-nowrap">
+        {isMobile ? (
+          <div className="w-full flex justify-center py-2">
+            <span
+              className="font-black uppercase text-black"
+              style={{
+                fontSize: 'clamp(1.2rem, 4vw, 2.2rem)',
+                letterSpacing: '0.15em',
+              }}
+            >
+              DEVHACK 3.0
+            </span>
+          </div>
+        ) : (
+          <motion.div
+            className="flex"
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
           >
-            {chunk}
-            {chunk}
-          </span>
-        ))}
-      </motion.div>
+            {[...Array(12)].map((_, i) => (
+              <span
+                key={i}
+                className="px-16 font-black uppercase text-black flex items-center"
+                style={{
+                  fontSize: 'clamp(2rem, 5vw, 4rem)',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                DEVHACK 3.0
+              </span>
+            ))}
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
@@ -164,7 +180,7 @@ export default function Footer() {
           <div className="grid gap-6 pb-6 sm:gap-12 sm:pb-14 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
-                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a]">
+                <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a] hidden lg:block">
                   DevHack 3.0
                 </div>
               </div>
@@ -179,24 +195,39 @@ export default function Footer() {
                   dsudevhack@dsu.edu.in
                 </a>
                 <div className="mt-3 text-xs text-[#1a1a1a]">
-  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#333]">
-    Student Coordinators
-  </h4>
-
-  <p className="font-semibold">
-    Trisha <span className="font-normal">- 9142332379</span>
-  </p>
-
-  <p className="font-semibold">
-    Shreenidhi S<span className="font-normal">- 8317463317</span>
-  </p>
-</div>
+                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#333]">
+                    Student Coordinators
+                  </h4>
+                  <p className="font-semibold">
+                    Trisha <span className="font-normal">- 9142332379</span>
+                  </p>
+                  <p className="font-semibold">
+                    Shreenidhi S<span className="font-normal">- 8317463317</span>
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-col items-center gap-6 text-center">
-              <div className="flex gap-3 justify-center flex-wrap">
-                {links.map(({ href, label, icon }) => (
+            <div className="flex flex-col items-center justify-center gap-4">
+              <h4 className="md:hidden text-[10px] font-bold uppercase tracking-[0.2em] text-[#333]/60">
+                Venue Location
+              </h4>
+              {/* Desktop Map Only */}
+              <div className="hidden md:block w-full h-[180px] rounded-2xl overflow-hidden border-2 border-black/10 shadow-lg bg-white/10 backdrop-blur-sm p-1">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3893.447477618471!2d77.44826500000001!3d12.660669199999998!2m3!1f0!2f0!3f0!3m2!i1024!2i768!4f13.1!3m3!1m2!1s0x3bae5b32ad06ec57%3A0x95e7a57b8a6b94d2!2sDayananda+Sagar+University+(DSU)+-+Main+Campus!5e0!3m2!1sen!2sin!4v1713881234567!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  className="grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+
+              {/* Mobile Location Button Only */}
+              <div className="md:hidden flex gap-3 justify-center flex-wrap">
+                {links.filter(l => l.label === 'Location').map(({ href, label, icon }) => (
                   <motion.a
                     key={label}
                     href={href}
@@ -204,7 +235,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.06, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full border border-black/20 text-[#1a1a1a]"
+                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-full border border-black/20 text-[#1a1a1a]"
                   >
                     {icon}
                     {label}
@@ -232,6 +263,27 @@ export default function Footer() {
                   >
                     {line}
                   </a>
+                ))}
+              </div>
+
+              {/* Discord Button Always Visible */}
+              <div className="mt-2 text-center md:text-right">
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#333]/60 mb-2">
+                  Join Us
+                </h4>
+                {links.filter(l => l.label === 'Discord').map(({ href, label, icon }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-full bg-[#1a1a1a] text-white shadow-md hover:bg-black transition-colors"
+                  >
+                    {icon}
+                    {label}
+                  </motion.a>
                 ))}
               </div>
             </div>

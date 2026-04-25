@@ -11,82 +11,68 @@ import {
 
 export type Theme = {
   id: number;
-  emoji: string;
+  icon: string;
   color: string;
   bg: string;
   title: string;
   desc: string;
   tags: string[];
-  rotate: string;
-  year: string;
 };
 
 const themes: Theme[] = [
   {
     id: 1,
-    emoji: '🤖',
-    color: '#f97028', // Orange
-    bg: '#fffdf9', // Very light cream
-    title: 'AI ML',
+    icon: '/assets/ml.png',
+    color: '#f97028',
+    bg: '#ffffff',
+    title: 'AI / ML',
     desc: 'Build intelligent systems, chatbots, predictive models, and generative AI tools that think, learn, and adapt.',
     tags: ['LLMs', 'Computer Vision', 'NLP', 'Deep Learning'],
-    rotate: '-3deg',
-    year: '2026',
   },
   {
     id: 2,
-    emoji: '🧠',
-    color: '#f489a3', // Pink
-    bg: '#fffdf9',
+    icon: '/assets/ag.png',
+    color: '#00cccb',
+    bg: '#ffffff',
     title: 'Agentic AI',
     desc: 'Develop autonomous agents that can plan, reason, and execute complex workflows without human intervention.',
     tags: ['Autonomous Agents', 'Reasoning', 'Workflows', 'Multi-Agent'],
-    rotate: '2deg',
-    year: '2026',
   },
   {
     id: 3,
-    emoji: '📡',
-    color: '#f3a20f', // Yellow/Gold
-    bg: '#fffdf9',
-    title: 'IOT & Smart Cities',
-    desc: 'Bridge physical and digital worlds with embedded systems, sensor networks, edge intelligence, and urban tech.',
-    tags: ['Embedded', 'Edge AI', 'Sensors', 'Urban Tech'],
-    rotate: '-2deg',
-    year: '2026',
+    icon: '/assets/i.png',
+    color: '#f3a20f',
+    bg: '#ffffff',
+    title: 'IOT & Sustainability',
+    desc: 'Bridge physical and digital worlds with embedded systems, sensor networks, edge intelligence, and sustainable tech solutions.',
+    tags: ['Embedded', 'Edge AI', 'Sensors', 'GreenTech'],
   },
   {
     id: 4,
-    emoji: '⚕️',
-    color: '#4ade80', // Green
-    bg: '#fffdf9',
+    icon: '/assets/h.png',
+    color: '#10b981',
+    bg: '#ffffff',
     title: 'Healthcare',
     desc: 'Revolutionise patient care and medical research with modern health-tech, accessibility tools, and data analysis.',
     tags: ['HealthAI', 'Telemed', 'Accessibility', 'Bioinformatics'],
-    rotate: '3deg',
-    year: '2026',
   },
   {
     id: 5,
-    emoji: '🌐',
-    color: '#22d3ee', // Cyan
-    bg: '#fffdf9',
-    title: 'Web3 / Sustain',
-    desc: 'Decentralise the future and protect the planet — DeFi protocols, DAOs, green-tech, and sustainable innovation.',
-    tags: ['Smart Contracts', 'DeFi', 'GreenTech', 'NFTs'],
-    rotate: '-1deg',
-    year: '2026',
+    icon: '/assets/b.png',
+    color: '#8b5cf6',
+    bg: '#ffffff',
+    title: 'Blockchain & Fintech',
+    desc: 'Build the future of finance and trust — decentralised protocols, smart contracts, digital payments, and financial innovation.',
+    tags: ['Smart Contracts', 'DeFi', 'Fintech', 'Crypto'],
   },
   {
     id: 6,
-    emoji: '💡',
-    color: '#a855f7', // Purple
-    bg: '#fffdf9',
+    icon: '/assets/open-innovation.png',
+    color: '#ec4899',
+    bg: '#ffffff',
     title: 'Open Innovation',
-    desc: 'No boundaries. Build whatever crazy, groundbreaking idea you have that doesn’t fit into a box.',
+    desc: 'No boundaries. Build whatever crazy, groundbreaking idea you have that doesn\'t fit into a box.',
     tags: ['Moonshots', 'Creative', 'Anything Goes', 'Wildcard'],
-    rotate: '2deg',
-    year: '2026',
   },
 ];
 
@@ -94,202 +80,185 @@ const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.12,
     },
   },
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 50, scale: 0.92 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
       type: 'spring',
-      stiffness: 90,
-      damping: 15,
+      stiffness: 80,
+      damping: 16,
     },
   },
 };
 
-function ThemeCard({ theme, onClick }: { theme: Theme; onClick: () => void }) {
+/** Returns true when viewport is below the given px width */
+function useIsMobile(breakpoint = 1024) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, [breakpoint]);
+  return isMobile;
+}
+
+function ThemeCard({ theme, isMobile }: { theme: Theme; isMobile: boolean }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // On desktop: hover controls reveal; on mobile: tap toggles
+  const showContent = isMobile ? isOpen : isOpen;
+
   return (
     <motion.div
       variants={cardVariants}
-      whileHover={{
-        y: -10,
-        scale: 1.06,
-        transition: { type: 'spring', stiffness: 400, damping: 25 },
-      }}
-      className="relative group cursor-pointer w-full"
-      onClick={onClick}
+      onHoverStart={() => { if (!isMobile) setIsOpen(true); }}
+      onHoverEnd={() => { if (!isMobile) setIsOpen(false); }}
+      onClick={() => { if (isMobile) setIsOpen((v) => !v); }}
+      className="relative w-full cursor-pointer h-full"
     >
-      {/* Outer wrapper provides the thick colorful border */}
-      <div
-        className="relative overflow-hidden rounded-[2.5rem] shadow-[8px_8px_0_#1a1a1a] group-hover:shadow-[14px_14px_0_#1a1a1a] transition-all duration-300 w-full"
+      <motion.div
+        animate={{
+          y: showContent ? -6 : 0,
+          boxShadow: showContent
+            ? '12px 12px 0px 0px #1a1a1a'
+            : '8px 8px 0px 0px #1a1a1a',
+        }}
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        className="relative overflow-hidden rounded-[2.5rem] w-full bg-white h-auto"
         style={{
-          backgroundColor: theme.bg,
-          border: `6px solid ${theme.color}`,
-          aspectRatio: '1 / 1.1',
+          border: `4.5px solid #f97028`,
         }}
       >
-        {/* Top-left subtle branding / corner decoration if desired */}
-        <div className="absolute top-6 left-6 flex items-center gap-2 opacity-50 z-10 transition-opacity group-hover:opacity-100">
-          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: theme.color }} />
-          <span className="text-xs font-bold font-sans tracking-widest text-[#1a1a1a] uppercase">Theme {theme.id < 10 ? `0${theme.id}` : theme.id}</span>
-        </div>
-
-        {/* Central Graphic (Emoji) */}
-        <div className="absolute inset-0 flex items-center justify-center p-6 transition-transform duration-500 group-hover:scale-105">
-          <span
-            className="text-[4rem] sm:text-[6rem] md:text-[7rem] drop-shadow-2xl"
+        <div className="flex flex-col h-full min-h-[160px] sm:min-h-[190px]">
+          {/* Header Tab (Title only) */}
+          <div
+            className="self-start px-5 py-3 pr-10 min-w-[65%] relative flex items-center justify-between"
             style={{
-              filter: `drop-shadow(0 15px 25px ${theme.color}30) drop-shadow(0 0 30px ${theme.color}15)`
+              backgroundColor: '#f0f7ff',
+              borderBottom: '4.5px solid #f97028',
+              borderRight: '4.5px solid #f97028',
+              borderBottomRightRadius: '2.5rem',
+              borderTopLeftRadius: '2rem', // Match outer corner
+              marginLeft: '-1px',
+              marginTop: '-1px',
             }}
           >
-            {theme.emoji}
-          </span>
-        </div>
-
-        {/* The bottom-right Cutout/Tab mimicking Lando Norris helmet view */}
-        <div
-          className="absolute bottom-0 right-0 flex items-center pr-4 md:pr-6 pl-6 md:pl-8 py-2 md:py-3 rounded-tl-[1.5rem] md:rounded-tl-[2rem]"
-          style={{
-            backgroundColor: theme.bg,
-            borderTop: `6px solid ${theme.color}`,
-            borderLeft: `6px solid ${theme.color}`,
-            // We use margin to pull it into the corner perfectly against the parent's border overflow
-            marginRight: '-2px',
-            marginBottom: '-2px',
-          }}
-        >
-          <span className="font-display text-[#1a1a1a] text-base md:text-xl tracking-wide whitespace-nowrap">
-            {theme.title} <span style={{ color: theme.color }} className="ml-2 font-sans font-black text-sm md:text-base">{theme.year}</span>
-          </span>
-        </div>
-
-        {/* Hover overlay hint */}
-        <div className="absolute inset-x-0 top-1/2 -mt-4 opacity-0 group-hover:opacity-100 flex justify-center transition-opacity duration-300 z-20 pointer-events-none">
-          <span className="bg-[#1a1a1a] text-[#f3ecd2] px-4 py-2 rounded-full font-bold text-sm tracking-widest uppercase shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all">
-            Click to View
-          </span>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ── Shared Modal component ──
-function ThemeModal({ theme, onClose }: { theme: Theme; onClose: () => void }) {
-  // Prevent scrolling when modal is open
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
-  return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-auto">
-      {/* Backdrop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute inset-0 bg-black/40 backdrop-blur-md cursor-pointer"
-        onClick={onClose}
-      />
-
-      {/* Modal Content Wrapper */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20, transition: { duration: 0.2 } }}
-        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-        className="relative w-full max-w-4xl max-h-[85vh] md:max-h-none bg-[#f3ecd2] rounded-[2rem] border-[4px] md:border-[6px] border-[#1a1a1a] shadow-[8px_8px_0_#1a1a1a] md:shadow-[16px_16px_0_rgba(26,26,26,0.5)] overflow-hidden flex flex-col md:flex-row z-10"
-      >
-        {/* Sticky Header for Close Button on Mobile */}
-        <div className="absolute top-0 right-0 p-4 z-50 md:sticky">
-          <button
-            onClick={onClose}
-            className="w-10 h-10 md:w-12 md:h-12 bg-[#1a1a1a] hover:bg-red-500 text-white rounded-full flex items-center justify-center transition-colors duration-200 shadow-lg border-2 border-transparent"
-          >
-            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Scrollable Content Container */}
-        <div className="flex-1 flex flex-col md:flex-row w-full overflow-y-auto md:overflow-visible min-h-0">
-          {/* Left Side (Visuals) */}
-          <div
-            className="w-full md:w-2/5 p-8 flex flex-col items-center justify-center relative min-h-[220px] md:min-h-[400px] shrink-0"
-            style={{ backgroundColor: `${theme.color}20` }}
-          >
-            <motion.div
-              initial={{ scale: 0.5, rotate: -10 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', delay: 0.1, damping: 15 }}
-              className="text-[6rem] sm:text-[8rem] md:text-[12rem] drop-shadow-2xl z-10"
-              style={{
-                filter: `drop-shadow(0 20px 40px ${theme.color}60)`
-              }}
-            >
-              {theme.emoji}
-            </motion.div>
-
-            <div
-              className="absolute bottom-4 left-4 md:bottom-6 md:left-6 font-sans font-black text-5xl md:text-9xl opacity-10 pointer-events-none"
-              style={{ color: theme.color }}
-            >
-              0{theme.id}
+            {/* Title */}
+            <div className="flex-1 min-w-0">
+              <h3
+                className="text-[#1a1a1a] leading-tight uppercase font-black"
+                style={{
+                  fontFamily: 'var(--font-groovy)',
+                  fontSize: 'clamp(1rem, 1.8vw, 1.35rem)',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                {theme.title}
+              </h3>
             </div>
+
+            {/* Tap indicator on mobile/tablet */}
+            {isMobile && (
+              <motion.div
+                animate={{ rotate: showContent ? 180 : 0 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+                className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 ml-4"
+                style={{
+                  backgroundColor: `${theme.color}20`,
+                  border: `2px solid ${theme.color}40`,
+                }}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1a1a1a"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </motion.div>
+            )}
           </div>
 
-          {/* Right Side (Details) */}
-          <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="w-3 h-3 rounded-full" style={{ backgroundColor: theme.color }} />
-              <span className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#1a1a1a]/60">Domain</span>
-            </div>
+          {/* Main Area: Emoji (Shrink) or Content (Expand) */}
+          <div className="flex-1 relative flex flex-col pt-2 pb-5 px-5">
+            <AnimatePresence mode="wait" initial={false}>
+              {showContent ? (
+                <motion.div
+                  key="content"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.25 }}
+                  className="w-full"
+                >
+                  {/* Description */}
+                  <p className="text-[13px] sm:text-sm text-[#3a3a3a] leading-relaxed mb-4 font-medium font-sans">
+                    {theme.desc}
+                  </p>
 
-            <h2 className="font-display text-3xl sm:text-4xl md:text-6xl text-[#1a1a1a] leading-tight mb-4 md:mb-6">
-              {theme.title}
-            </h2>
-
-            <p className="text-base md:text-xl text-[#3a3a3a] leading-relaxed mb-6 md:mb-8 font-medium">
-              {theme.desc}
-            </p>
-
-            <div className="mt-auto">
-              <h4 className="text-xs md:text-sm font-bold uppercase tracking-widest text-[#1a1a1a]/50 mb-3">Key Focus Areas</h4>
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {theme.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs md:text-base font-bold uppercase tracking-wider px-3 md:px-4 py-1.5 md:py-2 rounded-full border-[2px] md:border-[3px] border-[#1a1a1a]"
-                    style={{ backgroundColor: theme.color, color: '#1a1a1a' }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {theme.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-none font-sans"
+                        style={{
+                          backgroundColor: `${theme.color}15`,
+                          color: '#1a1a1a',
+                          border: `1px solid ${theme.color}30`,
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="visual"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex-1 flex items-center justify-center"
+                >
+                  <img
+                    src={theme.icon}
+                    alt={theme.title}
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain"
+                    style={{
+                      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.12))',
+                    }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Themes() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-
-  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+  const isMobile = useIsMobile(1024);
 
   const isInView = useInView(sectionRef, { once: true, margin: '-10% 0px' });
 
@@ -304,90 +273,78 @@ export default function Themes() {
   const blobY2 = useTransform(smoothY, [0, 1], [0, 80]);
 
   return (
-    <>
-      <section
-        ref={sectionRef}
-        id="themes"
-        className="relative bg-[#f3ecd2] py-12 md:py-20 overflow-hidden"
+    <section
+      ref={sectionRef}
+      id="themes"
+      className="relative bg-[#f3ecd2] pt-16 pb-8 md:pt-24 md:pb-12 overflow-hidden"
+    >
+      {/* Decorative background blobs */}
+      <motion.div
+        style={{ y: blobY1 }}
+        className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full opacity-20 pointer-events-none"
+        aria-hidden
       >
-        {/* Decorative background blobs */}
+        <div className="w-full h-full sunburst-bg rounded-full blur-2xl scale-75" />
+      </motion.div>
+
+      <motion.div
+        style={{ y: blobY2 }}
+        className="absolute -bottom-24 -left-24 w-[320px] h-[320px] rounded-full opacity-10 pointer-events-none shadow-[20px_20px_100px_rgba(244,137,163,0.5)]"
+        aria-hidden
+      >
+        <div className="w-full h-full bg-[#f489a3] rounded-full blur-3xl" />
+      </motion.div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+        {/* Section heading — more prominent */}
         <motion.div
-          style={{ y: blobY1 }}
-          className="absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full opacity-20 pointer-events-none"
-          aria-hidden
+          ref={headingRef}
+          className="text-center mb-14 md:mb-20"
         >
-          <div className="w-full h-full sunburst-bg rounded-full blur-2xl scale-75" />
-        </motion.div>
-
-        <motion.div
-          style={{ y: blobY2 }}
-          className="absolute -bottom-24 -left-24 w-[320px] h-[320px] rounded-full opacity-10 pointer-events-none shadow-[20px_20px_100px_rgba(244,137,163,0.5)]"
-          aria-hidden
-        >
-          <div className="w-full h-full bg-[#f489a3] rounded-full blur-3xl" />
-        </motion.div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8">
-          {/* Section heading */}
+          {/* Decorative top line */}
           <motion.div
-            ref={headingRef}
-            className="text-center mb-12 md:mb-16"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-              className="inline-block mb-4"
-            >
-              <div className="h-[2px] w-20 bg-[#f489a3] mx-auto" />
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
-              whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="font-display text-[#1a1a1a] tracking-tight uppercase"
-              style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
-            >
-              <span
-                className="rainbow-text"
-                style={{ WebkitTextStroke: '0px' }}
-              >
-                Themes
-              </span>
-            </motion.h2>
-          </motion.div>
-
-          {/* Theme cards grid */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-12 md:gap-y-16 px-6 sm:px-4 md:px-0"
-          >
-            {themes.map((theme) => (
-              <ThemeCard
-                key={theme.id}
-                theme={theme}
-                onClick={() => setSelectedTheme(theme)}
-              />
-            ))}
-          </motion.div>
-
-          {/* Bottom CTA */}
-
-        </div>
-      </section>
-
-      {/* Modal Overlay */}
-      <AnimatePresence>
-        {selectedTheme && (
-          <ThemeModal
-            theme={selectedTheme}
-            onClose={() => setSelectedTheme(null)}
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+            className="mx-auto mb-5 h-[3px] w-24 md:w-32 bg-[#1a1a1a]"
           />
-        )}
-      </AnimatePresence>
-    </>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.05em" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="font-display text-[#1a1a1a] uppercase mb-3"
+            style={{
+              fontSize: 'clamp(3rem, 8vw, 6.5rem)',
+              lineHeight: 1,
+              textShadow: '4px 4px 0px rgba(249, 112, 40, 0.25)',
+            }}
+          >
+            Themes
+          </motion.h2>
+
+
+
+          {/* Decorative bottom line */}
+
+        </motion.div>
+
+        {/* Theme cards grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-2 sm:px-0 items-start"
+        >
+          {themes.map((theme) => (
+            <ThemeCard
+              key={theme.id}
+              theme={theme}
+              isMobile={isMobile}
+            />
+          ))}
+        </motion.div>
+      </div>
+    </section>
   );
 }

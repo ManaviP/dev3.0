@@ -65,6 +65,7 @@ export default function DevHackHeroCompact() {
   const card1Ref = useRef<HTMLDivElement | null>(null);
   const card2Ref = useRef<HTMLDivElement | null>(null);
   const videoFrameRef = useRef<HTMLDivElement | null>(null);
+  const dateStickerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -77,9 +78,10 @@ export default function DevHackHeroCompact() {
     const card2 = card2Ref.current;
     const videoFrame = videoFrameRef.current;
 
-    if (!section || !baseLayer || !imagesFrame || !reveal || !card1 || !card2 || !videoFrame) {
+    if (!section || !baseLayer || !imagesFrame || !reveal || !card1 || !card2 || !videoFrame || !dateStickerRef.current) {
       return;
     }
+    const sticker = dateStickerRef.current;
 
 
 
@@ -87,6 +89,48 @@ export default function DevHackHeroCompact() {
       const context = gsap.context(() => {
         const isMobile = window.innerWidth < 768;
 
+        // MOBILE FIX
+        if (isMobile) {
+          gsap.set(imagesFrame, {
+            opacity: 1,
+            position: "relative",
+            height: "auto",
+          });
+
+          gsap.set(videoFrame, {
+            opacity: 1,
+            scale: 1,
+            position: "relative",
+            height: "auto",
+            width: "100%",
+            borderRadius: 0,
+          });
+
+          gsap.set(baseLayer, { opacity: 1 });
+
+          gsap.set(reveal, {
+            opacity: 1,
+            position: "relative",
+            marginTop: "1rem",
+          });
+
+          gsap.set([card1, card2], {
+            opacity: 1,
+            y: 0,
+          });
+
+          gsap.set(sticker, {
+            opacity: 1,
+            y: 0,
+            position: "relative",
+            marginTop: "1rem",
+            marginBottom: "1rem",
+          });
+
+          return;
+        }
+
+        // DESKTOP / TABLET (UNCHANGED)
         gsap.set(imagesFrame, {
           opacity: 0,
           top: 0,
@@ -96,19 +140,31 @@ export default function DevHackHeroCompact() {
         gsap.set(videoFrame, {
           opacity: 1,
           scale: 1,
-          top: isMobile ? "12vh" : "0",
-          height: isMobile ? "50vh" : "100vh",
-          width: isMobile ? "90vw" : "100vw",
-          left: isMobile ? "50%" : "0",
-          xPercent: isMobile ? -50 : 0,
+          top: "9px",
+          height: "100vh",
+          width: "100vw",
+          left: 0,
+          xPercent: 0,
+          borderRadius: 0,
         });
 
         gsap.set(baseLayer, { opacity: 1 });
-        gsap.set(reveal, { 
-          opacity: isMobile ? 1 : 0,
-          top: isMobile ? "100vh" : "0" 
+        gsap.set(reveal, {
+          opacity: 1,
+          top: "100vh",
         });
-        gsap.set([card1, card2], { opacity: 0, y: 50 });
+        gsap.set(imagesFrame, {
+          opacity: 0,
+        });
+        gsap.set([card1, card2], {
+          opacity: 0,
+          y: 50,
+        });
+        gsap.set(sticker, {
+          opacity: 1,
+          y: 0,
+          bottom: "2rem",
+        });
 
         const timeline = gsap.timeline({
           defaults: { ease: "none" },
@@ -120,113 +176,118 @@ export default function DevHackHeroCompact() {
           },
         });
 
-
-
         timeline
-          .to(
-            videoFrame,
-            {
-              scale: isMobile ? 1.2 : 1.8,
-              opacity: isMobile ? 1 : 0,
-              duration: 2.0,
-            },
-            0
-          )
-          .to(
-            reveal,
-            {
-              top: isMobile ? "65vh" : "0",
-              opacity: 1,
-              duration: isMobile ? 3.0 : 1.5,
-              ease: "power2.out",
-            },
-            0.5
-          )
-          .to(
-            imagesFrame,
-            {
-              opacity: isMobile ? 0.7 : 0.8,
-              duration: 1.5,
-            },
-            isMobile ? 0.8 : 3.0
-          )
-          .to(
-            card1,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.5,
-            },
-            isMobile ? 1.2 : 3.2
-          )
-          .to(
-            card2,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.5,
-            },
-            isMobile ? 1.5 : 3.4
-          );
+          .to(videoFrame, {
+            scale: 1.8,
+            opacity: 0,
+            duration: 2.0,
+          }, 1.5)
+          .to(reveal, {
+            top: "0",
+            duration: 1.5,
+            ease: "power2.inOut",
+          }, 0.5)
+          .to(imagesFrame, {
+            opacity: 0.8,
+            duration: 1.0,
+          }, 1.5)
+          .to(card1, {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+          }, 1.8)
+          .to(card2, {
+            opacity: 1,
+            y: 0,
+            duration: 1.0,
+          }, 2.0)
+          .to({}, { duration: 1 })
+          .to(sticker, {
+            opacity: 0,
+            y: 20,
+            duration: 0.5,
+          }, 0);
       }, section);
 
-      const onResize = () => {
-        // Handle resize if needed
-      };
-
-      window.addEventListener("resize", onResize);
-
-      return () => {
-        window.removeEventListener("resize", onResize);
-        context.revert();
-      };
+      return () => context.revert();
     };
 
     initialize();
 
-    return () => {
-    };
+    return () => { };
   }, []);
 
+  const isMobile = typeof window !== "undefined" ? window.innerWidth < 768 : false;
+
   return (
-    <section id="hero" ref={sectionRef} className="relative h-[400vh] bg-cream text-white">
-      <div className="sticky top-0 h-screen overflow-hidden">
+    <section
+      id="hero"
+      ref={sectionRef}
+      className={`relative bg-cream text-white ${!isMobile ? "md:h-[300vh]" : ""}`}
+    >
+      <div
+        className={`${!isMobile ? "sticky md:sticky top-0 h-screen overflow-hidden" : ""}`}
+      >
         <div ref={baseLayerRef} className="absolute inset-0 bg-cream" />
 
-        <div ref={videoFrameRef} className="absolute inset-0 z-0 overflow-hidden">
+        <div
+          ref={videoFrameRef}
+          className={`${!isMobile
+            ? "absolute inset-x-0 z-0 overflow-hidden"
+            : "relative w-full z-0 overflow-hidden"
+            }`}
+        >
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-auto md:h-full md:object-cover"
           >
             <source src="/assets/devhack3.mp4" type="video/mp4" />
           </video>
         </div>
 
-        <div ref={imagesFrameRef} className="hero-images-frame absolute inset-0 pointer-events-none opacity-0 z-5">
-          <div className="h-full grid grid-rows-3 md:grid-rows-3 gap-1 sm:gap-3 md:gap-4 p-1 sm:p-3 md:p-4 opacity-100">
-            <Row speed="18s" />
-            <Row reverse speed="24s" />
-            <Row speed="20s" />
-            <div className="block sm:hidden">
-              <Row reverse speed="22s" />
+        <div
+          ref={revealRef}
+          className={`${!isMobile
+            ? "absolute inset-x-0 min-h-screen z-10 flex flex-col md:flex-row items-center justify-start md:justify-center gap-4 md:gap-6 px-6 pointer-events-none md:pointer-events-none pb-10 md:pb-20 pt-24 md:pt-0"
+            : "relative z-10 flex flex-col gap-4 px-6 pb-10 pt-6"
+            }`}
+        >
+          {/* Restricted Scrolling Background */}
+          <div
+            ref={imagesFrameRef}
+            className={`${!isMobile
+              ? "absolute inset-0 pointer-events-none opacity-0 z-0 overflow-hidden"
+              : "relative w-full z-0 overflow-hidden"
+              }`}
+          >
+            <div className="h-full grid grid-rows-3 gap-1 sm:gap-3 p-1 sm:p-3 opacity-100">
+              <Row speed="18s" />
+              <Row reverse speed="24s" />
+              <Row speed="20s" />
+              <div className="block sm:hidden">
+                <Row reverse speed="22s" />
+              </div>
             </div>
+            <div className="hero-images-overlay absolute inset-0 bg-black/40 pointer-events-none" />
           </div>
-          <div className="hero-images-overlay absolute inset-0" />
-        </div>
 
-
-        <div ref={revealRef} className="absolute inset-x-0 h-screen z-10 flex flex-col md:flex-row items-center justify-center gap-14 md:gap-6 px-6 pointer-events-none">
-          <div ref={card1Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-orange/10 shadow-2xl relative">
+          <div
+            ref={card1Ref}
+            className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-orange/10 shadow-2xl relative z-10 pt-1 pointer-events-auto"
+          >
             <div className="text-orange font-bold text-4xl mb-4 opacity-30">01</div>
             <h2 className="text-[#2a1f14] font-display text-2xl mb-4">What is DevHack?</h2>
             <p className="text-[#5a4a3a] text-sm leading-relaxed">
               DSU DEVHACK 2026 is a national-level hackathon pushing the boundaries of innovation in AI, ML, IoT, Blockchain, Cybersecurity, and Cloud
             </p>
           </div>
-          <div ref={card2Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-pink/10 shadow-2xl relative">
+          <div
+            ref={card2Ref}
+            className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-pink/10 shadow-2xl relative z-10 pointer-events-auto"
+          >
             <div className="text-pink font-bold text-4xl mb-4 opacity-30">02</div>
             <h2 className="text-[#2a1f14] font-display text-2xl mb-4">Why Participate?</h2>
             <p className="text-[#5a4a3a] text-sm leading-relaxed">
@@ -235,7 +296,18 @@ export default function DevHackHeroCompact() {
           </div>
         </div>
 
-
+        {/* Date Sticker */}
+        <div
+          ref={dateStickerRef}
+          className={`${!isMobile
+            ? "absolute inset-x-0 bottom-10 md:bottom-10 flex justify-center z-20 pointer-events-none"
+            : "relative flex justify-center z-20 py-4"
+            }`}
+        >
+          <div className="hero-date-badge text-center whitespace-nowrap">
+            SEPTEMBER 18TH & 19TH, 2026
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -83,7 +83,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
           maxWidth: isMini ? '210px' : '1540px',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2] ${isMini ? 'cursor-pointer' : ''}`}
+        className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[var(--color-cream)] ${isMini ? 'cursor-pointer' : ''}`}
       >
 
 
@@ -152,6 +152,8 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
   )
 }
 
+import ClickSpark from './components/ClickSpark'
+
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [mountLoader, setMountLoader] = useState(true)
@@ -209,11 +211,17 @@ export default function App() {
   }
 
   return (
-    <>
+    <ClickSpark
+      sparkColor="#0CFFFF"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+    >
       {/* Initial loading screen */}
       {mountLoader && (
         <div
-          className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center transition-all duration-700 ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 z-[200] overflow-hidden bg-[var(--color-cream)] flex flex-col items-center justify-center transition-all duration-700 ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
         >
           <img
@@ -237,13 +245,13 @@ export default function App() {
           >
             <div className="flex flex-col items-center">
               <img src="/assets/logo1.png" alt="Loading" className="h-32 w-auto animate-bounce mb-4" />
-              <h2 className="text-cream text-3xl font-display tracking-widest animate-pulse">DEVHACK 3.0</h2>
+              <h2 className="text-cream text-3xl font-display tracking-widest animate-pulse">DEVHACK <span className="font-number-bold">3.0</span></h2>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
+      <div className="min-h-screen bg-cream relative font-sans text-cream">
         <Navbar onNavClick={handleNavClick} />
         <main>
           <Hero />
@@ -256,6 +264,6 @@ export default function App() {
         </main>
         <Footer />
       </div>
-    </>
+    </ClickSpark>
   )
 }

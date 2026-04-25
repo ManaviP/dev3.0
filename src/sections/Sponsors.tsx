@@ -78,7 +78,7 @@ const Sponsors: React.FC = () => {
   */
 
   return (
-    <section id="sponsors" className="py-24 px-6 sm:px-10 bg-[#f3ecd2] relative scroll-mt-20">
+    <section id="sponsors" className="pt-12 pb-24 md:pt-8 md:pb-16 px-6 sm:px-10 bg-cream relative scroll-mt-20">
       <div className="max-w-6xl mx-auto flex flex-col items-center">
         
         {/* Sponsors Header */}

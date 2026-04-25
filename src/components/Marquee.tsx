@@ -4,7 +4,7 @@ export default function Marquee() {
       <div className="inline-block animate-marquee font-bold text-lg md:text-xl uppercase tracking-widest">
         {[...Array(5)].map((_, i) => (
           <span key={i} className="mx-8">
-            🌟 EARLY BIRD TICKETS ON SALE NOW! 🚀 DEVHACK 3.0 🌟
+            🌟 EARLY BIRD TICKETS ON SALE NOW! 🚀 DEVHACK <span className="font-number-bold">3.0</span> 🌟
           </span>
         ))}
       </div>

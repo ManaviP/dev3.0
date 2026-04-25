@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const faqs = [
-    {
+  {
     q: 'What is DSU DEVHACK 3.0?',
     a: 'DSU DevHack 3.0 is the second edition of Dayananda Sagar University\'s national-level innovation hackathon, aimed at bringing together the brightest minds from across the country to solve real-world problems through technology. With tracks spanning AI/ML, Web3, IoT, Sustainability, Healthcare, and Open Innovation, the hackathon serves as a launchpad for impactful student-led solutions. No prior work is allowed, and premade projects are not permitted; all submissions must be original and developed during the hackathon.',
   },
-{ q: 'At which level is this hackathon conducted?', a: 'The DSU DEVHACK Hackathon is conducted at the national level.' },
+  { q: 'At which level is this hackathon conducted?', a: 'The DSU DEVHACK Hackathon is conducted at the national level.' },
   { q: 'How many members can participate in a team?', a: 'A team can have only 3 members. All members should be registered students at the time of the event.' },
   { q: 'What is the qualification to participate?', a: 'Participants must be currently enrolled in an undergraduate Engineering program.' },
   { q: 'What is the participation fee?', a: 'The participation in DSU DEVHACK 2026 is completely free!' },
@@ -19,8 +20,17 @@ const faqs = [
 export default function FAQ() {
   const [open, setOpen] = useState(0);
 
+  const renderFAQText = (text: string) => {
+    return text.split('3.0').map((part, i, arr) => (
+      <span key={i}>
+        {part}
+        {i < arr.length - 1 && <span className="font-number">3.0</span>}
+      </span>
+    ));
+  };
+
   return (
-    <section id="faq" className="relative px-4 py-8 sm:px-6 lg:py-16 bg-[#f3ecd2]">
+    <section id="faq" className="relative px-4 py-8 sm:px-6 lg:py-16 bg-cream">
       <div className="mx-auto max-w-4xl p-6 sm:p-8">
         <div className="text-center mb-12">
           <motion.div
@@ -43,20 +53,45 @@ export default function FAQ() {
           </motion.h2>
         </div>
 
-        <div className="space-y-3">
+        <div className="border-t border-black/10">
           {faqs.map((faq, idx) => {
             const isOpen = idx === open;
+            const number = (idx + 1).toString().padStart(2, '0');
             return (
-              <div key={faq.q} className="overflow-hidden rounded-2xl border border-black/15 bg-[#F3ecd2]">
-                <button onClick={() => setOpen(isOpen ? -1 : idx)} className="flex w-full items-center justify-between px-4 py-4 text-left sm:px-5">
-                  <span className="text-sm font-bold uppercase tracking-wide sm:text-base text-[#1a1a1a]">{faq.q}</span>
-                  <span className="text-xl leading-none text-[#1a1a1a]">{isOpen ? '−' : '+'}</span>
+              <div key={faq.q} className="border-b border-black/10">
+                <button 
+                  onClick={() => setOpen(isOpen ? -1 : idx)} 
+                  className="group flex w-full items-center justify-between py-6 text-left"
+                >
+                  <div className="flex items-center gap-6 sm:gap-12">
+                    <span className="hidden sm:block text-lg font-number text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
+                      {number}
+                    </span>
+                    <span className="text-base font-bold uppercase tracking-widest sm:text-lg text-[#1a1a1a]">
+                      {renderFAQText(faq.q)}
+                    </span>
+                  </div>
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-sm transition-all duration-300 ${isOpen ? 'bg-[#1a1a1a] text-white rotate-180' : 'bg-transparent text-[#1a1a1a]'}`}>
+                    {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+                  </div>
                 </button>
 
                 <AnimatePresence initial={false}>
                   {isOpen && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="px-4 pb-4 text-sm text-black sm:px-5">
-                      {faq.a}
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }} 
+                      animate={{ height: 'auto', opacity: 1 }} 
+                      exit={{ height: 0, opacity: 0 }} 
+                      transition={{ duration: 0.3, ease: [0.33, 1, 0.68, 1] }} 
+                      className="overflow-hidden"
+                    >
+                      <div className="px-0 pb-6 sm:px-6">
+                        <div className="bg-[#f9f1df] p-6 rounded-2xl">
+                          <p className="text-sm sm:text-base leading-relaxed text-[#333]">
+                            {renderFAQText(faq.a)}
+                          </p>
+                        </div>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>

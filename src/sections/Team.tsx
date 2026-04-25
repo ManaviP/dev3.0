@@ -256,7 +256,7 @@ export default function Team() {
   const sectionTitle = getMainTabTitle(activeMainTab);
 
   return (
-    <section id="team" className="relative w-full overflow-hidden bg-[#f3ecd2] py-20 md:py-28">
+    <section id="team" className="relative w-full overflow-hidden bg-cream py-20 md:py-28">
       {/* ── Main Tab Bar ── */}
       <div className="relative z-10 mb-10">
         <TabBar
