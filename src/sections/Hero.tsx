@@ -210,11 +210,11 @@ export default function DevHackHeroCompact() {
 
           {/* Vertical Scrolling Gallery Background */}
           <div ref={imagesFrameRef} className="absolute inset-0 pointer-events-none opacity-0 z-0 overflow-hidden bg-[#0a0a0a]">
-            <div className="grid grid-cols-2 md:grid-cols-4 w-full h-full bg-[#0a0a0a]">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full h-full bg-[#0a0a0a]">
               <Column speed={120} photoSubset={col1Photos} />
               <Column reverse speed={140} offset photoSubset={col2Photos} />
               <Column speed={130} className="hidden md:block" photoSubset={col3Photos} />
-              <Column reverse speed={150} offset className="hidden md:block" photoSubset={col4Photos} />
+              <Column reverse speed={150} offset className="hidden lg:block" photoSubset={col4Photos} />
             </div>
             <div className="hero-images-overlay absolute inset-0" />
           </div>
