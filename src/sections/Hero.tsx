@@ -1,71 +1,54 @@
-import { useEffect, useRef } from "react";
-
+import { useEffect, useRef, useState } from "react";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const images: string[] = [
-  "/assets/hero1.jpg",
-  "/assets/hero2.jpg",
-  "/assets/hero3.jpg",
-  "/assets/hero4.jpg",
-  "/assets/hero5.jpg",
-  "/assets/hero6.jpg",
-];
+import photos from "./photos";
+import BlurText from "../components/BlurText";
 
-type RowProps = {
-  reverse?: boolean;
-  speed?: string;
-  imageClassName?: string;
-};
+const offsetCount = Math.floor(photos.length / 4);
+const col1Photos = photos;
+const col2Photos = [...photos.slice(offsetCount), ...photos.slice(0, offsetCount)];
+const col3Photos = [...photos.slice(offsetCount * 2), ...photos.slice(0, offsetCount * 2)];
+const col4Photos = [...photos.slice(offsetCount * 3), ...photos.slice(0, offsetCount * 3)];
 
-const speedClassMap: Record<string, string> = {
-  "18s": "hero-scroll-speed-18",
-  "20s": "hero-scroll-speed-20",
-  "24s": "hero-scroll-speed-24",
-  "25s": "hero-scroll-speed-25",
-};
-
-const Row = ({ reverse = false, speed = "25s" }: RowProps) => {
-  const speedClass = speedClassMap[speed] ?? "hero-scroll-speed-25";
+const Column = ({ reverse = false, speed = 40, offset = false, className = "", photoSubset }: { reverse?: boolean; speed?: number; offset?: boolean; className?: string; photoSubset: typeof photos }) => {
+  const colPhotos = [...photoSubset, ...photoSubset];
 
   return (
-    <div className="overflow-hidden w-full">
+    <div className={`h-full overflow-hidden w-full relative ${className}`}>
       <div
-        className={`flex gap-1 sm:gap-3 md:gap-4 w-max ${reverse ? "hero-scroll-row-reverse" : "hero-scroll-row"
-          } ${speedClass}`}
+        className={`flex flex-col gap-5 w-full ${reverse ? 'animate-scroll-y-reverse' : 'animate-scroll-y'}`}
+        style={{ animationDuration: `${speed}s`, paddingTop: offset ? '120px' : '0' }}
       >
-        {[...images, ...images].map((src, i) => {
-          const sizeVariants = [
-            "h-[120px] sm:h-[110px] md:h-[140px] lg:h-[170px]",
-            "h-[140px] sm:h-[130px] md:h-[160px] lg:h-[200px]",
-            "h-[130px] sm:h-[120px] md:h-[150px] lg:h-[180px]",
-          ];
-
-          const randomSize = sizeVariants[i % sizeVariants.length];
-
-          return (
-            <img
-              key={i}
-              src={src}
-              alt=""
-              className={`${randomSize} w-auto object-cover rounded-md sm:rounded-lg shrink-0`}
-            />
-          );
-        })}
+        {[1, 2].map(key => (
+          <div key={key} className="flex flex-col gap-5 w-full px-[10px]">
+            {colPhotos.map((p, i) => (
+              <img
+                key={i}
+                src={p.src}
+                loading="lazy"
+                className="w-full h-auto object-cover rounded-xl transition-opacity duration-300"
+                alt=""
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
 };
+
 export default function DevHackHeroCompact() {
+  const [triggerBlur, setTriggerBlur] = useState(false);
+
   const sectionRef = useRef<HTMLElement | null>(null);
   const baseLayerRef = useRef<HTMLDivElement | null>(null);
   const imagesFrameRef = useRef<HTMLDivElement | null>(null);
   const revealRef = useRef<HTMLDivElement | null>(null);
-  const card1Ref = useRef<HTMLDivElement | null>(null);
-  const card2Ref = useRef<HTMLDivElement | null>(null);
   const videoFrameRef = useRef<HTMLDivElement | null>(null);
   const dateStickerRef = useRef<HTMLDivElement | null>(null);
+  const memoryTitleRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -74,16 +57,13 @@ export default function DevHackHeroCompact() {
     const baseLayer = baseLayerRef.current;
     const imagesFrame = imagesFrameRef.current;
     const reveal = revealRef.current;
-    const card1 = card1Ref.current;
-    const card2 = card2Ref.current;
     const videoFrame = videoFrameRef.current;
+    const memoryTitle = memoryTitleRef.current;
 
-    if (!section || !baseLayer || !imagesFrame || !reveal || !card1 || !card2 || !videoFrame || !dateStickerRef.current) {
+    if (!section || !baseLayer || !imagesFrame || !reveal || !videoFrame || !dateStickerRef.current || !memoryTitle) {
       return;
     }
     const sticker = dateStickerRef.current;
-
-
 
     const initialize = async () => {
       const context = gsap.context(() => {
@@ -114,9 +94,10 @@ export default function DevHackHeroCompact() {
         gsap.set(imagesFrame, {
           opacity: 0,
         });
-        gsap.set([card1, card2], {
-          opacity: isMobile ? 1 : 0,
-          y: isMobile ? 0 : 50
+        gsap.set(memoryTitle, {
+          opacity: 0,
+          y: 40,
+          scale: 0.95,
         });
         gsap.set(sticker, {
           opacity: 1,
@@ -134,8 +115,6 @@ export default function DevHackHeroCompact() {
             scrub: 0.85,
           },
         });
-
-
 
         timeline
           .to(
@@ -165,26 +144,21 @@ export default function DevHackHeroCompact() {
             isMobile ? 0.8 : 3.0
           )
           .to(
-            card1,
+            memoryTitle,
             {
               opacity: 1,
               y: 0,
+              scale: 1,
               duration: 1.5,
+              ease: "power2.out",
+              onStart: () => setTriggerBlur(true),
+              onReverseComplete: () => setTriggerBlur(false),
             },
-            isMobile ? 1.2 : 3.2
-          )
-          .to(
-            card2,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.5,
-            },
-            isMobile ? 1.5 : 3.4
+            isMobile ? 1.0 : 3.2
           )
           .to(
             {},
-            { duration: 1 } // Adds extra scroll time at the end
+            { duration: 1 }
           )
           .to(
             sticker,
@@ -193,7 +167,7 @@ export default function DevHackHeroCompact() {
               y: 20,
               duration: 0.5,
             },
-            0 // Starts immediately with scroll
+            0
           );
       }, section);
 
@@ -232,34 +206,29 @@ export default function DevHackHeroCompact() {
           </video>
         </div>
 
-        <div ref={revealRef} className="absolute inset-x-0 min-h-screen z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-6 px-6 pointer-events-none pb-20">
+        <div ref={revealRef} className="absolute inset-x-0 min-h-screen z-10 pointer-events-none">
 
-          {/* Restricted Scrolling Background */}
-          <div ref={imagesFrameRef} className="absolute inset-0 pointer-events-none opacity-0 z-0 overflow-hidden">
-            <div className="h-full grid grid-rows-3 md:grid-rows-3 gap-1 sm:gap-3 md:gap-4 p-1 sm:p-3 md:p-4 opacity-100">
-              <Row speed="18s" />
-              <Row reverse speed="24s" />
-              <Row speed="20s" />
-              <div className="block sm:hidden">
-                <Row reverse speed="22s" />
-              </div>
+          {/* Vertical Scrolling Gallery Background */}
+          <div ref={imagesFrameRef} className="absolute inset-0 pointer-events-none opacity-0 z-0 overflow-hidden bg-[#0a0a0a]">
+            <div className="grid grid-cols-2 md:grid-cols-4 w-full h-full bg-[#0a0a0a]">
+              <Column speed={120} photoSubset={col1Photos} />
+              <Column reverse speed={140} offset photoSubset={col2Photos} />
+              <Column speed={130} className="hidden md:block" photoSubset={col3Photos} />
+              <Column reverse speed={150} offset className="hidden md:block" photoSubset={col4Photos} />
             </div>
-            <div className="hero-images-overlay absolute inset-0 bg-black/40" />
+            <div className="hero-images-overlay absolute inset-0" />
           </div>
 
-          <div ref={card1Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-orange/10 shadow-2xl relative z-10 pointer-events-auto">
-            <div className="text-orange font-bold text-4xl mb-4 opacity-30">01</div>
-            <h2 className="text-[#2a1f14] font-display text-2xl mb-4">What is DevHack?</h2>
-            <p className="text-[#5a4a3a] text-sm leading-relaxed">
-              DSU DEVHACK 2026 is a national-level hackathon pushing the boundaries of innovation in AI, ML, IoT, Blockchain, Cybersecurity, and Cloud
-            </p>
-          </div>
-          <div ref={card2Ref} className="w-full max-w-90 bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-[28px] border border-pink/10 shadow-2xl relative z-10 pointer-events-auto">
-            <div className="text-pink font-bold text-4xl mb-4 opacity-30">02</div>
-            <h2 className="text-[#2a1f14] font-display text-2xl mb-4">Why Participate?</h2>
-            <p className="text-[#5a4a3a] text-sm leading-relaxed">
-              Connect with creative minds, build cutting-edge solutions, win exciting prizes, and showcase your skills while transforming ideas into impactful innovations.
-            </p>
+          {/* Memories Title Overlay — positioned near top */}
+          <div ref={memoryTitleRef} className="relative z-10 text-center pointer-events-none px-4 pt-40 md:pt-36">
+            <BlurText
+              text="Memories"
+              delay={150}
+              animateBy="letters"
+              direction="top"
+              className="text-white font-display text-6xl md:text-7xl leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)] justify-center"
+              animateTrigger={triggerBlur}
+            />
           </div>
         </div>
 
@@ -269,11 +238,9 @@ export default function DevHackHeroCompact() {
           className="absolute inset-x-0 bottom-10 flex justify-center z-20 pointer-events-none"
         >
           <div className="hero-date-badge text-center whitespace-nowrap">
-            SEPTEMBER 18TH & 19TH, 2026
+            SEPTEMBER 18TH &amp; 19TH, 2026
           </div>
         </div>
-
-
 
       </div>
     </section>
