@@ -149,8 +149,8 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-visible px-4 pt-10 pb-2 sm:pt-20 sm:px-6 sm:pb-0"
-      style={{ background: '#f97028', color: '#fff' }}
+      className="relative overflow-visible px-4 pt-10 pb-2 sm:pt-20 sm:px-6 sm:pb-0 bg-ui-primary"
+      style={{ color: '#fff' }}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
