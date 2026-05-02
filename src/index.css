@@ -7,6 +7,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Sugar Peachy';
+  src: url('/assets/Sugar Peachy DEMO.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 
 @theme {
@@ -29,11 +36,13 @@
   --font-display: "Wonderful Snowflake", "Shrikhand", serif;
   --font-sans: "Outfit", sans-serif;
   --font-groovy: "Fredoka", "Outfit", sans-serif;
+  --font-peachy: "Sugar Peachy", serif;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    cursor: url('/assets/Jeelh-Cursor-Light/Normal%20Select%20Light.png') 0 0, auto;
   }
 
   body {
@@ -43,6 +52,15 @@
     margin: 0;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    cursor: url('/assets/Jeelh-Cursor-Light/Normal%20Select%20Light.png') 0 0, auto;
+  }
+
+  a, button, [role="button"], .cursor-pointer {
+    cursor: url('/assets/Jeelh-Cursor-Light/Select%20Light.png') 18 2, pointer !important;
+  }
+
+  input[type="text"], input[type="email"], textarea, [contenteditable="true"], .cursor-text {
+    cursor: url('/assets/Jeelh-Cursor-Light/Text%20Select%20Light.png') 32 32, text !important;
   }
 
   h1,

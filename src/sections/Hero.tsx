@@ -138,7 +138,7 @@ export default function DevHackHeroCompact() {
           .to(
             imagesFrame,
             {
-              opacity: isMobile ? 0.7 : 0.8,
+              opacity: 1,
               duration: 1.5,
             },
             isMobile ? 0.8 : 3.0

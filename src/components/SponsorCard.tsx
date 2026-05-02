@@ -8,53 +8,72 @@ interface SponsorCardProps {
 }
 
 const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
-  const sizeClasses = {
-    platinum: 'h-16 sm:h-24 md:h-28',
-    gold: 'h-12 sm:h-16 md:h-20',
-    stream: 'h-10 sm:h-14 md:h-18',
-    community: 'h-8 sm:h-12 md:h-14',
+  const logoSizeClasses = {
+    platinum: 'h-20 sm:h-24 md:h-32',
+    gold: 'h-16 sm:h-20 md:h-24',
+    stream: 'h-14 sm:h-16 md:h-20',
+    community: 'h-10 sm:h-12 md:h-16',
+  };
+
+  const nameSizeClasses = {
+    platinum: 'text-4xl sm:text-5xl md:text-6xl',
+    gold: 'text-3xl sm:text-4xl md:text-5xl',
+    stream: 'text-2xl sm:text-3xl md:text-4xl',
+    community: 'text-xl sm:text-2xl md:text-3xl',
   };
 
   return (
     <motion.div
       whileHover="hover"
-      className="relative flex items-center justify-center p-6 cursor-pointer group"
+      initial="rest"
+      animate="rest"
+      className="relative cursor-pointer group flex flex-col items-center justify-center gap-4 px-2 py-4"
     >
-      {/* Animated Box Background */}
-      <motion.div
+      {/* Normal Logo (No filters or outlines on the image itself) */}
+      <motion.img
         variants={{
-          initial: { opacity: 0, scale: 0.9, rotate: -2 },
-          hover: { opacity: 1, scale: 1, rotate: 0 }
+          rest: { scale: 1 },
+          hover: { scale: 1.08 },
         }}
-        initial="initial"
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="absolute inset-0 bg-[#e8e2c8] border-2 border-[#1a1a1a] shadow-[4px_4px_0px_0px_#1a1a1a] rounded-lg z-0"
+        transition={{ duration: 0.35, type: 'spring', stiffness: 300, damping: 20 }}
+        src={logo}
+        alt={name}
+        className={`${logoSizeClasses[tier]} w-auto object-contain`}
       />
 
-      {/* Sponsor Logo */}
-      <div className="relative z-10 flex flex-col items-center gap-2">
-        <motion.img 
-          variants={{
-            initial: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
-            hover: { filter: "grayscale(0%)", opacity: 1, scale: 1.05 }
-          }}
-          transition={{ duration: 0.4 }}
-          src={logo} 
-          alt={name}
-          className={`${sizeClasses[tier]} w-auto object-contain`}
-        />
-        
-        {/* Optional: Name reveal */}
-        <motion.span
-          variants={{
-            initial: { opacity: 0, y: 5 },
-            hover: { opacity: 0.4, y: 0 }
-          }}
-          className="font-mono text-[10px] uppercase font-bold text-[#1a1a1a] tracking-widest mt-2"
+      {/* Name Label: Sticker Outline Effect (no rectangle) */}
+      <motion.div
+        variants={{
+          rest: { opacity: 0.85, y: 0 },
+          hover: { opacity: 1, y: -2 },
+        }}
+        transition={{ duration: 0.3 }}
+        className="relative mt-2"
+      >
+        <span
+          className={`${nameSizeClasses[tier]} leading-none text-center tracking-wide relative block`}
+          style={{ fontFamily: 'var(--font-peachy)' }}
         >
-          {name}
-        </motion.span>
-      </div>
+          {/* Black Outer Outline */}
+          <span 
+            className="absolute inset-0 z-0" 
+            style={{ WebkitTextStroke: '10px #1a1a1a', color: 'transparent' }}
+          >
+            {name}
+          </span>
+          {/* White Inner "Background" Outline */}
+          <span 
+            className="absolute inset-0 z-10" 
+            style={{ WebkitTextStroke: '6px white', color: 'transparent' }}
+          >
+            {name}
+          </span>
+          {/* Main Black Text */}
+          <span className="relative z-20 text-[#1a1a1a]">
+            {name}
+          </span>
+        </span>
+      </motion.div>
     </motion.div>
   );
 };

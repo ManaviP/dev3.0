@@ -9,7 +9,7 @@ import Team from './sections/Team'
 import Prizes from './sections/Prizes'
 import Sponsors from './sections/Sponsors'
 import Footer from './sections/Footer'
-import TargetCursor from './components/TargetCursor'
+import ClickSpark from './components/ClickSpark'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -246,20 +246,21 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
-        <TargetCursor spinDuration={2} hideDefaultCursor={true} parallaxOn={true} />
-        <Navbar onNavClick={handleNavClick} />
-        <main>
-          <Hero />
-          <Themes />
-          <Prizes />
-          <Sponsors />
-          <Timeline />
-          <Team />
-          <FAQ />
-        </main>
-        <Footer />
-      </div>
+      <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
+        <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
+          <Navbar onNavClick={handleNavClick} />
+          <main>
+            <Hero />
+            <Themes />
+            <Prizes />
+            <Sponsors />
+            <Timeline />
+            <Team />
+            <FAQ />
+          </main>
+          <Footer />
+        </div>
+      </ClickSpark>
     </>
   )
 }

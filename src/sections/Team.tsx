@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 // --- Types ---
 interface TeamMember {
   id: string;
   name: string;
   role: string;
-  bio?: string;
   image: string;
   twitter?: string;
   linkedin?: string;
+  instagram?: string;
 }
 
 // --- Data ---
@@ -53,6 +54,7 @@ const theOperators: TeamMember[] = [
   { id: 'd1', name: 'Moulika', role: 'Design Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Moulika' },
   { id: 'd2', name: 'Moulya', role: 'Design Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Moulya' },
   { id: 'd3', name: 'Hridya', role: 'Design Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Hridya' },
+  { id: 'm1', name: 'Pranay', role: 'Marketing Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Pranay' },
   { id: 's1', name: 'Naman Sharaff', role: 'Sponsorship Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Naman' },
   { id: 's2', name: 'Thathagath', role: 'Sponsorship Team', image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Thathagath' },
 ];
@@ -99,7 +101,7 @@ function SectionSubHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: TeamMember) => void }) {
+function TeamCard({ member }: { member: TeamMember }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -109,10 +111,9 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8, scale: 1.02 }}
-      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all cursor-pointer flex flex-col h-full overflow-hidden w-full shrink-0"
+      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all flex flex-col h-full overflow-hidden w-full shrink-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => onClickBio(member)}
     >
       {/* Corner Rivets */}
       {[
@@ -158,13 +159,27 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
         </h3>
         <p className="font-mono text-[11px] sm:text-xs md:text-sm uppercase mt-1.5 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
 
-        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed">
-          <button
-            onClick={() => onClickBio(member)}
-            className="text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-widest hover:text-[#f97028] transition-colors flex items-center gap-1.5 sm:gap-2"
-          >
-            <span className="text-[#f97028]">+</span> SHOW BIO
-          </button>
+        <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
+          <div className="flex gap-2.5 text-[#1a1a1a]">
+            <a 
+              href={member.linkedin || '#'} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FaLinkedin size={18} />
+            </a>
+            <a 
+              href={member.instagram || '#'} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FaInstagram size={18} />
+            </a>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -172,23 +187,23 @@ function TeamCard({ member, onClickBio }: { member: TeamMember, onClickBio: (m: 
 }
 
 /** Responsive grid wrapper for team cards */
-function TeamGrid({ members, onClickBio }: { members: TeamMember[]; onClickBio: (m: TeamMember) => void }) {
+function TeamGrid({ members }: { members: TeamMember[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
-        <TeamCard key={member.id} member={member} onClickBio={onClickBio} />
+        <TeamCard key={member.id} member={member} />
       ))}
     </div>
   );
 }
 
 /** Small grid for 1-3 items — centers them */
-function TeamGridSmall({ members, onClickBio }: { members: TeamMember[]; onClickBio: (m: TeamMember) => void }) {
+function TeamGridSmall({ members }: { members: TeamMember[] }) {
   return (
     <div className="flex flex-wrap justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
         <div key={member.id} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[240px] lg:w-[280px]">
-          <TeamCard member={member} onClickBio={onClickBio} />
+          <TeamCard member={member} />
         </div>
       ))}
     </div>
@@ -196,17 +211,10 @@ function TeamGridSmall({ members, onClickBio }: { members: TeamMember[]; onClick
 }
 
 export default function Team() {
-  const [selectedBio, setSelectedBio] = useState<TeamMember | null>(null);
   const [activeTab, setActiveTab] = useState('Organising Team');
-  const [showOperators, setShowOperators] = useState(false);
+  const [activeSubTeam, setActiveSubTeam] = useState('Web Team');
 
   const TABS = ['Organising Team', 'The Board', 'Faculty', 'Jury & Experts'];
-
-  if (selectedBio) {
-    if (typeof window !== 'undefined') document.body.style.overflow = 'hidden';
-  } else {
-    if (typeof window !== 'undefined') document.body.style.overflow = 'auto';
-  }
 
   return (
     <section id="team" className="relative w-full bg-[#f3ecd2] py-12 sm:py-16 md:py-24 px-5 sm:px-6 md:px-10 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
@@ -232,14 +240,6 @@ export default function Team() {
                   <span className="sm:mr-4 lg:mr-6">Meet The</span>
                   <span className="text-[#f97028]">Team</span>
                 </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-base sm:text-lg md:text-2xl lg:text-3xl font-medium tracking-tight mt-2 sm:mt-4 md:mt-6 leading-relaxed max-w-3xl mx-auto px-2"
-                >
-                  We back the dreamers, the builders, and the rebels. The architectural minds behind DevHack 3.0.
-                </motion.p>
               </div>
             </motion.div>
           )}
@@ -278,60 +278,56 @@ export default function Team() {
               <div className="flex flex-col">
                 <div className="mb-4">
                   <SectionSubHeading>Core Team</SectionSubHeading>
-                  <TeamGridSmall members={coreTeam} onClickBio={setSelectedBio} />
+                  <TeamGrid members={[...coreTeam, ...subHeads]} />
                 </div>
 
-                <CoinDivider />
+                <div className="mb-4 mt-16 sm:mt-24">
+                  <h3 className="text-2xl sm:text-3xl lg:text-5xl font-black uppercase tracking-widest mb-6 sm:mb-8 md:mb-12 text-center w-full text-[#1a1a1a]">
+                    Meet the Entire Team
+                  </h3>
 
-                <div className="mb-4">
-                  <SectionSubHeading>Sub Heads</SectionSubHeading>
-                  <TeamGrid members={subHeads} onClickBio={setSelectedBio} />
-
-                  {/* Dropdown toggle for Operating Partners */}
-                  <div className="mt-8 sm:mt-10">
-                    <button
-                      onClick={() => setShowOperators((v) => !v)}
-                      className="mx-auto flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border-[2px] sm:border-[3px] border-[#1a1a1a] bg-[#fff9f4] font-bold font-mono uppercase tracking-wider sm:tracking-widest text-xs sm:text-sm md:text-base shadow-[4px_4px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a] transition-all active:translate-y-[2px] active:shadow-[2px_2px_0px_#1a1a1a]"
-                    >
-                      <span>Team Members</span>
-                      <motion.svg
-                        animate={{ rotate: showOperators ? 180 : 0 }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <polyline points="6 9 12 15 18 9" />
-                      </motion.svg>
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {showOperators && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            height: { type: 'spring', stiffness: 250, damping: 30 },
-                            opacity: { duration: 0.25, delay: 0.05 },
-                          }}
-                          className="overflow-hidden"
+                  <div className="mb-8 sm:mb-12 border-b-[2px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6">
+                    <div className="flex overflow-x-auto gap-2 sm:gap-3 justify-start sm:justify-center no-scrollbar -mx-1 px-1 pb-2">
+                      {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team'].map(team => (
+                        <button
+                          key={team}
+                          onClick={() => setActiveSubTeam(team)}
+                          className={`px-4 sm:px-5 py-2 sm:py-2.5 font-bold font-mono uppercase tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0 ${
+                            activeSubTeam === team 
+                              ? 'bg-[#1a1a1a] shadow-[3px_3px_0px_#f97028] sm:shadow-[4px_4px_0px_#f97028] translate-x-[-2px] translate-y-[-2px] text-[#f3ecd2]' 
+                              : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[2px_2px_0px_#1a1a1a] sm:shadow-[3px_3px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
+                          }`}
                         >
-                          <div className="pt-8 sm:pt-10">
-                            <h4 className="text-xl sm:text-2xl lg:text-3xl font-black uppercase tracking-widest mb-6 sm:mb-8 text-center w-full opacity-70">
-                              Operating Partners
-                            </h4>
-                            <TeamGrid members={theOperators} onClickBio={setSelectedBio} />
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                          {team}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeSubTeam}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -15 }}
+                      transition={{ duration: 0.3 }}
+                      className="min-h-[200px]"
+                    >
+                      {(() => {
+                        const allMembers = [...coreTeam, ...subHeads, ...theOperators];
+                        const keyword = activeSubTeam.split(' ')[0];
+                        const membersToRender = allMembers.filter(m => m.role.includes(keyword));
+
+                        return membersToRender.length > 0 ? (
+                          <TeamGrid members={membersToRender} />
+                        ) : (
+                          <div className="w-full text-center py-20 text-gray-400 font-mono uppercase tracking-widest text-sm">
+                            Team members incoming...
+                          </div>
+                        );
+                      })()}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             )}
@@ -340,14 +336,14 @@ export default function Team() {
               <div className="flex flex-col">
                 <div className="mb-4">
                   <SectionSubHeading>Chief Patrons</SectionSubHeading>
-                  <TeamGridSmall members={chiefPatrons} onClickBio={setSelectedBio} />
+                  <TeamGridSmall members={chiefPatrons} />
                 </div>
 
                 <CoinDivider />
 
                 <div className="mb-4">
                   <SectionSubHeading>Patrons</SectionSubHeading>
-                  <TeamGrid members={patrons} onClickBio={setSelectedBio} />
+                  <TeamGrid members={patrons} />
                 </div>
               </div>
             )}
@@ -356,14 +352,14 @@ export default function Team() {
               <div className="flex flex-col">
                 <div className="mb-4">
                   <SectionSubHeading>Faculty Coordinator</SectionSubHeading>
-                  <TeamGridSmall members={facultyCoordinator} onClickBio={setSelectedBio} />
+                  <TeamGridSmall members={facultyCoordinator} />
                 </div>
 
                 <CoinDivider />
 
                 <div className="mb-4">
                   <SectionSubHeading>Organising Team Members</SectionSubHeading>
-                  <TeamGrid members={facultyOrganizers} onClickBio={setSelectedBio} />
+                  <TeamGrid members={facultyOrganizers} />
                 </div>
               </div>
             )}
@@ -371,7 +367,7 @@ export default function Team() {
             {activeTab === 'Jury & Experts' && (
               <div className="mb-4">
                 <SectionSubHeading>Jury & Experts</SectionSubHeading>
-                <TeamGridSmall members={judges} onClickBio={setSelectedBio} />
+                <TeamGridSmall members={judges} />
               </div>
             )}
           </motion.div>
@@ -383,68 +379,6 @@ export default function Team() {
         </div>
 
       </div>
-
-      {/* Bio Modal Pop-in */}
-      <AnimatePresence>
-        {selectedBio && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.8)] backdrop-blur-sm p-3 sm:p-4"
-            onClick={() => setSelectedBio(null)}
-          >
-            <motion.div
-              layoutId={`modal-${selectedBio.id}`}
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="bg-[#f3ecd2] border-[3px] border-[#1a1a1a] shadow-[8px_8px_0px_#1a1a1a] sm:shadow-[16px_16px_0px_#1a1a1a] w-full max-w-lg p-5 sm:p-6 md:p-8 relative overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 border-2 border-[#1a1a1a] flex items-center justify-center font-bold font-mono hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-sm sm:text-base"
-                onClick={() => setSelectedBio(null)}
-              >
-                X
-              </button>
-
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wider sm:tracking-widest text-[#f97028] mt-2 sm:mt-4 mb-1.5 sm:mb-2 pr-10 sm:pr-12 leading-tight">
-                {selectedBio.name}
-              </h2>
-              <p className="font-mono text-sm sm:text-base md:text-lg font-bold mb-4 sm:mb-6 opacity-70 uppercase">
-                {selectedBio.role}
-              </p>
-
-              <div className="w-full h-[2px] bg-[#1a1a1a] mb-4 sm:mb-6 opacity-20" />
-
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8 md:mb-10 font-medium">
-                {selectedBio.bio || "No bio available right now. Currently busy building the future."}
-              </p>
-
-              <div className="flex gap-3 sm:gap-4">
-                <a
-                  href={selectedBio.twitter || '#'}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 py-2.5 sm:py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-wider sm:tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-xs sm:text-sm md:text-base"
-                >
-                  Twitter/X
-                </a>
-                <a
-                  href={selectedBio.linkedin || '#'}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 py-2.5 sm:py-3 border-2 border-[#1a1a1a] text-center font-bold uppercase tracking-wider sm:tracking-widest hover:bg-[#1a1a1a] hover:text-[#f3ecd2] transition-colors text-xs sm:text-sm md:text-base"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
