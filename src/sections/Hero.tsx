@@ -163,7 +163,6 @@ export default function DevHackHeroCompact() {
         gsap.set(sticker, {
           opacity: 1,
           y: 0,
-          bottom: "2rem",
         });
 
         const timeline = gsap.timeline({
@@ -237,15 +236,29 @@ export default function DevHackHeroCompact() {
             : "relative w-full z-0 overflow-hidden"
             }`}
         >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-auto md:h-full md:object-cover"
-          >
-            <source src="/assets/devhack3.mp4" type="video/mp4" />
-          </video>
+          <img
+            src="/assets/final.jpeg"
+            alt="DevHack Background"
+            className="w-full h-screen object-cover object-center"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 -mt-24">
+            <h1 
+              className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12"
+            >
+              <div className="text-[clamp(5rem,12vw,9rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
+              <div className="text-[clamp(5rem,15vw,11rem)] leading-none -mt-12 mb-1 hero-main-title pointer-events-auto">Devhack</div>
+              <div className="text-[clamp(4rem,12vw,8rem)] leading-none -mt-8 hero-main-title pointer-events-auto">3.0</div>
+            </h1>
+            
+            <div
+              ref={dateStickerRef}
+              className="-mt-10 flex justify-center z-20"
+            >
+              <div className="hero-date-badge text-center whitespace-nowrap pointer-events-auto">
+                SEPTEMBER 18TH & 19TH, 2026
+              </div>
+            </div>
+          </div>
         </div>
 
         <div
@@ -296,18 +309,7 @@ export default function DevHackHeroCompact() {
           </div>
         </div>
 
-        {/* Date Sticker */}
-        <div
-          ref={dateStickerRef}
-          className={`${!isMobile
-            ? "absolute inset-x-0 bottom-10 md:bottom-10 flex justify-center z-20 pointer-events-none"
-            : "relative flex justify-center z-20 py-4"
-            }`}
-        >
-          <div className="hero-date-badge text-center whitespace-nowrap">
-            SEPTEMBER 18TH & 19TH, 2026
-          </div>
-        </div>
+
       </div>
     </section>
   );
