@@ -280,7 +280,6 @@
     0 4px 0 #1a1a1a,
     0 0 15px rgba(249, 112, 40, 0.2);
   transform: rotate(-1deg);
-  animation: datePulse 2.5s ease-in-out infinite;
 }
 
 /* Split image effects - clipping moved from inline styles */
