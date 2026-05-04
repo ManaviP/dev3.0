@@ -6,7 +6,7 @@ const Prizes: React.FC = () => {
     { title: "1st PRIZE", amount: "100,000", isMain: true, mainColor: "#F2C94C", accentColor: "#F9E7A1", metalGradient: "linear-gradient(180deg, #F9E7A1 0%, #F2C94C 45%, #D4A82A 100%)" },
     { title: "2nd PRIZE", amount: "50,000", isMain: false, mainColor: "#C9CCD1", accentColor: "#F1F3F5", metalGradient: "linear-gradient(180deg, #F1F3F5 0%, #C9CCD1 50%, #8C9198 100%)" },
     { title: "3rd PRIZE", amount: "25,000", isMain: false, mainColor: "#B87333", accentColor: "#E0B084", metalGradient: "linear-gradient(180deg, #E0B084 0%, #B87333 50%, #7A4E2D 100%)" },
-    { title: "CONSOLATION", amount: "25,000", isMain: false, mainColor: "#8E7AB5", accentColor: "#C3B1E1", metalGradient: "linear-gradient(180deg, #C3B1E1 0%, #8E7AB5 50%, #4B3F72 100%)" },
+    { title: "CONSOLATION", amount: "25,000", isMain: false, mainColor: "#7A3B2F", accentColor: "#5A2620", metalGradient: "linear-gradient(180deg, #A95747 0%, #E6A18F 50%, #7A4E2D 100%)" },
   ];
 
   return (
@@ -122,4 +122,4 @@ const Prizes: React.FC = () => {
   );
 };
 
-export default Prizes;
+export default Prizes;

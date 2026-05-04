@@ -87,52 +87,6 @@ function AnimatedWaveEdge() {
   );
 }
 
-function MarqueeBand() {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-
-  return (
-    <div
-      className="relative z-30 overflow-hidden border-t border-b py-2 sm:py-4"
-      style={{ borderColor: '#d4a02040' }}
-    >
-      <div className="flex whitespace-nowrap">
-        {isMobile ? (
-          <div className="w-full flex justify-center py-2">
-            <span
-              className="font-black uppercase text-black"
-              style={{
-                fontSize: 'clamp(1.2rem, 4vw, 2.2rem)',
-                letterSpacing: '0.15em',
-              }}
-            >
-              DEVHACK 3.0
-            </span>
-          </div>
-        ) : (
-          <motion.div
-            className="flex"
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          >
-            {[...Array(12)].map((_, i) => (
-              <span
-                key={i}
-                className="px-16 font-black uppercase text-black flex items-center"
-                style={{
-                  fontSize: 'clamp(2rem, 5vw, 4rem)',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                DEVHACK 3.0
-              </span>
-            ))}
-          </motion.div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function Footer() {
   const links = [
     {
@@ -291,7 +245,6 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      <MarqueeBand />
     </footer>
   );
 }

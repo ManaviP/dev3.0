@@ -1,0 +1,27 @@
+export const photos = [
+  { src: "/assets/hero1.webp", width: 800, height: 600 },
+  { src: "/assets/hero2.webp", width: 600, height: 800 },
+  { src: "/assets/hero3.webp", width: 800, height: 600 },
+  { src: "/assets/hero4.webp", width: 600, height: 800 },
+  { src: "/assets/hero5.webp", width: 800, height: 600 },
+  { src: "/assets/hero6.webp", width: 800, height: 600 },
+  { src: "/assets/hero7.webp", width: 800, height: 600 },
+  { src: "/assets/hero8.webp", width: 800, height: 600 },
+  { src: "/assets/hero9.webp", width: 800, height: 600 },
+  { src: "/assets/hero10.webp", width: 800, height: 600 },
+  { src: "/assets/hero11.webp", width: 800, height: 600 },
+  { src: "/assets/hero12.webp", width: 800, height: 600 },
+  { src: "/assets/hero13.webp", width: 800, height: 600 },
+  { src: "/assets/hero14.webp", width: 800, height: 600 },
+  { src: "/assets/hero15.webp", width: 800, height: 600 },
+  { src: "/assets/hero16.webp", width: 800, height: 600 },
+  { src: "/assets/hero17.webp", width: 800, height: 600 },
+  { src: "/assets/hero18.webp", width: 800, height: 600 },
+  { src: "/assets/hero19.webp", width: 800, height: 600 },
+  { src: "/assets/hero20.webp", width: 800, height: 600 },
+  { src: "/assets/hero21.webp", width: 800, height: 600 },
+  { src: "/assets/hero22.webp", width: 800, height: 600 },
+  { src: "/assets/hero23.webp", width: 800, height: 600 },
+];
+
+export default photos;

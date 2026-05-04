@@ -5,10 +5,12 @@ import Hero from './sections/Hero'
 import Themes from './components/Themes'
 import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
-// import Team from './sections/Team'
+import Team from './sections/Team'
 import Prizes from './sections/Prizes'
 import Sponsors from './sections/Sponsors'
 import Footer from './sections/Footer'
+import ClickSpark from './components/ClickSpark'
+import Memory from './sections/Memory'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -83,13 +85,13 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
           maxWidth: isMini ? '210px' : '1540px',
         }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[var(--color-cream)] ${isMini ? 'cursor-pointer' : ''}`}
+        className={`flex flex-col shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[4px] border-[#1a1a1a] rounded-2xl md:rounded-[2.5rem] overflow-hidden pointer-events-auto bg-[#f3ecd2] ${isMini ? 'cursor-pointer' : ''}`}
       >
 
 
         {/* Mobile Menu Toggle */}
         <div className={`w-full flex ${isMini ? 'justify-center' : 'justify-between'} items-center relative transition-all duration-300 ${isMini ? 'py-3' : 'px-4 md:px-8 py-2 md:py-3.5'}`}>
-          <a href="#hero" onClick={handleLinkClick} className="flex items-center">
+          <a href="#hero" onClick={handleLinkClick} className="cursor-target flex items-center">
             <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
           </a>
 
@@ -100,12 +102,13 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               animate={{ opacity: 1 }}
               className="hidden md:flex gap-8 lg:gap-10 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a]"
             >
-              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
-              <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
-              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
-              <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Prizes</a>
-              <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Sponsors</a>
-              <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
+              <a href="#hero" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
+              <a href="#themes" onClick={handleLinkClick} className="cursor-target hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
+              <a href="#prizes" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Prizes</a>
+              <a href="#sponsors" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Sponsors</a>
+              <a href="#timeline" onClick={handleLinkClick} className="cursor-target hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
+              <a href="#team" onClick={handleLinkClick} className="cursor-target hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Team</a>
+              <a href="#faq" onClick={handleLinkClick} className="cursor-target hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
             </motion.div>
           )}
 
@@ -116,7 +119,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
                 e.stopPropagation(); // Don't trigger container click
                 setIsOpen(!isOpen);
               }}
-              className="md:hidden p-2 text-[#1a1a1a]"
+              className="cursor-target md:hidden p-2 text-[#1a1a1a]"
               aria-label="Toggle Menu"
             >
               {isOpen ? (
@@ -138,12 +141,13 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
               className="md:hidden w-full px-6 pb-8 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-[#1a1a1a]"
             >
               <div className="h-[2px] w-full bg-[#1a1a1a]/10 mb-2" />
-              <a href="#hero" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Main</a>
-              <a href="#timeline" onClick={handleLinkClick} className="hover:text-[#f97028] active:text-[#f97028]">Timeline</a>
-              <a href="#themes" onClick={handleLinkClick} className="hover:text-[#f3a20f] active:text-[#f3a20f]">Themes</a>
-              <a href="#prizes" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Prizes</a>
-              <a href="#sponsors" onClick={handleLinkClick} className="hover:text-[#f489a3] active:text-[#f489a3]">Sponsors</a>
-              <a href="#faq" onClick={handleLinkClick} className="hover:text-[#ff5ea8] active:text-[#ff5ea8]">FAQ</a>
+              <a href="#hero" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] active:text-[#f489a3]">Main</a>
+              <a href="#themes" onClick={handleLinkClick} className="cursor-target hover:text-[#f3a20f] active:text-[#f3a20f]">Themes</a>
+              <a href="#prizes" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] active:text-[#f489a3]">Prizes</a>
+              <a href="#sponsors" onClick={handleLinkClick} className="cursor-target hover:text-[#f489a3] active:text-[#f489a3]">Sponsors</a>
+              <a href="#timeline" onClick={handleLinkClick} className="cursor-target hover:text-[#f97028] active:text-[#f97028]">Timeline</a>
+              <a href="#team" onClick={handleLinkClick} className="cursor-target hover:text-[#f3a20f] active:text-[#f3a20f]">Team</a>
+              <a href="#faq" onClick={handleLinkClick} className="cursor-target hover:text-[#ff5ea8] active:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}
         </AnimatePresence>
@@ -151,8 +155,6 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
     </nav>
   )
 }
-
-import ClickSpark from './components/ClickSpark'
 
 export default function App() {
   const [loading, setLoading] = useState(true)
@@ -211,17 +213,11 @@ export default function App() {
   }
 
   return (
-    <ClickSpark
-      sparkColor="#0CFFFF"
-      sparkSize={10}
-      sparkRadius={15}
-      sparkCount={8}
-      duration={400}
-    >
+    <>
       {/* Initial loading screen */}
       {mountLoader && (
         <div
-          className={`fixed inset-0 z-[200] overflow-hidden bg-[var(--color-cream)] flex flex-col items-center justify-center transition-all duration-700 ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 z-[200] overflow-hidden bg-[#f3ecd2] flex flex-col items-center justify-center transition-all duration-700 ${loading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
         >
           <img
@@ -245,25 +241,29 @@ export default function App() {
           >
             <div className="flex flex-col items-center">
               <img src="/assets/logo1.png" alt="Loading" className="h-32 w-auto animate-bounce mb-4" />
-              <h2 className="text-cream text-3xl font-display tracking-widest animate-pulse">DEVHACK <span className="font-number-bold">3.0</span></h2>
+              <h2 className="text-cream text-3xl font-display tracking-widest animate-pulse">DEVHACK 3.0</h2>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="min-h-screen bg-cream relative font-sans text-cream">
-        <Navbar onNavClick={handleNavClick} />
-        <main>
-          <Hero />
-          <Themes />
-          <Prizes />
-          <Sponsors />
-          <Timeline />
-          {/* <Team /> */}
-          <FAQ />
-        </main>
-        <Footer />
-      </div>
-    </ClickSpark>
+      <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
+        <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
+          <Navbar onNavClick={handleNavClick} />
+          <main>
+            <Hero />
+            <Memory />
+            <Themes />
+            <Prizes />
+
+            <Timeline />
+            <Sponsors />
+            <Team />
+            <FAQ />
+          </main>
+          <Footer />
+        </div>
+      </ClickSpark>
+    </>
   )
 }

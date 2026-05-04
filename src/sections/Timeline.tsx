@@ -395,7 +395,7 @@ function StationCard({
               >
                 <span
                   className="font-mono"
-                  style={{ fontSize: '8px', fontWeight: 900, letterSpacing: '0.22em', color: '#1a1a1a', textTransform: 'uppercase' }}
+                  style={{ fontSize: '9px', fontWeight: 900, letterSpacing: '0.22em', color: '#1a1a1a', textTransform: 'uppercase' }}
                 >
                   PLATFORM {String(index + 1).padStart(2, '0')}
                 </span>
@@ -414,7 +414,7 @@ function StationCard({
                   <div
                     style={{
                       background: '#1a1a1a', color: color,
-                      fontFamily: 'monospace', fontSize: '22px', fontWeight: 900,
+                      fontFamily: 'monospace', fontSize: '23px', fontWeight: 900,
                       padding: '3px 8px', lineHeight: 1,
                       display: 'flex', alignItems: 'center',
                       minWidth: '40px', justifyContent: 'center', letterSpacing: '0.04em',
@@ -428,7 +428,7 @@ function StationCard({
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}
                   >
-                    <span className="font-mono" style={{ fontSize: '10px', fontWeight: 800, color: '#f3ecd2', letterSpacing: '0.1em' }}>{event.month}</span>
+                    <span className="font-mono" style={{ fontSize: '11px', fontWeight: 800, color: '#f3ecd2', letterSpacing: '0.1em' }}>{event.month}</span>
                   </div>
                   <div
                     style={{
@@ -437,10 +437,10 @@ function StationCard({
                       border: '1px solid rgba(26,26,26,0.08)', borderLeft: 'none',
                     }}
                   >
-                    <span className="font-mono" style={{ fontSize: '11px', fontWeight: 900, color: '#1a1a1a', opacity: 0.55, letterSpacing: '0.04em', lineHeight: 1 }}>
+                    <span className="font-mono" style={{ fontSize: '12px', fontWeight: 900, color: '#1a1a1a', opacity: 0.55, letterSpacing: '0.04em', lineHeight: 1 }}>
                       {event.year}
                     </span>
-                    <span className="font-mono" style={{ fontSize: '6.5px', color: '#1a1a1a', opacity: 0.3, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                    <span className="font-mono" style={{ fontSize: '7.5px', color: '#1a1a1a', opacity: 0.3, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
                       YEAR
                     </span>
                   </div>
@@ -449,7 +449,7 @@ function StationCard({
                 {/* Title */}
                 <h3
                   className="font-display text-[#1a1a1a] leading-tight"
-                  style={{ fontSize: 'clamp(0.82rem, 1.4vw, 1.05rem)', letterSpacing: '-0.01em', marginBottom: '5px' }}
+                  style={{ fontSize: 'clamp(0.92rem, 1.5vw, 1.15rem)', letterSpacing: '-0.01em', marginBottom: '5px' }}
                 >
                   {event.title}
                 </h3>
@@ -458,7 +458,7 @@ function StationCard({
                 <p
                   className="font-sans text-[#1a1a1a]/60 leading-snug"
                   style={{
-                    fontSize: 'clamp(0.62rem, 0.9vw, 0.72rem)',
+                    fontSize: 'clamp(0.72rem, 1.0vw, 0.82rem)',
                     display: '-webkit-box', WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical', overflow: 'hidden',
                     marginBottom: '8px',
@@ -573,7 +573,7 @@ export default function Timeline() {
 
   // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
   // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
-  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 220 : 220;
+  const CARD_WIDTH = isSmallScreen ? 230 : isMobile ? 260 : 260;
   const STATION_GAP = isMobile ? 280 : 245;
   const PADDING_SIDE = isMobile ? 60 : 160;
   const END_PADDING = isMobile ? 350 : 160;
