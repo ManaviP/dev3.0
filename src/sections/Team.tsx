@@ -6,11 +6,8 @@ import {
   coreTeam,
   subHeads,
   theOperators,
-  facultyCoordinator,
-  facultyOrganizers,
   chiefPatrons,
   patrons,
-  judges,
 } from './teamData';
 
 
