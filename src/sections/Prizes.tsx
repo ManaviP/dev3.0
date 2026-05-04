@@ -1,12 +1,12 @@
 import React from 'react';
-import PrizeCard from '../components/PrizeCard';
+import { motion } from 'framer-motion';
 
 const Prizes: React.FC = () => {
   const prizesData = [
-    { title: "1st PRIZE", amount: "100,000", isMain: true, mainColor: "#F2C94C", accentColor: "#F9E7A1", metalGradient: "linear-gradient(180deg, #F9E7A1 0%, #F2C94C 45%, #D4A82A 100%)" },
-    { title: "2nd PRIZE", amount: "50,000", isMain: false, mainColor: "#C9CCD1", accentColor: "#F1F3F5", metalGradient: "linear-gradient(180deg, #F1F3F5 0%, #C9CCD1 50%, #8C9198 100%)" },
-    { title: "3rd PRIZE", amount: "25,000", isMain: false, mainColor: "#B87333", accentColor: "#E0B084", metalGradient: "linear-gradient(180deg, #E0B084 0%, #B87333 50%, #7A4E2D 100%)" },
-    { title: "CONSOLATION", amount: "25,000", isMain: false, mainColor: "#8E7AB5", accentColor: "#C3B1E1", metalGradient: "linear-gradient(180deg, #C3B1E1 0%, #8E7AB5 50%, #4B3F72 100%)" },
+    { label: "Winner", amount: "100,000", image: "/assets/winner.png" },
+    { label: "1st Runner Up", amount: "50,000", image: "/assets/1st-runner.png" },
+    { label: "2nd Runner Up", amount: "25,000", image: "/assets/2nd-runner.png" },
+    { label: "Consolation", amount: "25,000", image: "/assets/consolation.png" },
   ];
 
   return (
@@ -41,79 +41,80 @@ const Prizes: React.FC = () => {
         <span className="absolute left-[86%] top-[62%] w-1.5 h-1.5 rounded-full bg-[#95b8c8]/70 opacity-30" />
       </div>
 
-      <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
+      <div className="max-w-[1440px] w-full mx-auto relative z-10 flex flex-col items-center">
 
         {/* Retro Header layout */}
-        <div className="text-center mb-16 sm:mb-20">
+        <div className="text-center mb-6 sm:mb-10 z-20">
           <div className="h-[3px] w-24 bg-[#1a1a1a] mx-auto mb-4 origin-center opacity-80" />
 
           <h2
             className="font-display text-[#1a1a1a] uppercase"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
           >
             PRIZES
           </h2>
         </div>
 
-        <div className="flex flex-col xl:flex-row items-center xl:items-end justify-center w-full px-2">
+        <div className="flex flex-col items-center lg:flex-row lg:flex-nowrap lg:items-end justify-center w-full max-w-[1200px] px-2 sm:px-4 gap-8 lg:gap-4 xl:gap-8 mx-auto">
           {prizesData.map((prize, index) => {
             let orderClass = "";
-            let zIndex = 10;
-            let heightClass = "";
-            let widthClass = "";
-            let margins = "";
-            let transform = "";
+            let imgWidthClass = "";
+            let amountSizeClass = "";
 
-            if (index === 0) { // 1st Prize [Center]
-              orderClass = "order-1 xl:order-2";
-              zIndex = 50;
-              heightClass = "h-[250px] sm:h-[380px] xl:h-[420px]";
-              widthClass = "w-full max-w-[340px] xl:max-w-[460px]";
-              margins = "my-4 xl:my-0";
-              transform = "xl:translate-y-[-20px] scale-100 xl:scale-105";
+            if (index === 0) { // Winner
+              orderClass = "order-1 lg:order-2 transform scale-105 lg:mx-4";
+              imgWidthClass = "w-[95%] max-w-[280px] lg:max-w-[320px]";
+              amountSizeClass = "text-5xl md:text-6xl lg:text-7xl";
             }
-            else if (index === 1) { // 2nd Prize [Left]
-              orderClass = "order-2 xl:order-1";
-              zIndex = 40;
-              heightClass = "h-[250px] sm:h-[300px] xl:h-[340px]";
-              widthClass = "w-full max-w-[300px] xl:max-w-[400px]";
-              margins = "xl:-mr-6 my-2 xl:my-0";
-              transform = "rotate-0 xl:-rotate-3";
+            else if (index === 1) { // 1st Runner Up
+              orderClass = "order-2 lg:order-1";
+              imgWidthClass = "w-[85%] max-w-[240px] lg:max-w-[260px]";
+              amountSizeClass = "text-4xl md:text-5xl lg:text-6xl";
             }
-            else if (index === 2) { // 3rd Prize [Right]
-              orderClass = "order-3 xl:order-3";
-              zIndex = 40;
-              heightClass = "h-[250px] sm:h-[275px] xl:h-[300px]";
-              widthClass = "w-full max-w-[280px] xl:max-w-[380px]";
-              margins = "xl:-ml-6 my-2 xl:my-0";
-              transform = "rotate-0 xl:rotate-3";
+            else if (index === 2) { // 2nd Runner Up
+              orderClass = "order-3 lg:order-3";
+              imgWidthClass = "w-[75%] max-w-[200px] lg:max-w-[220px]";
+              amountSizeClass = "text-3xl md:text-4xl lg:text-5xl";
             }
-            else { // Consolation [Right of 3rd]
-              orderClass = "order-4 xl:order-4";
-              zIndex = 30;
-              heightClass = "h-[250px] sm:h-[235px] xl:h-[250px]";
-              widthClass = "w-full max-w-[250px] xl:max-w-[340px]";
-              margins = "xl:-ml-4 mt-2 xl:mt-0";
-              transform = "rotate-0 xl:rotate-6 xl:translate-y-[20px]";
+            else { // Consolation
+              orderClass = "order-4 lg:order-4 lg:-ml-10 xl:-ml-16";
+              imgWidthClass = "w-[65%] max-w-[160px] lg:max-w-[180px]";
+              amountSizeClass = "text-3xl md:text-4xl lg:text-5xl";
             }
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`${orderClass} ${margins} ${widthClass} ${heightClass} relative transition-all duration-300 hover:!z-[60]`}
-                style={{ zIndex }}
+                initial={{ scale: 0, opacity: 0, y: 40 }}
+                whileInView={{ scale: 1, opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 220, 
+                  damping: 18, 
+                  delay: (3 - index) * 0.25 
+                }}
+                className={`${orderClass} flex-1 flex flex-col items-center justify-end text-center transition-transform duration-300 hover:scale-105 h-full pt-4 min-w-0`}
               >
-                <div className={`w-full h-full ${transform} transition-all duration-300 origin-bottom`}>
-                  <PrizeCard
-                    title={prize.title}
-                    amount={prize.amount}
-                    isMain={prize.isMain}
-                    mainColor={prize.mainColor}
-                    accentColor={prize.accentColor}
-                    metalGradient={prize.metalGradient}
+                {/* Image Container: uses flex-1 to push text down or just margin */}
+                <div className="flex items-end justify-center mb-1 min-h-[140px] xl:min-h-[180px]">
+                  <img 
+                    src={prize.image} 
+                    alt={prize.label} 
+                    className={`${imgWidthClass} h-auto object-contain filter drop-shadow-xl`} 
                   />
                 </div>
-              </div>
+                
+                {/* Amount */}
+                <h3 className={`font-display text-[#d62828] font-bold ${amountSizeClass} mb-1 leading-none tracking-tight`}>
+                  <span className="font-sans font-black text-[0.75em] mr-1 align-baseline relative -top-[0.05em]">{'\u20B9'}</span>{prize.amount}
+                </h3>
+                
+                {/* Label */}
+                <p className="font-sans text-[#1a1a1a]/90 font-bold text-sm md:text-base uppercase tracking-widest mt-0">
+                  {prize.label}
+                </p>
+              </motion.div>
             )
           })}
         </div>
@@ -122,4 +123,4 @@ const Prizes: React.FC = () => {
   );
 };
 
-export default Prizes;
+export default Prizes;
