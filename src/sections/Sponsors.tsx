@@ -5,33 +5,9 @@ import { motion } from 'framer-motion';
 
 const Sponsors: React.FC = () => {
 
-  const platinumSponsors = [
-    { name: "Webflow", logo: "/logos/logoo 1(main).png" },
-    { name: "Finsweet", logo: "/logos/logoo 2.png" },
-  ];
-
   const goldSponsors = [
-    { name: "Weglot", logo: "/logos/logoo 3.png" },
-    { name: "LottieFiles", logo: "/logos/logoo 4.png" },
-    { name: "Refokus", logo: "/logos/logoo 5.png" },
-    { name: "Edgar Allan", logo: "/logos/logoo6.png" },
-    { name: "Jetboost", logo: "/logos/logoo7.png" },
-  ];
-
-  const streamSponsors = [
-    { name: "Stream A", logo: "/logos/logoo8.png" },
-    { name: "Stream B", logo: "/logos/logoo9(main).png" },
-    { name: "Stream C", logo: "/logos/logoo 3.png" },
-  ];
-
-  const communitySponsors = [
-    { name: "Community A", logo: "/logos/logoo 4.png" },
-    { name: "Community B", logo: "/logos/logoo 5.png" },
-    { name: "Community C", logo: "/logos/logoo6.png" },
-    { name: "Community D", logo: "/logos/logoo7.png" },
-    { name: "Community E", logo: "/logos/logoo8.png" },
-    { name: "Community F", logo: "/logos/logoo9(main).png" },
-    { name: "Community G", logo: "/logos/logoo 1(main).png" },
+    { name: "AIC DSU Innovation Foundation", logo: "/logos/aic-dsu.png" },
+    { name: "CodeCrafters.io", logo: "/logos/CodeCraft.png" },
   ];
 
   const containerVariants = {
@@ -109,8 +85,8 @@ const Sponsors: React.FC = () => {
             The teams making DevHack 3.0 possible
           </motion.p>
         </div>
-
-        {/* Platinum */}
+        { /*
+       { Platinum }
         <div className="w-full mb-20">
           <TierLabel label="Platinum Sponsors" />
           <motion.div
@@ -126,53 +102,20 @@ const Sponsors: React.FC = () => {
             ))}
           </motion.div>
         </div>
-
+        */
+        }
         {/* Gold */}
-        <div className="w-full mb-20">
+        <div className="w-full">
           <TierLabel label="Gold Sponsors" />
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            className="grid grid-cols-2 md:grid-cols-3 gap-8 sm:gap-16 max-w-4xl mx-auto items-center"
+            className="flex flex-row flex-nowrap justify-center items-center gap-10 sm:gap-20"
           >
             {goldSponsors.map((s, i) => (
               <motion.div key={i} variants={itemVariants} className="flex justify-center">
                 <SponsorCard {...s} tier="gold" />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Stream */}
-        <div className="w-full mb-20">
-          <TierLabel label="Stream Sponsors" />
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            className="flex flex-wrap justify-center gap-8 sm:gap-16"
-          >
-            {streamSponsors.map((s, i) => (
-              <motion.div key={i} variants={itemVariants}>
-                <SponsorCard {...s} tier="stream" />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Community */}
-        <div className="w-full">
-          <TierLabel label="Community Sponsors" />
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 sm:gap-12 max-w-5xl mx-auto items-center"
-          >
-            {communitySponsors.map((s, i) => (
-              <motion.div key={i} variants={itemVariants} className="flex justify-center">
-                <SponsorCard {...s} tier="community" />
               </motion.div>
             ))}
           </motion.div>
