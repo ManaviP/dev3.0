@@ -69,8 +69,6 @@ export default function MemorySection() {
 
         const initialize = async () => {
             const context = gsap.context(() => {
-                const isMobile = window.innerWidth < 768;
-
                 // Set initial states - gallery visible from start, no opacity transition
                 gsap.set(imagesFrame, {
                     opacity: 1,
