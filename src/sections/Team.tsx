@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import {
   type TeamMember,
+  type SubTeam,
   coreTeam,
   subHeads,
   theOperators,
@@ -45,9 +46,11 @@ function TeamCard({ member }: { member: TeamMember }) {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -8, scale: 1.02 }}
-      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all flex flex-col h-full overflow-hidden w-full shrink-0"
+      className="team-card group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all flex flex-col h-full overflow-hidden w-full shrink-0"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={() => setTimeout(() => setIsHovered(false), 600)}
     >
       {/* Corner Rivets */}
       {[
@@ -79,7 +82,7 @@ function TeamCard({ member }: { member: TeamMember }) {
         <img
           src={member.image}
           alt={member.name}
-          className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+          className="team-photo w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
         />
       </div>
 
@@ -150,11 +153,20 @@ export default function Team() {
 
   const TABS = ['Organising Team', 'Patrons' /*, 'Faculty', 'Jury & Experts' */];
 
+  const SUB_TEAMS: { label: string; key: SubTeam }[] = [
+    { label: 'Web Team',         key: 'Web' },
+    { label: 'Design Team',      key: 'Design' },
+    { label: 'Marketing Team',   key: 'Marketing' },
+    { label: 'Sponsorship Team', key: 'Sponsorship' },
+    { label: 'Drafting Team',    key: 'Drafting' },
+  ];
+
   const allMembers = useMemo(() => [...coreTeam, ...subHeads, ...theOperators], []);
 
   const membersToRender = useMemo(() => {
-    const keyword = activeSubTeam.split(' ')[0];
-    return allMembers.filter(m => m.role.includes(keyword));
+    const activeKey = SUB_TEAMS.find(t => t.label === activeSubTeam)?.key;
+    if (!activeKey) return [];
+    return allMembers.filter(m => m.teams?.[0] === activeKey);
   }, [allMembers, activeSubTeam]);
 
   return (
@@ -229,16 +241,16 @@ export default function Team() {
 
                   <div className="mb-8 sm:mb-12 border-b-[2px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6">
                     <div className="flex overflow-x-auto gap-2 sm:gap-3 justify-start sm:justify-center no-scrollbar -mx-1 px-1 pb-2">
-                      {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team', 'Drafting Team'].map(team => (
+                      {SUB_TEAMS.map(({ label }) => (
                         <button
-                          key={team}
-                          onClick={() => setActiveSubTeam(team)}
-                          className={`px-4 sm:px-5 py-2 sm:py-2.5 font-bold font-mono uppercase tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0 ${activeSubTeam === team
+                          key={label}
+                          onClick={() => setActiveSubTeam(label)}
+                          className={`px-4 sm:px-5 py-2 sm:py-2.5 font-bold font-mono uppercase tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0 ${activeSubTeam === label
                             ? 'bg-[#1a1a1a] shadow-[3px_3px_0px_#f97028] sm:shadow-[4px_4px_0px_#f97028] translate-x-[-2px] translate-y-[-2px] text-[#f3ecd2]'
                             : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[2px_2px_0px_#1a1a1a] sm:shadow-[3px_3px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
                             }`}
                         >
-                          {team}
+                          {label}
                         </button>
                       ))}
                     </div>

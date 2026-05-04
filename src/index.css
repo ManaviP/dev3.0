@@ -56,7 +56,7 @@
   }
 
   a, button, [role="button"], .cursor-pointer {
-    cursor: url('/assets/Jeelh-Cursor-Light/Select%20Light.png') 18 2, pointer !important;
+    cursor: url('/assets/Cursor107.cur') 0 0, pointer !important;
   }
 
   input[type="text"], input[type="email"], textarea, [contenteditable="true"], .cursor-text {
@@ -498,4 +498,21 @@
   box-shadow: inset -2px -2px 0px rgba(0,0,0,0.2), 2px 2px 0px #1a1a1a;
   display: inline-block;
   margin: 0 8px;
+}
+
+/* ── Touch device overrides ─────────────────────────────────
+   @media (hover: none) targets any device without a real hover
+   pointer — iPhones, iPads, Android tablets, all of them.
+   Screen-size breakpoints (md, lg) don't help here because
+   iPad Pro is wider than 768px but is still a touch device.
+──────────────────────────────────────────────────────────── */
+@media (hover: none) {
+  .team-photo {
+    filter: none !important;
+  }
+
+  .team-card:active {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 8px 8px 0px #f97028 !important;
+  }
 }

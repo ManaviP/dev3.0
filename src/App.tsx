@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Lenis from 'lenis'
 
 import Hero from './sections/Hero'
+import Memories from './sections/Memories'
 import Themes from './components/Themes'
 import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
@@ -251,6 +252,7 @@ export default function App() {
           <Navbar onNavClick={handleNavClick} />
           <main>
             <Hero />
+            <Memories />
             <Themes />
             <Prizes />
             <Sponsors />

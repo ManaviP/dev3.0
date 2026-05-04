@@ -2,11 +2,15 @@
 //  TEAM DATA  —  edit social links here, nothing else to touch
 // ============================================================
 
+export type SubTeam = 'Web' | 'Design' | 'Marketing' | 'Sponsorship' | 'Drafting';
+
 export interface TeamMember {
   id: string;
   name: string;
   role: string;
   image: string;
+  /** Which sub-teams this person belongs to (first one is their primary team) */
+  teams?: SubTeam[];
   linkedin?: string;   // full URL e.g. "https://linkedin.com/in/username"
   instagram?: string;  // full URL e.g. "https://instagram.com/username"
 }
@@ -45,6 +49,7 @@ export const subHeads: TeamMember[] = [
     id: 's0',
     name: 'Manavi P',
     role: 'Web Team Lead',
+    teams: ['Web'],
     image: '/logos/manavi.webp',
     linkedin: '',
     instagram: '',
@@ -52,7 +57,8 @@ export const subHeads: TeamMember[] = [
   {
     id: 's1',
     name: 'G Nithesh',
-    role: 'Web Team Co Lead & Drafting Team Lead',
+    role: 'Web Team Co Lead · Drafting Team Lead',
+    teams: ['Web'],
     image: '/logos/nithesh.png',
     linkedin: '',
     instagram: '',
@@ -61,6 +67,7 @@ export const subHeads: TeamMember[] = [
     id: 's2',
     name: 'Raksha',
     role: 'Design Team Lead',
+    teams: ['Design'],
     image: '/logos/raksha.webp',
     linkedin: '',
     instagram: '',
@@ -69,6 +76,7 @@ export const subHeads: TeamMember[] = [
     id: 's3',
     name: 'Aastha',
     role: 'Sponsorship Team Lead',
+    teams: ['Sponsorship'],
     image: '/logos/astha.webp',
     linkedin: '',
     instagram: '',
@@ -76,7 +84,8 @@ export const subHeads: TeamMember[] = [
   {
     id: 's4',
     name: 'Nishchal Gowda R',
-    role: 'Marketing and Media Lead',
+    role: 'Marketing & Media Lead',
+    teams: ['Marketing'],
     image: '/logos/Nishchal.webp',
     linkedin: '',
     instagram: '',
@@ -84,7 +93,8 @@ export const subHeads: TeamMember[] = [
   {
     id: 's5',
     name: 'Preetham H S',
-    role: 'Marketing and Media Co Lead',
+    role: 'Marketing & Media Co Lead',
+    teams: ['Marketing'],
     image: '/logos/preetham.webp',
     linkedin: '',
     instagram: '',
@@ -97,6 +107,7 @@ export const theOperators: TeamMember[] = [
     id: 'o0',
     name: 'Omkar G K',
     role: 'Web Team',
+    teams: ['Web'],
     image: '/logos/omkar.webp',
     linkedin: '',
     instagram: '',
@@ -105,6 +116,7 @@ export const theOperators: TeamMember[] = [
     id: 'o1',
     name: 'Supraj U Sivajji',
     role: 'Web Team',
+    teams: ['Web'],
     image: '/logos/supraj.png',
     linkedin: '',
     instagram: '',
@@ -113,6 +125,7 @@ export const theOperators: TeamMember[] = [
     id: 'o2',
     name: 'Moulika',
     role: 'Design Team',
+    teams: ['Design'],
     image: '/logos/moulika.webp',
     linkedin: '',
     instagram: '',
@@ -121,6 +134,7 @@ export const theOperators: TeamMember[] = [
     id: 'o3',
     name: 'Moulya',
     role: 'Design Team',
+    teams: ['Design'],
     image: '/logos/moulya.webp',
     linkedin: '',
     instagram: '',
@@ -129,6 +143,7 @@ export const theOperators: TeamMember[] = [
     id: 'o4',
     name: 'Naman Saraff',
     role: 'Sponsorship Team',
+    teams: ['Sponsorship'],
     image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Naman',
     linkedin: '',
     instagram: '',
@@ -137,6 +152,7 @@ export const theOperators: TeamMember[] = [
     id: 'o5',
     name: 'Tathagat',
     role: 'Sponsorship Team',
+    teams: ['Sponsorship'],
     image: '/logos/thatagat.webp',
     linkedin: '',
     instagram: '',
@@ -145,6 +161,7 @@ export const theOperators: TeamMember[] = [
     id: 'o6',
     name: 'Hasini Choudary',
     role: 'Marketing & Media Team',
+    teams: ['Marketing'],
     image: '/logos/hasini.webp',
     linkedin: '',
     instagram: '',
@@ -152,7 +169,8 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o7',
     name: 'Meghana K V',
-    role: 'Marketing & Media Team and Drafting Team',
+    role: 'Marketing & Media Team · Drafting Team',
+    teams: ['Marketing'],
     image: '/logos/meghana.webp',
     linkedin: '',
     instagram: '',
@@ -160,7 +178,8 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o8',
     name: 'Mouna S',
-    role: 'Drafting Team & Design Team',
+    role: 'Drafting Team · Design Team',
+    teams: ['Drafting'],
     image: '/logos/Mouna.webp',
     linkedin: '',
     instagram: '',
@@ -168,7 +187,8 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o9',
     name: 'Monisha N S',
-    role: 'Marketing & Media Team and Drafting Team',
+    role: 'Marketing & Media Team · Drafting Team',
+    teams: ['Marketing'],
     image: '/logos/monisha.webp',
     linkedin: '',
     instagram: '',
@@ -176,7 +196,8 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o10',
     name: 'Madiha Khan',
-    role: 'Sponsorship, Drafting & Design Team',
+    role: 'Sponsorship Team · Drafting Team · Design Team',
+    teams: ['Sponsorship'],
     image: '/logos/madiha.webp',
     linkedin: '',
     instagram: '',
