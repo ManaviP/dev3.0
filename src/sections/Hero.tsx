@@ -54,6 +54,7 @@ export default function DevHackHeroCompact() {
       <div className="hidden md:flex sticky top-0 h-[70vh] xl:h-screen z-0 justify-end pt-32 pr-6 md:pr-12 xl:pr-16">
         <img
           src="/assets/herot.png"
+          loading="lazy"
           alt="DevHack Background"
           className="w-full md:w-[70%] xl:w-full h-full object-contain object-center md:object-right drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-105 transition-transform duration-500 pointer-events-auto"
         />
@@ -88,6 +89,7 @@ export default function DevHackHeroCompact() {
                 <img
                   src="/assets/herot.png"
                   alt="Hero Graphic"
+                  loading="lazy"
                   className="w-full h-auto drop-shadow-xl"
                 />
               </div>
