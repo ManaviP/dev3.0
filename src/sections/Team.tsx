@@ -62,9 +62,9 @@ function TeamCard({ member }: { member: TeamMember }) {
 
       {/* Image Box */}
       <div className="relative w-full aspect-square border-b-2 border-[#1a1a1a] overflow-hidden bg-[#1a1a1a] p-1.5 sm:p-2">
-        {/* Scanline overlay - hidden on mobile for FPS */}
+        {/* Scanline overlay - hidden on mobile/tablet for FPS */}
         <div
-          className="absolute inset-0 pointer-events-none z-10 opacity-10 hidden md:block"
+          className="absolute inset-0 pointer-events-none z-10 opacity-10 hidden lg:block"
           style={{ backgroundImage: 'linear-gradient(transparent 50%, rgba(0,0,0,0.25) 50%)', backgroundSize: '100% 4px' }}
         />
         <img
@@ -72,7 +72,7 @@ function TeamCard({ member }: { member: TeamMember }) {
           alt={member.name}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover filter md:grayscale transition-all duration-300 md:group-hover:grayscale-0 group-hover:scale-105"
+          className="w-full h-full object-cover filter lg:grayscale transition-all duration-300 lg:group-hover:grayscale-0 group-hover:scale-105"
         />
       </div>
 
