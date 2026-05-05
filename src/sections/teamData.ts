@@ -52,7 +52,7 @@ export const subHeads: TeamMember[] = [
   {
     id: 's1',
     name: 'G Nithesh',
-    role: 'Web Team Co Lead & Drafting Team Lead',
+    role: 'Drafting Team Lead',
     image: '/logos/nithesh.png',
     linkedin: '',
     instagram: '',
@@ -81,14 +81,7 @@ export const subHeads: TeamMember[] = [
     linkedin: '',
     instagram: '',
   },
-  {
-    id: 's5',
-    name: 'Preetham H S',
-    role: 'Marketing and Media Co Lead',
-    image: '/logos/preetham.webp',
-    linkedin: '',
-    instagram: '',
-  },
+
 ];
 
 // ── The Operators ─────────────────────────────────────────────
@@ -144,16 +137,16 @@ export const theOperators: TeamMember[] = [
 
   {
     id: 'o7',
-    name: 'Meghana K V',
-    role: 'Marketing & Media Team and Drafting Team',
-    image: '/logos/meghana.webp',
+    name: 'Preetham H S',
+    role: 'Marketing and Media Co Lead',
+    image: '/logos/preetham.webp',
     linkedin: '',
     instagram: '',
   },
   {
     id: 'o8',
     name: 'Mouna S',
-    role: 'Drafting Team & Design Team',
+    role: 'Drafting Team',
     image: '/logos/Mouna.webp',
     linkedin: '',
     instagram: '',
@@ -161,7 +154,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o9',
     name: 'Monisha N S',
-    role: 'Marketing & Media Team and Drafting Team',
+    role: 'Drafting Team',
     image: '/logos/monisha.webp',
     linkedin: '',
     instagram: '',
@@ -169,8 +162,16 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o10',
     name: 'Madiha Khan',
-    role: 'Sponsorship, Drafting & Design Team',
+    role: 'Design Team',
     image: '/logos/madiha.webp',
+    linkedin: '',
+    instagram: '',
+  },
+  {
+    id: 'o11',
+    name: 'Meghana K V',
+    role: 'Marketing & Media Team ',
+    image: '/logos/meghana.webp',
     linkedin: '',
     instagram: '',
   },
