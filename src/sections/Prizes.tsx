@@ -1,17 +1,95 @@
 import React from 'react';
-import PrizeCard from '../components/PrizeCard';
+import { motion } from 'framer-motion';
 
 const Prizes: React.FC = () => {
   const prizesData = [
-    { title: "1st PRIZE", amount: "100,000", isMain: true, mainColor: "#F2C94C", accentColor: "#F9E7A1", metalGradient: "linear-gradient(180deg, #F9E7A1 0%, #F2C94C 45%, #D4A82A 100%)" },
-    { title: "2nd PRIZE", amount: "50,000", isMain: false, mainColor: "#C9CCD1", accentColor: "#F1F3F5", metalGradient: "linear-gradient(180deg, #F1F3F5 0%, #C9CCD1 50%, #8C9198 100%)" },
-    { title: "3rd PRIZE", amount: "25,000", isMain: false, mainColor: "#B87333", accentColor: "#E0B084", metalGradient: "linear-gradient(180deg, #E0B084 0%, #B87333 50%, #7A4E2D 100%)" },
-    { title: "CONSOLATION", amount: "25,000", isMain: false, mainColor: "#7A3B2F", accentColor: "#5A2620", metalGradient: "linear-gradient(180deg, #A95747 0%, #E6A18F 50%, #7A4E2D 100%)" },
+    { label: "Winner", amount: "100,000", image: "/assets/1st-price.png" },
+    { label: "1st Runner Up", amount: "50,000", image: "/assets/2nd-price.png" },
+    { label: "2nd Runner Up", amount: "25,000", image: "/assets/3rd-price.png" },
+    { label: "Consolation", amount: "25,000", image: "/assets/consolation-price.png" },
   ];
 
   return (
     <section id="prizes" className="py-16 px-4 sm:px-10 bg-[#f3ecd2] relative overflow-hidden flex flex-col justify-center min-h-[90vh] z-0">
+      <style>{`
+        .trophy-wrapper {
+          position: relative;
+          display: inline-flex;
+          justify-content: center;
+          align-items: flex-end;
+          width: 100%;
+          cursor: pointer;
+        }
 
+        .trophy-wrapper::after {
+          content: "";
+          position: absolute;
+          bottom: -12px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 70%;
+          height: 20px;
+          background: radial-gradient(
+            ellipse at center,
+            rgba(0,0,0,0.25) 0%,
+            rgba(0,0,0,0.1) 40%,
+            transparent 70%
+          );
+          filter: blur(6px);
+          opacity: 0.6;
+          pointer-events: none;
+          transition: all 0.4s ease;
+        }
+
+        .trophy-wrapper:hover::after {
+          width: 80%;
+          opacity: 0.3;
+          bottom: -18px;
+        }
+
+        /* Subtle light gloss */
+        .trophy-wrapper::before {
+          content: "";
+          position: absolute;
+          top: 10%;
+          left: 10%;
+          width: 30%;
+          height: 40%;
+          background: linear-gradient(
+            120deg,
+            rgba(255,255,255,0.25),
+            rgba(255,255,255,0)
+          );
+          border-radius: 20px;
+          pointer-events: none;
+          z-index: 10;
+        }
+
+        .trophy {
+          transform: perspective(1000px) rotateX(4deg) scale(1);
+          transition: all 0.4s ease;
+          filter: 
+            drop-shadow(0px 25px 35px rgba(0,0,0,0.18))
+            drop-shadow(0px 8px 12px rgba(0,0,0,0.12));
+          will-change: transform, filter;
+        }
+
+        .trophy-wrapper:hover .trophy {
+          transform: perspective(1000px) rotateX(0deg) scale(1.05);
+          filter: 
+            drop-shadow(0px 35px 50px rgba(0,0,0,0.25))
+            drop-shadow(0px 12px 20px rgba(0,0,0,0.18));
+        }
+
+        .trophy.winner {
+          transform: perspective(1000px) rotateX(3deg) scale(1.08);
+          filter: drop-shadow(0px 40px 60px rgba(0,0,0,0.28));
+        }
+
+        .trophy-wrapper:hover .trophy.winner {
+          transform: perspective(1000px) rotateX(0deg) scale(1.12);
+        }
+      `}</style>
       {/* Background Enhancement: Large Soft Black Circle centered */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center items-center overflow-hidden">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] lg:w-[1000px] lg:h-[1000px] rounded-[100%] bg-black/10 blur-[80px]" />
@@ -41,79 +119,87 @@ const Prizes: React.FC = () => {
         <span className="absolute left-[86%] top-[62%] w-1.5 h-1.5 rounded-full bg-[#95b8c8]/70 opacity-30" />
       </div>
 
-      <div className="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
+      <div className="max-w-[1440px] w-full mx-auto relative z-10 flex flex-col items-center">
 
         {/* Retro Header layout */}
-        <div className="text-center mb-16 sm:mb-20">
+        <div className="text-center mb-6 sm:mb-10 z-20">
           <div className="h-[3px] w-24 bg-[#1a1a1a] mx-auto mb-4 origin-center opacity-80" />
 
           <h2
             className="font-display text-[#1a1a1a] uppercase"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
           >
             PRIZES
           </h2>
         </div>
 
-        <div className="flex flex-col xl:flex-row items-center xl:items-end justify-center w-full px-2">
+        <div className="flex flex-col items-center lg:flex-row lg:flex-nowrap lg:items-end justify-center w-full max-w-[1200px] px-2 sm:px-4 gap-8 lg:gap-4 xl:gap-8 mx-auto">
           {prizesData.map((prize, index) => {
             let orderClass = "";
-            let zIndex = 10;
-            let heightClass = "";
-            let widthClass = "";
-            let margins = "";
-            let transform = "";
+            let imgWidthClass = "";
+            let amountSizeClass = "";
 
-            if (index === 0) { // 1st Prize [Center]
-              orderClass = "order-1 xl:order-2";
-              zIndex = 50;
-              heightClass = "h-[250px] sm:h-[380px] xl:h-[420px]";
-              widthClass = "w-full max-w-[340px] xl:max-w-[460px]";
-              margins = "my-4 xl:my-0";
-              transform = "xl:translate-y-[-20px] scale-100 xl:scale-105";
+            if (index === 0) { // Winner
+              orderClass = "order-1 lg:order-2 transform scale-105 lg:mx-4";
+              imgWidthClass = "w-[80%] max-w-[240px] lg:max-w-[260px] mb-2 md:mb-3";
+              amountSizeClass = "text-4xl md:text-5xl lg:text-6xl";
             }
-            else if (index === 1) { // 2nd Prize [Left]
-              orderClass = "order-2 xl:order-1";
-              zIndex = 40;
-              heightClass = "h-[250px] sm:h-[300px] xl:h-[340px]";
-              widthClass = "w-full max-w-[300px] xl:max-w-[400px]";
-              margins = "xl:-mr-6 my-2 xl:my-0";
-              transform = "rotate-0 xl:-rotate-3";
+            else if (index === 1) { // 1st Runner Up
+              orderClass = "order-2 lg:order-1";
+              imgWidthClass = "w-[75%] max-w-[200px] lg:max-w-[220px]";
+              amountSizeClass = "text-3xl md:text-4xl lg:text-5xl";
             }
-            else if (index === 2) { // 3rd Prize [Right]
-              orderClass = "order-3 xl:order-3";
-              zIndex = 40;
-              heightClass = "h-[250px] sm:h-[275px] xl:h-[300px]";
-              widthClass = "w-full max-w-[280px] xl:max-w-[380px]";
-              margins = "xl:-ml-6 my-2 xl:my-0";
-              transform = "rotate-0 xl:rotate-3";
+            else if (index === 2) { // 2nd Runner Up
+              orderClass = "order-3 lg:order-3";
+              imgWidthClass = "w-[65%] max-w-[160px] lg:max-w-[180px]";
+              amountSizeClass = "text-2xl md:text-3xl lg:text-4xl";
             }
-            else { // Consolation [Right of 3rd]
-              orderClass = "order-4 xl:order-4";
-              zIndex = 30;
-              heightClass = "h-[250px] sm:h-[235px] xl:h-[250px]";
-              widthClass = "w-full max-w-[250px] xl:max-w-[340px]";
-              margins = "xl:-ml-4 mt-2 xl:mt-0";
-              transform = "rotate-0 xl:rotate-6 xl:translate-y-[20px]";
+            else { // Consolation
+              orderClass = "order-4 lg:order-4 lg:-ml-6 xl:-ml-10";
+              imgWidthClass = "w-[55%] max-w-[130px] lg:max-w-[150px]";
+              amountSizeClass = "text-2xl md:text-3xl lg:text-4xl";
             }
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`${orderClass} ${margins} ${widthClass} ${heightClass} relative transition-all duration-300 hover:!z-[60]`}
-                style={{ zIndex }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ 
+                  duration: 0.9,
+                  ease: [0.25, 1, 0.5, 1],
+                  delay: (3 - index) * 0.4 
+                }}
+                className={`${orderClass} flex-1 flex flex-col items-center justify-end text-center transition-transform duration-500 h-full pt-4 min-w-0`}
               >
-                <div className={`w-full h-full ${transform} transition-all duration-300 origin-bottom`}>
-                  <PrizeCard
-                    title={prize.title}
-                    amount={prize.amount}
-                    isMain={prize.isMain}
-                    mainColor={prize.mainColor}
-                    accentColor={prize.accentColor}
-                    metalGradient={prize.metalGradient}
-                  />
+                {/* Image Container */}
+                <div className="flex items-end justify-center mb-1 min-h-[120px] xl:min-h-[180px] w-full">
+                  <div className="trophy-wrapper">
+                    <img 
+                      src={prize.image} 
+                      alt={prize.label} 
+                      className={`trophy ${index === 0 ? "winner" : ""} ${imgWidthClass} h-auto object-contain mx-auto`}
+                    />
+                  </div>
                 </div>
-              </div>
+                
+                {/* Amount */}
+                <h3 
+                  className={`font-display font-black ${amountSizeClass} mb-1 leading-none tracking-wide`}
+                  style={{ 
+                    color: "#B45309", 
+                    // textShadow: "0px -1px 1px rgba(255,255,255,0.4), 0px 4px 10px rgba(0,0,0,0.25), 0px 8px 16px rgba(0,0,0,0.15)" 
+                  }}
+                >
+                  <span className="font-sans font-black text-[0.75em] mr-1 align-baseline relative -top-[0.05em]">{'\u20B9'}</span>{prize.amount}
+                </h3>
+                
+                {/* Label */}
+                <p className="font-sans text-[#3A342E] font-bold text-xs md:text-sm uppercase tracking-widest mt-0">
+                  {prize.label}
+                </p>
+              </motion.div>
             )
           })}
         </div>
