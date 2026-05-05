@@ -180,7 +180,7 @@ export default function Team() {
 
         {/* Tab Navigation — scrollable on mobile */}
         <div className="mb-6 sm:mb-8 md:mb-12 border-b-[3px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6 md:pb-8">
-          <div className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 justify-start sm:justify-center no-scrollbar -mx-1 px-1">
+          <div className="flex overflow-x-auto gap-2 sm:gap-3 md:gap-4 justify-center sm:justify-center no-scrollbar -mx-1 px-1">
             {TABS.map((tab) => (
               <button
                 key={tab}
