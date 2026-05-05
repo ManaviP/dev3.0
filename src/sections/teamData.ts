@@ -141,14 +141,7 @@ export const theOperators: TeamMember[] = [
     linkedin: '',
     instagram: '',
   },
-  {
-    id: 'o6',
-    name: 'Hasini Choudary',
-    role: 'Marketing & Media Team',
-    image: '/logos/hasini.webp',
-    linkedin: '',
-    instagram: '',
-  },
+
   {
     id: 'o7',
     name: 'Meghana K V',
