@@ -36,18 +36,9 @@ function SectionSubHeading({ children }: { children: React.ReactNode }) {
 }
 
 function TeamCard({ member }: { member: TeamMember }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all flex flex-col h-full overflow-hidden w-full shrink-0"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <div
+      className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all duration-300 flex flex-col h-full overflow-hidden w-full shrink-0 hover:-translate-y-1.5"
     >
       {/* Corner Rivets */}
       {[
@@ -71,27 +62,28 @@ function TeamCard({ member }: { member: TeamMember }) {
 
       {/* Image Box */}
       <div className="relative w-full aspect-square border-b-2 border-[#1a1a1a] overflow-hidden bg-[#1a1a1a] p-1.5 sm:p-2">
-        {/* Scanline overlay */}
+        {/* Scanline overlay - hidden on mobile for FPS */}
         <div
-          className="absolute inset-0 pointer-events-none z-10 opacity-10"
+          className="absolute inset-0 pointer-events-none z-10 opacity-10 hidden md:block"
           style={{ backgroundImage: 'linear-gradient(transparent 50%, rgba(0,0,0,0.25) 50%)', backgroundSize: '100% 4px' }}
         />
         <img
           src={member.image}
           alt={member.name}
-          className="w-full h-full object-cover filter grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover filter md:grayscale transition-all duration-300 md:group-hover:grayscale-0 group-hover:scale-105"
         />
       </div>
 
       {/* Details Box */}
-      <div className="p-3 sm:p-4 md:p-5 flex flex-col flex-1 z-10 bg-[#fff9f4]">
+      <div className="p-2.5 sm:p-4 md:p-5 flex flex-col flex-1 z-10 bg-[#fff9f4]">
         <h3
-          className="text-base sm:text-lg md:text-xl font-black tracking-tight uppercase leading-tight transition-colors duration-300 font-sans"
-          style={{ color: isHovered ? '#f97028' : '#1a1a1a' }}
+          className="text-[11px] sm:text-base md:text-lg font-black tracking-tighter sm:tracking-tight uppercase leading-tight transition-colors duration-300 font-sans break-words text-[#1a1a1a] group-hover:text-[#f97028]"
         >
           {member.name}
         </h3>
-        <p className="font-mono text-[11px] sm:text-xs md:text-sm uppercase mt-1.5 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
+        <p className="font-mono text-[9px] sm:text-[11px] md:text-xs uppercase mt-1 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
 
         <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
           <div className="flex gap-2.5 text-[#1a1a1a]">
@@ -116,7 +108,7 @@ function TeamCard({ member }: { member: TeamMember }) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -158,23 +150,23 @@ export default function Team() {
   }, [allMembers, activeSubTeam]);
 
   return (
-    <section id="team" className="relative w-full bg-[#f3ecd2] py-12 sm:py-16 md:py-24 px-5 sm:px-6 md:px-10 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
-      <div className="w-full sm:w-[92%] max-w-[1400px] mx-auto border-[3px] sm:border-4 border-[#1a1a1a] bg-[#f3ecd2] p-4 sm:p-6 md:p-10 lg:p-16 shadow-[6px_6px_0px_#1a1a1a] sm:shadow-[10px_10px_0px_#1a1a1a] md:shadow-[16px_16px_0px_#1a1a1a] relative">
+    <section id="team" className="relative w-full bg-[#f3ecd2] py-12 sm:py-16 md:py-24 px-3 sm:px-6 md:px-10 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
+      <div className="w-full sm:w-[92%] max-w-[1400px] mx-auto border-[3px] sm:border-4 border-[#1a1a1a] bg-[#f3ecd2] p-2.5 sm:p-6 md:p-10 lg:p-16 shadow-[6px_6px_0px_#1a1a1a] sm:shadow-[10px_10px_0px_#1a1a1a] md:shadow-[16px_16px_0px_#1a1a1a] relative">
 
         {/* Header block conditionally rendered */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {activeTab === 'Organising Team' && (
             <motion.div
-              initial={{ opacity: 0, height: 0, marginBottom: 0, paddingBottom: 0 }}
-              animate={{ opacity: 1, height: 'auto', marginBottom: 40, paddingBottom: 24 }}
-              exit={{ opacity: 0, height: 0, marginBottom: 0, paddingBottom: 0 }}
-              className="flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b-4 border-[#1a1a1a] relative text-center"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 border-b-4 border-[#1a1a1a] relative text-center mb-10 pb-6 overflow-hidden"
             >
               <div className="w-full">
                 <motion.h2
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ type: 'spring', damping: 25, stiffness: 120, delay: 0.15 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
                   className="font-display uppercase tracking-wider sm:tracking-widest text-[#1a1a1a] leading-none mb-3 sm:mb-6 flex flex-col sm:flex-row justify-center items-center w-full"
                   style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}
                 >
@@ -206,108 +198,90 @@ export default function Team() {
         </div>
 
         {/* Tab Content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="min-h-[30vh] sm:min-h-[40vh]"
-          >
-            {activeTab === 'Organising Team' && (
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <SectionSubHeading>Core Team</SectionSubHeading>
-                  <TeamGrid members={[...coreTeam, ...subHeads]} />
-                </div>
-
-                <div className="mb-4 mt-16 sm:mt-24">
-                  <h3 className="text-2xl sm:text-3xl lg:text-5xl font-black uppercase tracking-widest mb-6 sm:mb-8 md:mb-12 text-center w-full text-[#1a1a1a]">
-                    Meet the Entire Team
-                  </h3>
-
-                  <div className="mb-8 sm:mb-12 border-b-[2px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6">
-                    <div className="flex overflow-x-auto gap-2 sm:gap-3 justify-start sm:justify-center no-scrollbar -mx-1 px-1 pb-2">
-                      {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team', 'Drafting Team'].map(team => (
-                        <button
-                          key={team}
-                          onClick={() => setActiveSubTeam(team)}
-                          className={`px-4 sm:px-5 py-2 sm:py-2.5 font-bold font-mono uppercase tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0 ${activeSubTeam === team
-                            ? 'bg-[#1a1a1a] shadow-[3px_3px_0px_#f97028] sm:shadow-[4px_4px_0px_#f97028] translate-x-[-2px] translate-y-[-2px] text-[#f3ecd2]'
-                            : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[2px_2px_0px_#1a1a1a] sm:shadow-[3px_3px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
-                            }`}
-                        >
-                          {team}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeSubTeam}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -15 }}
-                      transition={{ duration: 0.3 }}
-                      className="min-h-[200px]"
-                    >
-                      {membersToRender.length > 0 ? (
-                        <TeamGrid members={membersToRender} />
-                      ) : (
-                        <div className="w-full text-center py-20 text-gray-400 font-mono uppercase tracking-widest text-sm">
-                          Team members incoming...
-                        </div>
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'Patrons' && (
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <SectionSubHeading>Chief Patrons</SectionSubHeading>
-                  <TeamGridSmall members={chiefPatrons} />
-                </div>
-
-                <CoinDivider />
-
-                <div className="mb-4">
-                  <SectionSubHeading>Patrons</SectionSubHeading>
-                  <TeamGrid members={patrons} />
-                </div>
-              </div>
-            )}
-
-            {/* 
-            {activeTab === 'Faculty' && (
-              <div className="flex flex-col">
-                <div className="mb-4">
-                  <SectionSubHeading>Faculty Coordinator</SectionSubHeading>
-                  <TeamGridSmall members={facultyCoordinator} />
-                </div>
-
-                <CoinDivider />
-
-                <div className="mb-4">
-                  <SectionSubHeading>Organising Team Members</SectionSubHeading>
-                  <TeamGrid members={facultyOrganizers} />
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'Jury & Experts' && (
+        <div className="min-h-[30vh] sm:min-h-[40vh]">
+          {activeTab === 'Organising Team' && (
+            <div className="flex flex-col">
               <div className="mb-4">
-                <SectionSubHeading>Jury & Experts</SectionSubHeading>
-                <TeamGridSmall members={judges} />
+                <SectionSubHeading>Core Team</SectionSubHeading>
+                <TeamGrid members={[...coreTeam, ...subHeads]} />
               </div>
-            )}
-            */}
-          </motion.div>
-        </AnimatePresence>
+
+              <div className="mb-4 mt-16 sm:mt-24">
+                <h3 className="text-2xl sm:text-3xl lg:text-5xl font-black uppercase tracking-widest mb-6 sm:mb-8 md:mb-12 text-center w-full text-[#1a1a1a]">
+                  Meet the Entire Team
+                </h3>
+
+                <div className="mb-8 sm:mb-12 border-b-[2px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6">
+                  <div className="flex overflow-x-auto gap-2 sm:gap-3 justify-start sm:justify-center no-scrollbar -mx-1 px-1 pb-2">
+                    {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team', 'Drafting Team'].map(team => (
+                      <button
+                        key={team}
+                        onClick={() => setActiveSubTeam(team)}
+                        className={`px-4 sm:px-5 py-2 sm:py-2.5 font-bold font-mono uppercase tracking-widest border-[2px] sm:border-[3px] border-[#1a1a1a] transition-all text-[10px] sm:text-xs md:text-sm whitespace-nowrap shrink-0 ${activeSubTeam === team
+                          ? 'bg-[#1a1a1a] shadow-[3px_3px_0px_#f97028] sm:shadow-[4px_4px_0px_#f97028] translate-x-[-2px] translate-y-[-2px] text-[#f3ecd2]'
+                          : 'bg-[#fff9f4] text-[#1a1a1a] shadow-[2px_2px_0px_#1a1a1a] sm:shadow-[3px_3px_0px_#1a1a1a] hover:bg-[#f97028] hover:text-[#1a1a1a]'
+                          }`}
+                      >
+                        {team}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="min-h-[200px]">
+                  {membersToRender.length > 0 ? (
+                    <TeamGrid members={membersToRender} />
+                  ) : (
+                    <div className="w-full text-center py-20 text-gray-400 font-mono uppercase tracking-widest text-sm">
+                      Team members incoming...
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Patrons' && (
+            <div className="flex flex-col">
+              <div className="mb-4">
+                <SectionSubHeading>Chief Patrons</SectionSubHeading>
+                <TeamGridSmall members={chiefPatrons} />
+              </div>
+
+              <CoinDivider />
+
+              <div className="mb-4">
+                <SectionSubHeading>Patrons</SectionSubHeading>
+                <TeamGrid members={patrons} />
+              </div>
+            </div>
+          )}
+
+          {/* 
+          {activeTab === 'Faculty' && (
+            <div className="flex flex-col">
+              <div className="mb-4">
+                <SectionSubHeading>Faculty Coordinator</SectionSubHeading>
+                <TeamGridSmall members={facultyCoordinator} />
+              </div>
+
+              <CoinDivider />
+
+              <div className="mb-4">
+                <SectionSubHeading>Organising Team Members</SectionSubHeading>
+                <TeamGrid members={facultyOrganizers} />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'Jury & Experts' && (
+            <div className="mb-4">
+              <SectionSubHeading>Jury & Experts</SectionSubHeading>
+              <TeamGridSmall members={judges} />
+            </div>
+          )}
+          */}
+        </div>
 
         {/* Decorative Divider */}
         <div className="mt-8 sm:mt-12 md:mt-16">
