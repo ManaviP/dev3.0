@@ -103,7 +103,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-visible px-4 pt-10 pb-2 sm:pt-20 sm:px-6 sm:pb-0 bg-ui-primary"
+      className="relative overflow-visible px-4 pt-0 pb-2 sm:pt-0 sm:px-6 sm:pb-0 bg-ui-primary"
       style={{ color: '#fff' }}
     >
       <div
@@ -131,7 +131,7 @@ export default function Footer() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="grid gap-6 pb-6 sm:gap-12 sm:pb-14 md:grid-cols-3 text-center md:text-left">
+          <div className="grid gap-6 pb-3 sm:gap-12 sm:pb-4 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
                 <div className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a] hidden lg:block">
@@ -157,6 +157,14 @@ export default function Footer() {
                   </p>
                   <p className="font-semibold">
                     Shreenidhi S<span className="font-normal">- 8317463317</span>
+                  </p>
+                </div>
+                <div className="mt-3 text-xs text-[#1a1a1a]">
+                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#333]">
+                    Faculty Coordinators
+                  </h4>
+                  <p className="font-semibold">
+                    Dr. Bipin Kumar Rai <span className="font-normal">- Associate Chair,CSE</span>
                   </p>
                 </div>
               </div>
@@ -243,6 +251,11 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
+        <div className="pt-2 flex items-center justify-center text-center text-sm text-[#1a1a1a]">
+          <p className="font-semibold">
+            Organised by Computer Science and Engineering Department
+          </p>
+        </div>
       </div>
 
     </footer>
