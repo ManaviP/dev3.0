@@ -120,23 +120,24 @@ export const theOperators: TeamMember[] = [
   },
   {
     id: 'o4',
+    name: 'Tathagat',
+    role: 'Sponsorship Team',
+    image: '/logos/thatagat.webp',
+    linkedin: '',
+    instagram: '',
+
+  },
+  {
+    id: 'o5',
     name: 'Naman Saraff',
     role: 'Sponsorship Team',
     image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Naman',
     linkedin: '',
     instagram: '',
   },
-  {
-    id: 'o5',
-    name: 'Tathagat',
-    role: 'Sponsorship Team',
-    image: '/logos/thatagat.webp',
-    linkedin: '',
-    instagram: '',
-  },
 
   {
-    id: 'o7',
+    id: 'o6',
     name: 'Preetham H S',
     role: 'Marketing and Media Co Lead',
     image: '/logos/preetham.webp',
@@ -144,9 +145,17 @@ export const theOperators: TeamMember[] = [
     instagram: '',
   },
   {
+    id: 'o7',
+    name: 'Hasini Choudary',
+    role: 'Marketing & Media Team',
+    image: '/logos/hasini.webp',
+    linkedin: '',
+    instagram: '',
+  },
+  {
     id: 'o8',
     name: 'Mouna S',
-    role: 'Drafting Team',
+    role: 'Design Team',
     image: '/logos/Mouna.webp',
     linkedin: '',
     instagram: '',
@@ -162,7 +171,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o10',
     name: 'Madiha Khan',
-    role: 'Design Team',
+    role: 'Sponsorship Team',
     image: '/logos/madiha.webp',
     linkedin: '',
     instagram: '',
@@ -170,7 +179,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o11',
     name: 'Meghana K V',
-    role: 'Marketing & Media Team ',
+    role: 'Drafting Team ',
     image: '/logos/meghana.webp',
     linkedin: '',
     instagram: '',
