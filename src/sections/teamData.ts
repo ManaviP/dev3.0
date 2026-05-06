@@ -175,6 +175,14 @@ export const theOperators: TeamMember[] = [
     linkedin: '',
     instagram: '',
   },
+  {
+    id: 'o12',
+    name: 'Shubangi Jha',
+    role: 'Marketing & Media Team ',
+    image: '',
+    linkedin: '',
+    instagram: '',
+  },
 ];
 
 // ── Faculty Coordinator ───────────────────────────────────────
