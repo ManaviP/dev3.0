@@ -98,16 +98,16 @@ const Sponsors: React.FC = () => {
         */
         }
         {/* Gold */}
-        <div className="w-full">
+        <div className="w-full max-w-4xl">
           <TierLabel label="Gold Sponsors" />
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
-            className="flex flex-row flex-nowrap justify-center items-center gap-10 sm:gap-20"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-16 justify-items-center items-center"
           >
             {goldSponsors.map((s, i) => (
-              <motion.div key={i} variants={itemVariants} className="flex justify-center">
+              <motion.div key={i} variants={itemVariants} className="w-full flex justify-center">
                 <SponsorCard {...s} tier="gold" />
               </motion.div>
             ))}
