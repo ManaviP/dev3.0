@@ -32,7 +32,7 @@ const DotField = memo(({
   waveAmplitude = 0,
   gradientFrom = 'rgba(0, 0, 0, 0.2)',
   gradientTo = 'rgba(0, 0, 0, 0.1)',
-  glowColor = '#f3ecd2',
+  glowColor = '#eeece6ff',
   className = '',
   ...rest
 }: DotFieldProps) => {
