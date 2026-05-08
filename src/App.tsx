@@ -248,7 +248,7 @@ export default function App() {
       </AnimatePresence>
 
       <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
-        <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream">
+        <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
           <Navbar onNavClick={handleNavClick} />
           <main>
             <Hero />
