@@ -7,7 +7,7 @@ const Sponsors: React.FC = () => {
 
   const goldSponsors = [
     { name: "AIC DSU Innovation Foundation", logo: "/logos/aic-dsu.png" },
-    { name: "CodeCrafters.io", logo: "/logos/CodeCraft.png" },
+    { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
   ];
 
   const containerVariants = {

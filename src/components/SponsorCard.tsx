@@ -33,17 +33,17 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
 
       {/* Sponsor Logo */}
       <div className="relative z-10 flex flex-col items-center gap-2">
-        <motion.img 
+        <motion.img
           variants={{
             initial: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
             hover: { filter: "grayscale(0%)", opacity: 1, scale: 1.05 }
           }}
           transition={{ duration: 0.4 }}
-          src={logo} 
+          src={logo}
           alt={name}
           className={`${sizeClasses[tier]} w-auto object-contain`}
         />
-        
+
         {/* Optional: Name reveal */}
         <motion.span
           variants={{
