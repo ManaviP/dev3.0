@@ -81,7 +81,7 @@ export default function DevHackHeroCompact() {
             {/* Small Hero Image on Mobile and Tablet - Positioned between Title and Date Bar */}
             <div className="xl:hidden relative z-10 w-[330px] sm:w-[340px] md:w-[410px] -mt-3 mb-8 flex justify-center drop-shadow-2xl pointer-events-auto">
               <img
-                src="/assets/herot.png"
+                src="/assets/hero.webp"
                 alt="Hero Graphic"
                 loading="lazy"
                 className="w-full h-auto object-contain hover:scale-105 transition-transform"
