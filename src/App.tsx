@@ -27,7 +27,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -100, opacity: 0 }}
-        className="flex flex-col w-full max-w-[1640px] shadow-[0_4px_0px_#1a1a1a] border-[2px] md:border-[3px] border-[#1a1a1a] rounded-[2rem] md:rounded-[3rem] overflow-hidden pointer-events-auto bg-[#f3ecd2]"
+        className="flex flex-col w-full max-w-[1640px] shadow-[0_4px_0px_#f97028] border-[2px] md:border-[3px] border-[#f97028] rounded-[2rem] md:rounded-[3rem] overflow-hidden pointer-events-auto bg-[#1a1a1a]"
       >
         <div className="w-full flex justify-between items-center relative px-4 md:px-10 py-2 md:py-3.5">
           {/* Left segment - Logo */}
@@ -38,7 +38,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
           </div>
 
           {/* Right-aligned Links */}
-          <nav className="hidden md:flex flex-1 justify-end items-center gap-8 lg:gap-12 font-bold text-lg lg:text-xl uppercase tracking-widest text-[#1a1a1a] pr-2">
+          <nav className="hidden md:flex flex-1 justify-end items-center gap-8 lg:gap-12 font-bold text-lg lg:text-xl uppercase tracking-widest text-white pr-2">
             <a href="#hero" onClick={onNavClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Main</a>
             <a href="#themes" onClick={onNavClick} className="cursor-target hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Themes</a>
             <a href="#prizes" onClick={onNavClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Prizes</a>
@@ -55,7 +55,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
                 e.stopPropagation();
                 setIsOpen(!isOpen);
               }}
-              className="cursor-target p-2 text-[#1a1a1a]"
+              className="cursor-target p-2 text-white"
               aria-label="Toggle Menu"
             >
               {isOpen ? (
@@ -74,7 +74,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden w-full px-6 pb-8 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-[#1a1a1a]"
+              className="md:hidden w-full px-6 pb-8 flex flex-col gap-6 text-center font-bold text-2xl uppercase tracking-widest text-white"
             >
               <div className="h-[2px] w-full bg-[#1a1a1a]/10 mb-2" />
               <a href="#hero" onClick={onNavClick} className="cursor-target hover:text-[#f489a3]">Main</a>
@@ -239,7 +239,7 @@ export default function App() {
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
           <AnimatePresence mode="wait">
             {!isScrolled ? (
-              <Navbar key="full-nav" onNavClick={handleNavClick} logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} />
+              <Navbar key="full-nav" onNavClick={handleNavClick} logoUrl="/logos/logoo 4.png" />
             ) : (
               <motion.div
                 key="staggered-nav"
