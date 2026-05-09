@@ -158,7 +158,7 @@
   /* Fix for ultra-tall mobile screens (e.g., 20:9 ratio like Realme 9 Pro) */
   @media screen and (max-aspect-ratio: 9/19) {
     .tall-screen-fix {
-      padding-top: 80px;
+      padding-top: 67px;
     }
   }
 }
