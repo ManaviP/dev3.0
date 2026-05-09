@@ -18,7 +18,7 @@ import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
 
 
 
-function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void }) {
+function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void, logoUrl: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ function Navbar({ onNavClick }: { onNavClick: (e: React.MouseEvent<HTMLAnchorEle
           {/* Left segment - Logo */}
           <div className="flex-1 flex justify-start">
             <a href="#hero" onClick={onNavClick} className="cursor-target flex items-center">
-              <img src="/logos/logoo 5.png" alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
+              <img src={logoUrl} alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
             </a>
           </div>
 
@@ -97,6 +97,36 @@ export default function App() {
   const [mountLoader, setMountLoader] = useState(true)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isNavbarDark, setIsNavbarDark] = useState(false)
+
+  useEffect(() => {
+    const darkSections = ['memory', 'sponsors', 'footer'];
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50px 0px -90% 0px', // Target the top part of the viewport
+      threshold: 0
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const isDark = darkSections.includes(entry.target.id);
+          setIsNavbarDark(isDark);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+    
+    const sections = ['hero', 'memory', 'themes', 'prizes', 'timeline', 'sponsors', 'team', 'faq', 'footer'];
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -209,7 +239,7 @@ export default function App() {
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
           <AnimatePresence mode="wait">
             {!isScrolled ? (
-              <Navbar key="full-nav" onNavClick={handleNavClick} />
+              <Navbar key="full-nav" onNavClick={handleNavClick} logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} />
             ) : (
               <motion.div
                 key="staggered-nav"
@@ -218,7 +248,7 @@ export default function App() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 className="fixed top-0 left-0 w-full z-50 pointer-events-none"
               >
-                <StaggeredMenu />
+                <StaggeredMenu logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} />
               </motion.div>
             )}
           </AnimatePresence>

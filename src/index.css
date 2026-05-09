@@ -154,6 +154,13 @@
   .glow-effect {
     filter: drop-shadow(0 0 10px rgba(243, 162, 15, 0.6));
   }
+
+  /* Fix for ultra-tall mobile screens (e.g., 20:9 ratio like Realme 9 Pro) */
+  @media screen and (max-aspect-ratio: 9/19) {
+    .tall-screen-fix {
+      padding-top: 80px;
+    }
+  }
 }
 
 .font-number {

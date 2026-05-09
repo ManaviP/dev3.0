@@ -305,7 +305,7 @@ function StationCard({
         // top: 100%    → card top at station-wrapper bottom   (card below track)
         bottom: isTop ? '100%' : undefined,
         top: isTop ? undefined : '100%',
-        paddingBottom: isTop ? '10px' : '0',
+        paddingBottom: isTop ? (isMobile ? '25px' : '10px') : '0',
         paddingTop: isTop ? '0' : '10px',
       }}
     >
@@ -314,7 +314,7 @@ function StationCard({
         className="absolute left-1/2 -translate-x-1/2"
         style={{
           width: '2px',
-          height: '10px',
+          height: isMobile ? '25px' : '10px',
           background: isRevealed ? color : 'rgba(26,26,26,0.15)',
           // stem sits between card padding edge and track
           bottom: isTop ? '0px' : undefined,
@@ -338,7 +338,7 @@ function StationCard({
                   originX: 0.5,
                   originY: 1,
                   top: '-105px',
-                  left: '110px', // Shift exactly half-width (220/2) to sit right of the track
+                  left: '125px', // Reduced offset
                 }
                 : { overflow: 'visible', originX: 0.5, originY: 1 }
             }
