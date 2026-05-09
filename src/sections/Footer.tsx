@@ -17,29 +17,13 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-visible px-4 pt-12 pb-6 sm:pt-16 sm:px-6 sm:pb-8 rounded-t-[3rem] sm:rounded-t-[4rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(166,140,123,0.3)] border-t border-[#A68C7B]/20 w-full"
+      className="relative overflow-visible px-4 pt-12 pb-4 sm:pt-16 sm:px-6 sm:pb-4 rounded-t-[3rem] sm:rounded-t-[4rem] shadow-[0px_-6px_0px_#f97028] sm:shadow-[0px_-10px_0px_#f97028] border-t border-[#f97028] w-full"
       style={{
-        background: 'linear-gradient(to bottom, #1A0F0A, #3A2316)',
+        background: '#1a1a1a',
         color: '#F4EFEA',
       }}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.04] rounded-t-[3rem] sm:rounded-t-[4rem] overflow-hidden"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.1) 2px,rgba(0,0,0,0.1) 3px)',
-        }}
-      />
-
-      <div
-        className="pointer-events-none absolute inset-0 rounded-t-[3rem] sm:rounded-t-[4rem] overflow-hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse at 20% 60%, rgba(91,59,42,0.4) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(91,59,42,0.3) 0%, transparent 50%)',
-        }}
-      />
-
-      <div className="relative">
+      <div className="relative max-w-7xl mx-auto px-2 md:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,22 +33,22 @@ export default function Footer() {
           <div className="grid gap-6 pb-3 sm:gap-12 sm:pb-4 md:grid-cols-3 text-center md:text-left">
             <div className="flex flex-col gap-4 items-center md:items-start">
               <div>
-                <div className="text-2xl font-black uppercase tracking-widest text-[#F4EFEA] hidden lg:block">
+                <div className="text-3xl font-black uppercase tracking-widest text-[#F4EFEA] hidden lg:block">
                   DevHack 3.0
                 </div>
               </div>
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-1 text-[#A68C7B]">
+                <h3 className="text-sm font-bold uppercase tracking-[0.3em] mb-1 text-[#f97028]">
                   Contact
                 </h3>
                 <a
                   href="mailto:dsudevhack@dsu.edu.in"
-                  className="text-sm hover:underline underline-offset-2 text-[#F4EFEA]"
+                  className="text-base hover:underline underline-offset-2 text-white"
                 >
                   dsudevhack@dsu.edu.in
                 </a>
-                <div className="mt-3 text-xs text-[#F4EFEA]">
-                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#A68C7B]">
+                <div className="mt-3 text-sm text-[#F4EFEA]">
+                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#f97028]">
                     Student Coordinators
                   </h4>
                   <p className="font-semibold">
@@ -74,8 +58,8 @@ export default function Footer() {
                     Shreenidhi S<span className="font-normal">- 8317463317</span>
                   </p>
                 </div>
-                <div className="mt-3 text-xs text-[#F4EFEA]">
-                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#A68C7B]">
+                <div className="mt-3 text-sm text-[#F4EFEA]">
+                  <h4 className="font-bold uppercase tracking-[0.2em] mb-1 text-[#f97028]">
                     Faculty Coordinators
                   </h4>
                   <p className="font-semibold">
@@ -86,11 +70,11 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-4">
-              <h4 className="md:hidden text-[10px] font-bold uppercase tracking-[0.2em] text-[#A68C7B]">
+              <h4 className="md:hidden text-xs font-bold uppercase tracking-[0.2em] text-[#f97028]">
                 Venue Location
               </h4>
               {/* Desktop Map Only */}
-              <div className="hidden md:block w-full h-[180px] rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(91,59,42,0.6)] bg-[#3A2316]/50 backdrop-blur-sm p-1">
+              <div className="hidden md:block w-full h-[180px] rounded-2xl overflow-hidden border-2 border-[#f97028] bg-[#1a1a1a] p-1">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3893.447477618471!2d77.44826500000001!3d12.660669199999998!2m3!1f0!2f0!3f0!3m2!i1024!2i768!4f13.1!3m3!1m2!1s0x3bae5b32ad06ec57%3A0x95e7a57b8a6b94d2!2sDayananda+Sagar+University+(DSU)+-+Main+Campus!5e0!3m2!1sen!2sin!4v1713881234567!5m2!1sen!2sin"
                   width="100%"
@@ -112,7 +96,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.06, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-full border border-[#A68C7B]/40 text-[#F4EFEA] hover:bg-[#5B3B2A]/30 shadow-[0_0_15px_rgba(91,59,42,0.4)] transition-colors"
+                    className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider px-6 py-2.5 rounded-full bg-[#f3ecd2] text-[#1a1a1a] border border-[#f3ecd2] hover:bg-[#f97028] hover:border-[#f97028] hover:text-white transition-all shadow-[0_0_15px_rgba(249,112,40,0.4)]"
                   >
                     {icon}
                     {label}
@@ -123,7 +107,7 @@ export default function Footer() {
 
             <div className="flex flex-col gap-5 items-center md:items-end md:text-right">
               <div>
-                <h3 className="text-xs font-bold uppercase tracking-[0.3em] mb-3 text-[#A68C7B]">
+                <h3 className="text-sm font-bold uppercase tracking-[0.3em] mb-3 text-[#f97028]">
                   Hackathon Venue
                 </h3>
                 {[
@@ -136,7 +120,7 @@ export default function Footer() {
                     href="https://maps.app.goo.gl/qsv464XpD8xRFzFA7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-sm mb-1 hover:underline underline-offset-2 text-[#F4EFEA]"
+                    className="block text-base mb-1 hover:underline underline-offset-2 text-white"
                   >
                     {line}
                   </a>
@@ -144,8 +128,8 @@ export default function Footer() {
               </div>
 
               {/* Discord Button Always Visible */}
-              <div className="mt-2 text-center md:text-right">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#A68C7B] mb-2">
+              <div className="mt-2 flex flex-col items-center">
+                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[#f97028] mb-2 text-center">
                   Join Us
                 </h4>
                 {links.filter(l => l.label === 'Discord').map(({ href, label, icon }) => (
@@ -156,7 +140,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.06, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-6 py-2 rounded-full bg-[#5B3B2A] text-[#F4EFEA] shadow-[0_0_20px_rgba(91,59,42,0.8)] border border-[#A68C7B]/20 hover:bg-[#A68C7B] hover:text-[#1A0F0A] transition-all"
+                    className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider px-6 py-2.5 rounded-full bg-[#f3ecd2] text-[#1a1a1a] border border-[#f3ecd2] hover:bg-[#f97028] hover:border-[#f97028] hover:text-white transition-all"
                   >
                     {icon}
                     {label}
@@ -166,8 +150,8 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-        <div className="pt-8 sm:pt-12 flex items-center justify-center text-center text-sm text-[#F4EFEA]/80">
-          <p className="font-semibold">
+        <div className="relative z-10 pt-6 sm:pt-8 pb-4 sm:pb-6 flex items-center justify-center text-center text-base font-bold text-white drop-shadow-md">
+          <p>
             Organised by Computer Science and Engineering Department
           </p>
         </div>

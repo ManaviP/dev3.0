@@ -75,10 +75,7 @@ const Prizes: React.FC = () => {
           transform: perspective(1000px) rotateX(0deg) scale(1.12);
         }
       `}</style>
-      {/* Background Enhancement: Large Soft Black Circle centered */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex justify-center items-center overflow-hidden">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] w-[600px] h-[600px] sm:w-[800px] sm:h-[800px] lg:w-[1000px] lg:h-[1000px] rounded-[100%] bg-black/10 blur-[80px]" />
-      </div>
+      {/* Background Enhancement removed to match website background color */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <svg className="absolute left-3 sm:left-6 lg:left-10 top-8 sm:top-10 w-14 h-14 sm:w-20 sm:h-20 opacity-15 sm:opacity-20" viewBox="0 0 64 64" fill="none">
           <rect x="10" y="24" width="44" height="30" rx="4" stroke="#1a1a1a" strokeWidth="2.6" />
