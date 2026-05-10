@@ -30,6 +30,7 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   isFixed?: boolean;
+  displayLogo?: boolean;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -59,7 +60,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   isFixed = true,
   closeOnClickAway = true,
   onMenuOpen,
-  onMenuClose
+  onMenuClose,
+  displayLogo = true
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -427,16 +429,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <div className="sm-logo" aria-label="Logo">
-          <a href="#hero" onClick={(e) => handleItemClick(e, '#hero')}>
-            <img
-              src={logoUrl}
-              alt="Logo"
-              className="sm-logo-img"
-              draggable={false}
-              width={110}
-              height={24}
-            />
-          </a>
+          {displayLogo && (
+            <a href="#hero" onClick={(e) => handleItemClick(e, '#hero')}>
+              <img
+                src={logoUrl}
+                alt="Logo"
+                className="sm-logo-img"
+                draggable={false}
+                width={110}
+                height={24}
+              />
+            </a>
+          )}
         </div>
         <button
           ref={toggleBtnRef}

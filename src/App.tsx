@@ -33,7 +33,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
           {/* Left segment - Logo */}
           <div className="flex-1 flex justify-start">
             <a href="#hero" onClick={onNavClick} className="cursor-target flex items-center">
-              <img src={logoUrl} alt="DEVHACK" className="h-8 md:h-10 w-auto object-contain" />
+              <img src={logoUrl} alt="DEVHACK" className="h-7 md:h-10 w-auto object-contain" />
             </a>
           </div>
 
@@ -59,9 +59,9 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
               aria-label="Toggle Menu"
             >
               {isOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path></svg>
               )}
             </button>
           </div>
@@ -246,9 +246,9 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="fixed top-0 left-0 w-full z-50 pointer-events-none"
+                className="fixed top-0 left-0 w-full h-screen z-50 pointer-events-none"
               >
-                <StaggeredMenu logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} />
+                <StaggeredMenu logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} displayLogo={false} />
               </motion.div>
             )}
           </AnimatePresence>

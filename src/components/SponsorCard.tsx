@@ -5,9 +5,11 @@ interface SponsorCardProps {
   logo: string;
   name: string;
   tier: 'platinum' | 'gold' | 'stream' | 'community';
+  scale?: number;
+  hoverScale?: number;
 }
 
-const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
+const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, hoverScale }) => {
   const sizeClasses = {
     platinum: 'h-16 sm:h-24 md:h-28',
     gold: 'h-12 sm:h-16 md:h-20',
@@ -17,16 +19,20 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
 
   return (
     <motion.div
+      initial="visible"
+      animate="visible"
       whileHover="hover"
       className="relative flex items-center justify-center p-6 cursor-pointer group"
     >
       {/* Animated Box Background */}
       <motion.div
         variants={{
-          initial: { opacity: 0, scale: 0.9, rotate: -2 },
+          hidden: { opacity: 0, scale: 0.9, rotate: -2 },
           hover: { opacity: 1, scale: 1, rotate: 0 }
         }}
-        initial="initial"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
         className="absolute inset-0 bg-[#e8e2c8] border-2 border-[#1a1a1a] shadow-[4px_4px_0px_0px_#1a1a1a] rounded-lg z-0"
       />
@@ -35,8 +41,9 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
       <div className="relative z-10 flex flex-col items-center gap-2">
         <motion.img
           variants={{
-            initial: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
-            hover: { filter: "grayscale(0%)", opacity: 1, scale: 1.05 }
+            hidden: { filter: "grayscale(0%)", opacity: 0, scale: scale * 0.8 },
+            visible: { filter: "grayscale(0%)", opacity: 1, scale: scale },
+            hover: { filter: "grayscale(0%)", opacity: 1, scale: hoverScale || scale * 1.05 }
           }}
           transition={{ duration: 0.4 }}
           src={logo}
@@ -47,7 +54,8 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier }) => {
         {/* Optional: Name reveal */}
         <motion.span
           variants={{
-            initial: { opacity: 0, y: 5 },
+            hidden: { opacity: 0, y: 5 },
+            visible: { opacity: 0, y: 5 },
             hover: { opacity: 0.4, y: 0 }
           }}
           className="font-mono text-[10px] uppercase font-bold text-[#1a1a1a] tracking-widest mt-2"
