@@ -1,6 +1,5 @@
 import React from 'react';
 import SponsorCard from '../components/SponsorCard';
-
 import { motion } from 'framer-motion';
 
 const Sponsors: React.FC = () => {
