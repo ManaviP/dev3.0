@@ -1,11 +1,25 @@
 import React from 'react';
 import SponsorCard from '../components/SponsorCard';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const Sponsors: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const goldSponsors = [
-    { name: "AIC DSU Innovation Foundation", logo: "/logos/aic-dsu copy.png", scale: 2.1, hoverScale: 2.3 },
+    {
+      name: "AIC DSU Innovation Foundation",
+      logo: "/logos/aic-dsu copy.png",
+      scale: isMobile ? 2.8 : 2.1,
+      hoverScale: isMobile ? 2.8 : 2.3
+    },
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
   ];
 
