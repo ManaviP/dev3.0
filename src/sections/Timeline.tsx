@@ -6,6 +6,7 @@ import {
   useSpring,
   useMotionValueEvent,
   AnimatePresence,
+  MotionValue,
 } from 'framer-motion';
 
 /* ─────────────────────────────────────
@@ -147,7 +148,7 @@ function Track({
   activeProgress,
 }: {
   totalWidth: number;
-  progress: unknown;
+  progress: MotionValue<number>;
   stationPositions: number[];
   activeProgress: number;
 }) {
@@ -305,7 +306,7 @@ function StationCard({
         // top: 100%    → card top at station-wrapper bottom   (card below track)
         bottom: isTop ? '100%' : undefined,
         top: isTop ? undefined : '100%',
-        paddingBottom: isTop ? (isMobile ? '25px' : '10px') : '0',
+        paddingBottom: isTop ? (isMobile ? '25px' : '23px') : '0',
         paddingTop: isTop ? '0' : '10px',
       }}
     >
@@ -314,7 +315,7 @@ function StationCard({
         className="absolute left-1/2 -translate-x-1/2"
         style={{
           width: '2px',
-          height: isMobile ? '25px' : '10px',
+          height: isMobile ? '25px' : (isTop ? '43px' : '30px'),
           background: isRevealed ? color : 'rgba(26,26,26,0.15)',
           // stem connects the padded area to the track node
           bottom: isTop ? '-20px' : undefined,
@@ -387,7 +388,7 @@ function StationCard({
                 style={{
                   background: color,
                   borderBottom: '2.5px solid #1a1a1a',
-                  padding: '8px 12px',
+                  padding: '4px 12px',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
@@ -408,14 +409,14 @@ function StationCard({
               </div>
 
               {/* Content area */}
-              <div style={{ padding: '16px 14px 4px 14px', overflow: 'hidden' }}>
+              <div style={{ padding: '8px 14px 0px 14px', overflow: 'hidden' }}>
                 {/* Departure flip-board date */}
-                <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '10px' }}>
                   <div
                     style={{
                       background: '#1a1a1a', color: color,
                       fontFamily: 'monospace', fontSize: '28px', fontWeight: 900,
-                      padding: '6px 10px', lineHeight: 1,
+                      padding: '3px 10px', lineHeight: 1,
                       display: 'flex', alignItems: 'center',
                       minWidth: '48px', justifyContent: 'center', letterSpacing: '0.04em',
                     }}
@@ -424,7 +425,7 @@ function StationCard({
                   </div>
                   <div
                     style={{
-                      background: '#1a1a1a', padding: '6px 10px',
+                      background: '#1a1a1a', padding: '3px 10px',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}
                   >
@@ -446,7 +447,7 @@ function StationCard({
                 {/* Title */}
                 <h3
                   className="font-display text-[#1a1a1a] leading-tight font-bold"
-                  style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)', letterSpacing: '-0.01em', marginBottom: '12px' }}
+                  style={{ fontSize: 'clamp(1rem, 1.6vw, 1.3rem)', letterSpacing: '-0.01em', marginBottom: '8px' }}
                 >
                   {event.title}
                 </h3>
@@ -456,7 +457,7 @@ function StationCard({
                   className="font-sans text-[#1a1a1a]/60 leading-relaxed"
                   style={{
                     fontSize: 'clamp(0.85rem, 1vw, 1rem)',
-                    marginBottom: '20px',
+                    marginBottom: '12px',
                   }}
                 >
                   {event.description}
@@ -468,7 +469,7 @@ function StationCard({
                 style={{
                   margin: '0 10px',
                   borderTop: '1.5px dashed rgba(26,26,26,0.18)',
-                  padding: '12px 6px',
+                  padding: '6px 6px',
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 }}
               >
@@ -708,7 +709,7 @@ export default function Timeline() {
                 marginTop: '-18px' // center vertically on the line drop
               }}
             >
-              {/* Smoke for Mobile Train */}
+              {/* Bubbles for Mobile Submarine */}
               <motion.div
                 className="absolute pointer-events-none"
                 style={{ right: -6, top: -14, zIndex: 50 }}
@@ -728,7 +729,7 @@ export default function Timeline() {
 
               <motion.div animate={{ x: [-2, 2, -2] }} transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}>
                 <div style={{ transform: 'rotate(90deg)' }}>
-                  <TrainSVG color={COLORS[activeIdx] ?? '#f97028'} />
+                  <SubmarineSVG color={COLORS[activeIdx] ?? '#f97028'} />
                 </div>
               </motion.div>
 
@@ -767,16 +768,16 @@ export default function Timeline() {
                 className="relative w-full"
               >
                 {/* Node */}
-                <div 
+                <div
                   className="absolute -left-[46px] top-8 w-[14px] h-[14px] rounded-full border-[2.5px] border-[#1a1a1a] z-10 transition-colors duration-500"
-                  style={{ 
-                    background: revealedSet.has(i) ? color : '#f3ecd2', 
-                    boxShadow: revealedSet.has(i) ? `0 0 10px ${color}88` : 'none' 
+                  style={{
+                    background: revealedSet.has(i) ? color : '#f3ecd2',
+                    boxShadow: revealedSet.has(i) ? `0 0 10px ${color}88` : 'none'
                   }}
                 />
-                
+
                 {/* Stem */}
-                <div 
+                <div
                   className="absolute -left-[40px] top-[38px] w-[40px] h-[2.5px] transition-colors duration-500"
                   style={{ background: revealedSet.has(i) ? color : 'rgba(26,26,26,0.2)', zIndex: 0 }}
                 />
@@ -819,7 +820,7 @@ export default function Timeline() {
                     style={{
                       background: color,
                       borderBottom: '2.5px solid #1a1a1a',
-                      padding: '8px 12px',
+                      padding: '4px 12px',
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
@@ -839,13 +840,13 @@ export default function Timeline() {
                   </div>
 
                   {/* Content area */}
-                  <div style={{ padding: '16px 14px 4px 14px', overflow: 'hidden' }}>
-                    <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '16px' }}>
+                  <div style={{ padding: '8px 14px 0px 14px', overflow: 'hidden' }}>
+                    <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '10px' }}>
                       <div
                         style={{
                           background: '#1a1a1a', color: color,
                           fontFamily: 'monospace', fontSize: '28px', fontWeight: 900,
-                          padding: '6px 10px', lineHeight: 1,
+                          padding: '3px 8px', lineHeight: 1,
                           display: 'flex', alignItems: 'center',
                           minWidth: '48px', justifyContent: 'center', letterSpacing: '0.04em',
                         }}
@@ -854,7 +855,7 @@ export default function Timeline() {
                       </div>
                       <div
                         style={{
-                          background: '#1a1a1a', padding: '6px 10px',
+                          background: '#1a1a1a', padding: '3px 8px',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                         }}
                       >
@@ -875,7 +876,7 @@ export default function Timeline() {
 
                     <h3
                       className="font-display text-[#1a1a1a] leading-tight font-bold"
-                      style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.4rem)', letterSpacing: '-0.01em', marginBottom: '12px' }}
+                      style={{ fontSize: '1.1rem', letterSpacing: '-0.01em', marginBottom: '8px' }}
                     >
                       {event.title}
                     </h3>
@@ -884,7 +885,7 @@ export default function Timeline() {
                       className="font-sans text-[#1a1a1a]/60 leading-relaxed"
                       style={{
                         fontSize: 'clamp(0.85rem, 1.1vw, 1.05rem)',
-                        marginBottom: '20px',
+                        marginBottom: '12px',
                       }}
                     >
                       {event.description}
@@ -896,7 +897,7 @@ export default function Timeline() {
                     style={{
                       margin: '0 10px',
                       borderTop: '1.5px dashed rgba(26,26,26,0.18)',
-                      padding: '12px 6px',
+                      padding: '6px 6px',
                       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                     }}
                   >
