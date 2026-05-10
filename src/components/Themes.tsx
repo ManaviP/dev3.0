@@ -27,7 +27,7 @@ const themes: Theme[] = [
     bg: '#ffffff',
     title: 'AI / ML',
     desc: 'Build intelligent systems, chatbots, predictive models, and generative AI tools that think, learn, and adapt.',
-    tags: ['LLMs', 'Computer Vision', 'NLP', 'Deep Learning'],
+    tags: ['Computer Vision', 'NLP', 'Deep Learning'],
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ const themes: Theme[] = [
     bg: '#ffffff',
     title: 'Agentic AI',
     desc: 'Develop autonomous agents that can plan, reason, and execute complex workflows without human intervention.',
-    tags: ['Autonomous Agents', 'Reasoning', 'Workflows', 'Multi-Agent'],
+    tags: ['Autonomous Agents', 'Reasoning', 'Workflows', 'Multi-Agent', 'LLMs'],
   },
   {
     id: 3,

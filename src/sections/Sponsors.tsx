@@ -1,13 +1,12 @@
 import React from 'react';
 import SponsorCard from '../components/SponsorCard';
-import DotGrid from '../components/DotGrid';
 import { motion } from 'framer-motion';
 
 const Sponsors: React.FC = () => {
 
   const goldSponsors = [
-    { name: "AIC DSU Innovation Foundation", logo: "/logos/aic-dsu.png" },
-    { name: "CodeCrafters.io", logo: "/logos/CodeCraft.png" },
+    { name: "AIC DSU Innovation Foundation", logo: "/logos/aic-dsu copy.png", scale: 2.1, hoverScale: 2.3 },
+    { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
   ];
 
   const containerVariants = {
@@ -44,18 +43,6 @@ const Sponsors: React.FC = () => {
 
   return (
     <section id="sponsors" className="pt-16 pb-24 px-6 sm:px-10 bg-[#1a1a1a] relative scroll-mt-20 overflow-hidden rounded-t-[2.5rem] rounded-b-[2.5rem] md:rounded-t-[4rem] md:rounded-b-[4rem] shadow-[0px_-6px_0px_#f97028,0px_6px_0px_#f97028] sm:shadow-[0px_-10px_0px_#f97028,0px_10px_0px_#f97028] z-20">
-      {/* Interactive DotGrid Background */}
-      <div className="absolute inset-0 z-0 opacity-80">
-        <DotGrid
-          dotSize={6}
-          gap={32}
-          baseColor="#3a3a3a"
-          activeColor="#f97028"
-          proximity={120}
-          shockRadius={200}
-          shockStrength={5}
-        />
-      </div>
 
       <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center">
 

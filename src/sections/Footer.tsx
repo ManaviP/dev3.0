@@ -17,6 +17,7 @@ export default function Footer() {
 
   return (
     <footer
+      id="footer"
       className="relative overflow-visible px-4 pt-12 pb-4 sm:pt-16 sm:px-6 sm:pb-4 rounded-t-[3rem] sm:rounded-t-[4rem] shadow-[0px_-6px_0px_#f97028] sm:shadow-[0px_-10px_0px_#f97028] border-t border-[#f97028] w-full"
       style={{
         background: '#1a1a1a',

@@ -51,21 +51,21 @@ export default function DevHackHeroCompact() {
         />
       </div>
       {/* Sticky Background */}
-      <div className="hidden md:flex sticky top-0 h-[70vh] xl:h-screen z-0 justify-end pt-32 pr-6 md:pr-12 xl:pr-16">
+      <div className="hidden xl:flex sticky top-0 h-[70vh] xl:h-screen z-0 justify-end pt-32 pr-6 md:pr-0 xl:pr-16 w-full md:w-[50%] xl:w-[45%] ml-auto">
         <img
           src="/assets/herot.png"
           loading="lazy"
           alt="DevHack Background"
-          className="w-full md:w-[70%] xl:w-full h-full object-contain object-center md:object-right drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-105 transition-transform duration-500 pointer-events-auto"
+          className="w-full h-full max-h-[65vh] xl:max-h-[75vh] object-contain object-center md:object-right drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-105 transition-transform duration-500 pointer-events-auto"
         />
       </div>
 
       {/* Scrolling Content */}
-      <div className="relative z-10 mt-0 md:-mt-[100vh]">
+      <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-        <div className="h-[70vh] md:h-screen flex flex-col items-center md:items-start justify-center pointer-events-none pl-0 md:pl-12 xl:pl-32 pt-0 md:pt-78 xl:pt-36">
+        <div className="h-[70vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
-            className="flex flex-col items-center mt-0 md:-mt-24"
+            className="flex flex-col items-center mt-65 md:mt-20 xl:mt-40 tall-screen-fix"
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
@@ -73,30 +73,30 @@ export default function DevHackHeroCompact() {
             }}
           >
             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
-              <div className="text-[clamp(3.5rem,8vw,6rem)] xl:text-[clamp(4.5rem,10vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
-              <div className="text-[clamp(3.8rem,9vw,7rem)] xl:text-[clamp(4.8rem,12vw,8.5rem)] leading-none -mt-2 md:-mt-4 xl:-mt-8 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
-              <div className="text-[clamp(3.2rem,8vw,5.5rem)] xl:text-[clamp(4.2rem,10vw,6rem)] leading-none -mt-2 md:-mt-4 xl:-mt-8 hero-main-title pointer-events-auto">3.0</div>
+              <div className="text-[clamp(3.8rem,8.5vw,6.5rem)] md:text-[5rem] xl:text-[clamp(4.8rem,9.5vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
+              <div className="text-[clamp(4.2rem,10vw,7.5rem)] md:text-[6rem] xl:text-[clamp(5.2rem,11.5vw,8.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
+              <div className="text-[clamp(3.5rem,8.5vw,6rem)] md:text-[4.5rem] xl:text-[clamp(4.5rem,9.5vw,6.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 hero-main-title pointer-events-auto">3.0</div>
             </h1>
 
+            {/* Small Hero Image on Mobile and Tablet - Positioned between Title and Date Bar */}
+            <div className="xl:hidden relative z-10 w-[330px] sm:w-[340px] md:w-[410px] -mt-3 mb-8 flex justify-center drop-shadow-2xl pointer-events-auto">
+              <img
+                src="/assets/hero.webp"
+                alt="Hero Graphic"
+                loading="lazy"
+                className="w-full h-auto object-contain hover:scale-105 transition-transform"
+              />
+            </div>
+
             {/* Date Badge and Hanging About Section */}
-            <div className="relative -mt-2 md:-mt-6 xl:-mt-10 flex flex-col items-center z-20 pointer-events-auto">
+            <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
               <div className="hero-date-badge text-center whitespace-nowrap shadow-2xl relative z-20">
                 SEPTEMBER 18TH & 19TH, 2026
               </div>
 
-              {/* Small Hero Image on Mobile only - Tucked UNDER the About section */}
-              <div className="md:hidden absolute top-full mt-12 w-[120px] z-0 opacity-90">
-                <img
-                  src="/assets/herot.png"
-                  alt="Hero Graphic"
-                  loading="lazy"
-                  className="w-full h-auto drop-shadow-xl"
-                />
-              </div>
-
               {/* Hanging Image (Positioned directly below the badge) */}
               <div
-                className="absolute top-full -mt-2 w-[85vw] md:w-[260px] xl:w-[420px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
+                className="absolute top-full -mt-2 w-[85vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
               >
                 <img
                   src="/assets/ABOUT.png"
