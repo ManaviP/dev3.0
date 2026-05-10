@@ -1,6 +1,6 @@
 import React from 'react';
 import SponsorCard from '../components/SponsorCard';
-import DotGrid from '../components/DotGrid';
+
 import { motion } from 'framer-motion';
 
 const Sponsors: React.FC = () => {
