@@ -86,15 +86,6 @@ const PrizeCard: React.FC<PrizeCardProps> = ({
       whileHover={{ y: -14, scale: 1.04, rotate: isMain ? -0.5 : 0.8 }}
       transition={{ type: "spring", stiffness: 260, damping: 18 }}
     >
-      {/* Enhanced Card Depth Shadow - Strong black shadow with enhanced offset for main card */}
-      <div
-        className={`absolute inset-0 bg-black/40 transition-all duration-300 rounded-[28px]
-          ${isMain
-            ? 'translate-x-1.5 translate-y-2 shadow-[0_8px_16px_rgba(0,0,0,0.2)] group-hover:translate-x-2 group-hover:translate-y-2.5 group-hover:shadow-[0_15px_30px_rgba(0,0,0,0.3)]'
-            : 'translate-x-1 translate-y-1.5 shadow-[0_6px_12px_rgba(0,0,0,0.15)] group-hover:translate-x-2 group-hover:translate-y-2 group-hover:shadow-[0_12px_24px_rgba(0,0,0,0.25)]'
-          }
-        `}
-      />
 
       <div
         className={`relative z-10 w-full h-full border-[4px] border-[#1a1a1a] flex flex-col overflow-hidden rounded-[28px]
@@ -102,7 +93,6 @@ const PrizeCard: React.FC<PrizeCardProps> = ({
         `}
         style={{
           background: metalGradient || mainColor,
-          boxShadow: '0 8px 20px rgba(0, 0, 0, 0.18), inset 0 2px 0 rgba(255,255,255,0.25)',
         }}
       >
         {/* Metallic Reflection Overlay - Subtle vertical light streak */}
@@ -112,7 +102,7 @@ const PrizeCard: React.FC<PrizeCardProps> = ({
         </div>
 
         {/* High-Fidelity Organic Laurel Wreaths */}
-        <div className="absolute top-4 left-4 w-16 sm:w-20 h-16 sm:h-20 opacity-40 pointer-events-none -rotate-[15deg] group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_5px_rgba(0,0,0,0.35)]">
+        <div className="absolute top-4 left-4 w-16 sm:w-20 h-16 sm:h-20 opacity-40 pointer-events-none -rotate-[15deg] group-hover:scale-110 transition-transform duration-300">
           <svg viewBox="0 0 40 40" fill={palette.amountFill}>
             {/* Stem - smoother curve */}
             <path d="M22,38 C22,38 12,28 12,18 C12,10 18,4 18,4" fill="none" stroke={palette.amountFill} strokeWidth="1.6" strokeLinecap="round" opacity="0.8" />
@@ -135,7 +125,7 @@ const PrizeCard: React.FC<PrizeCardProps> = ({
           </svg>
         </div>
 
-        <div className="absolute top-4 right-4 w-16 sm:w-20 h-16 sm:h-20 opacity-40 pointer-events-none rotate-[15deg] group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_2px_5px_rgba(0,0,0,0.35)]">
+        <div className="absolute top-4 right-4 w-16 sm:w-20 h-16 sm:h-20 opacity-40 pointer-events-none rotate-[15deg] group-hover:scale-110 transition-transform duration-300">
           <svg viewBox="0 0 40 40" fill={palette.amountFill}>
             {/* Stem - smoother curve */}
             <path d="M18,38 C18,38 28,28 28,18 C28,10 22,4 22,4" fill="none" stroke={palette.amountFill} strokeWidth="1.6" strokeLinecap="round" opacity="0.8" />
