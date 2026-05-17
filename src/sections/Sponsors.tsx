@@ -21,8 +21,8 @@ const Sponsors: React.FC = () => {
       hoverScale: isMobile ? 2.8 : 2.3
     },
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
-  ];
-
+    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png" }
+  ]
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
