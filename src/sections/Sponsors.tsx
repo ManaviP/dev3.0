@@ -21,7 +21,10 @@ const Sponsors: React.FC = () => {
       hoverScale: isMobile ? 2.8 : 2.3
     },
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
-    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png" }
+  ]
+
+  const communityPartners = [
+    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png" },
   ]
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -110,6 +113,23 @@ const Sponsors: React.FC = () => {
             {goldSponsors.map((s, i) => (
               <motion.div key={i} variants={itemVariants} className="w-full flex justify-center">
                 <SponsorCard {...s} tier="gold" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Community Partners */}
+        <div className="w-full max-w-4xl mt-20">
+          <TierLabel label="Platform Partners" />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="flex flex-wrap justify-center gap-8 sm:gap-16"
+          >
+            {communityPartners.map((s, i) => (
+              <motion.div key={i} variants={itemVariants} className="flex justify-center">
+                <SponsorCard {...s} tier="community" />
               </motion.div>
             ))}
           </motion.div>
