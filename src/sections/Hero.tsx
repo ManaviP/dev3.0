@@ -16,6 +16,17 @@ export default function DevHackHeroCompact() {
   }, []);
 
   useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!isMobile) {
       setMobileScrollY(0);
       return;
@@ -87,6 +98,13 @@ export default function DevHackHeroCompact() {
                 className="w-full h-auto object-contain hover:scale-105 transition-transform"
               />
             </div>
+
+            <div
+              className="apply-button"
+              data-hackathon-slug="devhack3"
+              data-button-theme="dark"
+              style={{ height: '44px', width: '312px' }}
+            ></div>
 
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
