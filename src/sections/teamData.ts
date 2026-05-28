@@ -131,7 +131,7 @@ export const theOperators: TeamMember[] = [
     id: 'o5',
     name: 'Naman Saraff',
     role: 'Sponsorship Team',
-    image: 'https://api.dicebear.com/9.x/pixel-art/svg?seed=Naman',
+    image: '/logos/naman.JPG',
     linkedin: '',
     instagram: '',
   },

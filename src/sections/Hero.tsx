@@ -101,9 +101,9 @@ export default function DevHackHeroCompact() {
 
             <div
               className="apply-button"
-              data-hackathon-slug="devhack3"
+              data-hackathon-slug="dsudevhack3"
               data-button-theme="dark"
-              style={{ height: '44px', width: '312px' }}
+              style={{ height: '44px', width: '312px',   cursor: 'pointer', }}
             ></div>
 
             {/* Date Badge and Hanging About Section */}
