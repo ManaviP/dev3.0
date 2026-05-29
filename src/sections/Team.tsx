@@ -142,12 +142,10 @@ export default function Team() {
 
   const TABS = ['Organising Team', 'Patrons' /*, 'Faculty', 'Jury & Experts' */];
 
-  const allMembers = useMemo(() => [...coreTeam, ...subHeads, ...theOperators], []);
-
   const membersToRender = useMemo(() => {
     const keyword = activeSubTeam.split(' ')[0];
-    return allMembers.filter(m => m.role.includes(keyword));
-  }, [allMembers, activeSubTeam]);
+    return theOperators.filter(m => m.role.includes(keyword));
+  }, [activeSubTeam]);
 
   return (
     <section id="team" className="relative w-full bg-[#f3ecd2] py-12 sm:py-16 md:py-24 px-3 sm:px-6 md:px-10 text-[#1a1a1a] font-sans selection:bg-[#f97028] selection:text-[#f3ecd2]">
