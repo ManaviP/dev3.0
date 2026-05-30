@@ -85,28 +85,34 @@ function TeamCard({ member }: { member: TeamMember }) {
         </h3>
         <p className="font-mono text-[9px] sm:text-[11px] md:text-xs uppercase mt-1 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
 
-        <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
-          <div className="flex gap-2.5 text-[#1a1a1a]">
-            <a
-              href={member.linkedin || '#'}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <FaLinkedin size={18} />
-            </a>
-            <a
-              href={member.instagram || '#'}
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <FaInstagram size={18} />
-            </a>
+        {(member.linkedin || member.instagram) && (
+          <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
+            <div className="flex gap-2.5 text-[#1a1a1a]">
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <FaLinkedin size={18} />
+                </a>
+              )}
+              {member.instagram && (
+                <a
+                  href={member.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#f97028] transition-colors opacity-80 hover:opacity-100"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <FaInstagram size={18} />
+                </a>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

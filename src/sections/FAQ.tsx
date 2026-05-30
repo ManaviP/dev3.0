@@ -21,12 +21,8 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   const renderFAQText = (text: string) => {
-    return text.split('3.0').map((part, i, arr) => (
-      <span key={i}>
-        {part}
-        {i < arr.length - 1 && <span className="font-number">3.0</span>}
-      </span>
-    ));
+    const formattedText = text.replace(/3\.0/g, '<span class="font-number">3.0</span>');
+    return <span dangerouslySetInnerHTML={{ __html: formattedText }} />;
   };
 
   return (
