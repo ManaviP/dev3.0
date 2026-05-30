@@ -6,7 +6,6 @@ import {
   useSpring,
   useMotionValueEvent,
   AnimatePresence,
-  MotionValue,
 } from 'framer-motion';
 
 /* ─────────────────────────────────────
@@ -21,10 +20,10 @@ interface TimelineEvent {
 }
 
 const timelineData: TimelineEvent[] = [
-  { month: 'JUN', day: '10', year: 2026, title: 'Registration Starts', description: 'The Race Begins — Register. Team Up. Get Set to Hack!' },
+  { month: 'JUN', day: '1', year: 2026, title: 'Registration Starts', description: 'The Race Begins — Register. Team Up. Get Set to Hack!' },
   { month: 'JUN', day: '25', year: 2026, title: 'Idea Submissions Start', description: 'Time to Spark Ideas — Let the Innovation Flow!' },
   { month: 'AUG', day: '10', year: 2026, title: 'Registration Deadline', description: 'Last Call to Enter the Arena — Register Before It\'s Too Late!' },
-  { month: 'AUG', day: '20', year: 2026, title: 'Idea Submission Deadline', description: 'Ideas Lock In — Let the Best Concepts Win!' },
+  { month: 'AUG', day: '25', year: 2026, title: 'Idea Submission Deadline', description: 'Ideas Lock In — Let the Best Concepts Win!' },
   { month: 'AUG', day: '31', year: 2026, title: 'Shortlisted Teams Announcement', description: 'And the Chosen Ones Are... Meet the Finalists!' },
   { month: 'SEP', day: '18', year: 2026, title: 'Hacking Starts', description: 'Code. Create. Conquer — The 36-Hour Sprint Begins!' },
   { month: 'SEP', day: '19', year: 2026, title: 'Final Submission', description: 'Time\'s Up — Submit Your Best Work and Let It Shine!' },
@@ -76,12 +75,12 @@ function TrainSVG({ color }: { color: string }) {
       <rect x="2" y="22" width="54" height="3" rx="1" fill={color} />
 
       {/* Windows */}
-      <rect x="9" y="7" width="6" height="5" rx="1.5" fill="#f3ecd2" />
-      <rect x="17" y="7" width="6" height="5" rx="1.5" fill="#f3ecd2" />
+      <rect x="9" y="7" width="6" height="5" rx="1.5" fill="var(--color-cream)" />
+      <rect x="17" y="7" width="6" height="5" rx="1.5" fill="var(--color-cream)" />
 
       {/* Cab window */}
-      <rect x="34" y="13" width="8" height="6" rx="1.5" fill="#f3ecd2" opacity="0.9" />
-      <rect x="44" y="13" width="8" height="6" rx="1.5" fill="#f3ecd2" opacity="0.9" />
+      <rect x="34" y="13" width="8" height="6" rx="1.5" fill="var(--color-cream)" opacity="0.9" />
+      <rect x="44" y="13" width="8" height="6" rx="1.5" fill="var(--color-cream)" opacity="0.9" />
 
       {/* Front bumper / cowcatcher */}
       <rect x="54" y="22" width="8" height="3" rx="1" fill="#1a1a1a" />
@@ -103,42 +102,6 @@ function TrainSVG({ color }: { color: string }) {
 }
 
 /* ─────────────────────────────────────
-   SVG SUBMARINE ICON (FOR MOBILE)
-   ───────────────────────────────────── */
-function SubmarineSVG({ color }: { color: string }) {
-  return (
-    <svg
-      width="64"
-      height="38"
-      viewBox="0 0 64 38"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Submarine Body (Oval/Capsule) */}
-      <rect x="8" y="10" width="48" height="22" rx="11" fill="#1a1a1a" />
-
-      {/* Conning Tower */}
-      <rect x="26" y="5" width="12" height="7" rx="2" fill="#1a1a1a" />
-      {/* Periscope */}
-      <path d="M30 5 L30 2 L33 2" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-
-      {/* Portholes */}
-      <circle cx="24" cy="21" r="3" fill="#f3ecd2" />
-      <circle cx="32" cy="21" r="3" fill="#f3ecd2" />
-      <circle cx="40" cy="21" r="3" fill="#f3ecd2" />
-
-      {/* Accent Stripe */}
-      <rect x="15" y="26" width="34" height="3" rx="1.5" fill={color} />
-
-      {/* Rear Propeller Handle/Base */}
-      <rect x="2" y="18" width="6" height="6" rx="1" fill="#1a1a1a" />
-      {/* Propeller Blades */}
-      <rect x="4" y="14" width="2" height="14" rx="1" fill="#1a1a1a" />
-    </svg>
-  );
-}
-
-/* ─────────────────────────────────────
    TRACK COMPONENT
    ───────────────────────────────────── */
 function Track({
@@ -148,7 +111,7 @@ function Track({
   activeProgress,
 }: {
   totalWidth: number;
-  progress: MotionValue<number>;
+  progress: any;
   stationPositions: number[];
   activeProgress: number;
 }) {
@@ -242,7 +205,7 @@ function Track({
               cx={cx}
               cy={TRACK_Y + 20}
               r={10}
-              fill={passed ? color : '#f3ecd2'}
+              fill={passed ? color : 'var(--color-cream)'}
               stroke="#1a1a1a"
               strokeWidth={2.5}
             />
@@ -306,7 +269,7 @@ function StationCard({
         // top: 100%    → card top at station-wrapper bottom   (card below track)
         bottom: isTop ? '100%' : undefined,
         top: isTop ? undefined : '100%',
-        paddingBottom: isTop ? (isMobile ? '25px' : '23px') : '0',
+        paddingBottom: isTop ? '30px' : '0',
         paddingTop: isTop ? '0' : '10px',
       }}
     >
@@ -315,11 +278,11 @@ function StationCard({
         className="absolute left-1/2 -translate-x-1/2"
         style={{
           width: '2px',
-          height: isMobile ? '25px' : (isTop ? '43px' : '30px'),
+          height: isTop ? '30px' : '10px',
           background: isRevealed ? color : 'rgba(26,26,26,0.15)',
-          // stem connects the padded area to the track node
-          bottom: isTop ? '-20px' : undefined,
-          top: isTop ? undefined : '-40px',
+          // stem sits between card padding edge and track
+          bottom: isTop ? '0px' : undefined,
+          top: isTop ? undefined : '0px',
           transition: 'background 0.4s ease',
         }}
       />
@@ -333,14 +296,14 @@ function StationCard({
             transition={{ type: 'spring', stiffness: 300, damping: 24, delay: 0.04 }}
             className="relative w-full"
             style={
-              isMobile
-                ? {
-                  overflow: 'visible',
-                  originX: 0.5,
-                  originY: 1,
-                  top: '-105px',
-                  left: '125px', // Reduced offset
-                }
+              isMobile 
+                ? { 
+                    overflow: 'visible',
+                    originX: 0.5,
+                    originY: 1,
+                    top: '-105px', 
+                    left: '110px', // Shift exactly half-width (220/2) to sit right of the track
+                  }
                 : { overflow: 'visible', originX: 0.5, originY: 1 }
             }
           >
@@ -376,7 +339,7 @@ function StationCard({
                     height: 10,
                     borderRadius: '50%',
                     background: '#1a1a1a',
-                    border: '2px solid #f3ecd2',
+                    border: '2px solid var(--color-cream)',
                     zIndex: 20,
                     ...pos,
                   }}
@@ -388,7 +351,7 @@ function StationCard({
                 style={{
                   background: color,
                   borderBottom: '2.5px solid #1a1a1a',
-                  padding: '4px 12px',
+                  padding: '4px 10px',
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
@@ -409,55 +372,60 @@ function StationCard({
               </div>
 
               {/* Content area */}
-              <div style={{ padding: '8px 14px 0px 14px', overflow: 'hidden' }}>
+              <div style={{ padding: '8px 10px 0 10px', overflow: 'hidden' }}>
                 {/* Departure flip-board date */}
-                <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '8px' }}>
                   <div
                     style={{
                       background: '#1a1a1a', color: color,
-                      fontFamily: 'monospace', fontSize: '28px', fontWeight: 900,
-                      padding: '3px 10px', lineHeight: 1,
+                      fontFamily: 'monospace', fontSize: '22px', fontWeight: 900,
+                      padding: '3px 8px', lineHeight: 1,
                       display: 'flex', alignItems: 'center',
-                      minWidth: '48px', justifyContent: 'center', letterSpacing: '0.04em',
+                      minWidth: '40px', justifyContent: 'center', letterSpacing: '0.04em',
                     }}
                   >
                     {event.day}
                   </div>
                   <div
                     style={{
-                      background: '#1a1a1a', padding: '3px 10px',
+                      background: '#1a1a1a', padding: '3px 7px',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}
                   >
-                    <span className="font-mono" style={{ fontSize: '13px', fontWeight: 800, color: '#f3ecd2', letterSpacing: '0.1em' }}>{event.month}</span>
+                    <span className="font-mono" style={{ fontSize: '10px', fontWeight: 800, color: 'var(--color-cream)', letterSpacing: '0.1em' }}>{event.month}</span>
                   </div>
                   <div
                     style={{
                       flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
-                      paddingLeft: '8px',
+                      paddingLeft: '7px', gap: '1px',
                       border: '1px solid rgba(26,26,26,0.08)', borderLeft: 'none',
                     }}
                   >
-                    <span className="font-mono" style={{ fontSize: '15px', fontWeight: 900, color: '#1a1a1a', opacity: 0.55, letterSpacing: '0.06em', lineHeight: 1 }}>
+                    <span className="font-mono" style={{ fontSize: '11px', fontWeight: 900, color: '#1a1a1a', opacity: 0.55, letterSpacing: '0.04em', lineHeight: 1 }}>
                       {event.year}
+                    </span>
+                    <span className="font-mono" style={{ fontSize: '6.5px', color: '#1a1a1a', opacity: 0.3, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                      YEAR
                     </span>
                   </div>
                 </div>
 
                 {/* Title */}
                 <h3
-                  className="font-display text-[#1a1a1a] leading-tight font-bold"
-                  style={{ fontSize: 'clamp(1rem, 1.6vw, 1.3rem)', letterSpacing: '-0.01em', marginBottom: '8px' }}
+                  className="font-display text-[#1a1a1a] leading-tight"
+                  style={{ fontSize: 'clamp(0.82rem, 1.4vw, 1.05rem)', letterSpacing: '-0.01em', marginBottom: '5px' }}
                 >
                   {event.title}
                 </h3>
 
                 {/* Description */}
                 <p
-                  className="font-sans text-[#1a1a1a]/60 leading-relaxed"
+                  className="font-sans text-[#1a1a1a]/60 leading-snug"
                   style={{
-                    fontSize: 'clamp(0.85rem, 1vw, 1rem)',
-                    marginBottom: '12px',
+                    fontSize: 'clamp(0.62rem, 0.9vw, 0.72rem)',
+                    display: '-webkit-box', WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical', overflow: 'hidden',
+                    marginBottom: '8px',
                   }}
                 >
                   {event.description}
@@ -467,9 +435,9 @@ function StationCard({
               {/* Dashed tear-off ticket footer */}
               <div
                 style={{
-                  margin: '0 10px',
+                  margin: '0 6px',
                   borderTop: '1.5px dashed rgba(26,26,26,0.18)',
-                  padding: '6px 6px',
+                  padding: '6px 4px',
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 }}
               >
@@ -525,7 +493,7 @@ function StationCard({
       {!isRevealed && (
         <div
           style={{
-            width: '100%', minHeight: '260px', borderRadius: '3px',
+            width: '100%', height: '130px', borderRadius: '3px',
             border: '2px dashed rgba(26,26,26,0.10)', background: 'rgba(26,26,26,0.02)',
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '4px',
           }}
@@ -557,26 +525,27 @@ export default function Timeline() {
 
   useEffect(() => {
     const onResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1024);
       setIsSmallScreen(window.innerHeight < 700);
-      // Estimate: sticky viewport minus header (~60px, no subtitle now)
-      setTrackAreaH(Math.max(320, window.innerHeight - 60));
+      // Estimate: sticky viewport minus header (~60px, no subtitle now) minus nav (~72px)
+      setTrackAreaH(Math.max(320, window.innerHeight - 60 - 72));
     };
     onResize();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Expanded sizes for more premium, spacious cards
-  const CARD_WIDTH = isSmallScreen ? 320 : isMobile ? 300 : 460;
-  const STATION_GAP = isMobile ? 380 : 540;
-  const PADDING_SIDE = isMobile ? 80 : 280;
-  const END_PADDING = isMobile ? 400 : 300;
+  // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
+  // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
+  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 220 : 220;
+  const STATION_GAP = isMobile ? 280 : 245;
+  const PADDING_SIDE = isMobile ? 100 : 160;
+  const END_PADDING = isMobile ? 350 : 160;
   const TRACK_HEIGHT = 60;
 
   // Estimated card content height (used for centering the track)
-  // card = top bar 8px + padding+content + spacing ≈ 240px
-  const CARD_EST_H = isSmallScreen ? 200 : 250;
+  // card = top bar 4px + padding+content ~170px + padding 20px ≈ 194px
+  const CARD_EST_H = isSmallScreen ? 160 : 190;
 
   // Place track so top cards and bottom cards both fit in the track area
   // track_top + CARD_EST_H (above) < trackAreaH  AND  track_top + TRACK_HEIGHT + CARD_EST_H < trackAreaH
@@ -595,7 +564,7 @@ export default function Timeline() {
   // VERTICAL SCROLL → HORIZONTAL TRANSFORM
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: isMobile ? ['start center', 'end center'] : ['start start', 'end end'],
+    offset: ['start start', 'end end'],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -605,7 +574,7 @@ export default function Timeline() {
   });
 
   const [progressValue, setProgressValue] = useState(0);
-  const ANIMATION_END = isMobile ? 0.95 : 0.85;
+  const ANIMATION_END = 0.85;
 
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
     let adjusted = latest / ANIMATION_END;
@@ -652,8 +621,16 @@ export default function Timeline() {
     { clamp: true }
   );
 
-  const mobileTrackScaleY = useTransform(smoothProgress, [0, ANIMATION_END], [0, 1], { clamp: true });
-  const mobileTrainTop = useTransform(smoothProgress, [0, ANIMATION_END], ['0%', '100%'], { clamp: true });
+  const handleScrollTo = (index: number) => {
+    if (!sectionRef.current) return;
+    const targetProgress = (index / (timelineData.length - 1)) * ANIMATION_END;
+    const sectionTop = sectionRef.current.offsetTop;
+    const sectionHeight = sectionRef.current.offsetHeight;
+    const distance = sectionHeight - window.innerHeight;
+    window.scrollTo({ top: sectionTop + targetProgress * distance, behavior: 'smooth' });
+  };
+  const goToPrev = () => handleScrollTo(Math.max(0, activeIdx - 1));
+  const goToNext = () => handleScrollTo(Math.min(timelineData.length - 1, activeIdx + 1));
 
   // FAQ gap: adding margin-bottom to the sticky container parent so FAQ section doesn't overlap immediately
   const SECTION_BOTTOM_GAP = isMobile ? '25vh' : '0vh';
@@ -661,293 +638,11 @@ export default function Timeline() {
   // trackTopPx is now a real pixel number computed from actual available height
   const VIEWPORT_CENTER_Y = `${trackTopPx}px`;
 
-  if (isMobile) {
-    return (
-      <section ref={sectionRef} id="timeline" className="relative bg-[#f3ecd2] w-full py-16 px-4 overflow-hidden">
-        <div className="text-center shrink-0 z-40 px-4 pt-2 pb-12 relative">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-            className="inline-block mb-4"
-          >
-            <div className="h-[2px] w-20 bg-[#f97028] mx-auto" />
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
-            whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="font-display tracking-tight flex justify-center items-center uppercase text-[#1a1a1a]"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 0.9 }}
-          >
-            TIMELINE
-          </motion.h2>
-        </div>
-
-        <div className="flex flex-col gap-10 max-w-lg mx-auto w-full relative pl-16 pb-10">
-          {/* Vertical track line */}
-          <div className="absolute top-8 bottom-0 left-[24px] w-[3px] bg-[#1a1a1a]/20 rounded-full overflow-hidden">
-            {/* Glowing active track */}
-            <motion.div
-              className="w-full h-full origin-top"
-              style={{
-                background: COLORS[activeIdx] ?? '#f97028',
-                boxShadow: `0 0 8px ${COLORS[activeIdx] ?? '#f97028'}`,
-                scaleY: mobileTrackScaleY,
-              }}
-            />
-          </div>
-
-          {/* Train moving down */}
-          <div className="absolute top-8 bottom-0 left-[25.5px] w-1 z-40 pointer-events-none">
-            <motion.div
-              className="absolute transform -translate-x-1/2"
-              style={{
-                top: mobileTrainTop,
-                willChange: 'transform',
-                marginTop: '-18px' // center vertically on the line drop
-              }}
-            >
-              {/* Bubbles for Mobile Submarine */}
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{ right: -6, top: -14, zIndex: 50 }}
-                animate={{ opacity: [0.8, 0, 0.8], y: [-2, -18, -2], x: [0, 8, 0], scale: [0.7, 1.4, 0.7] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div style={{ width: 12, height: 12, borderRadius: '50%', background: 'rgba(26,26,26,0.3)', filter: 'blur(2px)' }} />
-              </motion.div>
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{ right: -8, top: -24, zIndex: 50 }}
-                animate={{ opacity: [0.6, 0, 0.6], y: [-2, -22, -2], x: [0, 12, 0], scale: [0.5, 1.1, 0.5] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-              >
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: 'rgba(26,26,26,0.25)', filter: 'blur(3px)' }} />
-              </motion.div>
-
-              <motion.div animate={{ x: [-2, 2, -2] }} transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}>
-                <div style={{ transform: 'rotate(90deg)' }}>
-                  <SubmarineSVG color={COLORS[activeIdx] ?? '#f97028'} />
-                </div>
-              </motion.div>
-
-              {/* Active date label under mobile train */}
-              <motion.div
-                key={`train-label-${activeIdx}`}
-                initial={{ opacity: 0, y: -4, x: "-50%" }}
-                animate={{ opacity: 1, y: 0, x: "-50%" }}
-                className="absolute left-1/2 whitespace-nowrap z-50 pointer-events-none"
-                style={{ top: '100%', marginTop: '24px' }}
-              >
-                <span
-                  className="font-mono text-[9px] font-black uppercase tracking-widest px-2 py-0.5"
-                  style={{
-                    background: COLORS[activeIdx] ?? '#f97028',
-                    color: '#1a1a1a',
-                    border: '1.5px solid #1a1a1a',
-                    boxShadow: '2px 2px 0 #1a1a1a',
-                  }}
-                >
-                  {timelineData[activeIdx]?.month} {timelineData[activeIdx]?.day}
-                </span>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {timelineData.map((event, i) => {
-            const color = COLORS[i];
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20, y: 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ type: 'spring', stiffness: 300, damping: 24, delay: i * 0.05 }}
-                className="relative w-full"
-              >
-                {/* Node */}
-                <div
-                  className="absolute -left-[46px] top-8 w-[14px] h-[14px] rounded-full border-[2.5px] border-[#1a1a1a] z-10 transition-colors duration-500"
-                  style={{
-                    background: revealedSet.has(i) ? color : '#f3ecd2',
-                    boxShadow: revealedSet.has(i) ? `0 0 10px ${color}88` : 'none'
-                  }}
-                />
-
-                {/* Stem */}
-                <div
-                  className="absolute -left-[40px] top-[38px] w-[40px] h-[2.5px] transition-colors duration-500"
-                  style={{ background: revealedSet.has(i) ? color : 'rgba(26,26,26,0.2)', zIndex: 0 }}
-                />
-
-                {/* Inline Station Board to reuse styling without duplication */}
-                <div
-                  style={{
-                    border: '2.5px solid #1a1a1a',
-                    borderRadius: '3px',
-                    background: 'rgba(255,255,255,0.92)',
-                    boxShadow: '4px 4px 0 #1a1a1a',
-                    position: 'relative',
-                    overflow: 'visible',
-                  }}
-                >
-                  {/* Corner Rivets */}
-                  {[
-                    { top: -5, left: -5 } as React.CSSProperties,
-                    { top: -5, right: -5 } as React.CSSProperties,
-                    { bottom: -5, left: -5 } as React.CSSProperties,
-                    { bottom: -5, right: -5 } as React.CSSProperties,
-                  ].map((pos, ri) => (
-                    <div
-                      key={ri}
-                      style={{
-                        position: 'absolute',
-                        width: 10,
-                        height: 10,
-                        borderRadius: '50%',
-                        background: '#1a1a1a',
-                        border: '2px solid #f3ecd2',
-                        zIndex: 20,
-                        ...pos,
-                      }}
-                    />
-                  ))}
-
-                  {/* Platform header bar */}
-                  <div
-                    style={{
-                      background: color,
-                      borderBottom: '2.5px solid #1a1a1a',
-                      padding: '4px 12px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span
-                      className="font-mono"
-                      style={{ fontSize: '8px', fontWeight: 900, letterSpacing: '0.22em', color: '#1a1a1a', textTransform: 'uppercase' }}
-                    >
-                      PLATFORM {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <div style={{ display: 'flex', gap: '3px' }}>
-                      <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#1a1a1a', opacity: 0.25 }} />
-                      <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#1a1a1a', opacity: 0.55 }} />
-                      <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#1a1a1a', opacity: 0.85 }} />
-                    </div>
-                  </div>
-
-                  {/* Content area */}
-                  <div style={{ padding: '8px 14px 0px 14px', overflow: 'hidden' }}>
-                    <div style={{ display: 'flex', alignItems: 'stretch', gap: '2px', marginBottom: '10px' }}>
-                      <div
-                        style={{
-                          background: '#1a1a1a', color: color,
-                          fontFamily: 'monospace', fontSize: '28px', fontWeight: 900,
-                          padding: '3px 8px', lineHeight: 1,
-                          display: 'flex', alignItems: 'center',
-                          minWidth: '48px', justifyContent: 'center', letterSpacing: '0.04em',
-                        }}
-                      >
-                        {event.day}
-                      </div>
-                      <div
-                        style={{
-                          background: '#1a1a1a', padding: '3px 8px',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        }}
-                      >
-                        <span className="font-mono" style={{ fontSize: '13px', fontWeight: 800, color: '#f3ecd2', letterSpacing: '0.1em' }}>{event.month}</span>
-                      </div>
-                      <div
-                        style={{
-                          flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center',
-                          paddingLeft: '8px',
-                          border: '1px solid rgba(26,26,26,0.08)', borderLeft: 'none',
-                        }}
-                      >
-                        <span className="font-mono" style={{ fontSize: '15px', fontWeight: 900, color: '#1a1a1a', opacity: 0.55, letterSpacing: '0.06em', lineHeight: 1 }}>
-                          {event.year}
-                        </span>
-                      </div>
-                    </div>
-
-                    <h3
-                      className="font-display text-[#1a1a1a] leading-tight font-bold"
-                      style={{ fontSize: '1.1rem', letterSpacing: '-0.01em', marginBottom: '8px' }}
-                    >
-                      {event.title}
-                    </h3>
-
-                    <p
-                      className="font-sans text-[#1a1a1a]/60 leading-relaxed"
-                      style={{
-                        fontSize: 'clamp(0.85rem, 1.1vw, 1.05rem)',
-                        marginBottom: '12px',
-                      }}
-                    >
-                      {event.description}
-                    </p>
-                  </div>
-
-                  {/* Dashed tear-off ticket footer */}
-                  <div
-                    style={{
-                      margin: '0 10px',
-                      borderTop: '1.5px dashed rgba(26,26,26,0.18)',
-                      padding: '6px 6px',
-                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    }}
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                      <div style={{ width: 14, height: 2, background: color, borderRadius: 1 }} />
-                      <div style={{ width: 7, height: 7, borderRadius: '50%', border: `2px solid ${color}`, background: 'transparent' }} />
-                      <div style={{ width: 14, height: 2, background: 'rgba(26,26,26,0.15)', borderRadius: 1 }} />
-                    </div>
-                    <a
-                      href={googleCalLink(event)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      title="Add to calendar"
-                      style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        width: '24px', height: '24px',
-                        textDecoration: 'none', color: '#1a1a1a',
-                        border: '1.5px solid #1a1a1a', borderRadius: '3px',
-                        background: 'transparent',
-                        transition: 'background 0.2s ease, color 0.2s ease',
-                        flexShrink: 0,
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = color; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
-                    >
-                      <svg width="12" height="12" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="0.75" y="1.5" width="8.5" height="7.75" rx="1" stroke="currentColor" strokeWidth="1.2" />
-                        <line x1="0.75" y1="4" x2="9.25" y2="4" stroke="currentColor" strokeWidth="1.1" />
-                        <line x1="3" y1="0.5" x2="3" y2="2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                        <line x1="7" y1="0.5" x2="7" y2="2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-                        <rect x="1.8" y="5.3" width="1.5" height="1.5" rx="0.3" fill="currentColor" />
-                        <rect x="4.25" y="5.3" width="1.5" height="1.5" rx="0.3" fill="currentColor" />
-                        <rect x="6.7" y="5.3" width="1.5" height="1.5" rx="0.3" fill="currentColor" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section
       ref={sectionRef}
       id="timeline"
-      className="relative bg-[#f3ecd2] w-full hidden md:block"
+      className="relative bg-cream w-full"
       style={{ height: '400vh', marginBottom: SECTION_BOTTOM_GAP }}
     >
       {/* ── STICKY VIEWPORT ── */}
@@ -968,10 +663,28 @@ export default function Timeline() {
             initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
             whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="font-display tracking-tight flex justify-center items-center uppercase text-[#1a1a1a]"
+            className="font-display tracking-tight flex justify-center items-center uppercase"
             style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 0.9 }}
           >
-            TIMELINE
+            {"TIMELINE".split('').map((char, i) => (
+              <motion.span
+                key={i}
+                className="uppercase"
+                initial={{ color: '#1a1a1a' }}
+                animate={{
+                  color: ['#1a1a1a', COLORS[i % COLORS.length], '#1a1a1a'],
+                }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  delay: i * 0.12,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1],
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
           </motion.h2>
         </div>
 
@@ -987,19 +700,19 @@ export default function Timeline() {
             style={
               isMobile
                 ? {
-                  left: '50px', // Pull track slightly left to reduce side padding
-                  y: mobileTranslateY,
-                  rotate: 90,
-                  transformOrigin: `0px ${trackTopPx + 20}px`,
-                  width: totalWidth,
-                  willChange: 'transform',
-                }
+                    left: '80px', // Push track further right to center it better and avoid overlap with left edge
+                    y: mobileTranslateY,
+                    rotate: 90,
+                    transformOrigin: `0px ${trackTopPx + 20}px`,
+                    width: totalWidth,
+                    willChange: 'transform',
+                  }
                 : {
-                  left: 0,
-                  x: translateX,
-                  width: totalWidth,
-                  willChange: 'transform',
-                }
+                    left: 0,
+                    x: translateX,
+                    width: totalWidth,
+                    willChange: 'transform',
+                  }
             }
           >
             {/* ── TRACK (centered vertically in this div) ── */}
@@ -1059,46 +772,46 @@ export default function Timeline() {
                 zIndex: 40,
               }}
             >
-              {/* Puffs or Bubbles animation */}
+              {/* Smoke puff animation */}
               <motion.div
-                className="absolute pointer-events-none"
+                className="absolute"
                 style={{ left: 12, top: -22, zIndex: 50 }}
-                animate={{ opacity: [0.9, 0, 0.9], y: [-2, -18, -2], x: [0, -10, 0], scale: [0.8, 1.5, 0.8] }}
+                animate={{ opacity: [0.7, 0, 0.7], y: [-2, -12, -2], scale: [0.7, 1.3, 0.7] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.4)',
-                    filter: 'blur(2px)',
-                  }}
-                />
-              </motion.div>
-              <motion.div
-                className="absolute pointer-events-none"
-                style={{ left: 6, top: -34, zIndex: 50 }}
-                animate={{ opacity: [0.8, 0, 0.8], y: [-2, -24, -2], x: [0, -15, 0], scale: [0.6, 1.3, 0.6] }}
-                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
               >
                 <div
                   style={{
                     width: 14,
                     height: 14,
                     borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.35)',
+                    background: 'rgba(26,26,26,0.18)',
                     filter: 'blur(3px)',
                   }}
                 />
               </motion.div>
+              <motion.div
+                className="absolute"
+                style={{ left: 6, top: -34, zIndex: 50 }}
+                animate={{ opacity: [0.5, 0, 0.5], y: [-2, -16, -2], scale: [0.5, 1.1, 0.5] }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+              >
+                <div
+                  style={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    background: 'rgba(26,26,26,0.12)',
+                    filter: 'blur(4px)',
+                  }}
+                />
+              </motion.div>
 
-              {/* Vehicle body with bounce */}
+              {/* Train body with bounce */}
               <motion.div
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
               >
-                {isMobile ? <SubmarineSVG color={COLORS[activeIdx]} /> : <TrainSVG color={COLORS[activeIdx]} />}
+                <TrainSVG color={COLORS[activeIdx]} />
               </motion.div>
 
               {/* Active station name label on train */}
@@ -1109,8 +822,8 @@ export default function Timeline() {
                 className="absolute left-1/2 whitespace-nowrap"
                 style={
                   isMobile
-                    ? { bottom: -22, originX: 0.5, originY: 0.5 }
-                    : { bottom: -22 }
+                  ? { bottom: -22, originX: 0.5, originY: 0.5 }
+                  : { bottom: -22 }
                 }
               >
                 <span
@@ -1169,15 +882,61 @@ export default function Timeline() {
           {/* ── FADE EDGES ── */}
           <div
             className="hidden md:block absolute left-0 top-0 h-full w-24 pointer-events-none z-10"
-            style={{ background: 'linear-gradient(to right, #f3ecd2, transparent)' }}
+            style={{ background: 'linear-gradient(to right, var(--color-cream), transparent)' }}
           />
           <div
             className="hidden md:block absolute right-0 top-0 h-full w-24 pointer-events-none z-10"
-            style={{ background: 'linear-gradient(to left, #f3ecd2, transparent)' }}
+            style={{ background: 'linear-gradient(to left, var(--color-cream), transparent)' }}
           />
         </div>
 
+        {/* ── NAVIGATION ── */}
+        <div className={`absolute left-0 right-0 flex justify-center items-center gap-4 z-50 px-6 ${isMobile ? 'bottom-4 scale-90' : 'bottom-8'}`}>
+          <button
+            onClick={goToPrev}
+            disabled={activeIdx === 0}
+            className={`hidden md:flex group w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-[#1a1a1a] shadow-[5px_5px_0_#1a1a1a] transition-all duration-300 items-center justify-center ${activeIdx === 0
+                ? 'opacity-30 cursor-not-allowed shadow-none translate-x-0.5 translate-y-0.5'
+                : 'hover:bg-[#f97028] hover:shadow-[2px_2px_0_#1a1a1a] hover:translate-x-0.5 hover:translate-y-0.5'
+              }`}
+            aria-label="Previous station"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#1a1a1a' }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
 
+          {/* Station dots */}
+          <div className="flex gap-2 items-center">
+            {timelineData.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => handleScrollTo(i)}
+                className="transition-all duration-300 rounded-full border-2 border-[#1a1a1a]"
+                style={{
+                  width: i === activeIdx ? 32 : 10,
+                  height: 10,
+                  background: i === activeIdx ? COLORS[i] : 'rgba(26,26,26,0.2)',
+                }}
+                aria-label={`Go to station ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={goToNext}
+            disabled={activeIdx === timelineData.length - 1}
+            className={`hidden md:flex group w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border-2 border-[#1a1a1a] shadow-[5px_5px_0_#1a1a1a] transition-all duration-300 items-center justify-center ${activeIdx === timelineData.length - 1
+                ? 'opacity-30 cursor-not-allowed shadow-none translate-x-0.5 translate-y-0.5'
+                : 'hover:bg-[#f97028] hover:shadow-[2px_2px_0_#1a1a1a] hover:translate-x-0.5 hover:translate-y-0.5'
+              }`}
+            aria-label="Next station"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: '#1a1a1a' }}>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
 
         {/* Hint label */}
         <div className="absolute bottom-10 right-10 text-[10px] font-black uppercase tracking-[0.2em] text-[#1a1a1a]/30 hidden md:block">
