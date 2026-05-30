@@ -16,7 +16,7 @@ export const coreTeam: TeamMember[] = [
   {
     id: 'c0',
     name: 'Dr. Bipin Kumar Rai',
-    role: 'Faculty Co ordinator',
+    role: 'Faculty Coordinator',
     image: '/logos/bhipinsir.webp',
     linkedin: '',
     instagram: '',
@@ -24,7 +24,7 @@ export const coreTeam: TeamMember[] = [
   {
     id: 'c1',
     name: 'Trisha',
-    role: 'Student Co ordinator',
+    role: 'Student Coordinator',
     image: '/logos/trisha.webp',
     linkedin: '',
     instagram: '',
@@ -32,7 +32,7 @@ export const coreTeam: TeamMember[] = [
   {
     id: 'c2',
     name: 'S Shreenidhi',
-    role: 'Student Co ordinator',
+    role: 'Student Coordinator',
     image: '/logos/SShreenidhi.webp',
     linkedin: '',
     instagram: '',
