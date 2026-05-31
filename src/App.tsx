@@ -21,9 +21,9 @@ import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
 function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void, logoUrl: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const tickerItems = [
-    'Registration opens September 18, 2026',
+    'Registration opens on June 1st, 2026',
     'Stay tuned for updates!',
-    'Registration opens September 18, 2026',
+    'Registration opens on June 1st, 2026',
     'Stay tuned for updates!',
   ];
 
