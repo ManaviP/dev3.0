@@ -107,7 +107,7 @@
    Targets width/height between 9/20 (0.45) and 9/19 (0.473) */
 @media (min-aspect-ratio: 9/20) and (max-aspect-ratio: 9/19) and (max-width: 767px) {
   .tall-screen-fix {
-    padding-top: 3.5rem;
+    padding-top: 3rem;
   }
 }
 
