@@ -107,7 +107,7 @@ export default function DevHackHeroCompact() {
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
               willChange: 'transform',
               marginTop: isNothing20x9
-                ? '-56px'
+                ? '-24px'
                 : isTightHeroSpacingDevice
                 ? (isZFoldDevice && navHeight > 0
                     ? `-${Math.max(16, navHeight - 6)}px`
