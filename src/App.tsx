@@ -20,19 +20,21 @@ import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
 
 function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void, logoUrl: string }) {
   const [isOpen, setIsOpen] = useState(false);
- const tickerItems = [
-  'Registration opens on June 1st, 2026 - sign up your team!',
-  'Stay tuned for updates!',
-];
+  const tickerItems = [
+    'Registration opens September 18, 2026',
+    'Stay tuned for updates!',
+    'Registration opens September 18, 2026',
+    'Stay tuned for updates!',
+  ];
 
-const marqueeItems = [...tickerItems, ...tickerItems, ...tickerItems];
+  const marqueeItems = [...tickerItems, ...tickerItems, ...tickerItems];
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-4 md:pt-6 px-4 md:px-8 transition-none">
       {/* Ticker in the top gap area; absolute so it does not affect layout */}
      <div className="absolute inset-x-0 top-0 h-3 md:h-4 overflow-hidden pointer-events-none z-60 bg-[#f97028]">
   <motion.div
-    className="flex w-max items-center whitespace-nowrap text-[10px] md:text-xs font-semibold text-black"
+    className="flex w-max items-center whitespace-nowrap text-sm md:text-base font-semibold text-black"
     animate={{ x: ['0%', '-33.333%'] }}
     transition={{
       duration: 16,
