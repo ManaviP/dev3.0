@@ -52,7 +52,7 @@ export const subHeads: TeamMember[] = [
   {
     id: 's1',
     name: 'G Nithesh',
-    role: 'Drafting Team Lead',
+    role: 'Operations Team Lead',
     image: '/logos/nitesh.webp',
     linkedin: 'https://www.linkedin.com/in/g-nithesh/',
     instagram: '',
@@ -163,7 +163,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o9',
     name: 'Monisha N S',
-    role: 'Drafting Team',
+    role: 'Operations Team',
     image: '/logos/monisha.webp',
     linkedin: 'https://www.linkedin.com/in/monisha-n-s-352431360/',
     instagram: 'https://www.instagram.com/monishans__',
@@ -179,7 +179,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o11',
     name: 'Meghana K V',
-    role: 'Drafting Team ',
+    role: 'Operations Team ',
     image: '/logos/meghana.webp',
     linkedin: 'https://www.linkedin.com/in/meghana-kv-907953338/',
     instagram: 'https://www.instagram.com/itsmaggie.mode',
@@ -203,7 +203,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o14',
     name: 'Manavi P',
-    role: 'Drafting Team Co Lead',
+    role: 'Operations Team Co Lead',
     image: '/logos/manavi.webp',
     linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
     instagram: 'https://www.instagram.com/_._manavi_._/',
@@ -239,18 +239,18 @@ export const facultyOrganizers: TeamMember[] = [
 
 // ── Chief Patrons ─────────────────────────────────────────────
 export const chiefPatrons: TeamMember[] = [
-  { id: 'cp1', name: 'Dr. D. Hemachandra Sagar', role: 'Chancellor, DSU', image: '/logos/chancellor.webp', linkedin: "https://www.dsu.edu.in/about-us/leadership/chancellor" },
-  { id: 'cp2', name: 'Dr. D. Premachandra Sagar', role: 'Pro Chancellor, DSU', image: '/logos/prochancellor.webp', linkedin: "https://www.linkedin.com/in/dr-premachandra-sagar-71776319/" },
+  { id: 'cp1', name: 'Dr. D. Hemachandra Sagar', role: 'Chancellor, DSU', image: '/logos/chancellor.webp' },
+  { id: 'cp2', name: 'Dr. D. Premachandra Sagar', role: 'Pro Chancellor, DSU', image: '/logos/prochancellor.webp' },
 ];
 
 // ── Patrons ───────────────────────────────────────────────────
 export const patrons: TeamMember[] = [
-  { id: 'p1', name: 'Dr. B. S. Satyanarayana', role: 'Vice Chancellor, DSU', image: '/logos/ssatyanarayana.webp', linkedin: "https://www.linkedin.com/in/bukinakere-s-satyanarayana-04887424/" },
-  { id: 'p2', name: 'Prof. R Janardhan', role: 'Pro Vice Chancellor, DSU', image: '/logos/Prof_R_Janardhan.webp', linkedin: "https://www.linkedin.com/in/r-janardhan-8833006/" },
-  { id: 'p3', name: 'Dr. Prakash S', role: 'Pro Vice Chancellor, DSU', image: '/logos/Dr_Prakash_S.webp', linkedin: "https://www.linkedin.com/in/educationistprakash/" },
-  { id: 'p4', name: 'Dr. C.Puttamadapappa', role: 'Registrar, DSU', image: '/logos/dr_puttamadappa_c.webp', linkedin: "https://www.linkedin.com/in/puttamadappa-c-96204517/" },
-  { id: 'p5', name: 'Dr.Udaya Kumar Reddy K.R', role: 'Professor & Dean-SoE', image: '/logos/dean.webp', linkedin: "https://www.linkedin.com/in/dr-udaya-kumar-reddy-k-r-92842112b/" },
-  { id: 'p6', name: 'Dr. Girisha G S', role: 'Chairperson, CSE', image: '/logos/drgirishgs.webp', linkedin: "https://www.linkedin.com/in/dr-girish-gs-133a4731/" },
+  { id: 'p1', name: 'Dr. B. S. Satyanarayana', role: 'Vice Chancellor, DSU', image: '/logos/ssatyanarayana.webp' },
+  { id: 'p2', name: 'Prof. R Janardhan', role: 'Pro Vice Chancellor, DSU', image: '/logos/Prof_R_Janardhan.webp' },
+  { id: 'p3', name: 'Dr. Prakash S', role: 'Pro Vice Chancellor, DSU', image: '/logos/Dr_Prakash_S.webp' },
+  { id: 'p4', name: 'Dr. C.Puttamadapappa', role: 'Registrar, DSU', image: '/logos/dr_puttamadappa_c.webp' },
+  { id: 'p5', name: 'Dr.Udaya Kumar Reddy K.R', role: 'Professor & Dean-SoE', image: '/logos/dean.webp' },
+  { id: 'p6', name: 'Dr. Girisha G S', role: 'Chairperson, CSE', image: '/logos/drgirishgs.webp' },
 ];
 
 // ── Judges ────────────────────────────────────────────────────

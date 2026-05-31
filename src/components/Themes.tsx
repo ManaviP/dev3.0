@@ -278,6 +278,17 @@ export default function Themes() {
       id="themes"
       className="relative bg-[#f3ecd2] pt-16 pb-8 md:pt-24 md:pb-12 overflow-hidden"
     >
+      {/* Squared grid pattern */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        aria-hidden
+        style={{
+          backgroundImage:
+            'linear-gradient(to right, rgba(26,26,26,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(26,26,26,0.12) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+        }}
+      />
+
       {/* Decorative background blobs */}
       <motion.div
         style={{ y: blobY1 }}
