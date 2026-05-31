@@ -103,6 +103,13 @@
       -webkit-text-stroke: 2.5px #fff;
     }
   }
+  /* 19.5:9 ratio screens only (e.g. Galaxy S series ~0.461 aspect ratio)
+   Targets width/height between 9/20 (0.45) and 9/19 (0.473) */
+@media (min-aspect-ratio: 9/20) and (max-aspect-ratio: 9/19) and (max-width: 767px) {
+  .tall-screen-fix {
+    padding-top: 3.5rem;
+  }
+}
 
   .hero-main-title:hover {
     transform: translateY(10px);

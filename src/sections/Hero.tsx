@@ -74,7 +74,7 @@ export default function DevHackHeroCompact() {
       {/* Scrolling Content */}
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-        <div className="h-[70vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
+<div className="h-[110vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
             className="flex flex-col items-center mt-65 md:mt-20 xl:mt-40 tall-screen-fix"
             style={{
@@ -83,7 +83,7 @@ export default function DevHackHeroCompact() {
               willChange: 'transform'
             }}
           >
-            <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
+             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
               <div className="text-[clamp(3.8rem,8.5vw,6.5rem)] md:text-[5rem] xl:text-[clamp(4.8rem,9.5vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
               <div className="text-[clamp(4.2rem,10vw,7.5rem)] md:text-[6rem] xl:text-[clamp(5.2rem,11.5vw,8.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
               <div className="text-[clamp(3.5rem,8.5vw,6rem)] md:text-[4.5rem] xl:text-[clamp(4.5rem,9.5vw,6.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 hero-main-title pointer-events-auto">3.0</div>
@@ -114,7 +114,7 @@ export default function DevHackHeroCompact() {
 
               {/* Hanging Image (Positioned directly below the badge) */}
               <div
-                className="absolute top-full -mt-2 w-[85vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
+    className="absolute top-full -mt-2 w-[72vw] sm:w-[80vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
               >
                 <img
                   src="/assets/ABOUT.png"
