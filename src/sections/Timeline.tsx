@@ -302,7 +302,7 @@ function StationCard({
                     originX: 0.5,
                     originY: 1,
                     top: '-105px', 
-                    left: '110px', // Shift exactly half-width (220/2) to sit right of the track
+                    left: `${cardWidth / 2}px`, // Shift by the actual half-width of the mobile card
                   }
                 : { overflow: 'visible', originX: 0.5, originY: 1 }
             }
@@ -537,9 +537,10 @@ export default function Timeline() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
-  // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
-  const CARD_WIDTH = viewportWidth < 640 ? Math.max(180, Math.min(220, Math.round(viewportWidth * 0.58))) : 220;
+  // Compact sizes — mobile cards scale with viewport width, desktop cards stay fixed
+  const CARD_WIDTH = isMobile
+    ? Math.max(180, Math.min(300, Math.round(viewportWidth * 0.62)))
+    : 220;
   const STATION_GAP = isMobile ? 280 : 245;
   const PADDING_SIDE = isMobile ? 84 : 160;
   const END_PADDING = isMobile ? 320 : 160;

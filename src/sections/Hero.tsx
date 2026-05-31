@@ -82,7 +82,7 @@ export default function DevHackHeroCompact() {
         {/* Initial Hero Screen Content */}
 <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
-            className={`flex flex-col items-center tall-screen-fix ${isTwentyNine ? 'mt-56' : 'mt-65'} md:mt-20 xl:mt-40`}
+            className={`flex flex-col items-center tall-screen-fix ${isTwentyNine ? 'mt-48' : 'mt-65'} md:mt-20 xl:mt-40`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
