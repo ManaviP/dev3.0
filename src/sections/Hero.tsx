@@ -4,11 +4,17 @@ import DotField from '../components/DotField';
 export default function DevHackHeroCompact() {
   const [mobileScrollY, setMobileScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTwentyNine, setIsTwentyNine] = useState(false);
   const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const ratio = width / height;
+
+      setIsMobile(width < 768);
+      setIsTwentyNine(width < 768 && Math.abs(ratio - 20 / 9) < 0.06);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -76,7 +82,7 @@ export default function DevHackHeroCompact() {
         {/* Initial Hero Screen Content */}
 <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
-            className="flex flex-col items-center mt-65 md:mt-20 xl:mt-40 tall-screen-fix"
+            className={`flex flex-col items-center tall-screen-fix ${isTwentyNine ? 'mt-56' : 'mt-65'} md:mt-20 xl:mt-40`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',

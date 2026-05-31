@@ -518,6 +518,7 @@ export default function Timeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(1200);
   const [activeIdx, setActiveIdx] = useState(0);
   const [revealedSet, setRevealedSet] = useState<Set<number>>(new Set([0]));
   // Available height for the flex-1 track area (computed in JS so we can do real math)
@@ -525,6 +526,7 @@ export default function Timeline() {
 
   useEffect(() => {
     const onResize = () => {
+      setViewportWidth(window.innerWidth);
       setIsMobile(window.innerWidth < 1024);
       setIsSmallScreen(window.innerHeight < 700);
       // Estimate: sticky viewport minus header (~60px, no subtitle now) minus nav (~72px)
@@ -537,10 +539,10 @@ export default function Timeline() {
 
   // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
   // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
-  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 220 : 220;
+  const CARD_WIDTH = viewportWidth < 640 ? Math.max(180, Math.min(220, Math.round(viewportWidth * 0.58))) : 220;
   const STATION_GAP = isMobile ? 280 : 245;
-  const PADDING_SIDE = isMobile ? 100 : 160;
-  const END_PADDING = isMobile ? 350 : 160;
+  const PADDING_SIDE = isMobile ? 84 : 160;
+  const END_PADDING = isMobile ? 320 : 160;
   const TRACK_HEIGHT = 60;
 
   // Estimated card content height (used for centering the track)
