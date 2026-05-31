@@ -33,7 +33,7 @@ export const coreTeam: TeamMember[] = [
     id: 'c2',
     name: 'S Shreenidhi',
     role: 'Student Coordinator',
-    image: '/logos/SShreenidhi.webp',
+    image: '/logos/SShreenidhi.jpeg',
     linkedin: 'https://www.linkedin.com/in/shreenidhi-s29/',
     instagram: 'https://www.instagram.com/sreenidhi_s.29/',
   },

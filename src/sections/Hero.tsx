@@ -5,7 +5,10 @@ export default function DevHackHeroCompact() {
   const [mobileScrollY, setMobileScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTwentyNine, setIsTwentyNine] = useState(false);
+  const [isNothing20x9, setIsNothing20x9] = useState(false);
   const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
+  const [isZFoldDevice, setIsZFoldDevice] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
   const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -14,13 +17,23 @@ export default function DevHackHeroCompact() {
       const height = window.innerHeight;
       const ratio = width / height;
       const aspectRatio = Math.max(width, height) / Math.min(width, height);
+      const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
 
       const isCompactPortraitPhone = width < 500 && ratio > 0.43 && ratio < 0.48;
-      const isFoldOrSurfaceLayout = width >= 700 && width < 1200 && (Math.abs(aspectRatio - 1.5) < 0.08 || Math.abs(aspectRatio - 1.6) < 0.08);
+      // broadened to include foldables and tablets with similar proportions (captures Galaxy Z Fold unfolded/folded variances)
+      const isFoldOrSurfaceLayout = width >= 600 && width < 1800 && (aspectRatio > 1.45 && aspectRatio < 1.9);
+      const isNothingPhone = /Nothing/i.test(ua);
+      const is20x9 = Math.abs(ratio - 9 / 20) < 0.05;
+      const isZFold = /SM-F|Galaxy Z Fold|GalaxyZFold|Fold/i.test(ua);
+      const navEl = typeof document !== 'undefined' ? document.querySelector('nav') : null;
+      const measuredNavHeight = navEl ? Math.round(navEl.getBoundingClientRect().height) : 0;
 
       setIsMobile(width < 768);
       setIsTwentyNine(width < 768 && Math.abs(ratio - 20 / 9) < 0.06);
-      setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout);
+      setIsNothing20x9(width < 768 && isNothingPhone && is20x9);
+      setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout || isZFold);
+      setIsZFoldDevice(isZFold);
+      setNavHeight(measuredNavHeight);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -88,11 +101,18 @@ export default function DevHackHeroCompact() {
         {/* Initial Hero Screen Content */}
 <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
-            className={`flex flex-col items-center tall-screen-fix ${isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
+            className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
-              willChange: 'transform'
+              willChange: 'transform',
+              marginTop: isNothing20x9
+                ? '-56px'
+                : isTightHeroSpacingDevice
+                ? (isZFoldDevice && navHeight > 0
+                    ? `-${Math.max(16, navHeight - 6)}px`
+                    : (isMobile ? '-48px' : '-24px'))
+                : undefined
             }}
           >
              <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
