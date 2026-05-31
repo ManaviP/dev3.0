@@ -9,7 +9,23 @@ export default function DevHackHeroCompact() {
   const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
   const [isZFoldDevice, setIsZFoldDevice] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
+  const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const uaData = (navigator as Navigator & {
+      userAgentData?: {
+        getHighEntropyValues: (hints: string[]) => Promise<{ model?: string }>;
+      };
+    }).userAgentData;
+    if (!uaData?.getHighEntropyValues) return;
+
+    uaData.getHighEntropyValues(['model']).then((details: { model?: string }) => {
+      setDeviceModel(details.model || '');
+    }).catch(() => {
+      setDeviceModel('');
+    });
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -22,7 +38,7 @@ export default function DevHackHeroCompact() {
       const isCompactPortraitPhone = width < 500 && ratio > 0.43 && ratio < 0.48;
       // broadened to include foldables and tablets with similar proportions (captures Galaxy Z Fold unfolded/folded variances)
       const isFoldOrSurfaceLayout = width >= 600 && width < 1800 && (aspectRatio > 1.45 && aspectRatio < 1.9);
-      const isNothingPhone = /Nothing/i.test(ua);
+      const isNothingPhone = /Nothing/i.test(ua) || /\bA063\b|\bA065\b|\bA142\b|\bA142P\b/i.test(deviceModel);
       const is20x9 = Math.abs(ratio - 9 / 20) < 0.05;
       const isZFold = /SM-F|Galaxy Z Fold|GalaxyZFold|Fold/i.test(ua);
       const navEl = typeof document !== 'undefined' ? document.querySelector('nav') : null;
@@ -38,7 +54,7 @@ export default function DevHackHeroCompact() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [deviceModel]);
 
   useEffect(() => {
     const script = document.createElement('script');
