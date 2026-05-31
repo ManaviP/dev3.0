@@ -12,6 +12,33 @@ export default function DevHackHeroCompact() {
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
+  // Countdown state for registration (June 1)
+  const [countdown, setCountdown] = useState<{ days: number; hours: number; minutes: number; seconds: number; total: number }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    total: 0,
+  });
+  // Target: June 1, 2026 (local timezone, midnight)
+  const registrationDate = new Date(2026, 5, 1, 0, 0, 0);
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date().getTime();
+      const total = registrationDate.getTime() - now;
+      const totalSeconds = Math.floor(total / 1000);
+      const seconds = Math.max(0, totalSeconds % 60);
+      const minutes = Math.max(0, Math.floor((totalSeconds / 60) % 60));
+      const hours = Math.max(0, Math.floor((totalSeconds / 3600) % 24));
+      const days = Math.max(0, Math.floor(totalSeconds / 3600 / 24));
+      setCountdown({ days, hours, minutes, seconds, total });
+    };
+    update();
+    const id = window.setInterval(update, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
   useEffect(() => {
     const uaData = (navigator as Navigator & {
       userAgentData?: {
@@ -156,6 +183,34 @@ export default function DevHackHeroCompact() {
 
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
+              {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
+              <div className="mt-3 text-center z-20">
+                {countdown.total > 0 ? (
+                  <div className="flex gap-2 items-center justify-center mb-2">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{countdown.days}</div>
+                      <div className="text-xs opacity-70">Days</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.hours).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Hours</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.minutes).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Min</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.seconds).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Sec</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2">
+                    <div className="bg-white/90 text-black px-4 py-1 rounded-lg text-sm font-semibold">Registration Open</div>
+                  </div>
+                )}
+              </div>
+
               <div className="hero-date-badge text-center whitespace-nowrap shadow-2xl relative z-20">
                 SEPTEMBER 18TH & 19TH, 2026
               </div>
