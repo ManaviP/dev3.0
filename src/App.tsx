@@ -32,7 +32,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-4 md:pt-6 px-4 md:px-8 transition-none">
       {/* Ticker in the top gap area; absolute so it does not affect layout */}
-     <div className="absolute inset-x-0 top-0 h-4 md:h-4 overflow-hidden pointer-events-none z-60 bg-[#f97028]">
+     <div className="absolute inset-x-0 top-0 h-[14px] md:h-4 overflow-hidden pointer-events-none z-60 bg-[#f97028]">
   <motion.div
     className="flex w-max items-center whitespace-nowrap text-sm md:text-base leading-none font-semibold text-black"
     animate={{ x: ['0%', '-33.333%'] }}
