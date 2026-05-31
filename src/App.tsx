@@ -95,7 +95,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [mountLoader, setMountLoader] = useState(true)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  
   const [isScrolled, setIsScrolled] = useState(false)
   const [isNavbarDark, setIsNavbarDark] = useState(false)
 
@@ -171,20 +171,12 @@ export default function App() {
     e.preventDefault()
     const targetId = e.currentTarget.getAttribute('href')
     if (!targetId) return
-
-    setIsTransitioning(true)
-
-    setTimeout(() => {
-      const element = document.querySelector<HTMLElement>(targetId)
-      if (element) {
-        const navbarOffset = 120
-        const top = element.getBoundingClientRect().top + window.scrollY - navbarOffset
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
-      }
-      setTimeout(() => {
-        setIsTransitioning(false)
-      }, 800)
-    }, 400)
+    const element = document.querySelector<HTMLElement>(targetId)
+    if (element) {
+      const navbarOffset = 120
+      const top = element.getBoundingClientRect().top + window.scrollY - navbarOffset
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+    }
   }
 
   return (
@@ -204,36 +196,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Nav transition warp overlay */}
-      <AnimatePresence>
-        {isTransitioning && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[180] flex items-center justify-center bg-[#f3ecd2]"
-          >
-            <div className="absolute inset-0 opacity-10 pointer-events-none sunburst-bg"></div>
-            <div className="flex flex-col items-center relative z-10">
-              <div className="relative mb-8">
-                <img src="/assets/logo1.png" alt="Loading" className="h-40 w-auto animate-bounce" />
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-2 bg-[#f489a3] rounded-full animate-pulse shadow-[0_0_15px_#f489a3]"></div>
-              </div>
-              <h2 className="text-[#1a1a1a] text-4xl font-display tracking-widest animate-pulse drop-shadow-sm">
-                DEVHACK <span className="text-[#f97028]">3.0</span>
-              </h2>
-            </div>
-            {/* Groovy transition bars */}
-            <motion.div 
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              exit={{ scaleX: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute bottom-0 left-0 w-full h-3 bg-[#f97028] origin-left"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Nav transition overlay removed to allow immediate navigation */}
 
       <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">

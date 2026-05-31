@@ -35,7 +35,7 @@ function SectionSubHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TeamCard({ member }: { member: TeamMember }) {
+function TeamCard({ member, showSocials = true }: { member: TeamMember; showSocials?: boolean }) {
   return (
     <div
       className="group relative bg-[#fff9f4] border-[3px] border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] hover:shadow-[8px_8px_0px_#f97028] transition-all duration-300 flex flex-col h-full overflow-hidden w-full shrink-0 hover:-translate-y-1.5"
@@ -85,7 +85,7 @@ function TeamCard({ member }: { member: TeamMember }) {
         </h3>
         <p className="font-mono text-[9px] sm:text-[11px] md:text-xs uppercase mt-1 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
 
-        {(member.linkedin || member.instagram) && (
+        {showSocials && (member.linkedin || member.instagram) && (
           <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
             <div className="flex gap-2.5 text-[#1a1a1a]">
               {member.linkedin && (
@@ -119,23 +119,23 @@ function TeamCard({ member }: { member: TeamMember }) {
 }
 
 /** Responsive grid wrapper for team cards */
-function TeamGrid({ members }: { members: TeamMember[] }) {
+function TeamGrid({ members, showSocials = true }: { members: TeamMember[]; showSocials?: boolean }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
-        <TeamCard key={member.id} member={member} />
+        <TeamCard key={member.id} member={member} showSocials={showSocials} />
       ))}
     </div>
   );
 }
 
 /** Small grid for 1-3 items — centers them */
-function TeamGridSmall({ members }: { members: TeamMember[] }) {
+function TeamGridSmall({ members, showSocials = true }: { members: TeamMember[]; showSocials?: boolean }) {
   return (
     <div className="flex flex-wrap justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
         <div key={member.id} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[240px] lg:w-[280px]">
-          <TeamCard member={member} />
+          <TeamCard member={member} showSocials={showSocials} />
         </div>
       ))}
     </div>
@@ -249,14 +249,14 @@ export default function Team() {
             <div className="flex flex-col">
               <div className="mb-4">
                 <SectionSubHeading>Chief Patrons</SectionSubHeading>
-                <TeamGridSmall members={chiefPatrons} />
+                <TeamGridSmall members={chiefPatrons} showSocials={false} />
               </div>
 
               <CoinDivider />
 
               <div className="mb-4">
                 <SectionSubHeading>Patrons</SectionSubHeading>
-                <TeamGrid members={patrons} />
+                <TeamGrid members={patrons} showSocials={false} />
               </div>
             </div>
           )}

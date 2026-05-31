@@ -5,6 +5,7 @@ export default function DevHackHeroCompact() {
   const [mobileScrollY, setMobileScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTwentyNine, setIsTwentyNine] = useState(false);
+  const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
   const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -12,9 +13,14 @@ export default function DevHackHeroCompact() {
       const width = window.innerWidth;
       const height = window.innerHeight;
       const ratio = width / height;
+      const aspectRatio = Math.max(width, height) / Math.min(width, height);
+
+      const isCompactPortraitPhone = width < 500 && ratio > 0.43 && ratio < 0.48;
+      const isFoldOrSurfaceLayout = width >= 700 && width < 1200 && (Math.abs(aspectRatio - 1.5) < 0.08 || Math.abs(aspectRatio - 1.6) < 0.08);
 
       setIsMobile(width < 768);
       setIsTwentyNine(width < 768 && Math.abs(ratio - 20 / 9) < 0.06);
+      setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -82,7 +88,7 @@ export default function DevHackHeroCompact() {
         {/* Initial Hero Screen Content */}
 <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
           <div
-            className={`flex flex-col items-center tall-screen-fix ${isTwentyNine ? 'mt-6' : 'mt-65'} md:mt-20 xl:mt-40`}
+            className={`flex flex-col items-center tall-screen-fix ${isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
