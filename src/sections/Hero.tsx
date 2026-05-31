@@ -12,7 +12,7 @@ export default function DevHackHeroCompact() {
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
-  // Countdown state for registration (June 1)
+  // Countdown state for event (September 18)
   const [countdown, setCountdown] = useState<{ days: number; hours: number; minutes: number; seconds: number; total: number }>({
     days: 0,
     hours: 0,
@@ -20,8 +20,8 @@ export default function DevHackHeroCompact() {
     seconds: 0,
     total: 0,
   });
-  // Target: June 1, 2026 (local timezone, midnight)
-  const registrationDate = new Date(2026, 5, 1, 0, 0, 0);
+  // Target: September 18, 2026 (local timezone, midnight)
+  const registrationDate = new Date(2026, 8, 18, 0, 0, 0);
 
   useEffect(() => {
     const update = () => {
