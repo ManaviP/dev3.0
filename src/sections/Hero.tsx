@@ -175,9 +175,11 @@ export default function DevHackHeroCompact() {
             </div>
 
             <div
-              className="apply-button relative z-20 pointer-events-auto"
+              className="apply-button relative z-30 pointer-events-auto cursor-pointer"
               data-hackathon-slug="dsudevhack3"
               data-button-theme="dark"
+              role="button"
+              aria-label="Apply to DevHack 3.0"
               style={{ height: '44px', width: '312px',   cursor: 'pointer', }}
             ></div>
 
