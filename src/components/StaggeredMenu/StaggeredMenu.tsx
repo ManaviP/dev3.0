@@ -43,7 +43,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     { label: 'Sponsors', ariaLabel: 'Go to Sponsors section', link: '#sponsors' },
     { label: 'Timeline', ariaLabel: 'Go to Timeline section', link: '#timeline' },
     { label: 'Team', ariaLabel: 'Go to Team section', link: '#team' },
-    { label: 'Demo', ariaLabel: 'Go to Demo section', link: '#demo' },
+    { label: 'Runbook', ariaLabel: 'Go to Demo section', link: '#demo' },
     { label: 'FAQ', ariaLabel: 'Go to FAQ section', link: '#faq' },
   ],
   socialItems = [
@@ -478,10 +478,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     className="sm-panel-item" 
                     href={it.link} 
                     aria-label={it.ariaLabel} 
-                    data-index={idx + 1}
                     onClick={(e) => handleItemClick(e, it.link)}
                   >
                     <span className="sm-panel-itemLabel">{it.label}</span>
+                    <span className="sm-panel-itemNumber">{String(idx + 1).padStart(2, '0')}</span>
                   </a>
                 </li>
               ))

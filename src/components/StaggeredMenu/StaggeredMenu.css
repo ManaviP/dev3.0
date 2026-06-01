@@ -257,13 +257,7 @@
   transform-origin: 50% 100%;
 }
 
-.sm-panel-list[data-numbering] {
-  counter-reset: smItem;
-}
-
-.sm-panel-list[data-numbering] .sm-panel-item::after {
-  counter-increment: smItem;
-  content: counter(smItem, decimal-leading-zero);
+.sm-panel-itemNumber {
   position: absolute;
   top: 0.2em;
   right: 0;
