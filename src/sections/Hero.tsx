@@ -142,7 +142,7 @@ export default function DevHackHeroCompact() {
       {/* Scrolling Content */}
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-<div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
+<div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pl-0 xl:pl-24 pt-0">
           <div
             className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
             style={{
@@ -174,14 +174,13 @@ export default function DevHackHeroCompact() {
               />
             </div>
 
-            <div
-              className="apply-button relative z-30 pointer-events-auto cursor-pointer"
-              data-hackathon-slug="dsudevhack3"
-              data-button-theme="dark"
-              role="button"
-              aria-label="Apply to DevHack 3.0"
-              style={{ height: '44px', width: '312px',   cursor: 'pointer', }}
-            ></div>
+           <div
+  className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
+  data-hackathon-slug="dsudevhack3"
+  data-button-theme="dark"
+  role="button"
+  style={{ height: '44px', width: '312px' }}
+></div>
 
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
