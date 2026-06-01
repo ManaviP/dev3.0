@@ -187,6 +187,14 @@ export default function DevHackHeroCompact() {
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
               {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
               <div className="mt-3 text-center z-20">
+           <div
+  className="mb-2 text-[0.7rem] sm:text-xs md:text-sm font-bold uppercase text-black"
+  style={{
+    WebkitTextStroke: '0.5px #f97028',
+  }}
+>
+  DEVHACK 3.0 Begins In
+</div>
                 {countdown.total > 0 ? (
                   <div className="flex gap-2 items-center justify-center mb-2">
                     <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
