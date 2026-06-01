@@ -4,7 +4,7 @@ import { FaDiscord, FaMapMarkerAlt } from 'react-icons/fa';
 export default function Footer() {
   const links = [
     {
-      href: 'https://discord.gg/6Ah2h7yfD',
+      href: 'https://discord.com/invite/6Ah2h7yfD',
       label: 'Discord',
       icon: <FaDiscord size={16} />,
     },
@@ -44,7 +44,7 @@ export default function Footer() {
                 </h3>
                 <a
                   href="mailto:dsudevhack@dsu.edu.in"
-                  className="text-base hover:underline underline-offset-2 text-white"
+                  className="text-base text-white underline"
                 >
                   dsudevhack@dsu.edu.in
                 </a>
@@ -53,10 +53,10 @@ export default function Footer() {
                     Student Coordinators
                   </h4>
                   <p className="font-semibold">
-                    Trisha <span className="font-normal">- 9142332379</span>
+                    Trisha - <a href="tel:+919142332379" className="text-white underline">9142332379</a>
                   </p>
                   <p className="font-semibold">
-                    Shreenidhi S<span className="font-normal">- 8317463317</span>
+                    Shreenidhi S - <a href="tel:+918317463317" className="text-white underline">8317463317</a>
                   </p>
                 </div>
                 <div className="mt-3 text-sm text-[#F4EFEA]">

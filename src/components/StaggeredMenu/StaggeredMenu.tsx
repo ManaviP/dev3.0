@@ -47,7 +47,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     { label: 'FAQ', ariaLabel: 'Go to FAQ section', link: '#faq' },
   ],
   socialItems = [
-    { label: 'Discord', link: 'https://discord.gg/uBcyhfmhx4' },
+    { label: 'Discord', link: 'https://discord.com/invite/6Ah2h7yfD' },
     { label: 'Location', link: 'https://maps.app.goo.gl/qsv464XpD8xRFzFA7' },
   ],
   displaySocials = true,

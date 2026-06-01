@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <motion.header
-      style={{ height: navHeight, backdropFilter: navBackdrop, WebkitBackdropFilter: navBackdrop, top: 43 }}
+      style={{ height: navHeight, backdropFilter: navBackdrop, WebkitBackdropFilter: navBackdrop, top: 0 }}
       className="fixed inset-x-0 z-50 border-b border-black/15 bg-ui-primary/70 shadow-glass"
     >
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 sm:px-6">

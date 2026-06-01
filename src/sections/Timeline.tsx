@@ -49,6 +49,39 @@ function googleCalLink(ev: TimelineEvent) {
     + `&details=${encodeURIComponent(ev.description)}`;
 }
 
+
+function SubmarineSVG({ color }: { color: string }) {
+  return (
+    <svg
+      width="64"
+      height="38"
+      viewBox="0 0 64 38"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Submarine Body (Oval/Capsule) */}
+      <rect x="8" y="10" width="48" height="22" rx="11" fill="#1a1a1a" />
+      
+      {/* Conning Tower */}
+      <rect x="26" y="5" width="12" height="7" rx="2" fill="#1a1a1a" />
+      {/* Periscope */}
+      <path d="M30 5 L30 2 L33 2" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+
+      {/* Portholes */}
+      <circle cx="24" cy="21" r="3" fill="#f3ecd2" />
+      <circle cx="32" cy="21" r="3" fill="#f3ecd2" />
+      <circle cx="40" cy="21" r="3" fill="#f3ecd2" />
+
+      {/* Accent Stripe */}
+      <rect x="15" y="26" width="34" height="3" rx="1.5" fill={color} />
+
+      {/* Rear Propeller Handle/Base */}
+      <rect x="2" y="18" width="6" height="6" rx="1" fill="#1a1a1a" />
+      {/* Propeller Blades */}
+      <rect x="4" y="14" width="2" height="14" rx="1" fill="#1a1a1a" />
+    </svg>
+  );
+} 
 /* ─────────────────────────────────────
    SVG TRAIN ICON
    ───────────────────────────────────── */
@@ -302,7 +335,7 @@ function StationCard({
                     originX: 0.5,
                     originY: 1,
                     top: '-105px', 
-                    left: '110px', // Shift exactly half-width (220/2) to sit right of the track
+                    left: `${cardWidth / 2}px`, // Shift by the actual half-width of the mobile card
                   }
                 : { overflow: 'visible', originX: 0.5, originY: 1 }
             }
@@ -518,6 +551,7 @@ export default function Timeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(1200);
   const [activeIdx, setActiveIdx] = useState(0);
   const [revealedSet, setRevealedSet] = useState<Set<number>>(new Set([0]));
   // Available height for the flex-1 track area (computed in JS so we can do real math)
@@ -525,6 +559,7 @@ export default function Timeline() {
 
   useEffect(() => {
     const onResize = () => {
+      setViewportWidth(window.innerWidth);
       setIsMobile(window.innerWidth < 1024);
       setIsSmallScreen(window.innerHeight < 700);
       // Estimate: sticky viewport minus header (~60px, no subtitle now) minus nav (~72px)
@@ -535,12 +570,19 @@ export default function Timeline() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  // Compact sizes — CARD_WIDTH 220 & STATION_GAP 245 keep Platform 05 inside the 1280px viewport at 100% zoom
-  // Station 5 center = 160 + 4*245 = 1140px; right edge = 1140 + 110 = 1250px < 1280px ✓
-  const CARD_WIDTH = isSmallScreen ? 190 : isMobile ? 220 : 220;
+  // Compact sizes — card width now scales with available viewport and track spacing
   const STATION_GAP = isMobile ? 280 : 245;
-  const PADDING_SIDE = isMobile ? 100 : 160;
-  const END_PADDING = isMobile ? 350 : 160;
+  const PADDING_SIDE = isMobile ? 56 : 160;
+  const END_PADDING = isMobile ? 240 : 160;
+  const cardMin = isMobile ? 220 : 220;
+  const cardMax = isMobile ? 340 : 300;
+  const maxByViewport = viewportWidth - (isMobile ? 96 : 240);
+  const maxByGap = STATION_GAP - (isMobile ? 30 : 40);
+  const preferredByViewport = Math.round(viewportWidth * (isMobile ? 0.76 : 0.24));
+  const CARD_WIDTH = Math.max(
+    cardMin,
+    Math.min(cardMax, maxByViewport, maxByGap, preferredByViewport)
+  );
   const TRACK_HEIGHT = 60;
 
   // Estimated card content height (used for centering the track)
@@ -700,7 +742,7 @@ export default function Timeline() {
             style={
               isMobile
                 ? {
-                    left: '80px', // Push track further right to center it better and avoid overlap with left edge
+                  left: '56px', // Reduced mobile side offset to decrease unused side padding
                     y: mobileTranslateY,
                     rotate: 90,
                     transformOrigin: `0px ${trackTopPx + 20}px`,
@@ -775,33 +817,35 @@ export default function Timeline() {
               {/* Smoke puff animation */}
               <motion.div
                 className="absolute"
-                style={{ left: 12, top: -22, zIndex: 50 }}
-                animate={{ opacity: [0.7, 0, 0.7], y: [-2, -12, -2], scale: [0.7, 1.3, 0.7] }}
+            style={{ left: isMobile ? 4 : 12, top: isMobile ? 12 : -22, zIndex: 50 }}
+                animate={{ opacity: [0.7, 0, 0.7], y: isMobile ? [0, 0, 0] : [-2, -12, -2], x: isMobile ? [-2, -15, -2] : [0, 0, 0], scale: [0.7, 1.3, 0.7] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
               >
                 <div
                   style={{
-                    width: 14,
-                    height: 14,
+                    width: isMobile ? 8 : 14,
+                    height: isMobile ? 8 : 14,
                     borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.18)',
-                    filter: 'blur(3px)',
+                   background: isMobile ? 'rgba(255,255,255,0.45)' : 'rgba(26,26,26,0.18)',
+                    border: isMobile ? '1px solid rgba(255,255,255,0.2)' : 'none',
+                    filter: isMobile ? 'none' : 'blur(3px)',
                   }}
                 />
               </motion.div>
               <motion.div
                 className="absolute"
-                style={{ left: 6, top: -34, zIndex: 50 }}
-                animate={{ opacity: [0.5, 0, 0.5], y: [-2, -16, -2], scale: [0.5, 1.1, 0.5] }}
+              style={{ left: isMobile ? 0 : 6, top: isMobile ? 18 : -34, zIndex: 50 }}
+                animate={{ opacity: [0.5, 0, 0.5], y: isMobile ? [0, 0, 0] : [-2, -16, -2], x: isMobile ? [-2, -20, -2] : [0, 0, 0], scale: [0.5, 1.1, 0.5] }}
                 transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
               >
                 <div
                   style={{
-                    width: 10,
-                    height: 10,
+                    width: isMobile ? 12 : 10,
+                    height: isMobile ? 12 : 10,
                     borderRadius: '50%',
-                    background: 'rgba(26,26,26,0.12)',
-                    filter: 'blur(4px)',
+                     background: isMobile ? 'rgba(255,255,255,0.35)' : 'rgba(26,26,26,0.12)',
+                    border: isMobile ? '1px solid rgba(255,255,255,0.15)' : 'none',
+                    filter: isMobile ? 'none' : 'blur(4px)',
                   }}
                 />
               </motion.div>
@@ -811,7 +855,7 @@ export default function Timeline() {
                 animate={{ y: [0, -4, 0] }}
                 transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <TrainSVG color={COLORS[activeIdx]} />
+                {isMobile ? <SubmarineSVG color={COLORS[activeIdx]} /> : <TrainSVG color={COLORS[activeIdx]} />}
               </motion.div>
 
               {/* Active station name label on train */}

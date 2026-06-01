@@ -54,7 +54,7 @@ const themes: Theme[] = [
     bg: '#ffffff',
     title: 'Healthcare',
     desc: 'Revolutionise patient care and medical research with modern health-tech, accessibility tools, and data analysis.',
-    tags: ['HealthAI', 'Telemed', 'Accessibility', 'Bioinformatics'],
+    tags: ['Health AI', 'Telemed', 'Accessibility', 'Bioinformatics'],
   },
   {
     id: 5,

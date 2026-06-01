@@ -4,16 +4,84 @@ import DotField from '../components/DotField';
 export default function DevHackHeroCompact() {
   const [mobileScrollY, setMobileScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTwentyNine, setIsTwentyNine] = useState(false);
+  const [isNothing20x9, setIsNothing20x9] = useState(false);
+  const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
+  const [isZFoldDevice, setIsZFoldDevice] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
+  const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
+
+  // Countdown state for event (September 18)
+  const [countdown, setCountdown] = useState<{ days: number; hours: number; minutes: number; seconds: number; total: number }>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    total: 0,
+  });
+  // Target: September 18, 2026 (local timezone, midnight)
+  const registrationDate = new Date(2026, 8, 18, 0, 0, 0);
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date().getTime();
+      const total = registrationDate.getTime() - now;
+      const totalSeconds = Math.floor(total / 1000);
+      const seconds = Math.max(0, totalSeconds % 60);
+      const minutes = Math.max(0, Math.floor((totalSeconds / 60) % 60));
+      const hours = Math.max(0, Math.floor((totalSeconds / 3600) % 24));
+      const days = Math.max(0, Math.floor(totalSeconds / 3600 / 24));
+      setCountdown({ days, hours, minutes, seconds, total });
+    };
+    update();
+    const id = window.setInterval(update, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const uaData = (navigator as Navigator & {
+      userAgentData?: {
+        getHighEntropyValues: (hints: string[]) => Promise<{ model?: string }>;
+      };
+    }).userAgentData;
+    if (!uaData?.getHighEntropyValues) return;
+
+    uaData.getHighEntropyValues(['model']).then((details: { model?: string }) => {
+      setDeviceModel(details.model || '');
+    }).catch(() => {
+      setDeviceModel('');
+    });
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const ratio = width / height;
+      const aspectRatio = Math.max(width, height) / Math.min(width, height);
+      const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+
+      const isCompactPortraitPhone = width < 500 && ratio > 0.43 && ratio < 0.48;
+      // broadened to include foldables and tablets with similar proportions (captures Galaxy Z Fold unfolded/folded variances)
+      const isFoldOrSurfaceLayout = width >= 600 && width < 1800 && (aspectRatio > 1.45 && aspectRatio < 1.9);
+      const isNothingPhone = /Nothing/i.test(ua) || /\bA063\b|\bA065\b|\bA142\b|\bA142P\b/i.test(deviceModel);
+      const is20x9 = Math.abs(ratio - 9 / 20) < 0.05;
+      const isZFold = /SM-F|Galaxy Z Fold|GalaxyZFold|Fold/i.test(ua);
+      const navEl = typeof document !== 'undefined' ? document.querySelector('nav') : null;
+      const measuredNavHeight = navEl ? Math.round(navEl.getBoundingClientRect().height) : 0;
+
+      setIsMobile(width < 768);
+      setIsTwentyNine(width < 768 && Math.abs(ratio - 20 / 9) < 0.06);
+      setIsNothing20x9(width < 768 && isNothingPhone && is20x9);
+      setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout || isZFold);
+      setIsZFoldDevice(isZFold);
+      setNavHeight(measuredNavHeight);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [deviceModel]);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -74,16 +142,23 @@ export default function DevHackHeroCompact() {
       {/* Scrolling Content */}
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-        <div className="h-[70vh] md:h-screen flex flex-col items-center xl:items-start justify-center pointer-events-none pl-0 xl:pl-24 pt-0">
+<div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pl-0 xl:pl-24 pt-0">
           <div
-            className="flex flex-col items-center mt-65 md:mt-20 xl:mt-40 tall-screen-fix"
+            className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
-              willChange: 'transform'
+              willChange: 'transform',
+              marginTop: isNothing20x9
+                ? '-24px'
+                : isTightHeroSpacingDevice
+                ? (isZFoldDevice && navHeight > 0
+                    ? `-${Math.max(16, navHeight - 6)}px`
+                    : (isMobile ? '-48px' : '-24px'))
+                : undefined
             }}
           >
-            <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
+             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12 pointer-events-none">
               <div className="text-[clamp(3.8rem,8.5vw,6.5rem)] md:text-[5rem] xl:text-[clamp(4.8rem,9.5vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
               <div className="text-[clamp(4.2rem,10vw,7.5rem)] md:text-[6rem] xl:text-[clamp(5.2rem,11.5vw,8.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
               <div className="text-[clamp(3.5rem,8.5vw,6rem)] md:text-[4.5rem] xl:text-[clamp(4.5rem,9.5vw,6.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 hero-main-title pointer-events-auto">3.0</div>
@@ -99,22 +174,52 @@ export default function DevHackHeroCompact() {
               />
             </div>
 
-            <div
-              className="apply-button"
-              data-hackathon-slug="dsudevhack3"
-              data-button-theme="dark"
-              style={{ height: '44px', width: '312px',   cursor: 'pointer', }}
-            ></div>
+           <div
+  className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
+  data-hackathon-slug="dsudevhack3"
+  data-button-theme="dark"
+  role="button"
+  aria-label="Apply to DevHack"
+  style={{ height: '44px', width: '312px' }}
+></div>
 
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
+              {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
+              <div className="mt-3 text-center z-20">
+                {countdown.total > 0 ? (
+                  <div className="flex gap-2 items-center justify-center mb-2">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{countdown.days}</div>
+                      <div className="text-xs opacity-70">Days</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.hours).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Hours</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.minutes).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Min</div>
+                    </div>
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                      <div>{String(countdown.seconds).padStart(2, '0')}</div>
+                      <div className="text-xs opacity-70">Sec</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-2">
+                    <div className="bg-white/90 text-black px-4 py-1 rounded-lg text-sm font-semibold">Registration Open</div>
+                  </div>
+                )}
+              </div>
+
               <div className="hero-date-badge text-center whitespace-nowrap shadow-2xl relative z-20">
                 SEPTEMBER 18TH & 19TH, 2026
               </div>
 
               {/* Hanging Image (Positioned directly below the badge) */}
               <div
-                className="absolute top-full -mt-2 w-[85vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
+    className="absolute top-full -mt-2 w-[72vw] sm:w-[80vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
               >
                 <img
                   src="/assets/ABOUT.png"
