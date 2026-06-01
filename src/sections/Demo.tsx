@@ -63,7 +63,7 @@ export default function Demo() {
             className="font-display text-[#1a1a1a] drop-shadow-sm uppercase"
             style={{ fontSize: 'clamp(1.6rem, 5vw, 4.5rem)', lineHeight: 1 }}
           >
-            Demo
+            Runbook
           </motion.h2>
         </div>
 

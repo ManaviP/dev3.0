@@ -73,7 +73,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
             <a href="#sponsors" onClick={onNavClick} className="cursor-target hover:text-[#f489a3] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Sponsors</a>
             <a href="#timeline" onClick={onNavClick} className="cursor-target hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Timeline</a>
             <a href="#team" onClick={onNavClick} className="cursor-target hover:text-[#f3a20f] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Team</a>
-            <a href="#demo" onClick={onNavClick} className="cursor-target hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Demo</a>
+            <a href="#demo" onClick={onNavClick} className="cursor-target hover:text-[#f97028] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">Runbook</a>
             <a href="#faq" onClick={onNavClick} className="cursor-target hover:text-[#ff5ea8] hover:underline decoration-[3px] underline-offset-6 transition-colors drop-shadow-[1px_1px_0px_#1a1a1a]">FAQ</a>
           </nav>
 
@@ -112,7 +112,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
               <a href="#sponsors" onClick={onNavClick} className="cursor-target hover:text-[#f489a3]">Sponsors</a>
               <a href="#timeline" onClick={onNavClick} className="cursor-target hover:text-[#f97028]">Timeline</a>
               <a href="#team" onClick={onNavClick} className="cursor-target hover:text-[#f3a20f]">Team</a>
-              <a href="#demo" onClick={onNavClick} className="cursor-target hover:text-[#f97028]">Demo</a>
+              <a href="#demo" onClick={onNavClick} className="cursor-target hover:text-[#f97028]">Runbook</a>
               <a href="#faq" onClick={onNavClick} className="cursor-target hover:text-[#ff5ea8]">FAQ</a>
             </motion.div>
           )}

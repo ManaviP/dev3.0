@@ -52,7 +52,7 @@ export const subHeads: TeamMember[] = [
   {
     id: 's1',
     name: 'G Nithesh',
-    role: 'Drafting Team Lead',
+    role: 'Operation Team Lead',
     image: '/logos/nitesh.webp',
     linkedin: 'https://www.linkedin.com/in/g-nithesh/',
     instagram: '',
@@ -163,7 +163,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o9',
     name: 'Monisha N S',
-    role: 'Drafting Team',
+    role: 'Operation Team',
     image: '/logos/monisha.webp',
     linkedin: 'https://www.linkedin.com/in/monisha-n-s-352431360/',
     instagram: 'https://www.instagram.com/monishans__',
@@ -179,7 +179,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o11',
     name: 'Meghana K V',
-    role: 'Drafting Team ',
+    role: 'Operation Team ',
     image: '/logos/meghana.webp',
     linkedin: 'https://www.linkedin.com/in/meghana-kv-907953338/',
     instagram: 'https://www.instagram.com/itsmaggie.mode',
@@ -203,7 +203,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o14',
     name: 'Manavi P',
-    role: 'Drafting Team Co Lead',
+    role: 'Operation Team Co Lead',
     image: '/logos/manavi.webp',
     linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
     instagram: 'https://www.instagram.com/_._manavi_._/',
