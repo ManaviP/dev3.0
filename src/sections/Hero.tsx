@@ -187,8 +187,8 @@ export default function DevHackHeroCompact() {
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
               {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
               <div className="mt-3 text-center z-20">
-           <div
-  className="mb-2 text-[0.7rem] sm:text-xs md:text-sm font-bold uppercase text-black"
+        <div
+  className="mb-2 text-[0.7rem] sm:text-sm md:text-base lg:text-lg font-bold uppercase text-black"
   style={{
     WebkitTextStroke: '0.5px #f97028',
   }}
@@ -197,19 +197,19 @@ export default function DevHackHeroCompact() {
 </div>
                 {countdown.total > 0 ? (
                   <div className="flex gap-2 items-center justify-center mb-2">
-                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold border-2 border-black">
                       <div>{countdown.days}</div>
                       <div className="text-xs opacity-70">Days</div>
                     </div>
-                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold border-2 border-black">
                       <div>{String(countdown.hours).padStart(2, '0')}</div>
                       <div className="text-xs opacity-70">Hours</div>
                     </div>
-                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold border-2 border-black">
                       <div>{String(countdown.minutes).padStart(2, '0')}</div>
                       <div className="text-xs opacity-70">Min</div>
                     </div>
-                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold">
+                    <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold border-2 border-black">
                       <div>{String(countdown.seconds).padStart(2, '0')}</div>
                       <div className="text-xs opacity-70">Sec</div>
                     </div>
