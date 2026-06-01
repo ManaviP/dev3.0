@@ -151,10 +151,9 @@ export default function Footer() {
             </div>
           </div>
         </motion.div>
-        <div className="relative z-10 pt-6 sm:pt-8 pb-4 sm:pb-6 flex items-center justify-center text-center text-base font-bold text-white drop-shadow-md">
-          <p>
-            Organised by Computer Science and Engineering Department
-          </p>
+        <div className="relative z-10 pt-6 sm:pt-8 pb-4 sm:pb-6 flex flex-col items-center justify-center text-center text-base font-bold text-white drop-shadow-md">
+          <p>Organised by Dayananda Sagar University</p>
+          <p>Computer Science and Engineering Department</p>
         </div>
       </div>
     </footer>
