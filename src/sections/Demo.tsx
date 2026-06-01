@@ -72,30 +72,31 @@ export default function Demo() {
           <div className="mx-auto w-full max-w-7xl flex flex-col md:flex-row gap-3 sm:gap-5 lg:gap-8 h-full max-h-full items-stretch">
             
             {/* Left side: Video */}
-            <div className="w-full md:w-1/2 flex items-center justify-center min-h-0">
+            <div className="w-full md:w-1/2 flex items-center justify-center min-h-0 md:flex-none md:self-center md:max-lg:h-[65vh] lg:h-[65vh]">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
-                className="w-full rounded-xl sm:rounded-[2rem] overflow-hidden border-2 sm:border-[3px] border-[#f97028] bg-[#1a1a1a] p-1 shadow-[0_4px_0px_#f97028] sm:shadow-[0_6px_0px_#f97028]"
+                className="w-full h-full rounded-xl sm:rounded-[2rem] overflow-hidden border-2 sm:border-[3px] border-[#f97028] bg-[#1a1a1a] p-1 shadow-[0_4px_0px_#f97028] sm:shadow-[0_6px_0px_#f97028]"
               >
                 <video 
                   controls 
                   playsInline
-                  className="w-full h-auto rounded-lg sm:rounded-[1.5rem] bg-black aspect-video object-cover"
+                  className="w-full h-full rounded-lg sm:rounded-[1.5rem] bg-black object-contain"
                   preload="metadata"
                 >
-                  <source src="/video/Registration_video.mp4" type="video/mp4" />
+                  <source src="/video/reg_vid.webm" type="video/webm" />
+                  <source src="/video/Registration_video.MOV" type="video/quicktime" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
             </div>
 
             {/* Right side: Steps Timeline — visible on all breakpoints */}
-            <div className="flex w-full md:w-1/2 flex-col rounded-xl sm:rounded-[2rem] border-[3px] sm:border-[4px] border-[#1a1a1a] bg-white/40 backdrop-blur-xl shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] relative overflow-hidden min-h-0 flex-1">
+            <div className="flex w-full md:w-1/2 flex-col rounded-xl sm:rounded-[2rem] border-[3px] sm:border-[4px] border-[#1a1a1a] bg-white/40 backdrop-blur-xl shadow-[4px_4px_0px_#1a1a1a] sm:shadow-[6px_6px_0px_#1a1a1a] relative overflow-hidden min-h-0 flex-1 md:flex-none md:self-center md:max-lg:h-[65vh] lg:h-[65vh]">
 
               {/* Fixed title */}
-              <div className="relative z-20 px-3 sm:px-5 pt-3 sm:pt-4 pb-2 sm:pb-3 bg-white/80 backdrop-blur-md border-b-2 border-[#1a1a1a]/10 flex-shrink-0">
+              <div className="relative z-20 px-3 sm:px-5 md:px-4 md:pt-2 md:pb-2 lg:px-5 lg:pt-2 lg:pb-2 pt-3 sm:pt-4 pb-2 sm:pb-3 bg-white/80 backdrop-blur-md border-b-2 border-[#1a1a1a]/10 flex-shrink-0">
                 <h3 className="text-sm sm:text-lg lg:text-2xl font-extrabold text-[#f97028] uppercase tracking-wider">Registration Process</h3>
               </div>
 
