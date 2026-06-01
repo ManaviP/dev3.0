@@ -179,6 +179,7 @@ export default function DevHackHeroCompact() {
   data-hackathon-slug="dsudevhack3"
   data-button-theme="dark"
   role="button"
+  aria-label="Apply to DevHack"
   style={{ height: '44px', width: '312px' }}
 ></div>
 
