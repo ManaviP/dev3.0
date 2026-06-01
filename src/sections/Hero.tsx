@@ -158,7 +158,7 @@ export default function DevHackHeroCompact() {
                 : undefined
             }}
           >
-             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12">
+             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12 pointer-events-none">
               <div className="text-[clamp(3.8rem,8.5vw,6.5rem)] md:text-[5rem] xl:text-[clamp(4.8rem,9.5vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
               <div className="text-[clamp(4.2rem,10vw,7.5rem)] md:text-[6rem] xl:text-[clamp(5.2rem,11.5vw,8.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
               <div className="text-[clamp(3.5rem,8.5vw,6rem)] md:text-[4.5rem] xl:text-[clamp(4.5rem,9.5vw,6.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 hero-main-title pointer-events-auto">3.0</div>
