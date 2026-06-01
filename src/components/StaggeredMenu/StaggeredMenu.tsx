@@ -43,6 +43,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     { label: 'Sponsors', ariaLabel: 'Go to Sponsors section', link: '#sponsors' },
     { label: 'Timeline', ariaLabel: 'Go to Timeline section', link: '#timeline' },
     { label: 'Team', ariaLabel: 'Go to Team section', link: '#team' },
+    { label: 'Demo', ariaLabel: 'Go to Demo section', link: '#demo' },
     { label: 'FAQ', ariaLabel: 'Go to FAQ section', link: '#faq' },
   ],
   socialItems = [
