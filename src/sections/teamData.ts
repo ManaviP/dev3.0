@@ -87,6 +87,14 @@ export const subHeads: TeamMember[] = [
 // ── The Operators ─────────────────────────────────────────────
 export const theOperators: TeamMember[] = [
   {
+    id: 'o13',
+    name: 'G Nithesh',
+    role: 'Web Team Co Lead',
+    image: '/logos/nitesh.webp',
+    linkedin: 'https://www.linkedin.com/in/g-nithesh/',
+    instagram: '',
+  },
+  {
     id: 'o0',
     name: 'Omkar G K',
     role: 'Web Team',
@@ -96,7 +104,7 @@ export const theOperators: TeamMember[] = [
   },
   {
     id: 'o1',
-    name: 'Supraj U Sivajji',
+    name: 'Supraj U Shivajji',
     role: 'Web Team',
     image: '/logos/supraj.png',
     linkedin: 'https://www.linkedin.com/in/supraj-u-shivajji-4b7aa62ba/',
@@ -161,6 +169,14 @@ export const theOperators: TeamMember[] = [
     instagram: 'https://www.instagram.com/mounas115',
   },
   {
+    id: 'o14',
+    name: 'Manavi P',
+    role: 'Operation Team Co Lead',
+    image: '/logos/manavi.webp',
+    linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
+    instagram: 'https://www.instagram.com/_._manavi_._/',
+  },
+  {
     id: 'o9',
     name: 'Monisha N S',
     role: 'Operation Team',
@@ -179,7 +195,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o11',
     name: 'Meghana K V',
-    role: 'Operation Team ',
+    role: 'Operation Team',
     image: '/logos/meghana.webp',
     linkedin: 'https://www.linkedin.com/in/meghana-kv-907953338/',
     instagram: 'https://www.instagram.com/itsmaggie.mode',
@@ -191,22 +207,6 @@ export const theOperators: TeamMember[] = [
     image: '/logos/shubhangi.jpg',
     linkedin: 'https://www.linkedin.com/in/shubhangi-jha-778506305/',
     instagram: 'https://www.instagram.com/shubhangi_9740/',
-  },
-  {
-    id: 'o13',
-    name: 'G Nithesh',
-    role: 'Web Team Co Lead',
-    image: '/logos/nitesh.webp',
-    linkedin: 'https://www.linkedin.com/in/g-nithesh/',
-    instagram: '',
-  },
-  {
-    id: 'o14',
-    name: 'Manavi P',
-    role: 'Operation Team Co Lead',
-    image: '/logos/manavi.webp',
-    linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
-    instagram: 'https://www.instagram.com/_._manavi_._/',
   },
 ];
 

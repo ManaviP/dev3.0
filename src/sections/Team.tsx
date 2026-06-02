@@ -217,7 +217,7 @@ export default function Team() {
 
                 <div className="mb-8 sm:mb-12 border-b-[2px] sm:border-b-4 border-[#1a1a1a] pb-4 sm:pb-6">
                   <div className="flex overflow-x-auto gap-2 sm:gap-3 justify-start sm:justify-center no-scrollbar -mx-1 px-1 pb-2">
-                    {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team', 'Drafting Team'].map(team => (
+                    {['Web Team', 'Design Team', 'Marketing Team', 'Sponsorship Team', 'Operation Team'].map(team => (
                       <button
                         key={team}
                         onClick={() => setActiveSubTeam(team)}
