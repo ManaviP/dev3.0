@@ -188,7 +188,7 @@ export default function DevHackHeroCompact() {
               {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
               <div className="mt-3 text-center z-20">
         <div
-  className="mb-2 text-[0.7rem] sm:text-sm md:text-base lg:text-lg font-bold uppercase text-black"
+  className="mb-2 text-[0.7rem] sm:text-base md:text-base lg:text-lg font-bold uppercase text-black"
   style={{
     WebkitTextStroke: '0.5px #f97028',
   }}
