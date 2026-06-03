@@ -173,6 +173,14 @@ export default function DevHackHeroCompact() {
                 className="w-full h-auto object-contain hover:scale-105 transition-transform"
               />
             </div>
+            <a
+  href="https://dsudevhack3.devfolio.co/overview"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mb-2 flex items-center justify-center w-[308px] h-[30px] rounded-lg bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
+>
+ Register on Devfolio
+</a>
 
            <div
   className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
