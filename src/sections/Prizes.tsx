@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import SponsorRewards from '../components/SponsorRewards';
 
 const Prizes: React.FC = () => {
   const prizesData = [
@@ -147,6 +148,11 @@ const Prizes: React.FC = () => {
               </motion.div>
             )
           })}
+        </div>
+
+        {/* Sponsor Rewards Section */}
+        <div className="w-full max-w-[1200px] px-2 sm:px-4">
+          <SponsorRewards />
         </div>
       </div>
     </section>
