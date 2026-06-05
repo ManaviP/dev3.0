@@ -316,11 +316,25 @@ const SponsorRewards: React.FC = () => {
                   <div className="frame-photo-area">
                     <div className="frame-logo-amount">
                       <img
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        className="sponsor-logo"
-                        loading="lazy"
-                      />
+  src={sponsor.logo}
+  alt={sponsor.name}
+  className="sponsor-logo"
+  loading="lazy"
+  style={{
+    width:
+      sponsor.name === "n8n"
+        ? "140px"
+        : sponsor.name === "Codecrafters"
+        ? "135px"
+        : undefined,
+    height:
+      sponsor.name === "n8n"
+        ? "110px"
+        : sponsor.name === "Codecrafters"
+        ? "105px"
+        : undefined,
+  }}
+/>
                       <div className="sponsor-reward-value">
                         {sponsor.rewardValue}
                       </div>
@@ -329,9 +343,15 @@ const SponsorRewards: React.FC = () => {
 
                   {/* ── Caption Area: description text ── */}
                   <div className="frame-caption-area">
-                    <p className="sponsor-description">
-                      {sponsor.description}
-                    </p>
+                   <p
+  className="sponsor-description"
+  style={{
+    fontWeight: 700,
+    fontSize: "0.95rem",
+  }}
+>
+  {sponsor.description}
+</p>
                   </div>
                 </div>
               </div>
