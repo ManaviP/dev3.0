@@ -173,22 +173,31 @@ export default function DevHackHeroCompact() {
                 className="w-full h-auto object-contain hover:scale-105 transition-transform"
               />
             </div>
+       <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+  <a
+    href="https://dsudevhack3.devfolio.co/overview"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
+  >
+    Register on Devfolio
+  </a>
 
-           <div
-  className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
-  data-hackathon-slug="dsudevhack3"
-  data-button-theme="dark"
-  role="button"
-  aria-label="Apply to DevHack"
-  style={{ height: '44px', width: '312px' }}
-></div>
-
+  <div
+    className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
+    data-hackathon-slug="dsudevhack3"
+    data-button-theme="dark"
+    role="button"
+    aria-label="Apply to DevHack"
+    style={{ height: '44px', width: '312px' }}
+  ></div>
+</div>
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
               {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
               <div className="mt-3 text-center z-20">
         <div
-  className="mb-2 text-[0.7rem] sm:text-sm md:text-base lg:text-lg font-bold uppercase text-black"
+  className="mb-2 text-[0.7rem] sm:text-base md:text-base lg:text-lg font-bold uppercase text-black"
   style={{
     WebkitTextStroke: '0.5px #f97028',
   }}
