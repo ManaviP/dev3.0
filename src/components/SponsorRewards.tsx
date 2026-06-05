@@ -325,13 +325,13 @@ const SponsorRewards: React.FC = () => {
       sponsor.name === "n8n"
         ? "140px"
         : sponsor.name === "Codecrafters"
-        ? "142px"
+        ? "148px"
         : undefined,
     height:
       sponsor.name === "n8n"
         ? "110px"
         : sponsor.name === "Codecrafters"
-        ? "113px"
+        ? "119px"
         : undefined,
   }}
 />
