@@ -67,7 +67,7 @@ const Prizes: React.FC = () => {
 
           <h2
             className="font-display text-white uppercase drop-shadow-lg"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
           >
             PRIZES
           </h2>

@@ -315,9 +315,8 @@ export default function Themes() {
             transition={{ duration: 1, ease: "easeOut" }}
             className="font-display text-[#1a1a1a] uppercase mb-3"
             style={{
-              fontSize: 'clamp(3rem, 8vw, 6.5rem)',
+              fontSize: 'clamp(2.5rem, 6vw, 5rem)',
               lineHeight: 1,
-              textShadow: '4px 4px 0px rgba(249, 112, 40, 0.25)',
             }}
           >
             Themes
