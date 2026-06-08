@@ -73,41 +73,53 @@ const SponsorRewards: React.FC = () => {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          overflow: hidden;
+          overflow: visible;
         }
 
-        /* ── Centered logo + amount group ── */
+        /* ── Logo + amount wrapper (fills black area) ── */
         .frame-logo-amount {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 32px 20px 24px;
-          gap: 18px;
+          width: 100%;
+          height: 100%;
+          padding: 0 20px;
         }
 
-        /* ── Sponsor logo ── */
+        /* ── Sponsor logo (pinned to top) ── */
         .sponsor-logo {
-          width: 100px;
-          height: 80px;
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 70px;
+          height: 56px;
           object-fit: contain;
           filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
         }
 
-        /* ── Reward amount ── */
+        .sponsor-logo.logo-xyz {
+          top: 12px;
+        }
+
+        /* ── Reward amount (centered focal point) ── */
         .sponsor-reward-value {
           background: linear-gradient(135deg, #FFE55C 0%, #FFD700 30%, #FFF8DC 60%, #FFD700 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          font-weight: 900;
-          font-size: clamp(1.75rem, 4vw, 2.5rem);
+          font-weight: 700;
+          font-size: clamp(2.15rem, 5vw, 3.15rem);
           text-align: center;
-          font-family: 'display', sans-serif;
+          font-family: 'Caprasimo', sans-serif;
           letter-spacing: 0.02em;
           filter: drop-shadow(0 2px 8px rgba(255, 215, 0, 0.3));
           transition: filter 0.3s ease;
-          line-height: 1;
+          line-height: 1.1;
+          margin-top: 20px;
+          padding: 4px 0;
         }
 
         .sponsor-card:hover .sponsor-reward-value {
@@ -118,7 +130,7 @@ const SponsorRewards: React.FC = () => {
         .frame-caption-area {
           width: 100%;
           min-height: 80px;
-          padding: 14px 20px 18px;
+          padding: 14px 16px 18px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -128,11 +140,11 @@ const SponsorRewards: React.FC = () => {
         /* ── Description text ── */
         .sponsor-description {
           color: #1a1a1a;
-          font-size: 0.78rem;
-          line-height: 1.4;
+          font-size: 1.0rem;
+          line-height: 1.35;
           text-align: center;
-          font-weight: 500;
-          font-family: sans-serif;
+          font-weight: 600;
+          font-family: 'Caprasimo', sans-serif;
           letter-spacing: 0.005em;
           width: 100%;
           display: -webkit-box;
@@ -161,13 +173,17 @@ const SponsorRewards: React.FC = () => {
           }
 
           .frame-logo-amount {
-            padding: 28px 18px 20px;
-            gap: 16px;
+            padding: 0 18px;
           }
 
           .sponsor-logo {
-            width: 85px;
-            height: 70px;
+            width: 60px;
+            height: 50px;
+            top: 0;
+          }
+
+          .sponsor-logo.logo-xyz {
+            top: 10px;
           }
 
           .frame-caption-area {
@@ -176,7 +192,7 @@ const SponsorRewards: React.FC = () => {
           }
 
           .sponsor-description {
-            font-size: 0.72rem;
+            font-size: 0.95rem;
           }
         }
 
@@ -191,13 +207,17 @@ const SponsorRewards: React.FC = () => {
           }
 
           .frame-logo-amount {
-            padding: 24px 16px 18px;
-            gap: 14px;
+            padding: 0 16px;
           }
 
           .sponsor-logo {
-            width: 75px;
-            height: 60px;
+            width: 52px;
+            height: 42px;
+            top: 0;
+          }
+
+          .sponsor-logo.logo-xyz {
+            top: 10px;
           }
 
           .frame-caption-area {
@@ -206,7 +226,7 @@ const SponsorRewards: React.FC = () => {
           }
 
           .sponsor-description {
-            font-size: 0.72rem;
+            font-size: 0.9rem;
           }
         }
 
@@ -221,13 +241,17 @@ const SponsorRewards: React.FC = () => {
           }
 
           .frame-logo-amount {
-            padding: 20px 14px 16px;
-            gap: 12px;
+            padding: 0 14px;
           }
 
           .sponsor-logo {
-            width: 65px;
-            height: 55px;
+            width: 45px;
+            height: 38px;
+            top: 0;
+          }
+
+          .sponsor-logo.logo-xyz {
+            top: 8px;
           }
 
           .frame-caption-area {
@@ -236,7 +260,7 @@ const SponsorRewards: React.FC = () => {
           }
 
           .sponsor-description {
-            font-size: 0.68rem;
+            font-size: 0.85rem;
             line-height: 1.3;
             -webkit-line-clamp: 3;
           }
@@ -316,25 +340,25 @@ const SponsorRewards: React.FC = () => {
                   <div className="frame-photo-area">
                     <div className="frame-logo-amount">
                       <img
-  src={sponsor.logo}
-  alt={sponsor.name}
-  className="sponsor-logo"
-  loading="lazy"
-  style={{
-    width:
-      sponsor.name === "n8n"
-        ? "140px"
-        : sponsor.name === "Codecrafters"
-        ? "148px"
-        : undefined,
-    height:
-      sponsor.name === "n8n"
-        ? "110px"
-        : sponsor.name === "Codecrafters"
-        ? "119px"
-        : undefined,
-  }}
-/>
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        className={`sponsor-logo ${sponsor.name === ".xyz" ? "logo-xyz" : ""}`}
+                        loading="lazy"
+                        style={{
+                          width:
+                            sponsor.name === "n8n"
+                              ? "110px"
+                              : sponsor.name === "Codecrafters"
+                                ? "135px"
+                                : undefined,
+                          height:
+                            sponsor.name === "n8n"
+                              ? "88px"
+                              : sponsor.name === "Codecrafters"
+                                ? "108px"
+                                : undefined,
+                        }}
+                      />
                       <div className="sponsor-reward-value">
                         {sponsor.rewardValue}
                       </div>
@@ -343,15 +367,9 @@ const SponsorRewards: React.FC = () => {
 
                   {/* ── Caption Area: description text ── */}
                   <div className="frame-caption-area">
-                   <p
-  className="sponsor-description"
-  style={{
-    fontWeight: 700,
-    fontSize: "0.95rem",
-  }}
->
-  {sponsor.description}
-</p>
+                    <p className="sponsor-description">
+                      {sponsor.description}
+                    </p>
                   </div>
                 </div>
               </div>
