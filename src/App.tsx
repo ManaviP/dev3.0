@@ -40,7 +40,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
     'Stay tuned for updates!',
   ];
 
-  const marqueeItems = [...tickerItems, ...tickerItems, ...tickerItems];
+
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-8 md:pt-10 px-4 md:px-8 transition-none">
