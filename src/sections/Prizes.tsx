@@ -64,13 +64,18 @@ const Prizes: React.FC = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] max-w-[500px] h-[200%] bg-[radial-gradient(ellipse_at_center,#00040D_40%,transparent_75%)] z-[-1] pointer-events-none"></div>
 
           <div className="h-[3px] w-24 bg-white mx-auto mb-4 origin-center opacity-80" />
-
-          <h2
-            className="font-display text-white uppercase drop-shadow-lg"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1, letterSpacing: '0.05em' }}
+           <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.05em" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="font-display text-white uppercase mb-3 drop-shadow-lg"
+            style={{
+              fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+              lineHeight: 1,
+            }}
           >
             PRIZES
-          </h2>
+          </motion.h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:flex-row lg:flex-nowrap lg:items-end justify-center w-full max-w-[1200px] px-2 sm:px-4 gap-y-12 gap-x-2 sm:gap-x-8 lg:gap-4 xl:gap-8 mx-auto">
