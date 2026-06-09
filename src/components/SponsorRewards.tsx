@@ -276,19 +276,28 @@ const SponsorRewards: React.FC = () => {
       />
 
       {/* Sponsor Rewards Title */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="text-center mb-12 md:mb-16"
-      >
-        <h3
-          className="font-display text-white uppercase drop-shadow-lg"
-          style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)', lineHeight: 1, letterSpacing: '0.05em' }}
-        >
-          SPONSOR REWARDS
-        </h3>
-      </motion.div>
+  <div className="text-center mb-12">
+   {/* Decorative top line */}
+          <motion.div
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+            className="mx-auto mb-5 h-[3px] w-24 md:w-32 bg-[#1a1a1a]"
+          />
+
+          <motion.h2
+            initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.05em" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+           className="font-display text-white uppercase mb-3 drop-shadow-lg"
+            style={{
+              fontSize: 'clamp(2.3rem, 6vw, 4rem)',
+              lineHeight: 1,
+            }}
+          >
+            SPONSOR REWARD
+          </motion.h2>
+        </div>
 
       {/* Grid Layout */}
       <div
