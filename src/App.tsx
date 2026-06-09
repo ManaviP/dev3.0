@@ -21,18 +21,6 @@ import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
 
 function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void, logoUrl: string }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [tickerOpacity, setTickerOpacity] = useState(1);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Fade out over the first 80px of scroll
-      const opacity = Math.max(0, 1 - window.scrollY / 80);
-      setTickerOpacity(opacity);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const tickerItems = [
     'Registrations open on June 1st, 2026 - Sign up now!',
     'Stay tuned for updates!',
@@ -40,34 +28,29 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
     'Stay tuned for updates!',
   ];
 
-
+  const marqueeItems = [...tickerItems, ...tickerItems, ...tickerItems];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-8 md:pt-10 px-4 md:px-8 transition-none">
-      {/* Ticker strip — "LATEST NEWS" label + scrolling items */}
-     <div
-       className="absolute inset-x-0 top-0 h-[34px] md:h-[40px] overflow-hidden pointer-events-none z-60 flex items-stretch bg-[#f3ecd2] border-b border-[#1a1a1a]/20"
-       style={{ opacity: tickerOpacity, transition: 'opacity 0.1s linear' }}
-     >
-       {/* Pinned label */}
-       <div className="flex-shrink-0 flex items-center bg-[#1a1a1a] text-[#f97028] px-3 md:px-5 text-[11px] md:text-sm font-black uppercase tracking-widest whitespace-nowrap z-10 border-r-2 border-[#f97028]">
-         LATEST NEWS
-       </div>
-       {/* Scrolling track */}
-       <div className="relative flex-1 overflow-hidden flex items-center bg-[#f97028]">
-         <div
-           className="flex w-max items-center whitespace-nowrap text-[11px] md:text-sm font-bold uppercase tracking-widest text-[#1a1a1a]"
-           style={{ animation: 'marquee 40s linear infinite' }}
-         >
-           {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
-             <span key={i} className="flex items-center gap-3 pr-8">
-               {item}
-               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#1a1a1a] opacity-70 flex-shrink-0" />
-             </span>
-           ))}
-         </div>
-       </div>
-     </div>
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-4 md:pt-6 px-4 md:px-8 transition-none">
+      {/* Ticker in the top gap area; absolute so it does not affect layout */}
+     <div className="absolute inset-x-0 top-0 h-[16px] md:h-5 overflow-hidden pointer-events-none z-60 bg-[#f97028]">
+  <motion.div
+   className="flex w-max items-center whitespace-nowrap text-base md:text-lg leading-none font-semibold text-black"
+    animate={{ x: ['0%', '-33.333%'] }}
+    transition={{
+      duration: 16,
+      repeat: Infinity,
+      ease: 'linear',
+    }}
+  >
+    {marqueeItems.map((item, i) => (
+      <div key={i} className="flex items-center shrink-0">
+        <span className="px-4">{item}</span>
+        <span className="px-4">•</span>
+      </div>
+    ))}
+  </motion.div>
+</div>
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -281,3 +264,4 @@ export default function App() {
     </>
   )
 }
+
