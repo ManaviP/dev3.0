@@ -33,21 +33,23 @@ export default function FAQ() {
     <section id="faq" className="relative px-2 py-8 sm:px-6 lg:py-16 bg-cream">
       <div className="mx-auto max-w-4xl p-4 sm:p-8">
         <div className="text-center mb-12">
+   {/* Decorative top line */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
-            className="inline-block mb-4"
-          >
-            <div className="h-[2px] w-20 bg-[#ff5ea8] mx-auto" />
-          </motion.div>
+            className="mx-auto mb-5 h-[3px] w-24 md:w-32 bg-[#1a1a1a]"
+          />
 
           <motion.h2
             initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
-            whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="font-display text-[#1a1a1a] drop-shadow-sm uppercase"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
+            whileInView={{ opacity: 1, y: 0, letterSpacing: "0.05em" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="font-display text-[#1a1a1a] uppercase mb-3"
+            style={{
+              fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+              lineHeight: 1,
+            }}
           >
             FAQ
           </motion.h2>
