@@ -171,11 +171,10 @@ export default function Team() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="font-display uppercase tracking-wider sm:tracking-widest text-[#1a1a1a] leading-none mb-3 sm:mb-6 flex flex-col sm:flex-row justify-center items-center w-full"
-                  style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}
+                  className="font-display uppercase tracking-widest text-[#1a1a1a] leading-none mb-3 sm:mb-6 text-center w-full"
+                  style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
                 >
-                  <span className="sm:mr-4 lg:mr-6">Meet The</span>
-                  <span className="text-[#f97028]">Team</span>
+                  Meet The <span className="text-[#f97028]">Team</span>
                 </motion.h2>
               </div>
             </motion.div>

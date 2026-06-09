@@ -705,28 +705,10 @@ export default function Timeline() {
             initial={{ opacity: 0, y: 40, letterSpacing: "0.4em" }}
             whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            className="font-display tracking-tight flex justify-center items-center uppercase"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 0.9 }}
+            className="font-display text-[#1a1a1a] tracking-tight uppercase"
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 0.9 }}
           >
-            {"TIMELINE".split('').map((char, i) => (
-              <motion.span
-                key={i}
-                className="uppercase"
-                initial={{ color: '#1a1a1a' }}
-                animate={{
-                  color: ['#1a1a1a', COLORS[i % COLORS.length], '#1a1a1a'],
-                }}
-                transition={{
-                  duration: 2.2,
-                  repeat: Infinity,
-                  delay: i * 0.12,
-                  ease: "easeInOut",
-                  times: [0, 0.5, 1],
-                }}
-              >
-                {char}
-              </motion.span>
-            ))}
+            TIMELINE
           </motion.h2>
         </div>
 

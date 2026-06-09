@@ -78,7 +78,7 @@ const Sponsors: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             className="font-display text-cream drop-shadow-sm uppercase"
-            style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', lineHeight: 1 }}
+            style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', lineHeight: 1 }}
           >
             Sponsors
           </motion.h2>
