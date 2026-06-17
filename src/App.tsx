@@ -1,22 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import Lenis from 'lenis'
 
-import Hero from './sections/Hero'
-import Themes from './components/Themes'
-import Timeline from './sections/Timeline'
-import FAQ from './sections/FAQ'
-import Team from './sections/Team'
-import Demo from './sections/Demo'
+import HeroRaw from './sections/Hero'
+import ThemesRaw from './components/Themes'
+import TimelineRaw from './sections/Timeline'
+import FAQRaw from './sections/FAQ'
+import TeamRaw from './sections/Team'
+import DemoRaw from './sections/Demo'
 import IdeaSubmissionNotice from './components/IdeaSubmissionNotice'
-import Prizes from './sections/Prizes'
-import Sponsors from './sections/Sponsors'
-import Footer from './sections/Footer'
+import PrizesRaw from './sections/Prizes'
+import SponsorsRaw from './sections/Sponsors'
+import FooterRaw from './sections/Footer'
 import ClickSpark from './components/ClickSpark'
-import Memory from './sections/Memory'
+import MemoryRaw from './sections/Memory'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
 import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
+
+// Memoize all sections so navbar state changes don't re-render them
+const Hero = memo(HeroRaw)
+const Themes = memo(ThemesRaw)
+const Timeline = memo(TimelineRaw)
+const FAQ = memo(FAQRaw)
+const Team = memo(TeamRaw)
+const Demo = memo(DemoRaw)
+const Prizes = memo(PrizesRaw)
+const Sponsors = memo(SponsorsRaw)
+const Footer = memo(FooterRaw)
+const Memory = memo(MemoryRaw)
 
 
 
@@ -160,8 +172,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    let prev = window.scrollY > 150
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 150)
+      const current = window.scrollY > 150
+      if (current !== prev) {
+        prev = current
+        setIsScrolled(current)
+      }
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -186,14 +203,16 @@ export default function App() {
       infinite: false,
     })
 
+    let rafId: number
     function raf(time: number) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
-    requestAnimationFrame(raf)
+    rafId = requestAnimationFrame(raf)
 
     return () => {
       clearTimeout(timer)
+      cancelAnimationFrame(rafId)
       lenis.destroy()
     }
   }, [])

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 import {
   motion,
   useScroll,
@@ -50,7 +50,7 @@ function googleCalLink(ev: TimelineEvent) {
 }
 
 
-function SubmarineSVG({ color }: { color: string }) {
+const SubmarineSVG = memo(function SubmarineSVG({ color }: { color: string }) {
   return (
     <svg
       width="64"
@@ -81,11 +81,12 @@ function SubmarineSVG({ color }: { color: string }) {
       <rect x="4" y="14" width="2" height="14" rx="1" fill="#1a1a1a" />
     </svg>
   );
-} 
+});
+
 /* ─────────────────────────────────────
    SVG TRAIN ICON
    ───────────────────────────────────── */
-function TrainSVG({ color }: { color: string }) {
+const TrainSVG = memo(function TrainSVG({ color }: { color: string }) {
   return (
     <svg
       width="64"
@@ -132,12 +133,12 @@ function TrainSVG({ color }: { color: string }) {
       <rect x="8" y="3" width="9" height="3" rx="1.5" fill="#1a1a1a" />
     </svg>
   );
-}
+});
 
 /* ─────────────────────────────────────
    TRACK COMPONENT
    ───────────────────────────────────── */
-function Track({
+const Track = memo(function Track({
   totalWidth,
   progress,
   stationPositions,
@@ -267,12 +268,12 @@ function Track({
       })}
     </svg>
   );
-}
+});
 
 /* ─────────────────────────────────────
    STATION CARD
    ───────────────────────────────────── */
-function StationCard({
+const StationCard = memo(function StationCard({
   event,
   index,
   isRevealed,
@@ -543,7 +544,7 @@ function StationCard({
       )}
     </div>
   );
-}
+});
 /* ─────────────────────────────────────
    MAIN TIMELINE SECTION
    ───────────────────────────────────── */
@@ -617,21 +618,32 @@ export default function Timeline() {
 
   const [progressValue, setProgressValue] = useState(0);
   const ANIMATION_END = 0.85;
+  const prevActiveIdxRef = useRef(0);
+  const prevRevealCountRef = useRef(1);
 
   useMotionValueEvent(smoothProgress, 'change', (latest) => {
     let adjusted = latest / ANIMATION_END;
     if (adjusted > 1) adjusted = 1;
     setProgressValue(adjusted);
     const idx = Math.max(0, Math.min(timelineData.length - 1, Math.round(adjusted * (timelineData.length - 1))));
-    setActiveIdx(idx);
+    // Only update activeIdx when it actually changes
+    if (idx !== prevActiveIdxRef.current) {
+      prevActiveIdxRef.current = idx;
+      setActiveIdx(idx);
+    }
+    // Only update revealedSet when a new station is revealed
     const revealThreshold = adjusted * (timelineData.length - 1);
-    setRevealedSet((prev) => {
-      const next = new Set(prev);
-      timelineData.forEach((_, i) => {
-        if (i <= revealThreshold + 0.3) next.add(i);
+    const newRevealCount = timelineData.filter((_, i) => i <= revealThreshold + 0.3).length;
+    if (newRevealCount !== prevRevealCountRef.current) {
+      prevRevealCountRef.current = newRevealCount;
+      setRevealedSet((prev) => {
+        const next = new Set(prev);
+        timelineData.forEach((_, i) => {
+          if (i <= revealThreshold + 0.3) next.add(i);
+        });
+        return next;
       });
-      return next;
-    });
+    }
   });
 
   const translateX = useTransform(

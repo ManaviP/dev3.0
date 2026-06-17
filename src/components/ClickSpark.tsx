@@ -19,6 +19,53 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sparksRef = useRef<any[]>([]);
+  const animationIdRef = useRef<number | null>(null);
+  const isRunningRef = useRef(false);
+
+  const animate = useCallback((time: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    sparksRef.current = sparksRef.current.filter((spark) => {
+      const elapsed = time - spark.startTime;
+      if (elapsed > duration) return false;
+
+      const progress = elapsed / duration;
+      const currentDistance = progress * sparkRadius;
+      const opacity = 1 - progress;
+
+      const sparkX = spark.x + Math.cos(spark.angle) * currentDistance;
+      const sparkY = spark.y + Math.sin(spark.angle) * currentDistance;
+
+      ctx.beginPath();
+      ctx.arc(sparkX, sparkY, (sparkSize / 2) * opacity, 0, Math.PI * 2);
+      ctx.fillStyle = sparkColor;
+      ctx.globalAlpha = opacity;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      return true;
+    });
+
+    // Stop the loop when no sparks remain
+    if (sparksRef.current.length > 0) {
+      animationIdRef.current = requestAnimationFrame(animate);
+    } else {
+      isRunningRef.current = false;
+      animationIdRef.current = null;
+    }
+  }, [duration, sparkColor, sparkRadius, sparkSize]);
+
+  const startLoop = useCallback(() => {
+    if (!isRunningRef.current) {
+      isRunningRef.current = true;
+      animationIdRef.current = requestAnimationFrame(animate);
+    }
+  }, [animate]);
 
   const createSparks = useCallback((x: number, y: number) => {
     for (let i = 0; i < sparkCount; i++) {
@@ -31,45 +78,12 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
         startTime: performance.now(),
       });
     }
-  }, [sparkCount]);
+    startLoop();
+  }, [sparkCount, startLoop]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationId: number;
-
-    const animate = (time: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      sparksRef.current = sparksRef.current.filter((spark) => {
-        const elapsed = time - spark.startTime;
-        if (elapsed > duration) return false;
-
-        const progress = elapsed / duration;
-        const currentDistance = progress * sparkRadius;
-        const opacity = 1 - progress;
-
-        const sparkX = spark.x + Math.cos(spark.angle) * currentDistance;
-        const sparkY = spark.y + Math.sin(spark.angle) * currentDistance;
-
-        ctx.beginPath();
-        ctx.arc(sparkX, sparkY, (sparkSize / 2) * opacity, 0, Math.PI * 2);
-        ctx.fillStyle = sparkColor;
-        ctx.globalAlpha = opacity;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-
-        return true;
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -80,10 +94,10 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(animationId);
+      if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
       window.removeEventListener('resize', handleResize);
     };
-  }, [duration, sparkColor, sparkRadius, sparkSize]);
+  }, []);
 
   return (
     <div className="relative w-full h-full">
