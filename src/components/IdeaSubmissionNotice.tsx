@@ -83,7 +83,7 @@ export default function IdeaSubmissionNotice() {
           variants={containerVariants}
           className="idea-workflow-row"
         >
-          {steps.map((step, index) => (
+          {steps.map((step) => (
             <motion.div
               key={step.label}
               variants={cardVariants}
