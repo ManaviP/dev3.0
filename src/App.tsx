@@ -13,6 +13,7 @@ import SponsorsRaw from './sections/Sponsors'
 import FooterRaw from './sections/Footer'
 import ClickSpark from './components/ClickSpark'
 import MemoryRaw from './sections/Memory'
+import IdeaSubmissionPopup from './components/IdeaSubmissionPopup'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -34,6 +35,18 @@ const Memory = memo(MemoryRaw)
 
 function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTMLAnchorElement>) => void, logoUrl: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [tickerOpacity, setTickerOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Fade out over the first 80px of scroll
+      const opacity = Math.max(0, 1 - window.scrollY / 80);
+      setTickerOpacity(opacity);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const tickerItems = [
     'Registrations open on June 1st, 2026 - Sign up now!',
     'Stay tuned for updates!',
@@ -41,29 +54,32 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
     'Stay tuned for updates!',
   ];
 
-  const marqueeItems = [...tickerItems, ...tickerItems, ...tickerItems];
-
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-4 md:pt-6 px-4 md:px-8 transition-none">
-      {/* Ticker in the top gap area; absolute so it does not affect layout */}
-     <div className="absolute inset-x-0 top-0 h-[16px] md:h-5 overflow-hidden pointer-events-none z-60 bg-[#f97028]">
-  <motion.div
-   className="flex w-max items-center whitespace-nowrap text-base md:text-lg leading-none font-semibold text-black"
-    animate={{ x: ['0%', '-33.333%'] }}
-    transition={{
-      duration: 16,
-      repeat: Infinity,
-      ease: 'linear',
-    }}
-  >
-    {marqueeItems.map((item, i) => (
-      <div key={i} className="flex items-center shrink-0">
-        <span className="px-4">{item}</span>
-        <span className="px-4">•</span>
+    <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-6 md:pt-8 px-4 md:px-8 transition-none">
+      {/* Ticker strip — "LATEST NEWS" label + scrolling items */}
+      <div
+        className="absolute inset-x-0 top-0 h-[24px] md:h-[28px] overflow-hidden pointer-events-none z-60 flex items-stretch bg-[#f3ecd2] border-b border-[#1a1a1a]/20"
+        style={{ opacity: tickerOpacity, transition: 'opacity 0.1s linear' }}
+      >
+        {/* Pinned label */}
+        <div className="flex-shrink-0 flex items-center bg-[#1a1a1a] text-[#f97028] px-3 md:px-5 text-[10px] md:text-xs font-black uppercase tracking-widest whitespace-nowrap z-10 border-r-2 border-[#f97028]">
+          LATEST NEWS
+        </div>
+        {/* Scrolling track */}
+        <div className="relative flex-1 overflow-hidden flex items-center bg-[#f97028]">
+          <div
+            className="flex w-max items-center whitespace-nowrap text-[11px] md:text-[13px] font-semibold uppercase tracking-widest text-[#1a1a1a] leading-none"
+            style={{ animation: 'marquee 40s linear infinite' }}
+          >
+            {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
+              <span key={i} className="flex items-center">
+                <span className="px-3 md:px-4">{item}</span>
+                <span className="px-3 md:px-4 text-[9px] md:text-[11px] opacity-70">•</span>
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-    ))}
-  </motion.div>
-</div>
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -138,13 +154,13 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [mountLoader, setMountLoader] = useState(true)
-  
+
   const [isScrolled, setIsScrolled] = useState(false)
   const [isNavbarDark, setIsNavbarDark] = useState(false)
 
   useEffect(() => {
     const darkSections = ['memory', 'sponsors', 'footer'];
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '-50px 0px -90% 0px', // Target the top part of the viewport
@@ -161,7 +177,7 @@ export default function App() {
     };
 
     const observer = new IntersectionObserver(handleIntersection, observerOptions);
-    
+
     const sections = ['hero', 'memory', 'themes', 'prizes', 'timeline', 'sponsors', 'team', 'demo', 'faq', 'footer'];
     sections.forEach(id => {
       const el = document.getElementById(id);
@@ -246,7 +262,8 @@ export default function App() {
         </div>
       )}
 
-      {/* Nav transition overlay removed to allow immediate navigation */}
+      {/* Idea Submission Popup Notification */}
+      <IdeaSubmissionPopup />
 
       <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
