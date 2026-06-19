@@ -7,6 +7,7 @@ import Timeline from './sections/Timeline'
 import FAQ from './sections/FAQ'
 import Team from './sections/Team'
 import Demo from './sections/Demo'
+import IdeaSubmissionNotice from './components/IdeaSubmissionNotice'
 import Prizes from './sections/Prizes'
 import Sponsors from './sections/Sponsors'
 import Footer from './sections/Footer'
@@ -256,6 +257,7 @@ export default function App() {
             <Sponsors />
             <Team />
             <Demo />
+            <IdeaSubmissionNotice />
             <FAQ />
           </main>
           <Footer />
