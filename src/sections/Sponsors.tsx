@@ -23,6 +23,7 @@ const Sponsors: React.FC = () => {
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
     { name:".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3 },
     { name:"n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3 },
+    {name:"Render" , logo: "/logos/render.png", scale: 1.2, hoverScale: 1.3 },
   ]
 
   const communityPartners = [
