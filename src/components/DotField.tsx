@@ -46,6 +46,9 @@ const DotField = memo(({
   const glowOpacity = useRef(0);
   const engagement = useRef(0);
   const propsRef = useRef<any>({});
+  const isVisibleRef = useRef(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animateFnRef = useRef<(() => void) | null>(null);
 
   propsRef.current = { 
     dotRadius, dotSpacing, cursorRadius, cursorForce, 
@@ -54,6 +57,27 @@ const DotField = memo(({
   };
 
   const glowIdRef = useRef(`dot-field-glow-${Math.random().toString(36).slice(2, 9)}`);
+
+  // IntersectionObserver to pause/resume animation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const wasVisible = isVisibleRef.current;
+        isVisibleRef.current = entries[0].isIntersecting;
+        // Resume animation when becoming visible
+        if (!wasVisible && isVisibleRef.current && !rafRef.current && animateFnRef.current) {
+          rafRef.current = requestAnimationFrame(animateFnRef.current);
+        }
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -111,11 +135,18 @@ const DotField = memo(({
     };
 
     const animate = () => {
+      // Skip rendering when off-screen
+      if (!isVisibleRef.current) {
+        rafRef.current = null;
+        return;
+      }
+
       const w = sizeRef.current.w;
       const h = sizeRef.current.h;
       const p = propsRef.current;
       const m = mouseRef.current;
       const dots = dotsRef.current;
+      const cursorRadiusSq = p.cursorRadius * p.cursorRadius;
 
       ctx.clearRect(0, 0, w, h);
       
@@ -132,9 +163,9 @@ const DotField = memo(({
         const dx = m.x - d.originX;
         const dy = m.y - d.originY;
         const distSq = dx * dx + dy * dy;
-        const dist = Math.sqrt(distSq);
 
-        if (dist < p.cursorRadius) {
+        if (distSq < cursorRadiusSq) {
+          const dist = Math.sqrt(distSq);
           const force = (p.cursorRadius - dist) / p.cursorRadius;
           const angle = Math.atan2(dy, dx);
           const move = force * force * p.bulgeStrength;
@@ -161,6 +192,9 @@ const DotField = memo(({
       rafRef.current = requestAnimationFrame(animate);
     };
 
+    // Store ref so the IntersectionObserver can restart it
+    animateFnRef.current = animate;
+
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(doResize, 100);
@@ -175,11 +209,13 @@ const DotField = memo(({
       window.removeEventListener('resize', doResize);
       window.removeEventListener('mousemove', handleMouseMove);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      animateFnRef.current = null;
     };
   }, [glowColor, glowRadius]);
 
   return (
-    <div className={`dot-field-container ${className}`} {...rest}>
+    <div ref={containerRef} className={`dot-field-container ${className}`} {...rest}>
       <canvas ref={canvasRef} className="dot-field-canvas" />
       <svg
         ref={svgRef}

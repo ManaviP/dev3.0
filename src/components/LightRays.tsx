@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
 import './LightRays.css';
 
@@ -70,7 +70,8 @@ const LightRays: React.FC<LightRaysProps> = ({
   const animationIdRef = useRef<number | null>(null);
   const meshRef = useRef<any>(null);
   const cleanupFunctionRef = useRef<(() => void) | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const isVisibleRef = useRef(false);
+  const loopFnRef = useRef<((t: number) => void) | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -79,7 +80,12 @@ const LightRays: React.FC<LightRaysProps> = ({
     observerRef.current = new IntersectionObserver(
       entries => {
         const entry = entries[0];
-        setIsVisible(entry.isIntersecting);
+        const wasVisible = isVisibleRef.current;
+        isVisibleRef.current = entry.isIntersecting;
+        // Resume animation loop when becoming visible
+        if (!wasVisible && entry.isIntersecting && !animationIdRef.current && loopFnRef.current) {
+          animationIdRef.current = requestAnimationFrame(loopFnRef.current);
+        }
       },
       { threshold: 0.1 }
     );
@@ -95,7 +101,7 @@ const LightRays: React.FC<LightRaysProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isVisible || !containerRef.current) return;
+    if (!containerRef.current) return;
 
     if (cleanupFunctionRef.current) {
       cleanupFunctionRef.current();
@@ -275,6 +281,12 @@ void main() {
           return;
         }
 
+        // Pause when off-screen (don't destroy, just stop looping)
+        if (!isVisibleRef.current) {
+          animationIdRef.current = null;
+          return;
+        }
+
         uniforms.iTime.value = t * 0.001;
 
         if (followMouse && mouseInfluence > 0.0) {
@@ -294,6 +306,9 @@ void main() {
           return;
         }
       };
+
+      // Store loop function so the IntersectionObserver can restart it
+      loopFnRef.current = loop;
 
       window.addEventListener('resize', updatePlacement);
       updatePlacement();
@@ -338,7 +353,6 @@ void main() {
       }
     };
   }, [
-    isVisible,
     raysOrigin,
     raysColor,
     raysSpeed,
