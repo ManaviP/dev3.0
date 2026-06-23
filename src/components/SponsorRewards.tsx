@@ -38,7 +38,20 @@ const SponsorRewards: React.FC = () => {
       name: "Render",
       logo: "/logos/render.png",
       rewardValue: "$950",
-      description: "$50 credits for all attendees • Best Use of Render: 1st $500 · 2nd $300 · 3rd $100 • Valid for 1 year"
+      description: (
+        <ul className="flex flex-col gap-1 text-left list-disc pl-5 pr-2 w-fit mx-auto text-[0.85rem] leading-tight">
+          <li><strong>$50</strong> credits for all attendees</li>
+          <li>
+            Best Use of Render:
+            <ul className="flex flex-col mt-0.5 gap-0.5 list-disc pl-4 text-[0.8rem] opacity-90">
+              <li>1st: <strong>$500</strong> credits</li>
+              <li>2nd: <strong>$300</strong> credits</li>
+              <li>3rd: <strong>$100</strong> credits</li>
+            </ul>
+          </li>
+          <li>Valid for 1 year</li>
+        </ul>
+      )
     }
   ];
 
@@ -570,9 +583,9 @@ const SponsorRewards: React.FC = () => {
                       loading="lazy"
                     />
                     <span className="back-title">Reward Details</span>
-                    <p className="back-description">
+                    <div className="back-description">
                       {sponsor.description}
-                    </p>
+                    </div>
                     <div className="back-value-badge">
                       {sponsor.rewardValue}
                     </div>
