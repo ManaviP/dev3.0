@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface SponsorReward {
   name: string;
   logo: string;
   rewardValue: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 const SponsorRewards: React.FC = () => {
-  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
+  const [isMobileView, setIsMobileView] = useState(false);
 
-  const toggleFlip = (index: number) => {
-    setFlippedCards(prev => ({ ...prev, [index]: !prev[index] }));
+  useEffect(() => {
+    const checkMobile = () => setIsMobileView(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleFlip = (key: string) => {
+    setFlippedCards(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   const sponsorRewards: SponsorReward[] = [
@@ -229,6 +237,15 @@ const SponsorRewards: React.FC = () => {
         @keyframes flipHintPulse {
           0%, 100% { transform: rotateY(0deg); }
           50% { transform: rotateY(180deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .flip-card {
+            transition: none;
+          }
+          .flip-hint-icon {
+            animation: none;
+          }
         }
 
         /* ── Back face ── */
@@ -507,13 +524,12 @@ const SponsorRewards: React.FC = () => {
           ];
 
           const variant = entranceVariants[index] || entranceVariants[1];
-          const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768;
           const initialState = isMobileView ? variant.mobileInitial : variant.initial;
-          const isFlipped = flippedCards[index] || false;
+          const isFlipped = flippedCards[sponsor.name] || false;
 
           return (
             <motion.div
-              key={index}
+              key={sponsor.name}
               initial={initialState}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.25 }}
@@ -526,7 +542,17 @@ const SponsorRewards: React.FC = () => {
             >
               <div
                 className={`flip-card ${isFlipped ? 'flipped' : ''}`}
-                onClick={() => toggleFlip(index)}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isFlipped}
+                aria-label={`Flip ${sponsor.name} reward details`}
+                onClick={() => toggleFlip(sponsor.name)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFlip(sponsor.name);
+                  }
+                }}
               >
                 {/* ═══════ FRONT FACE ═══════ */}
                 <div className="flip-face flip-front">
@@ -567,7 +593,7 @@ const SponsorRewards: React.FC = () => {
                     <div className="frame-caption-area">
                       <span className="sponsor-name-label">{sponsor.name}</span>
                       <span className="flip-hint">
-                        <span className="flip-hint-icon">↻</span> Tap to flip
+                        <span className="flip-hint-icon">↻</span> Flip for details
                       </span>
                     </div>
                   </div>
