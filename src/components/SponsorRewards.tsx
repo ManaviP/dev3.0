@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface SponsorReward {
   name: string;
   logo: string;
   rewardValue: string;
-  description: string;
+  description: React.ReactNode;
 }
 
 const SponsorRewards: React.FC = () => {
-  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
+  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
+  const [isMobileView, setIsMobileView] = useState(false);
 
-  const toggleFlip = (index: number) => {
-    setFlippedCards(prev => ({ ...prev, [index]: !prev[index] }));
+  useEffect(() => {
+    const checkMobile = () => setIsMobileView(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleFlip = (key: string) => {
+    setFlippedCards(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   const sponsorRewards: SponsorReward[] = [
@@ -38,7 +46,20 @@ const SponsorRewards: React.FC = () => {
       name: "Render",
       logo: "/logos/render.png",
       rewardValue: "$950",
-      description: "$50 credits for all attendees • Best Use of Render: 1st $500 · 2nd $300 · 3rd $100 • Valid for 1 year"
+      description: (
+        <ul className="flex flex-col gap-1 text-left list-disc pl-5 pr-2 w-fit mx-auto text-[0.85rem] leading-tight">
+          <li><strong>$50</strong> credits for all attendees</li>
+          <li>
+            Best Use of Render:
+            <ul className="flex flex-col mt-0.5 gap-0.5 list-disc pl-4 text-[0.8rem] opacity-90">
+              <li>1st: <strong>$500</strong> credits</li>
+              <li>2nd: <strong>$300</strong> credits</li>
+              <li>3rd: <strong>$100</strong> credits</li>
+            </ul>
+          </li>
+          <li>Valid for 1 year</li>
+        </ul>
+      )
     }
   ];
 
@@ -216,6 +237,15 @@ const SponsorRewards: React.FC = () => {
         @keyframes flipHintPulse {
           0%, 100% { transform: rotateY(0deg); }
           50% { transform: rotateY(180deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .flip-card {
+            transition: none;
+          }
+          .flip-hint-icon {
+            animation: none;
+          }
         }
 
         /* ── Back face ── */
@@ -494,13 +524,12 @@ const SponsorRewards: React.FC = () => {
           ];
 
           const variant = entranceVariants[index] || entranceVariants[1];
-          const isMobileView = typeof window !== 'undefined' && window.innerWidth < 768;
           const initialState = isMobileView ? variant.mobileInitial : variant.initial;
-          const isFlipped = flippedCards[index] || false;
+          const isFlipped = flippedCards[sponsor.name] || false;
 
           return (
             <motion.div
-              key={index}
+              key={sponsor.name}
               initial={initialState}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: false, amount: 0.25 }}
@@ -513,7 +542,17 @@ const SponsorRewards: React.FC = () => {
             >
               <div
                 className={`flip-card ${isFlipped ? 'flipped' : ''}`}
-                onClick={() => toggleFlip(index)}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isFlipped}
+                aria-label={`Flip ${sponsor.name} reward details`}
+                onClick={() => toggleFlip(sponsor.name)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFlip(sponsor.name);
+                  }
+                }}
               >
                 {/* ═══════ FRONT FACE ═══════ */}
                 <div className="flip-face flip-front">
@@ -554,7 +593,7 @@ const SponsorRewards: React.FC = () => {
                     <div className="frame-caption-area">
                       <span className="sponsor-name-label">{sponsor.name}</span>
                       <span className="flip-hint">
-                        <span className="flip-hint-icon">↻</span> Tap to flip
+                        <span className="flip-hint-icon">↻</span> Flip for details
                       </span>
                     </div>
                   </div>
@@ -570,9 +609,9 @@ const SponsorRewards: React.FC = () => {
                       loading="lazy"
                     />
                     <span className="back-title">Reward Details</span>
-                    <p className="back-description">
+                    <div className="back-description">
                       {sponsor.description}
-                    </p>
+                    </div>
                     <div className="back-value-badge">
                       {sponsor.rewardValue}
                     </div>

@@ -43,6 +43,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
       const opacity = Math.max(0, 1 - window.scrollY / 80);
       setTickerOpacity(opacity);
     };
+    handleScroll(); // Initial sync
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -189,6 +190,7 @@ export default function App() {
 
   useEffect(() => {
     let prev = window.scrollY > 150
+    setIsScrolled(prev)
     const handleScroll = () => {
       const current = window.scrollY > 150
       if (current !== prev) {
