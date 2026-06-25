@@ -4,7 +4,7 @@ import { FaDiscord, FaMapMarkerAlt } from 'react-icons/fa';
 export default function Footer() {
   const links = [
     {
-      href: 'https://discord.com/invite/6Ah2h7yfD',
+      href: 'https://discord.gg/rs3dPP5PcM',
       label: 'Discord',
       icon: <FaDiscord size={16} />,
     },
