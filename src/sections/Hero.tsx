@@ -69,8 +69,8 @@ export default function DevHackHeroCompact() {
       const isNothingPhone = /Nothing/i.test(ua) || /\bA063\b|\bA065\b|\bA142\b|\bA142P\b/i.test(deviceModel);
       const is20x9 = Math.abs(ratio - 9 / 20) < 0.05;
       const isZFold = /SM-F|Galaxy Z Fold|GalaxyZFold|Fold/i.test(ua);
-      const navEl = typeof document !== 'undefined' ? document.querySelector('header') : null;
-      const measuredNavHeight = navEl ? Math.round(navEl.getBoundingClientRect().height) : 0;
+      const navEl = typeof document !== 'undefined' ? document.querySelector('nav') : null;
+      const measuredNavHeight = navEl ? Math.round(navEl.getBoundingClientRect().bottom) : 0;
 
       setIsMobile(width < 768);
       setIsTwentyNine(width < 768 && Math.abs(ratio - 20 / 9) < 0.06);
@@ -151,7 +151,7 @@ export default function DevHackHeroCompact() {
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
               willChange: 'transform',
-              paddingTop: !isXLDesktop && navHeight > 0 ? `${navHeight + 48}px` : !isXLDesktop ? '130px' : undefined,
+              paddingTop: !isXLDesktop && navHeight > 0 ? `${navHeight + 8}px` : !isXLDesktop ? '110px' : undefined,
               marginTop: isNothing20x9
                 ? '-24px'
                 : isTightHeroSpacingDevice
@@ -162,7 +162,7 @@ export default function DevHackHeroCompact() {
             }}
           >
             {/* GitHub presents banner + title — single translated block */}
-            <div className="flex flex-col items-center z-10 md:-translate-y-12 pointer-events-none">
+            <div className="flex flex-col items-center z-10 pointer-events-none">
               {/* GitHub presents — always above title */}
               <div className="flex flex-col items-center mb-2 pointer-events-auto select-none">
                 <img
