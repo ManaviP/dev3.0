@@ -9,7 +9,6 @@ export default function DevHackHeroCompact() {
   const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
   const [isZFoldDevice, setIsZFoldDevice] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
-  const [isXLDesktop, setIsXLDesktop] = useState(false);
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
@@ -78,7 +77,6 @@ export default function DevHackHeroCompact() {
       setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout || isZFold);
       setIsZFoldDevice(isZFold);
       setNavHeight(measuredNavHeight);
-      setIsXLDesktop(width >= 1280);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
