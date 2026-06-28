@@ -13,6 +13,14 @@ const Sponsors: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const titlesponsor = [
+    {
+      name: "GitHub",
+      logo: "/logos/github.svg",
+      scale: isMobile ? 1.0 : 1.3,
+      hoverScale: isMobile ? 1.1 : 1.4
+    }
+  ]
   const goldSponsors = [
     {
       name: "AIC DSU Innovation Foundation",
@@ -21,9 +29,9 @@ const Sponsors: React.FC = () => {
       hoverScale: isMobile ? 2.8 : 2.3
     },
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
-    { name:".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3 },
-    { name:"n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3 },
-    {name:"Render" , logo: "/logos/render.png", scale: 1.8, hoverScale: 1.9 },
+    { name: ".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3 },
+    { name: "n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3 },
+    { name: "Render", logo: "/logos/render.png", scale: 1.8, hoverScale: 1.9 },
   ]
 
   const communityPartners = [
@@ -104,6 +112,22 @@ const Sponsors: React.FC = () => {
         </div>
         */
         }
+        {/* Title sponsor */}
+        <div className="w-full mb-20">
+          <TierLabel label="Title Sponsor" />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="flex flex-wrap justify-center gap-10 sm:gap-16"
+          >
+            {titlesponsor.map((s, i) => (
+              <motion.div key={i} variants={itemVariants}>
+                <SponsorCard {...s} tier="platinum" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
         {/* Gold */}
         <div className="w-full max-w-4xl">
           <TierLabel label="Gold Sponsors" />
