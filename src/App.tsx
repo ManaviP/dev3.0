@@ -49,8 +49,10 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
   }, []);
 
   const tickerItems = [
+    'Idea Submission is Live now!',
     'Registrations open on June 1st, 2026 - Sign up now!',
     'Stay tuned for updates!',
+    'Idea Submission is Live now!',
     'Registrations open on June 1st, 2026 - Sign up now!',
     'Stay tuned for updates!',
   ];

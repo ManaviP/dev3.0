@@ -9,6 +9,7 @@ export default function DevHackHeroCompact() {
   const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
   const [isZFoldDevice, setIsZFoldDevice] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
+  const [isXLDesktop, setIsXLDesktop] = useState(false);
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
@@ -68,7 +69,7 @@ export default function DevHackHeroCompact() {
       const isNothingPhone = /Nothing/i.test(ua) || /\bA063\b|\bA065\b|\bA142\b|\bA142P\b/i.test(deviceModel);
       const is20x9 = Math.abs(ratio - 9 / 20) < 0.05;
       const isZFold = /SM-F|Galaxy Z Fold|GalaxyZFold|Fold/i.test(ua);
-      const navEl = typeof document !== 'undefined' ? document.querySelector('nav') : null;
+      const navEl = typeof document !== 'undefined' ? document.querySelector('header') : null;
       const measuredNavHeight = navEl ? Math.round(navEl.getBoundingClientRect().height) : 0;
 
       setIsMobile(width < 768);
@@ -77,6 +78,7 @@ export default function DevHackHeroCompact() {
       setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout || isZFold);
       setIsZFoldDevice(isZFold);
       setNavHeight(measuredNavHeight);
+      setIsXLDesktop(width >= 1280);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -142,27 +144,46 @@ export default function DevHackHeroCompact() {
       {/* Scrolling Content */}
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-<div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pl-0 xl:pl-24 pt-0">
+        <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pl-0 xl:pl-24 pt-0">
           <div
             className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
               willChange: 'transform',
+              paddingTop: !isXLDesktop && navHeight > 0 ? `${navHeight + 48}px` : !isXLDesktop ? '130px' : undefined,
               marginTop: isNothing20x9
                 ? '-24px'
                 : isTightHeroSpacingDevice
-                ? (isZFoldDevice && navHeight > 0
+                  ? (isZFoldDevice && navHeight > 0
                     ? `-${Math.max(16, navHeight - 6)}px`
                     : (isMobile ? '-48px' : '-24px'))
-                : undefined
+                  : undefined
             }}
           >
-             <h1 className="text-center font-bold flex flex-col items-center z-10 -translate-y-8 md:-translate-y-12 pointer-events-none">
+            {/* GitHub presents banner + title — single translated block */}
+            <div className="flex flex-col items-center z-10 md:-translate-y-12 pointer-events-none">
+              {/* GitHub presents — always above title */}
+              <div className="flex flex-col items-center mb-2 pointer-events-auto select-none">
+                <img
+                  src="/logos/github_black.svg"
+                  alt="GitHub logo"
+                  className="h-12 md:h-20 w-auto object-contain"
+                  draggable={false}
+                />
+                <span className="text-[0.55rem] md:text-[0.7rem] uppercase tracking-[0.25em] font-semibold text-black/70 mt-[2px]">
+                  presents
+                </span>
+              </div>
+
+              {/* Main title */}
+              <h1 className="text-center font-bold flex flex-col items-center pointer-events-none">
               <div className="text-[clamp(3.8rem,8.5vw,6.5rem)] md:text-[5rem] xl:text-[clamp(4.8rem,9.5vw,7rem)] leading-none mb-1 hero-main-title pointer-events-auto">DSU</div>
               <div className="text-[clamp(4.2rem,10vw,7.5rem)] md:text-[6rem] xl:text-[clamp(5.2rem,11.5vw,8.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 mb-1 hero-main-title pointer-events-auto">DEVHACK</div>
               <div className="text-[clamp(3.5rem,8.5vw,6rem)] md:text-[4.5rem] xl:text-[clamp(4.5rem,9.5vw,6.2rem)] leading-none -mt-1 md:-mt-2 xl:-mt-2 hero-main-title pointer-events-auto">3.0</div>
             </h1>
+            </div>{/* end single translated block */}
+
 
             {/* Small Hero Image on Mobile and Tablet - Positioned between Title and Date Bar */}
             <div className="xl:hidden relative z-10 w-[330px] sm:w-[340px] md:w-[410px] -mt-3 mb-8 flex justify-center drop-shadow-2xl pointer-events-auto">
@@ -173,37 +194,37 @@ export default function DevHackHeroCompact() {
                 className="w-full h-auto object-contain hover:scale-105 transition-transform"
               />
             </div>
-       <div className="flex flex-col md:flex-row items-center justify-center gap-3">
-  <a
-    href="https://dsudevhack3.devfolio.co/overview"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
-  >
-    Register on Devfolio
-  </a>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+              <a
+                href="https://dsudevhack3.devfolio.co/overview"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
+              >
+                Register on Devfolio
+              </a>
 
-  <div
-    className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
-    data-hackathon-slug="dsudevhack3"
-    data-button-theme="dark"
-    role="button"
-    aria-label="Apply to DevHack"
-    style={{ height: '44px', width: '312px' }}
-  ></div>
-</div>
+              <div
+                className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
+                data-hackathon-slug="dsudevhack3"
+                data-button-theme="dark"
+                role="button"
+                aria-label="Apply to DevHack"
+                style={{ height: '44px', width: '312px' }}
+              ></div>
+            </div>
             {/* Date Badge and Hanging About Section */}
             <div className="relative mt-6 md:mt-4 xl:mt-6 flex flex-col items-center z-20 pointer-events-auto">
               {/* Registration countdown for June 1 (placed above the date badge, no heading) */}
               <div className="mt-3 text-center z-20">
-        <div
-  className="mb-2 text-[0.7rem] sm:text-base md:text-base lg:text-lg font-bold uppercase text-black"
-  style={{
-    WebkitTextStroke: '0.5px #f97028',
-  }}
->
-  DEVHACK 3.0 Begins In
-</div>
+                <div
+                  className="mb-2 text-[0.7rem] sm:text-base md:text-base lg:text-lg font-bold uppercase text-black"
+                  style={{
+                    WebkitTextStroke: '0.5px #f97028',
+                  }}
+                >
+                  DEVHACK 3.0 Begins In
+                </div>
                 {countdown.total > 0 ? (
                   <div className="flex gap-2 items-center justify-center mb-2">
                     <div className="bg-white/90 text-black px-3 py-1 rounded-lg text-sm font-semibold border-2 border-black">
@@ -236,7 +257,7 @@ export default function DevHackHeroCompact() {
 
               {/* Hanging Image (Positioned directly below the badge) */}
               <div
-    className="absolute top-full -mt-2 w-[72vw] sm:w-[80vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
+                className="absolute top-full -mt-2 w-[72vw] sm:w-[80vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
               >
                 <img
                   src="/assets/ABOUT.png"
