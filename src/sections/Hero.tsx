@@ -9,7 +9,6 @@ export default function DevHackHeroCompact() {
   const [isTightHeroSpacingDevice, setIsTightHeroSpacingDevice] = useState(false);
   const [isZFoldDevice, setIsZFoldDevice] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
-  const [isXLDesktop, setIsXLDesktop] = useState(false);
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
@@ -78,7 +77,6 @@ export default function DevHackHeroCompact() {
       setIsTightHeroSpacingDevice(isCompactPortraitPhone || isFoldOrSurfaceLayout || isZFold);
       setIsZFoldDevice(isZFold);
       setNavHeight(measuredNavHeight);
-      setIsXLDesktop(width >= 1280);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -144,14 +142,15 @@ export default function DevHackHeroCompact() {
       {/* Scrolling Content */}
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
-        <div className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-center pl-0 xl:pl-24 pt-0">
+        <div
+          className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-start md:justify-center pl-0 xl:pl-24 pt-[100px] md:pt-[100px] xl:pt-0"
+        >
           <div
-            className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-65 md:mt-20 xl:mt-40'}`}
+            className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-0 md:mt-20 xl:mt-40'}`}
             style={{
               transform: isMobile ? `translateY(${mobileScrollY}px)` : 'none',
               transition: isMobile ? 'transform 0.1s ease-out' : 'none',
               willChange: 'transform',
-              paddingTop: !isXLDesktop && navHeight > 0 ? `${navHeight + 8}px` : !isXLDesktop ? '110px' : undefined,
               marginTop: isNothing20x9
                 ? '-24px'
                 : isTightHeroSpacingDevice
