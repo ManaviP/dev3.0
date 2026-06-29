@@ -18,7 +18,8 @@ const Sponsors: React.FC = () => {
       name: "GitHub",
       logo: "/logos/github.svg",
       scale: isMobile ? 1.0 : 1.3,
-      hoverScale: isMobile ? 1.1 : 1.4
+      hoverScale: isMobile ? 1.1 : 1.4,
+      url: "https://github.com"
     }
   ]
   const goldSponsors = [
@@ -26,16 +27,21 @@ const Sponsors: React.FC = () => {
       name: "AIC DSU Innovation Foundation",
       logo: "/logos/aic-dsu copy.png",
       scale: isMobile ? 2.8 : 2.1,
-      hoverScale: isMobile ? 2.8 : 2.3
+      hoverScale: isMobile ? 2.8 : 2.3,
+      url: "https://aicdsu.foundation/"
     },
-    { name: "CodeCrafters.io", logo: "/logos/codecraft.svg" },
-    { name: ".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3 },
-    { name: "n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3 },
-    { name: "Render", logo: "/logos/render.png", scale: 1.8, hoverScale: 1.9 },
+    { name: "CodeCrafters.io", logo: "/logos/codecraft.svg", url: "https://codecrafters.io/" },
+    { name: ".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3, url: "https://gen.xyz/" },
+    { name: "n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3, url: "https://n8n.io/" },
+    { name: "Render", logo: "/logos/render.png", scale: 1.8, hoverScale: 1.9, url: "https://render.com/" },
   ]
 
   const communityPartners = [
-    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png" },
+    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png", url: "https://devfolio.co/" },
+  ]
+
+  const communityPartnersSection = [
+    { name: "SponFest", logo: "/logos/sf_logo.png", scale: 2.5, hoverScale: 2.7, url: "http://sponfest.com/" },
   ]
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -145,7 +151,7 @@ const Sponsors: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Community Partners */}
+        {/* Platform Partners */}
         <div className="w-full max-w-4xl mt-20">
           <TierLabel label="Platform Partners" />
           <motion.div
@@ -155,6 +161,23 @@ const Sponsors: React.FC = () => {
             className="flex flex-wrap justify-center gap-8 sm:gap-16"
           >
             {communityPartners.map((s, i) => (
+              <motion.div key={i} variants={itemVariants} className="flex justify-center">
+                <SponsorCard {...s} tier="community" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Community Partners */}
+        <div className="w-full max-w-4xl mt-20">
+          <TierLabel label="Community Partners" />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="flex flex-wrap justify-center gap-8 sm:gap-16"
+          >
+            {communityPartnersSection.map((s, i) => (
               <motion.div key={i} variants={itemVariants} className="flex justify-center">
                 <SponsorCard {...s} tier="community" />
               </motion.div>
