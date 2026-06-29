@@ -7,9 +7,10 @@ interface SponsorCardProps {
   tier: 'platinum' | 'gold' | 'stream' | 'community';
   scale?: number;
   hoverScale?: number;
+  url?: string;
 }
 
-const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, hoverScale }) => {
+const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, hoverScale, url }) => {
   const sizeClasses = {
     platinum: 'h-16 sm:h-24 md:h-28',
     gold: 'h-12 sm:h-16 md:h-20',
@@ -17,7 +18,7 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, 
     community: 'h-8 sm:h-12 md:h-14',
   };
 
-  return (
+  const cardContent = (
     <motion.div
       initial="visible"
       animate="visible"
@@ -65,6 +66,16 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, 
       </div>
     </motion.div>
   );
+
+  if (url) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        {cardContent}
+      </a>
+    );
+  }
+
+  return cardContent;
 };
 
 export default SponsorCard;
