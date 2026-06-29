@@ -143,7 +143,7 @@ export default function DevHackHeroCompact() {
       <div className="relative z-10 mt-0 xl:-mt-[100vh]">
         {/* Initial Hero Screen Content */}
         <div
-          className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-start md:justify-center pl-0 xl:pl-24 pt-[100px] md:pt-[150px] xl:pt-[160px]"
+          className="h-[104vh] md:h-screen flex flex-col items-center xl:items-start justify-start md:justify-center pl-0 xl:pl-24 pt-[100px] md:pt-[80px] xl:pt-[70px]"
         >
           <div
             className={`flex flex-col items-center tall-screen-fix ${isNothing20x9 ? 'mt-0' : isTightHeroSpacingDevice ? 'mt-2 md:mt-8 xl:mt-40' : isTwentyNine ? 'mt-6' : 'mt-0 md:mt-20 xl:mt-40'}`}
