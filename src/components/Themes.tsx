@@ -22,7 +22,7 @@ export type Theme = {
 const themes: Theme[] = [
   {
     id: 1,
-    icon: '/assets/ml.png',
+    icon: '/assets/ml.webp',
     color: '#f97028',
     bg: '#ffffff',
     title: 'AI / ML',
@@ -31,7 +31,7 @@ const themes: Theme[] = [
   },
   {
     id: 2,
-    icon: '/assets/ag.png',
+    icon: '/assets/ag.webp',
     color: '#00cccb',
     bg: '#ffffff',
     title: 'Agentic AI',
@@ -40,7 +40,7 @@ const themes: Theme[] = [
   },
   {
     id: 3,
-    icon: '/assets/i.png',
+    icon: '/assets/i.webp',
     color: '#f3a20f',
     bg: '#ffffff',
     title: 'IOT & Sustainability',
@@ -49,7 +49,7 @@ const themes: Theme[] = [
   },
   {
     id: 4,
-    icon: '/assets/h.png',
+    icon: '/assets/h.webp',
     color: '#10b981',
     bg: '#ffffff',
     title: 'Healthcare',
@@ -58,7 +58,7 @@ const themes: Theme[] = [
   },
   {
     id: 5,
-    icon: '/assets/b.png',
+    icon: '/assets/b.webp',
     color: '#8b5cf6',
     bg: '#ffffff',
     title: 'Blockchain & Fintech',
@@ -67,7 +67,7 @@ const themes: Theme[] = [
   },
   {
     id: 6,
-    icon: '/assets/open-innovation.png',
+    icon: '/assets/open-innovation.webp',
     color: '#ec4899',
     bg: '#ffffff',
     title: 'Open Innovation',

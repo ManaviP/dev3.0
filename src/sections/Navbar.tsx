@@ -21,7 +21,7 @@ export default function Navbar() {
     >
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#hero" className="flex items-center">
-          <img src="/logos/logoo%205.png" alt="DEVHACK 3.0 Logo" className="h-10 w-auto object-contain" />
+          <img src="/logos/logoo%205.webp" alt="DEVHACK 3.0 Logo" className="h-10 w-auto object-contain" />
         </a>
 
         <nav className="hidden items-center gap-6 md:flex">

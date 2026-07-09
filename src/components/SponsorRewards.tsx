@@ -26,13 +26,13 @@ const SponsorRewards: React.FC = () => {
   const sponsorRewards: SponsorReward[] = [
     {
       name: "n8n",
-      logo: "/logos/n8n.png",
+      logo: "/logos/n8n.webp",
       rewardValue: "$12,000",
       description: "n8n Cloud Pro Licence"
     },
     {
       name: ".xyz",
-      logo: "/logos/xyz.png",
+      logo: "/logos/xyz.webp",
       rewardValue: "$5,250",
       description: ".xyz Domains"
     },
@@ -44,7 +44,7 @@ const SponsorRewards: React.FC = () => {
     },
     {
       name: "Render",
-      logo: "/logos/render.png",
+      logo: "/logos/render.webp",
       rewardValue: "$950",
       description: (
         <ul className="flex flex-col gap-1 text-left list-disc pl-5 pr-2 w-fit mx-auto text-[0.85rem] leading-tight">

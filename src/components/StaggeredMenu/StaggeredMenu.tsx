@@ -53,7 +53,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoUrl = '/logos/logoo 5.png',
+  logoUrl = '/logos/logoo 5.webp',
   menuButtonColor = '#1a1a1a',
   openMenuButtonColor = '#1a1a1a',
   changeMenuColorOnOpen = true,

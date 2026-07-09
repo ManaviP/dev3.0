@@ -4,10 +4,10 @@ import SponsorRewards from '../components/SponsorRewards';
 
 const Prizes: React.FC = () => {
   const prizesData = [
-    { label: "Winner", amount: "100,000", image: "/assets/1st-price.png" },
-    { label: "1st Runner Up", amount: "50,000", image: "/assets/2nd-price.png" },
-    { label: "2nd Runner Up", amount: "25,000", image: "/assets/3rd-price.png" },
-    { label: "Consolation", amount: "25,000", image: "/assets/consolation-price.png" },
+    { label: "Winner", amount: "100,000", image: "/assets/1st-price.webp" },
+    { label: "1st Runner Up", amount: "50,000", image: "/assets/2nd-price.webp" },
+    { label: "2nd Runner Up", amount: "25,000", image: "/assets/3rd-price.webp" },
+    { label: "Consolation", amount: "25,000", image: "/assets/consolation-price.webp" },
   ];
 
 

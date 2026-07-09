@@ -132,7 +132,7 @@ export default function DevHackHeroCompact() {
       {/* Sticky Background */}
       <div className="hidden xl:flex sticky top-0 h-[70vh] xl:h-screen z-0 justify-end pt-32 pr-6 md:pr-0 xl:pr-16 w-full md:w-[50%] xl:w-[45%] ml-auto">
         <img
-          src="/assets/herot.png"
+          src="/assets/herot.webp"
           loading="lazy"
           alt="DevHack Background"
           className="w-full h-full max-h-[65vh] xl:max-h-[75vh] object-contain object-center md:object-right drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)] hover:scale-105 transition-transform duration-500 pointer-events-auto"
@@ -259,7 +259,7 @@ export default function DevHackHeroCompact() {
                 className="absolute top-full -mt-2 w-[72vw] sm:w-[80vw] md:w-[400px] xl:w-[370px] flex justify-center z-10 pb-20 -rotate-1 origin-top"
               >
                 <img
-                  src="/assets/ABOUT.png"
+                  src="/assets/ABOUT.webp"
                   alt="About DevHack"
                   className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
                 />

@@ -10,7 +10,7 @@ const demoSteps = [
   { num: "06", title: "Join Team", desc: "If you are joining an existing team, select Join Existing Team, enter the team code, and click Let's Go." },
   { num: "07", title: "Verify Members", desc: "Ensure all team members have successfully joined the team before proceeding with the application." },
   { num: "08", title: "Submit Application", desc: "Review all the entered details carefully and submit the application to complete your registration." },
-  { num: "09", title: "Walkthrough", desc: "For a detailed step-by-step walkthrough, please refer to the registration video attached below." },
+  { num: "09", title: "Walkthrough", desc: "For a detailed step-by-step walkthrough, please refer to the embedded YouTube video below." },
 ];
 
 export default function Demo() {
@@ -79,16 +79,17 @@ export default function Demo() {
                 transition={{ duration: 0.6, type: "spring", bounce: 0.4 }}
                 className="w-full h-full rounded-xl sm:rounded-[2rem] overflow-hidden border-2 sm:border-[3px] border-[#f97028] bg-[#1a1a1a] p-1 shadow-[0_4px_0px_#f97028] sm:shadow-[0_6px_0px_#f97028]"
               >
-                <video 
-                  controls 
-                  playsInline
-                  className="w-full h-full rounded-lg sm:rounded-[1.5rem] bg-black object-contain"
-                  preload="metadata"
-                >
-                  <source src="/video/reg_vid.webm" type="video/webm" />
-                  <source src="/video/Registration_video.MOV" type="video/quicktime" />
-                  Your browser does not support the video tag.
-                </video>
+                <div className="relative h-full w-full overflow-hidden rounded-lg sm:rounded-[1.5rem] bg-black">
+                  <iframe
+                    src="https://www.youtube-nocookie.com/embed/Mt2_x3hqdeU?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </div>
               </motion.div>
             </div>
 

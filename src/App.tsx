@@ -258,7 +258,7 @@ export default function App() {
             }`}
         >
           <img
-            src="/assets/logo1.png"
+            src="/assets/logo1.webp"
             alt="DEVHACK Cube"
             className={`h-40 md:h-56 mb-16 ${loading ? 'animate-logo-intro' : 'opacity-0 scale-150'}`}
           />
@@ -273,7 +273,7 @@ export default function App() {
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
           <AnimatePresence mode="wait">
             {!isScrolled ? (
-              <Navbar key="full-nav" onNavClick={handleNavClick} logoUrl="/logos/logoo 4.png" />
+              <Navbar key="full-nav" onNavClick={handleNavClick} logoUrl="/logos/logoo 4.webp" />
             ) : (
               <motion.div
                 key="staggered-nav"
@@ -282,7 +282,7 @@ export default function App() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 className="fixed top-0 left-0 w-full h-screen z-50 pointer-events-none"
               >
-                <StaggeredMenu logoUrl={isNavbarDark ? "/logos/logoo 4.png" : "/logos/logoo 5.png"} displayLogo={false} />
+                <StaggeredMenu logoUrl={isNavbarDark ? "/logos/logoo 4.webp" : "/logos/logoo 5.webp"} displayLogo={false} />
               </motion.div>
             )}
           </AnimatePresence>

@@ -25,23 +25,23 @@ const Sponsors: React.FC = () => {
   const goldSponsors = [
     {
       name: "AIC DSU Innovation Foundation",
-      logo: "/logos/aic-dsu copy.png",
+      logo: "/logos/aic-dsu copy.webp",
       scale: isMobile ? 2.8 : 2.1,
       hoverScale: isMobile ? 2.8 : 2.3,
       url: "https://aicdsu.foundation/"
     },
     { name: "CodeCrafters.io", logo: "/logos/codecraft.svg", url: "https://codecrafters.io/" },
-    { name: ".xyz", logo: "/logos/xyz.png", scale: 1.2, hoverScale: 1.3, url: "https://gen.xyz/" },
-    { name: "n8n", logo: "/logos/n8n.png", scale: 1.2, hoverScale: 1.3, url: "https://n8n.io/" },
-    { name: "Render", logo: "/logos/render.png", scale: 1.8, hoverScale: 1.9, url: "https://render.com/" },
+    { name: ".xyz", logo: "/logos/xyz.webp", scale: 1.2, hoverScale: 1.3, url: "https://gen.xyz/" },
+    { name: "n8n", logo: "/logos/n8n.webp", scale: 1.2, hoverScale: 1.3, url: "https://n8n.io/" },
+    { name: "Render", logo: "/logos/render.webp", scale: 1.8, hoverScale: 1.9, url: "https://render.com/" },
   ]
 
   const communityPartners = [
-    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.png", url: "https://devfolio.co/" },
+    { name: "DEVFOLIO LOGO", logo: "/logos/devfolio.webp", url: "https://devfolio.co/" },
   ]
 
   const communityPartnersSection = [
-    { name: "SponFest", logo: "/logos/sf_logo.png", scale: 2.5, hoverScale: 2.7, url: "http://sponfest.com/" },
+    { name: "SponFest", logo: "/logos/sf_logo.webp", scale: 2.5, hoverScale: 2.7, url: "http://sponfest.com/" },
     { name: "Student Forge", logo: "/logos/student_forge.svg", scale: 2.5, hoverScale: 2.7, url: "https://www.studentforge.in/" }
   ]
   const containerVariants = {
