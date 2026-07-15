@@ -13,6 +13,16 @@ const Sponsors: React.FC = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const platinumSponsors = [
+    {
+      name: "Corsair",
+      logo: "/logos/corsair.webp",
+      scale: isMobile ? 1.0 : 1.3,
+      hoverScale: isMobile ? 1.1 : 1.4,
+      url: "https://corsair.dev"
+    }
+  ];
+
   const titlesponsor = [
     {
       name: "GitHub",
@@ -100,25 +110,6 @@ const Sponsors: React.FC = () => {
           </motion.h2>
 
         </div>
-        { /*
-       { Platinum }
-        <div className="w-full mb-20">
-          <TierLabel label="Platinum Sponsors" />
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            className="flex flex-wrap justify-center gap-10 sm:gap-16"
-          >
-            {platinumSponsors.map((s, i) => (
-              <motion.div key={i} variants={itemVariants}>
-                <SponsorCard {...s} tier="platinum" />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-        */
-        }
         {/* Title sponsor */}
         <div className="w-full mb-20">
           <TierLabel label="Title Sponsor" />
@@ -129,6 +120,22 @@ const Sponsors: React.FC = () => {
             className="flex flex-wrap justify-center gap-10 sm:gap-16"
           >
             {titlesponsor.map((s, i) => (
+              <motion.div key={i} variants={itemVariants}>
+                <SponsorCard {...s} tier="platinum" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+        {/* Platinum */}
+        <div className="w-full mb-20">
+          <TierLabel label="Platinum Sponsors" />
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            className="flex flex-wrap justify-center gap-10 sm:gap-16"
+          >
+            {platinumSponsors.map((s, i) => (
               <motion.div key={i} variants={itemVariants}>
                 <SponsorCard {...s} tier="platinum" />
               </motion.div>
