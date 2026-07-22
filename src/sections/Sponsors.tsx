@@ -52,7 +52,8 @@ const Sponsors: React.FC = () => {
 
   const communityPartnersSection = [
     { name: "SponFest", logo: "/logos/sf_logo.webp", scale: 2.5, hoverScale: 2.7, url: "http://sponfest.com/" },
-    { name: "Student Forge", logo: "/logos/student_forge.svg", scale: 2.5, hoverScale: 2.7, url: "https://www.studentforge.in/" }
+    { name: "Student Forge", logo: "/logos/student_forge.svg", scale: 2.5, hoverScale: 2.7, url: "https://www.studentforge.in/" },
+    { name: "Eventopia", logo: "/logos/Eventopia.webp", scale: 2.5, hoverScale: 2.7, url: "https://eventopia.in/" }
   ]
   const containerVariants = {
     hidden: { opacity: 0 },
