@@ -9,7 +9,7 @@ const faqs = [
   },
   { q: 'At which level is this hackathon conducted?', a: 'The DSU DevHack 3.0 Hackathon is conducted at the national level.' },
   { q: 'How many members can participate in a team?', a: 'A team can have only 3 members. All members should be registered students at the time of the event.' },
-  { q: 'What is the qualification to participate?', a: 'Participants must be currently enrolled in an undergraduate Engineering program.' },
+  { q: 'What is the qualification to participate?', a: 'The hackathon is open to students currently enrolled in undergraduate programs. Students from all academic backgrounds are encouraged to apply, especially those passionate about technology, innovation, and problem-solving.' },
   { q: 'What is the participation fee?', a: 'The participation in DSU DevHack 3.0 is completely free!' },
   { q: 'Is the hackathon offline and how long does it last?', a: 'Yes, DSU DevHack 3.0 is a fully offline, on-campus hackathon hosted at Dayananda Sagar University, Bangalore. The event spans 36 hours, starting on September 18 and concluding on September 19, 2026.' },
   { q: 'What are the restrictions on team formation for the event?', a: 'Teams can include members from different colleges. Each student can be part of only one team, and multiple registrations by the same individual are not allowed. Team can have exactly 3 members.' },
