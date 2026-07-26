@@ -8,7 +8,6 @@ export interface TeamMember {
   role: string;
   image: string;
   linkedin?: string;   // full URL e.g. "https://linkedin.com/in/username"
-  instagram?: string;  // full URL e.g. "https://instagram.com/username"
 }
 
 // ── Core Team ────────────────────────────────────────────────
@@ -19,7 +18,6 @@ export const coreTeam: TeamMember[] = [
     role: 'Faculty Coordinator',
     image: '/logos/bhipinsir.webp',
     linkedin: 'https://www.linkedin.com/in/dr-bipin-kumar-rai-b3a41690/',
-    instagram: '',
   },
   {
     id: 'c1',
@@ -27,7 +25,6 @@ export const coreTeam: TeamMember[] = [
     role: 'Student Coordinator',
     image: '/logos/trisha.webp',
     linkedin: '',
-    instagram: 'https://www.instagram.com/trishaaa.10.___',
   },
   {
     id: 'c2',
@@ -35,7 +32,6 @@ export const coreTeam: TeamMember[] = [
     role: 'Student Coordinator',
     image: '/logos/SShreenidhi.webp',
     linkedin: 'https://www.linkedin.com/in/shreenidhi-s29/',
-    instagram: 'https://www.instagram.com/sreenidhi_s.29/',
   },
 ];
 
@@ -47,7 +43,6 @@ export const subHeads: TeamMember[] = [
     role: 'Web Team Lead',
     image: '/logos/manavi.webp',
     linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
-    instagram: 'https://www.instagram.com/_._manavi_._/',
   },
   {
     id: 's1',
@@ -55,7 +50,6 @@ export const subHeads: TeamMember[] = [
     role: 'Operation Team Lead',
     image: '/logos/nitesh.webp',
     linkedin: 'https://www.linkedin.com/in/g-nithesh/',
-    instagram: '',
   },
   {
     id: 's2',
@@ -63,7 +57,6 @@ export const subHeads: TeamMember[] = [
     role: 'Design Team Lead',
     image: '/logos/raksha.webp',
     linkedin: 'https://www.linkedin.com/in/rakshaumashankar/',
-    instagram: 'https://www.instagram.com/_.raksha.umashankar._',
   },
   {
     id: 's3',
@@ -71,7 +64,6 @@ export const subHeads: TeamMember[] = [
     role: 'Sponsorship Team Lead',
     image: '/logos/astha.webp',
     linkedin: 'https://www.linkedin.com/in/aastha-923603346/',
-    instagram: 'https://www.instagram.com/aastha_6696',
   },
   {
     id: 's4',
@@ -79,9 +71,7 @@ export const subHeads: TeamMember[] = [
     role: 'Marketing and Media Lead',
     image: '/logos/Nishchal.webp',
     linkedin: 'https://www.linkedin.com/in/nishchal-gowda-r-b54208311/',
-    instagram: 'https://www.instagram.com/i.amgod.666/',
   },
-
 ];
 
 // ── The Operators ─────────────────────────────────────────────
@@ -92,7 +82,6 @@ export const theOperators: TeamMember[] = [
     role: 'Web Team Co Lead',
     image: '/logos/nitesh.webp',
     linkedin: 'https://www.linkedin.com/in/g-nithesh/',
-    instagram: '',
   },
   {
     id: 'o0',
@@ -100,7 +89,6 @@ export const theOperators: TeamMember[] = [
     role: 'Web Team',
     image: '/logos/omkar.webp',
     linkedin: 'https://www.linkedin.com/in/omkargk/',
-    instagram: 'https://www.instagram.com/idk.omkar/',
   },
   {
     id: 'o1',
@@ -108,7 +96,6 @@ export const theOperators: TeamMember[] = [
     role: 'Web Team',
     image: '/logos/supraj.webp',
     linkedin: 'https://www.linkedin.com/in/supraj-u-shivajji-4b7aa62ba/',
-    instagram: 'https://www.instagram.com/__supraj__',
   },
   {
     id: 'o2',
@@ -116,7 +103,6 @@ export const theOperators: TeamMember[] = [
     role: 'Design Team Co Lead',
     image: '/logos/moulika.webp',
     linkedin: 'https://www.linkedin.com/in/moulika-k-ba8694335/',
-    instagram: 'https://www.instagram.com/moulika.k.reddy',
   },
   {
     id: 'o3',
@@ -124,7 +110,6 @@ export const theOperators: TeamMember[] = [
     role: 'Design Team',
     image: '/logos/moulya.webp',
     linkedin: 'https://www.linkedin.com/in/moulyab/',
-    instagram: 'https://www.instagram.com/prasad.moulya',
   },
   {
     id: 'o4',
@@ -132,8 +117,6 @@ export const theOperators: TeamMember[] = [
     role: 'Sponsorship Team',
     image: '/logos/thatagat.webp',
     linkedin: 'https://www.linkedin.com/in/tathagat-rakesh-29a696385/',
-    instagram: 'https://www.instagram.com/tathagat__27',
-
   },
   {
     id: 'o5',
@@ -141,16 +124,13 @@ export const theOperators: TeamMember[] = [
     role: 'Sponsorship Team',
     image: '/logos/naman.webp',
     linkedin: 'https://www.linkedin.com/in/naman-saraff-6b34013b0/',
-    instagram: 'https://www.instagram.com/_namann__01',
   },
-
   {
     id: 'o6',
     name: 'Preetham H S',
     role: 'Marketing and Media Co Lead',
     image: '/logos/preetam.webp',
     linkedin: 'https://www.linkedin.com/in/hs-preetham7/',
-    instagram: 'https://www.instagram.com/__preetham7_',
   },
   {
     id: 'o7',
@@ -158,7 +138,6 @@ export const theOperators: TeamMember[] = [
     role: 'Marketing & Media Team',
     image: '/logos/hasini.webp',
     linkedin: '',
-    instagram: 'https://www.instagram.com/hasini.choudary',
   },
   {
     id: 'o8',
@@ -166,7 +145,6 @@ export const theOperators: TeamMember[] = [
     role: 'Design Team',
     image: '/logos/Mouna.webp',
     linkedin: 'https://www.linkedin.com/in/mouna-s/',
-    instagram: 'https://www.instagram.com/mounas115',
   },
   {
     id: 'o14',
@@ -174,7 +152,6 @@ export const theOperators: TeamMember[] = [
     role: 'Operation Team Co Lead',
     image: '/logos/manavi.webp',
     linkedin: 'https://www.linkedin.com/in/manavi-p-576a8b279/',
-    instagram: 'https://www.instagram.com/_._manavi_._/',
   },
   {
     id: 'o9',
@@ -182,7 +159,6 @@ export const theOperators: TeamMember[] = [
     role: 'Operation Team',
     image: '/logos/monisha.webp',
     linkedin: 'https://www.linkedin.com/in/monisha-n-s-352431360/',
-    instagram: 'https://www.instagram.com/monishans__',
   },
   {
     id: 'o10',
@@ -190,7 +166,6 @@ export const theOperators: TeamMember[] = [
     role: 'Sponsorship Team',
     image: '/logos/madiha.webp',
     linkedin: 'linkedin.com/in/madiha-khan-907461360',
-    instagram: '',
   },
   {
     id: 'o11',
@@ -198,7 +173,6 @@ export const theOperators: TeamMember[] = [
     role: 'Operation Team',
     image: '/logos/meghana.webp',
     linkedin: 'https://www.linkedin.com/in/meghana-kv-907953338/',
-    instagram: 'https://www.instagram.com/itsmaggie.mode',
   },
   {
     id: 'o12',
@@ -206,7 +180,6 @@ export const theOperators: TeamMember[] = [
     role: 'Marketing & Media Team ',
     image: '/logos/shubhangi.webp',
     linkedin: 'https://www.linkedin.com/in/shubhangi-jha-778506305/',
-    instagram: 'https://www.instagram.com/shubhangi_9740/',
   },
 ];
 
@@ -218,23 +191,22 @@ export const facultyCoordinator: TeamMember[] = [
     role: 'Faculty Coordinator - Professor, CSE',
     image: '/logos/bhipinsir.webp',
     linkedin: 'https://www.linkedin.com/in/dr-bipin-kumar-rai-b3a41690/',
-    instagram: '',
   },
 ];
 
 // ── Faculty Organizers ────────────────────────────────────────
 export const facultyOrganizers: TeamMember[] = [
-  { id: 'fo1', name: 'Dr. Meenakshi Malhotra', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo2', name: 'Dr. Sivananda Reddy', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo3', name: 'Prof. Bharath M B', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo4', name: 'Prof. Dharmendra D P', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo5', name: 'Dr. Kumar Dilip', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo6', name: 'Prof. Yashaswini H C', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo7', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo8', name: 'Prof. Smriti Bharti', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo9', name: 'Prof. Shivani', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo10', name: 'Dr Naitik ST', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'fo11', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
+  { id: 'fo1', name: 'Dr. Meenakshi Malhotra', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo2', name: 'Dr. Sivananda Reddy', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo3', name: 'Prof. Bharath M B', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo4', name: 'Prof. Dharmendra D P', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo5', name: 'Dr. Kumar Dilip', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo6', name: 'Prof. Yashaswini H C', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo7', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo8', name: 'Prof. Smriti Bharti', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo9', name: 'Prof. Shivani', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo10', name: 'Dr Naitik ST', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'fo11', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '' },
 ];
 
 // ── Chief Patrons ─────────────────────────────────────────────
@@ -255,6 +227,6 @@ export const patrons: TeamMember[] = [
 
 // ── Judges ────────────────────────────────────────────────────
 export const judges: TeamMember[] = [
-  { id: 'j1', name: 'Arjun Mehta', role: 'CTO, TechCorp', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
-  { id: 'j2', name: 'Sneha Iyer', role: 'VP Engineering, InnoSoft', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '', instagram: '' },
+  { id: 'j1', name: 'Arjun Mehta', role: 'CTO, TechCorp', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  { id: 'j2', name: 'Sneha Iyer', role: 'VP Engineering, InnoSoft', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
 ];
