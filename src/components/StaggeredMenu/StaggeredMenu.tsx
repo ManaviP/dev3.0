@@ -47,7 +47,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     { label: 'FAQ', ariaLabel: 'Go to FAQ section', link: '#faq' },
   ],
   socialItems = [
-    { label: 'Discord', link: 'https://discord.com/invite/6Ah2h7yfD' },
+    { label: 'Discord', link: 'https://discord.com/invite/rs3dPP5PcM' },
     { label: 'Location', link: 'https://maps.app.goo.gl/qsv464XpD8xRFzFA7' },
   ],
   displaySocials = true,
@@ -474,10 +474,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a 
-                    className="sm-panel-item" 
-                    href={it.link} 
-                    aria-label={it.ariaLabel} 
+                  <a
+                    className="sm-panel-item"
+                    href={it.link}
+                    aria-label={it.ariaLabel}
                     onClick={(e) => handleItemClick(e, it.link)}
                   >
                     <span className="sm-panel-itemLabel">{it.label}</span>
