@@ -48,14 +48,14 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const tickerItems = [
-    'Idea Submission is Live now!',
-    'Registrations open on June 1st, 2026 - Sign up now!',
-    'Stay tuned for updates!',
-    'Idea Submission is Live now!',
-    'Registrations open on June 1st, 2026 - Sign up now!',
-    'Stay tuned for updates!',
-  ];
+  const tickerItems =[
+  'Registrations close on August 10, 2026 - Register soon!',
+  'Idea Submission closes on August 20, 2026 - Submit your idea before the deadline!',
+  'Stay tuned for updates!',
+  'Registrations close on August 10, 2026 - Register soon!',
+  'Idea Submission closes on August 20, 2026 - Submit your idea before the deadline!',
+  'Stay tuned for updates!',
+]
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 flex justify-center pointer-events-none pt-6 md:pt-8 px-4 md:px-8 transition-none">
