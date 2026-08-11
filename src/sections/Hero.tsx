@@ -200,7 +200,7 @@ export default function DevHackHeroCompact() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
               >
-                Visit Devfolio
+                Visit Devfolio here!
               </a>
 
               <div
