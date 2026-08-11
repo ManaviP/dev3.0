@@ -49,7 +49,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
   }, []);
 
   const tickerItems =[
-  'Registrations close on August 10, 2026 - Register soon!',
+  'Registrations closed!',
   'Idea Submission closes on August 20, 2026 - Submit your idea before the deadline!',
   'Stay tuned for updates!',
   'Registrations close on August 10, 2026 - Register soon!',
