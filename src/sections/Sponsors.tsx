@@ -44,6 +44,7 @@ const Sponsors: React.FC = () => {
     { name: ".xyz", logo: "/logos/xyz.webp", scale: 1.2, hoverScale: 1.3, url: "https://gen.xyz/" },
     { name: "n8n", logo: "/logos/n8n.webp", scale: 1.2, hoverScale: 1.3, url: "https://n8n.io/" },
     { name: "Render", logo: "/logos/render.webp", scale: 1.8, hoverScale: 1.9, url: "https://render.com/" },
+     { name: "Beeceptor", logo: "/logos/beeceptor.webp", scale: 1.2, hoverScale: 1.3, url: "https://beeceptor.com/" },
   ]
 
   const communityPartners = [
