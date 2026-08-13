@@ -49,6 +49,8 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ logo, name, tier, scale = 1, 
           transition={{ duration: 0.4 }}
           src={logo}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className={`${sizeClasses[tier]} w-auto object-contain`}
         />
 

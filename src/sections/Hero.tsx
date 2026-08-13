@@ -260,8 +260,8 @@ export default function DevHackHeroCompact() {
               >
                 <img
                   src="/assets/ABOUT.webp"
-                  alt="About DevHack"
-                  className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
+                  alt="About DevHack"                  loading="lazy"
+                  decoding="async"                  className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
                 />
               </div>
             </div>

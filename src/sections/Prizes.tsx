@@ -130,6 +130,8 @@ const Prizes: React.FC = () => {
                     <img
                       src={prize.image}
                       alt={prize.label}
+                      loading="lazy"
+                      decoding="async"
                       className={`trophy ${index === 0 ? "winner" : ""} ${imgWidthClass} h-auto object-contain mx-auto`}
                     />
                   </div>

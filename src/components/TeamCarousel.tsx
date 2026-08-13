@@ -409,6 +409,8 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
                   <img
                     src={member.image}
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
 
