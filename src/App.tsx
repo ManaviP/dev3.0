@@ -7,13 +7,13 @@ import TimelineRaw from './sections/Timeline'
 import FAQRaw from './sections/FAQ'
 import TeamRaw from './sections/Team'
 import DemoRaw from './sections/Demo'
-import IdeaSubmissionNotice from './components/IdeaSubmissionNotice'
+// import IdeaSubmissionNotice from './components/IdeaSubmissionNotice'
 import PrizesRaw from './sections/Prizes'
 import SponsorsRaw from './sections/Sponsors'
 import FooterRaw from './sections/Footer'
 import ClickSpark from './components/ClickSpark'
 import MemoryRaw from './sections/Memory'
-import IdeaSubmissionPopup from './components/IdeaSubmissionPopup'
+// import IdeaSubmissionPopup from './components/IdeaSubmissionPopup'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -50,10 +50,9 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
 
   const tickerItems =[
   'Registrations closed!',
-  'Idea Submission closes on August 20, 2026 - Submit your idea before the deadline!',
+  'Idea Submission has closed!',
   'Stay tuned for updates!',
-  'Registrations close on August 10, 2026 - Register soon!',
-  'Idea Submission closes on August 20, 2026 - Submit your idea before the deadline!',
+  'Idea Submission has closed!',
   'Stay tuned for updates!',
 ]
 
@@ -267,7 +266,7 @@ export default function App() {
       )}
 
       {/* Idea Submission Popup Notification */}
-      <IdeaSubmissionPopup />
+      {/* <IdeaSubmissionPopup /> */}
 
       <ClickSpark sparkColor='#f97028' sparkSize={12} sparkRadius={20} sparkCount={8} duration={400}>
         <div className="min-h-screen bg-[#f3ecd2] relative font-sans text-cream overflow-x-clip">
@@ -297,7 +296,7 @@ export default function App() {
             <Sponsors />
             <Team />
             <Demo />
-            <IdeaSubmissionNotice />
+            {/* <IdeaSubmissionNotice /> */}
             <FAQ />
           </main>
           <Footer />
