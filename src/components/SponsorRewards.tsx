@@ -47,17 +47,28 @@ const SponsorRewards: React.FC = () => {
       logo: "/logos/render.webp",
       rewardValue: "$950",
       description: (
-        <ul className="flex flex-col gap-1 text-left list-disc pl-5 pr-2 w-fit mx-auto text-[0.85rem] leading-tight">
+        <ul className="flex flex-col gap-1 text-left list-disc pl-4 pr-1 w-fit mx-auto text-[0.78rem] leading-snug">
           <li><strong>$50</strong> credits for all attendees</li>
           <li>
             Best Use of Render:
-            <ul className="flex flex-col mt-0.5 gap-0.5 list-disc pl-4 text-[0.8rem] opacity-90">
-              <li>1st: <strong>$500</strong> credits</li>
-              <li>2nd: <strong>$300</strong> credits</li>
-              <li>3rd: <strong>$100</strong> credits</li>
+            <ul className="flex flex-col mt-0.5 gap-0.5 list-disc pl-3 text-[0.72rem] opacity-90">
+              <li>1st: <strong>$500</strong></li>
+              <li>2nd: <strong>$300</strong></li>
+              <li>3rd: <strong>$100</strong></li>
             </ul>
           </li>
           <li>Valid for 1 year</li>
+        </ul>
+      )
+    },
+    {
+      name: "Beeceptor",
+      logo: "/logos/beeceptor.webp",
+      rewardValue: "$240+",
+      description: (
+        <ul className="flex flex-col gap-1.5 text-left list-disc pl-4 pr-1 w-fit mx-auto text-[0.78rem] leading-snug">
+          <li><strong>All participants:</strong> $25 credit for 30-day Team Plan</li>
+          <li><strong>Winners:</strong> Free 1-year Team Plan <span className="opacity-80">(worth $240)</span></li>
         </ul>
       )
     }
@@ -184,7 +195,7 @@ const SponsorRewards: React.FC = () => {
           -webkit-text-fill-color: transparent;
           background-clip: text;
           font-weight: 700;
-          font-size: clamp(2.15rem, 5vw, 3.15rem);
+          font-size: clamp(1.5rem, 3.5vw, 2.4rem);
           text-align: center;
           font-family: 'Caprasimo', sans-serif;
           letter-spacing: 0.02em;
@@ -497,7 +508,7 @@ const SponsorRewards: React.FC = () => {
 
       {/* Grid Layout */}
       <div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12 max-w-6xl mx-auto px-4 sm:px-6 md:px-8"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-8 max-w-7xl mx-auto px-4 sm:px-6 md:px-8"
       >
         {sponsorRewards.map((sponsor, index) => {
           const entranceVariants = [
@@ -520,6 +531,11 @@ const SponsorRewards: React.FC = () => {
               initial: { opacity: 0, x: 80, scale: 0.95 },
               mobileInitial: { opacity: 0, x: 40, scale: 0.95 },
               delay: 0.65,
+            },
+            {
+              initial: { opacity: 0, y: 60, scale: 0.95 },
+              mobileInitial: { opacity: 0, y: 35, scale: 0.95 },
+              delay: 0.8,
             },
           ];
 
@@ -572,7 +588,9 @@ const SponsorRewards: React.FC = () => {
                                   ? "135px"
                                   : sponsor.name === "Render"
                                     ? "110px"
-                                    : undefined,
+                                    : sponsor.name === "Beeceptor"
+                                      ? "110px"
+                                      : undefined,
                             height:
                               sponsor.name === "n8n"
                                 ? "88px"
@@ -580,7 +598,9 @@ const SponsorRewards: React.FC = () => {
                                   ? "108px"
                                   : sponsor.name === "Render"
                                     ? "88px"
-                                    : undefined,
+                                    : sponsor.name === "Beeceptor"
+                                      ? "88px"
+                                      : undefined,
                           }}
                         />
                         <div className="sponsor-reward-value">
