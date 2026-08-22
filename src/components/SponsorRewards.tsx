@@ -52,9 +52,9 @@ const SponsorRewards: React.FC = () => {
           <li>
             Best Use of Render:
             <ul className="flex flex-col mt-0.5 gap-0.5 list-disc pl-3 text-[0.72rem] opacity-90">
-              <li>1st: <strong>$500</strong></li>
-              <li>2nd: <strong>$300</strong></li>
-              <li>3rd: <strong>$100</strong></li>
+              <li>1st: <strong>$500</strong> credits</li>
+              <li>2nd: <strong>$300</strong> credits</li>
+              <li>3rd: <strong>$100</strong> credits</li>
             </ul>
           </li>
           <li>Valid for 1 year</li>
