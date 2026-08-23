@@ -64,7 +64,7 @@ const SponsorRewards: React.FC = () => {
     {
       name: "Beeceptor",
       logo: "/logos/beeceptor.webp",
-      rewardValue: "$240+",
+      rewardValue: "$5240",
       description: (
         <ul className="flex flex-col gap-1.5 text-left list-disc pl-4 pr-1 w-fit mx-auto text-[0.78rem] leading-snug">
           <li><strong>All participants:</strong> $25 credit for 30-day Team Plan</li>
