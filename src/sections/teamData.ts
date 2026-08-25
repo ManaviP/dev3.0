@@ -196,17 +196,15 @@ export const facultyCoordinator: TeamMember[] = [
 
 // ── Faculty Organizers ────────────────────────────────────────
 export const facultyOrganizers: TeamMember[] = [
-  { id: 'fo1', name: 'Dr. Meenakshi Malhotra', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo2', name: 'Dr. Sivananda Reddy', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo3', name: 'Prof. Bharath M B', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo4', name: 'Prof. Dharmendra D P', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo5', name: 'Dr. Kumar Dilip', role: 'Associate Professor', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo6', name: 'Prof. Yashaswini H C', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo7', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo8', name: 'Prof. Smriti Bharti', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo9', name: 'Prof. Shivani', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo10', name: 'Dr Naitik ST', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'fo11', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  
+  { id: 'fo2', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: '/logos/faculty/pnaresh.webp', linkedin: '' },
+  { id: 'fo3', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: '/logos/faculty/shreekanth.webp', linkedin: '' },
+  { id: 'fo4', name: 'Dr. Savitha Hiremath', role: 'Associate Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/DrSavitha.jpg', linkedin: '' },
+  { id: 'fo5', name: 'Prof.Shilpa Sudheendran', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Shilpa.jpg', linkedin: '' },
+  { id: 'fo6', name: 'Prof. Bharath M B', role: 'Assistant Professor', image: '/logos/faculty/bharathmb.webp', linkedin: '' },
+  { id: 'fo7', name: 'Prof. Dharmendra D P', role: 'Assistant Professor', image: '/logos/faculty/dharmedra.webp', linkedin: '' },
+  { id: 'fo8', name: 'Prof. Priya Pudke', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Priya_Pudke.jpg', linkedin: '' },
+  { id: 'fo9', name: 'Prof. Muthu Bala', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Muthu.jpg', linkedin: '' },
 ];
 
 // ── Chief Patrons ─────────────────────────────────────────────

@@ -8,6 +8,8 @@ import {
   theOperators,
   chiefPatrons,
   patrons,
+  facultyCoordinator,
+  facultyOrganizers,
 } from './teamData';
 
 
@@ -133,7 +135,7 @@ export default function Team() {
   const [activeTab, setActiveTab] = useState('Organising Team');
   const [activeSubTeam, setActiveSubTeam] = useState('Web Team');
 
-  const TABS = ['Organising Team', 'Patrons' /*, 'Faculty', 'Jury & Experts' */];
+  const TABS = ['Organising Team', 'Patrons', 'Faculty' /*, 'Jury & Experts' */];
 
   const membersToRender = useMemo(() => {
     const keyword = activeSubTeam.split(' ')[0];
@@ -247,7 +249,7 @@ export default function Team() {
             </div>
           )}
 
-          {/* 
+           
           {activeTab === 'Faculty' && (
             <div className="flex flex-col">
               <div className="mb-4">
@@ -263,7 +265,7 @@ export default function Team() {
               </div>
             </div>
           )}
-
+{/*
           {activeTab === 'Jury & Experts' && (
             <div className="mb-4">
               <SectionSubHeading>Jury & Experts</SectionSubHeading>
