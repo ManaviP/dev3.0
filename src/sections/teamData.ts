@@ -197,7 +197,7 @@ export const facultyCoordinator: TeamMember[] = [
 // ── Faculty Organizers ────────────────────────────────────────
 export const facultyOrganizers: TeamMember[] = [
   
-  { id: 'fo2', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: '/logos/faculty/pnaresh.webp', linkedin: '' },
+  { id: 'fo2', name: 'Dr. Pannangi Naresh', role: 'Associate Professor', image: '/logos/faculty/pnaresh.webp', linkedin: '' },
   { id: 'fo3', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: '/logos/faculty/shreekanth.webp', linkedin: '' },
   { id: 'fo4', name: 'Dr. Savitha Hiremath', role: 'Associate Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/DrSavitha.jpg', linkedin: '' },
   { id: 'fo5', name: 'Prof.Shilpa Sudheendran', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Shilpa.jpg', linkedin: '' },
