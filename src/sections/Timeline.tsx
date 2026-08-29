@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
   AnimatePresence,
 } from 'framer-motion';
+import { shortlistedTeamsDocument } from '../lib/shortlistedTeams';
 
 /* ─────────────────────────────────────
    DATA
@@ -17,6 +18,7 @@ interface TimelineEvent {
   year: number;
   title: string;
   description: string;
+  downloadResult?: boolean;
 }
 
 const timelineData: TimelineEvent[] = [
@@ -24,7 +26,7 @@ const timelineData: TimelineEvent[] = [
   { month: 'JUN', day: '25', year: 2026, title: 'Idea Submissions Start', description: 'Time to Spark Ideas — Let the Innovation Flow!' },
   { month: 'AUG', day: '10', year: 2026, title: 'Registration Deadline', description: 'Last Call to Enter the Arena — Register Before It\'s Too Late!' },
   { month: 'AUG', day: '20', year: 2026, title: 'Idea Submission Deadline', description: 'Ideas Lock In — Let the Best Concepts Win!' },
-  { month: 'AUG', day: '31', year: 2026, title: 'Shortlisted Teams Announcement', description: 'And the Chosen Ones Are... Meet the Finalists!' },
+  { month: 'AUG', day: '31', year: 2026, title: 'Shortlisted Teams Announcement', description: 'The shortlisted teams for DSU DevHack 3.0 have been announced.', downloadResult: true },
   { month: 'SEP', day: '18', year: 2026, title: 'Hacking Starts', description: 'Code. Create. Conquer — The 36-Hour Sprint Begins!' },
   { month: 'SEP', day: '19', year: 2026, title: 'Final Submission', description: 'Time\'s Up — Submit Your Best Work and Let It Shine!' },
   { month: 'SEP', day: '19', year: 2026, title: 'Final Results', description: 'The Moment of Truth — Winners Announced!' },
@@ -481,8 +483,31 @@ const StationCard = memo(function StationCard({
                   <div style={{ width: 7, height: 7, borderRadius: '50%', border: `2px solid ${color}`, background: isActive ? color : 'transparent', transition: 'background 0.3s ease' }} />
                   <div style={{ width: 14, height: 2, background: 'rgba(26,26,26,0.15)', borderRadius: 1 }} />
                 </div>
-                {/* Calendar icon-only button */}
-                <a
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                  {event.downloadResult && (
+                    <a
+                      href={shortlistedTeamsDocument.pdfUrl}
+                      download={shortlistedTeamsDocument.downloadName}
+                      title="Download shortlisted teams result"
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        width: '24px', height: '24px',
+                        textDecoration: 'none', color: '#1a1a1a',
+                        border: '1.5px solid #1a1a1a', borderRadius: '3px',
+                        background: 'transparent',
+                        transition: 'background 0.2s ease, color 0.2s ease',
+                        flexShrink: 0,
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = color; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M6 1.25V8.25M6 8.25L3.25 5.5M6 8.25L8.75 5.5M1.5 10.25H10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>
+                  )}
+                  {/* Calendar icon-only button */}
+                  <a
                   href={googleCalLink(event)}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -508,7 +533,8 @@ const StationCard = memo(function StationCard({
                     <rect x="4.25" y="5.3" width="1.5" height="1.5" rx="0.3" fill="currentColor" />
                     <rect x="6.7" y="5.3" width="1.5" height="1.5" rx="0.3" fill="currentColor" />
                   </svg>
-                </a>
+                  </a>
+                </div>
               </div>
 
               {/* Active glow bar at bottom */}

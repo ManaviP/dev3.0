@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import DotField from '../components/DotField';
 
-export default function DevHackHeroCompact() {
+export default function DevHackHeroCompact({ onShortlistedTeamsClick }: { onShortlistedTeamsClick: () => void }) {
   const [mobileScrollY, setMobileScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTwentyNine, setIsTwentyNine] = useState(false);
@@ -194,14 +194,13 @@ export default function DevHackHeroCompact() {
               />
             </div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-3">
-              <a
-                href="https://dsudevhack3.devfolio.co/overview"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
+              <button
+                type="button"
+                onClick={onShortlistedTeamsClick}
+                className="flex cursor-pointer items-center justify-center w-[250px] h-[44px] rounded-none bg-[#2b2a2a] text-white font-semibold hover:opacity-90 transition-all duration-300 shadow-lg"
               >
-                Visit Devfolio 
-              </a>
+                View Shortlisted Teams
+              </button>
 
               <div
                 className="apply-button relative z-50 pointer-events-auto cursor-pointer block"
