@@ -197,7 +197,7 @@ export const facultyCoordinator: TeamMember[] = [
 // ── Faculty Organizers ────────────────────────────────────────
 export const facultyOrganizers: TeamMember[] = [
   
-  { id: 'fo2', name: 'Dr. Pannangi Naresh', role: 'Assistant Professor', image: '/logos/faculty/pnaresh.webp', linkedin: '' },
+  { id: 'fo2', name: 'Dr. Pannangi Naresh', role: 'Associate Professor', image: '/logos/faculty/pnaresh.webp', linkedin: '' },
   { id: 'fo3', name: 'Dr. Shreekant Salotagi', role: 'Assistant Professor', image: '/logos/faculty/shreekanth.webp', linkedin: '' },
   { id: 'fo4', name: 'Dr. Savitha Hiremath', role: 'Associate Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/DrSavitha.jpg', linkedin: '' },
   { id: 'fo5', name: 'Prof.Shilpa Sudheendran', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Shilpa.jpg', linkedin: '' },
@@ -225,6 +225,17 @@ export const patrons: TeamMember[] = [
 
 // ── Judges ────────────────────────────────────────────────────
 export const judges: TeamMember[] = [
-  { id: 'j1', name: 'Arjun Mehta', role: 'CTO, TechCorp', image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=400&q=80', linkedin: '' },
-  { id: 'j2', name: 'Sneha Iyer', role: 'VP Engineering, InnoSoft', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80', linkedin: '' },
+  
+    { id: 'j1', name: 'Anshu Tiwari', role: 'Engineering Director\n Blueyonder', image: '/logos/judges/anshu.webp', linkedin: 'https://www.linkedin.com/in/anshu-tiwari-8072782b/' },
+  { id: 'j2', name: 'Ashish Shukla', role: 'Senior SE II\n dbt Labs', image: '/logos/judges/ashish.webp', linkedin: 'https://www.linkedin.com/in/ash2shukla/' },
+    { id: 'j3', name: 'Mrityunjay Rai', role: 'SDET\n Gojek', image: '/logos/judges/mrityunjay.webp', linkedin: 'https://www.linkedin.com/in/mritunjai/' },
+    { id: 'j4', name: 'Nandini Vats', role: 'General Manager (QA) \nSamsung Research India', image: '/logos/judges/nandini.webp', linkedin: 'https://www.linkedin.com/in/nandini-vats-a8025a36/' },
+    { id: 'j5', name: 'Tarun Agarwal', role: 'SDE 2\nJioHotstar ', image: '/logos/judges/tarun.webp', linkedin: 'https://www.linkedin.com/in/ertarunagarwal/' },
+  { id: 'j6', name: 'Kumar Satyarth', role: 'Smart Contract Developer\nPuffer Finance', image: '/logos/judges/kumar1.webp', linkedin: 'https://www.linkedin.com/in/ksatyarth2/' },
+{ id: 'j7', name: 'Prashant Shrinivas', role: 'Blockchain Developer\nSimplyFi Softech', image: '/logos/judges/prashant.webp', linkedin: 'https://www.linkedin.com/in/prashantsrivastava1001/' },
+{ id: 'j8', name: 'Devraj CS', role: 'Buider \nEqasOnline', image: '/logos/judges/devraj.webp', linkedin: 'https://www.linkedin.com/in/iamdevraj/' },
+  { id: 'j9', name: 'Abhay Chauhan', role: 'Senior SDE \nBizDaddy', image: '/logos/judges/abhaychauhan.webp', linkedin: 'https://www.linkedin.com/in/theabhaychauhan/' },
+{ id: 'j10', name: 'Abhay Singh', role: 'SDE 2\nAmazon', image: '/logos/judges/abhaysingh.webp', linkedin: 'https://www.linkedin.com/in/abhay-singh-a64b89192/' },
+
+
 ];
