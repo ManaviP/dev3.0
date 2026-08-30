@@ -68,7 +68,7 @@ export const subHeads: TeamMember[] = [
   {
     id: 's4',
     name: 'Nishchal Gowda R',
-    role: 'Marketing and Media Lead',
+    role: 'Media Team Lead',
     image: '/logos/Nishchal.webp',
     linkedin: 'https://www.linkedin.com/in/nishchal-gowda-r-b54208311/',
   },
@@ -128,14 +128,14 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o6',
     name: 'Preetham H S',
-    role: 'Marketing and Media Co Lead',
+    role: 'Media Team Co Lead',
     image: '/logos/preetam.webp',
     linkedin: 'https://www.linkedin.com/in/hs-preetham7/',
   },
   {
     id: 'o7',
     name: 'Hasini Choudary',
-    role: 'Marketing & Media Team',
+    role: 'Media Team',
     image: '/logos/hasini.webp',
     linkedin: '',
   },
@@ -177,7 +177,7 @@ export const theOperators: TeamMember[] = [
   {
     id: 'o12',
     name: 'Shubangi Jha',
-    role: 'Marketing & Media Team ',
+    role: 'Media Team ',
     image: '/logos/shubhangi.webp',
     linkedin: 'https://www.linkedin.com/in/shubhangi-jha-778506305/',
   },

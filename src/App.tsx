@@ -18,6 +18,7 @@ import MemoryRaw from './sections/Memory'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import StaggeredMenu from './components/StaggeredMenu/StaggeredMenu'
+import ShortlistedTeamsModal from './components/ShortlistedTeamsModal'
 
 // Memoize all sections so navbar state changes don't re-render them
 const Hero = memo(HeroRaw)
@@ -51,9 +52,9 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
   const tickerItems =[
   'Registrations closed!',
   'Idea Submission has closed!',
-  'Stay tuned for updates!',
+  'SHORTLISTED TEAMS HAVE BEEN ANNOUNCED!',
   'Idea Submission has closed!',
-  'Stay tuned for updates!',
+  'SHORTLISTED TEAMS HAVE BEEN ANNOUNCED!',
 ]
 
   return (
@@ -156,6 +157,8 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [mountLoader, setMountLoader] = useState(true)
+  const [isShortlistedTeamsOpen, setIsShortlistedTeamsOpen] = useState(true)
+  const [openShortlistedTeamsViewer, setOpenShortlistedTeamsViewer] = useState(false)
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isNavbarDark, setIsNavbarDark] = useState(false)
@@ -287,7 +290,10 @@ export default function App() {
           </AnimatePresence>
 
           <main>
-            <Hero />
+            <Hero onShortlistedTeamsClick={() => {
+              setOpenShortlistedTeamsViewer(true)
+              setIsShortlistedTeamsOpen(true)
+            }} />
             <Memory />
             <Themes />
             <Prizes />
@@ -302,6 +308,14 @@ export default function App() {
           <Footer />
         </div>
       </ClickSpark>
+      <ShortlistedTeamsModal
+        isOpen={isShortlistedTeamsOpen}
+        openViewer={openShortlistedTeamsViewer}
+        onClose={() => {
+          setOpenShortlistedTeamsViewer(false)
+          setIsShortlistedTeamsOpen(false)
+        }}
+      />
     </>
   )
 }
