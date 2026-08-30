@@ -10,6 +10,7 @@ import {
   patrons,
   facultyCoordinator,
   facultyOrganizers,
+  judges,
 } from './teamData';
 
 
@@ -85,7 +86,7 @@ function TeamCard({ member, showSocials = true }: { member: TeamMember; showSoci
         >
           {member.name}
         </h3>
-        <p className="font-mono text-[9px] sm:text-[11px] md:text-xs uppercase mt-1 sm:mt-2 opacity-70 font-bold leading-snug">{member.role}</p>
+        <p className="font-mono text-[9px] sm:text-[11px] md:text-xs uppercase mt-1 sm:mt-2 opacity-70 font-bold leading-snug whitespace-pre-line">{member.role}</p>
 
         {showSocials && member.linkedin && (
           <div className="mt-auto pt-3 sm:pt-4 border-t-2 border-[#1a1a1a] border-dashed flex justify-end items-center w-full">
@@ -118,12 +119,12 @@ function TeamGrid({ members, showSocials = true }: { members: TeamMember[]; show
   );
 }
 
-/** Small grid for 1-3 items — centers them */
+/** Small grid for compact sections like judges, patrons, and faculty */
 function TeamGridSmall({ members, showSocials = true }: { members: TeamMember[]; showSocials?: boolean }) {
   return (
-    <div className="flex flex-wrap justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
-        <div key={member.id} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[240px] lg:w-[280px]">
+        <div key={member.id} className="w-full">
           <TeamCard member={member} showSocials={showSocials} />
         </div>
       ))}
@@ -135,7 +136,7 @@ export default function Team() {
   const [activeTab, setActiveTab] = useState('Organising Team');
   const [activeSubTeam, setActiveSubTeam] = useState('Web Team');
 
-  const TABS = ['Organising Team', 'Patrons', 'Faculty' /*, 'Jury & Experts' */];
+  const TABS = ['Organising Team', 'Patrons', 'Faculty', 'Jury'];
 
   const membersToRender = useMemo(() => {
     const keyword = activeSubTeam.split(' ')[0];
@@ -265,14 +266,14 @@ export default function Team() {
               </div>
             </div>
           )}
-{/*
-          {activeTab === 'Jury & Experts' && (
+
+          {activeTab === 'Jury' && (
             <div className="mb-4">
-              <SectionSubHeading>Jury & Experts</SectionSubHeading>
+              <SectionSubHeading>Jury</SectionSubHeading>
               <TeamGridSmall members={judges} />
             </div>
           )}
-          */}
+          
         </div>
 
         {/* Decorative Divider */}
