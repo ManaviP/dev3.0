@@ -232,7 +232,7 @@ export const judges: TeamMember[] = [
     { id: 'j4', name: 'Nandini Vats', role: 'General Manager (QA) \nSamsung Research India', image: '/logos/judges/nandini.webp', linkedin: 'https://www.linkedin.com/in/nandini-vats-a8025a36/' },
     { id: 'j5', name: 'Tarun Agarwal', role: 'SDE 2\nJioHotstar ', image: '/logos/judges/tarun.webp', linkedin: 'https://www.linkedin.com/in/ertarunagarwal/' },
   { id: 'j6', name: 'Kumar Satyarth', role: 'Smart Contract Developer\nPuffer Finance', image: '/logos/judges/kumar1.webp', linkedin: 'https://www.linkedin.com/in/ksatyarth2/' },
-{ id: 'j7', name: 'Prashant Srivastava', role: 'Blockchain Developer\nSimplyFi Softech', image: '/logos/judges/prashant.webp', linkedin: 'https://www.linkedin.com/in/prashantsrivastava1001/' },
+{ id: 'j7', name: 'Prashant Srivastava', role: 'SDE-II\nCloud Collab Technologies Private Limited', image: '/logos/judges/prashant.webp', linkedin: 'https://www.linkedin.com/in/prashantsrivastava1001/' },
 { id: 'j8', name: 'Devraj Kumar', role: 'Buider \nEqasOnline', image: '/logos/judges/devraj.webp', linkedin: 'https://www.linkedin.com/in/iamdevraj/' },
   { id: 'j9', name: 'Abhay Chauhan', role: 'Senior SDE \nBizDaddy', image: '/logos/judges/abhaychauhan.webp', linkedin: 'https://www.linkedin.com/in/theabhaychauhan/' },
 { id: 'j10', name: 'Abhay Singh', role: 'SDE 2\nAmazon', image: '/logos/judges/abhaysingh.webp', linkedin: 'https://www.linkedin.com/in/abhay-singh-a64b89192/' },
