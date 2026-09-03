@@ -119,12 +119,12 @@ function TeamGrid({ members, showSocials = true }: { members: TeamMember[]; show
   );
 }
 
-/** Small grid for compact sections like judges, patrons, and faculty */
+/** Small grid for 1-3 items — centers them */
 function TeamGridSmall({ members, showSocials = true }: { members: TeamMember[]; showSocials?: boolean }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
+    <div className="flex flex-wrap justify-center gap-4 sm:gap-5 md:gap-6 lg:gap-8">
       {members.map((member) => (
-        <div key={member.id} className="w-full">
+        <div key={member.id} className="w-[calc(50%-0.5rem)] sm:w-[calc(50%-0.75rem)] md:w-[240px] lg:w-[280px]">
           <TeamCard member={member} showSocials={showSocials} />
         </div>
       ))}
