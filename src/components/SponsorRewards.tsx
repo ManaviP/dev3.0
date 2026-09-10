@@ -71,7 +71,13 @@ const SponsorRewards: React.FC = () => {
           <li><strong>Winners:</strong> Free 1-year Team Plan <span className="opacity-80">(worth $240)</span></li>
         </ul>
       )
-    }
+    },
+     {
+      name: "TRACE COMMONS",
+      logo: "/logos/trace.webp",
+      rewardValue: "$100",
+      description: " "
+    },
   ];
 
   return (
