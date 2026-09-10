@@ -226,10 +226,9 @@ export const patrons: TeamMember[] = [
 // ── Judges ────────────────────────────────────────────────────
 export const judges: TeamMember[] = [
   
-    { id: 'j1', name: 'Anshu Tiwari', role: 'Engineering Director\n Blue Yonder', image: '/logos/judges/anshu.webp', linkedin: 'https://www.linkedin.com/in/anshu-tiwari-8072782b/' },
   { id: 'j2', name: 'Ashish Shukla', role: 'Senior SE II\n dbt Labs', image: '/logos/judges/ashish.webp', linkedin: 'https://www.linkedin.com/in/ash2shukla/' },
     { id: 'j3', name: 'Mritunjai Rai', role: 'SDET\n Gojek', image: '/logos/judges/mrityunjay.webp', linkedin: 'https://www.linkedin.com/in/mritunjai/' },
-    { id: 'j4', name: 'Nandini Vats', role: 'General Manager (QA) \nSamsung Research India', image: '/logos/judges/nandini.webp', linkedin: 'https://www.linkedin.com/in/nandini-vats-a8025a36/' },
+  
     { id: 'j5', name: 'Tarun Agarwal', role: 'SDE 2\nJioHotstar ', image: '/logos/judges/tarun.webp', linkedin: 'https://www.linkedin.com/in/ertarunagarwal/' },
   { id: 'j6', name: 'Kumar Satyarth', role: 'Smart Contract Developer\nPuffer Finance', image: '/logos/judges/kumar1.webp', linkedin: 'https://www.linkedin.com/in/ksatyarth2/' },
 { id: 'j7', name: 'Prashant Srivastava', role: 'SDE-II\nCloud Collab Technologies Private Limited', image: '/logos/judges/prashant.webp', linkedin: 'https://www.linkedin.com/in/prashantsrivastava1001/' },
