@@ -202,7 +202,7 @@ export const facultyOrganizers: TeamMember[] = [
   { id: 'fo4', name: 'Dr. Savitha Hiremath', role: 'Associate Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/DrSavitha.jpg', linkedin: '' },
   { id: 'fo5', name: 'Prof.Shilpa Sudheendran', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Shilpa.jpg', linkedin: '' },
   { id: 'fo6', name: 'Prof. Bharath M B', role: 'Assistant Professor', image: '/logos/faculty/bharathmb.webp', linkedin: '' },
-  { id: 'fo7', name: 'Prof. Dharmendra D P', role: 'Assistant Professor', image: '/logos/faculty/dharmedra.webp', linkedin: '' },
+  { id: 'fo7', name: 'Dr. Benaka Santhosha S', role: 'Assistant Professor', image: '/logos/faculty/benaka.webp', linkedin: '' },
   { id: 'fo8', name: 'Prof. Priya Pudke', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Priya_Pudke.jpg', linkedin: '' },
   { id: 'fo9', name: 'Prof. Muthu Bala', role: 'Assistant Professor', image: 'https://www.dsu.edu.in/images/Engineering/CSE-dept/faculty/Muthu.jpg', linkedin: '' },
 ];
