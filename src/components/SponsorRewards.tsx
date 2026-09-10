@@ -596,7 +596,9 @@ const SponsorRewards: React.FC = () => {
                                     ? "110px"
                                     : sponsor.name === "Beeceptor"
                                       ? "110px"
-                                      : undefined,
+                                      : sponsor.name === "TRACE COMMONS"
+                                        ? "180px"
+                                        : undefined,
                             height:
                               sponsor.name === "n8n"
                                 ? "88px"
@@ -606,7 +608,9 @@ const SponsorRewards: React.FC = () => {
                                     ? "88px"
                                     : sponsor.name === "Beeceptor"
                                       ? "88px"
-                                      : undefined,
+                                      : sponsor.name === "Beeceptor"
+                                        ? "108px"
+                                        : undefined,
                           }}
                         />
                         <div className="sponsor-reward-value">
