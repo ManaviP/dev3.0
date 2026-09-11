@@ -76,7 +76,7 @@ const SponsorRewards: React.FC = () => {
       name: "TRACE COMMONS",
       logo: "/logos/trace.webp",
       rewardValue: "$100",
-      description: " "
+      description: "Cash amount"
     },
   ];
 
