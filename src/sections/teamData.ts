@@ -235,6 +235,6 @@ export const judges: TeamMember[] = [
 { id: 'j8', name: 'Devraj Kumar', role: 'Buider \nEqasOnline', image: '/logos/judges/devraj.webp', linkedin: 'https://www.linkedin.com/in/iamdevraj/' },
   { id: 'j9', name: 'Abhay Chauhan', role: 'Senior SDE \nBizDaddy', image: '/logos/judges/abhaychauhan.webp', linkedin: 'https://www.linkedin.com/in/theabhaychauhan/' },
 { id: 'j10', name: 'Abhay Singh', role: 'SDE 2\nAmazon', image: '/logos/judges/abhaysingh.webp', linkedin: 'https://www.linkedin.com/in/abhay-singh-a64b89192/' },
-
+  { id: 'j11', name: 'Aman Kumar Singh', role: 'Senior Software Engineer\nIBM', image: '/logos/judges/aman.webp', linkedin: 'https://www.linkedin.com/in/aman-kumar-singh-06624120a/' },
 
 ];
