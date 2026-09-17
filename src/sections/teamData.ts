@@ -236,5 +236,5 @@ export const judges: TeamMember[] = [
   { id: 'j9', name: 'Abhay Chauhan', role: 'Senior SDE \nBizDaddy', image: '/logos/judges/abhaychauhan.webp', linkedin: 'https://www.linkedin.com/in/theabhaychauhan/' },
 { id: 'j10', name: 'Abhay Singh', role: 'SDE 2\nAmazon', image: '/logos/judges/abhaysingh.webp', linkedin: 'https://www.linkedin.com/in/abhay-singh-a64b89192/' },
   { id: 'j11', name: 'Aman Kumar Singh', role: 'Senior Software Engineer\nIBM', image: '/logos/judges/Aman.webp', linkedin: 'https://www.linkedin.com/in/aman-kumar-singh-06624120a/' },
-  {id:'j12', name: 'Vishwachi Choudhary',role:'Test developer\nIBM', image: '/logos/judges/vishawchi.webp', linkedin: 'https://www.linkedin.com/in/vishwachi-choudhary-6463b7155/'},
+  {id:'j12', name: 'Vishwachi Choudhary',role:'Test developer\nIBM', image: '/logos/judges/vishwachi.webp', linkedin: 'https://www.linkedin.com/in/vishwachi-choudhary-6463b7155/'},
 ];
