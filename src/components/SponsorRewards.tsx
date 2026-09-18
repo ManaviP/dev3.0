@@ -31,21 +31,9 @@ const SponsorRewards: React.FC = () => {
       description: "n8n Cloud Pro Licence"
     },
     {
-      name: ".xyz",
-      logo: "/logos/xyz.webp",
-      rewardValue: "$5,250",
-      description: ".xyz Domains"
-    },
-    {
-      name: "Codecrafters",
-      logo: "/logos/codecraft.svg",
-      rewardValue: "$3,780",
-      description: "VIP Membership for Codecrafters"
-    },
-    {
       name: "Render",
       logo: "/logos/render.webp",
-      rewardValue: "$950",
+      rewardValue: "$9600",
       description: (
         <ul className="flex flex-col gap-1 text-left list-disc pl-4 pr-1 w-fit mx-auto text-[0.78rem] leading-snug">
           <li><strong>$50</strong> credits for all attendees</li>
@@ -61,6 +49,19 @@ const SponsorRewards: React.FC = () => {
         </ul>
       )
     },
+    {
+      name: ".xyz",
+      logo: "/logos/xyz.webp",
+      rewardValue: "$5,250",
+      description: ".xyz Domains"
+    },
+    {
+      name: "Codecrafters",
+      logo: "/logos/codecraft.svg",
+      rewardValue: "$3,780",
+      description: "VIP Membership for Codecrafters"
+    },
+    
     {
       name: "Beeceptor",
       logo: "/logos/beeceptor.webp",
