@@ -13,6 +13,7 @@ import SponsorsRaw from './sections/Sponsors'
 import FooterRaw from './sections/Footer'
 import ClickSpark from './components/ClickSpark'
 import MemoryRaw from './sections/Memory'
+import WinnersRaw from './sections/Winners'
 // import IdeaSubmissionPopup from './components/IdeaSubmissionPopup'
 
 import { motion, AnimatePresence } from 'framer-motion'
@@ -31,6 +32,7 @@ const Prizes = memo(PrizesRaw)
 const Sponsors = memo(SponsorsRaw)
 const Footer = memo(FooterRaw)
 const Memory = memo(MemoryRaw)
+const Winners = memo(WinnersRaw)
 
 
 
@@ -52,9 +54,6 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
   const tickerItems =[
   'Registrations closed!',
   'Idea Submission has closed!',
-  'SHORTLISTED TEAMS HAVE BEEN ANNOUNCED!',
-  'Idea Submission has closed!',
-  'SHORTLISTED TEAMS HAVE BEEN ANNOUNCED!',
 ]
 
   return (
@@ -157,8 +156,7 @@ function Navbar({ onNavClick, logoUrl }: { onNavClick: (e: React.MouseEvent<HTML
 export default function App() {
   const [loading, setLoading] = useState(true)
   const [mountLoader, setMountLoader] = useState(true)
-  const [isShortlistedTeamsOpen, setIsShortlistedTeamsOpen] = useState(true)
-  const [openShortlistedTeamsViewer, setOpenShortlistedTeamsViewer] = useState(false)
+  const [isShortlistedTeamsOpen, setIsShortlistedTeamsOpen] = useState(false)
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isNavbarDark, setIsNavbarDark] = useState(false)
@@ -183,7 +181,7 @@ export default function App() {
 
     const observer = new IntersectionObserver(handleIntersection, observerOptions);
 
-    const sections = ['hero', 'memory', 'themes', 'prizes', 'timeline', 'sponsors', 'team', 'demo', 'faq', 'footer'];
+    const sections = ['hero', 'memory', 'winners', 'themes', 'prizes', 'timeline', 'sponsors', 'team', 'demo', 'faq', 'footer'];
     sections.forEach(id => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -291,10 +289,10 @@ export default function App() {
 
           <main>
             <Hero onShortlistedTeamsClick={() => {
-              setOpenShortlistedTeamsViewer(true)
               setIsShortlistedTeamsOpen(true)
             }} />
             <Memory />
+            <Winners />
             <Themes />
             <Prizes />
 
@@ -310,11 +308,7 @@ export default function App() {
       </ClickSpark>
       <ShortlistedTeamsModal
         isOpen={isShortlistedTeamsOpen}
-        openViewer={openShortlistedTeamsViewer}
-        onClose={() => {
-          setOpenShortlistedTeamsViewer(false)
-          setIsShortlistedTeamsOpen(false)
-        }}
+        onClose={() => setIsShortlistedTeamsOpen(false)}
       />
     </>
   )
