@@ -12,33 +12,6 @@ export default function DevHackHeroCompact({ onShortlistedTeamsClick }: { onShor
   const [deviceModel, setDeviceModel] = useState('');
   const heroSectionRef = useRef<HTMLElement>(null);
 
-  // Countdown state for event (September 18)
-  const [countdown, setCountdown] = useState<{ days: number; hours: number; minutes: number; seconds: number; total: number }>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    total: 0,
-  });
-  // Target: September 18, 2026 (local timezone, midnight)
-  const registrationDate = new Date(2026, 8, 18, 0, 0, 0);
-
-  useEffect(() => {
-    const update = () => {
-      const now = new Date().getTime();
-      const total = registrationDate.getTime() - now;
-      const totalSeconds = Math.floor(total / 1000);
-      const seconds = Math.max(0, totalSeconds % 60);
-      const minutes = Math.max(0, Math.floor((totalSeconds / 60) % 60));
-      const hours = Math.max(0, Math.floor((totalSeconds / 3600) % 24));
-      const days = Math.max(0, Math.floor(totalSeconds / 3600 / 24));
-      setCountdown({ days, hours, minutes, seconds, total });
-    };
-    update();
-    const id = window.setInterval(update, 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
   useEffect(() => {
     const uaData = (navigator as Navigator & {
       userAgentData?: {
@@ -226,8 +199,10 @@ export default function DevHackHeroCompact({ onShortlistedTeamsClick }: { onShor
               >
                 <img
                   src="/assets/ABOUT.webp"
-                  alt="About DevHack"                  loading="lazy"
-                  decoding="async"                  className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
+                  alt="About DevHack"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.5)]"
                 />
               </div>
             </div>
